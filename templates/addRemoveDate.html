@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>for insert date</title>
+</head>
+<body>
+
+<!-- Button to trigger modal -->
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel"></h3>
+    </div>
+
+
+    <div class="modal-body" >
+        <div class="controls controls-row">
+            <div class="input-append date" id="add" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                <input class="span3" size="16" type="text"  placeholder="Date of joining the project">
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <div class="input-append date" id="remove" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+                <input class="span3" size="16" type="text" placeholder="Release date of the project">
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save changes</button>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

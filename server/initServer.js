@@ -1,6 +1,7 @@
 var http = require('http');
 var url = require('url');
 var router = require('./router');
+var db = require('./db/dbShemas');
 
 http.createServer(function (req, res) {
     var pathname = url.parse(req.url).pathname;

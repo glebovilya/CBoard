@@ -9,40 +9,48 @@
     <!--<script src="./plugin/bootstrap/js/bootstrap.js"></script>-->
 
 <style>
-    .employee>.modal{
-        width: auto;
+
+    .employeeWindow {
+        position: relative;
+        width: 96px;
+        background-color: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        /*-webkit-border-radius: 6px;*/
+        border-radius: 6px;
+        outline: none;
+        /*-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);*/
+        box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+        /*-webkit-background-clip: padding-box;*/
+        background-clip: padding-box;
     }
-    .employee .modal-header{
+
+
+    .employee .employee-header{
         height: 16px;
         padding: 1px 6px 6px;
         border-bottom: none;
     }
-    .employee .modal-header div{
+    .employee .employee-header>div{
         position: absolute;
         text-align: left;
         top:6px;
         right: 30px;
     }
-    .employee .modal-body {
+    .employee .employee-body {
         padding: 0;
     }
-    .employee .thumbnails {
-        padding: 0;
-        margin-bottom: 0;
-    }
-    .employee .thumbnail {
+
+    .employee .united {
         border-top: none;
+        padding: 3px;
     }
-    .employee .thumbnails li {
-        padding: 0;
-        margin-bottom: 0;
-    }
-    .employee .thumbnails .name {
+
+    .employee .united .name {
         position: absolute;
         text-align:center;
         bottom: 3px;
     }
-    .employee .modal-footer {
+    .employee .employee-footer {
         border-top: none;
         padding: 0;
     }
@@ -53,33 +61,19 @@
 
 
 <div class = "employee">
-    <div id="myModal" class="modal">
-
-        <div class="modal-header" >
+    <div class="employeeWindow ">
+        <div class="employee-header" >
             <div >branch</div>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-
         </div>
-
-
-        <div class="modal-body">
-            <ul class="thumbnails">
-                <li>
-                    <div class="thumbnail" >
-                        <img src="http://placehold.it/90x120" alt="">
-                        <div class= "name" >Name Surname</div>
-                    </div>
-                </li>
-
-            </ul>
-
+        <div class="employee-body">
+              <div class="united" >
+                 <img src="http://placehold.it/90x120" alt="">
+                 <div class= "name" >Name Surname</div>
+             </div>
         </div>
-
-
-        <div class="modal-footer">
-
+        <div class="employee-footer">
         </div>
-
     </div>
 </div>
 

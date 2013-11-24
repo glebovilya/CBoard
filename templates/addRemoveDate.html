@@ -1,33 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
     <title>for insert date</title>
+
+    <link href="./bootstrap.css" rel="stylesheet" media="screen">
+    <!--<link href="./bootstrap-responsive.css" rel="stylesheet" media="screen">-->
+    <script src="./jquery.js"></script>
+    <script src="./bootstrap.js"></script>
 </head>
 <body>
 
 <!-- Button to trigger modal -->
-<a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
-
+<!--<a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>-->
+<!--$('#myModal').modal(options)   вызов jscript-ом-->
 <!-- Modal -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<div id="myModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <div class="modal-header" style="height: 20px">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3 id="myModalLabel"></h3>
     </div>
 
 
     <div class="modal-body" >
-        <div class="controls controls-row">
+        <!--<div class="controls controls-row">-->
             <div class="input-append date" id="add" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-                <input class="span3" size="16" type="text"  placeholder="Date of joining the project">
+                <input  size="16" class="span3" type="text"  placeholder="Date of joining the project">
                 <span class="add-on"><i class="icon-th"></i></span>
             </div>
             <div class="input-append date" id="remove" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-                <input class="span3" size="16" type="text" placeholder="Release date of the project">
+                <input  size="16" class="span3" type="text" placeholder="Release date of the project">
                 <span class="add-on"><i class="icon-th"></i></span>
             </div>
-        </div>
+        <!--</div>-->
     </div>
 
 

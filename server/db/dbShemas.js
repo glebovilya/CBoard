@@ -32,7 +32,13 @@ var historySchema = new Schema({
     exiting: Boolean
 });
 
-exports.personSchema = personSchema;
-exports.projectSchema = projectSchema;
-exports.statusSchema = statusSchema;
-exports.historySchema = historySchema;
+
+var Person = mongoose.model('Person', personSchema);
+var Project = mongoose.model('Project', projectSchema);
+var Status = mongoose.model('Status', statusSchema);
+var History = mongoose.model('History', historySchema);
+
+exports.Person = Person;
+exports.Project = Project;
+exports.Status = Status;
+exports.History = History;

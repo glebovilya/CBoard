@@ -17,7 +17,10 @@ var personSchema = new Schema({
 var projectSchema = new Schema({
     _id: Number,
     name: String,
+    currentEmployees: [{type: Number, ref: 'Person'}],
     current: Boolean,
+    start: Date,
+    end: Date,
     history: [{ type: Number, ref: 'History' }]
 });
 

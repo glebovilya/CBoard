@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>for insert date</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <!--<link href="./bootstrap-responsive.css" rel="stylesheet" media="screen">-->
+    <script src="css/jquery.js"></script>
+    <script src="css/bootstrap.js"></script>
+</head>
+<body>
+
+<!-- Button to trigger modal -->
+<!--<a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>-->
+<!--$('#myModal').modal(options)   вызов jscript-ом-->
+<!-- Modal -->
+<!--<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<div id="myModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="modal-header" style="height: 20px">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 id="myModalLabel"></h3>
+    </div>
+
+
+        <div class="modal-body" >
+            <input class="input-medium" type="text" placeholder="name">
+            <input class="input-medium" type="text" placeholder="surname">
+            <input class="input-medium" type="text" placeholder="position">
+
+        </div>
+        <!--</div>-->
+
+
+
+    <div class="modal-footer">
+        <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Add employee</button>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

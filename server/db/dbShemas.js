@@ -5,31 +5,35 @@ mongoose.connect('mongodb://localhost/test');
 console.log('mongo!');
 
 var personSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+    _id: Number,
     name: String,
     surname: String,
     position: String,
     photo: String,
-    current: Boolean
+    current: Boolean,
+    history: [{ type: Number, ref: 'History' }]
 });
 
 var projectSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+    _id: Number,
     name: String,
-    current: Boolean
+    current: Boolean,
+    history: [{ type: Number, ref: 'History' }]
 });
 
 var statusSchema = new Schema({
-    _id: Schema.Types.ObjectId,
-    name: String
+    _id: Number,
+    name: String,
+    history: [{ type: Number, ref: 'History' }]
 });
 
 var historySchema = new Schema({
-    person: [{type: Schema.Types.ObjectId, ref: 'Person'}],
-    project: [{type: Schema.Types.ObjectId, ref: 'Project'}],
-    status: [{type: Schema.Types.ObjectId, ref: 'Status'}],
-    date: { type: Date, default: Date.now },
-    exiting: Boolean
+    _id: Number,
+    person: {type: Number, ref: 'Person'},
+    project: {type: Number, ref: 'Project'},
+    status: {type: Number, ref: 'Status'},
+    date: Date,
+    leaving: Boolean
 });
 
 

@@ -165,7 +165,6 @@ var setCurrentProject = function(/*Number*/id, /*Boolean*/value) {
 
 var getall = function(){
     dbModels.Person.findOne({_id: 1},function(err, history) {
-
             console.log(history.projectList)
         }
     )

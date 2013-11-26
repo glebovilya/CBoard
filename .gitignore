@@ -6,6 +6,7 @@
 ./bootstrap.js
 ./.idea/
 ./bootstrap/
+/.gitignore
 
 =======
 .idea

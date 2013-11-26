@@ -5,34 +5,48 @@ mongoose.connect('mongodb://localhost/test');
 console.log('mongo!');
 
 var personSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+    _id: Number,
     name: String,
     surname: String,
     position: String,
     photo: String,
-    current: Boolean
+    current: Boolean,
+    currentStatus: [{ type: Number, ref: 'Status' }],
+    projectList: [{ type: Number, ref: 'Project' }],
+    history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });
 
 var projectSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+    _id: Number,
     name: String,
-    current: Boolean
+    currentEmployees: [{type: Number, ref: 'Person'}],
+    current: Boolean,
+    start: Date,
+    end: Date,
+    history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });
 
 var statusSchema = new Schema({
-    _id: Schema.Types.ObjectId,
-    name: String
+    _id: Number,
+    name: String,
+    history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });
 
 var historySchema = new Schema({
-    person: [{type: Schema.Types.ObjectId, ref: 'Person'}],
-    project: [{type: Schema.Types.ObjectId, ref: 'Project'}],
-    status: [{type: Schema.Types.ObjectId, ref: 'Status'}],
-    date: { type: Date, default: Date.now },
-    exiting: Boolean
+    person: {type: Number, ref: 'Person'},
+    project: {type: Number, ref: 'Project'},
+    status: {type: Number, ref: 'Status'},
+    date: /*Date*/ { type: Date, default: Date.now },
+    leaving: Boolean
 });
 
-exports.personSchema = personSchema;
-exports.projectSchema = projectSchema;
-exports.statusSchema = statusSchema;
-exports.historySchema = historySchema;
+
+var Person = mongoose.model('Person', personSchema);
+var Project = mongoose.model('Project', projectSchema);
+var Status = mongoose.model('Status', statusSchema);
+var History = mongoose.model('History', historySchema);
+
+exports.Person = Person;
+exports.Project = Project;
+exports.Status = Status;
+exports.History = History;

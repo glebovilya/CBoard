@@ -99,7 +99,6 @@ var getall = function(){
         console.log(count)
     })
 
-
 };
 
 exports.addPerson = addPerson;

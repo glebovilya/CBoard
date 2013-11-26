@@ -31,22 +31,23 @@ var uploadfile = function(response, request) {
 
 var sendData = function (req, res, pathname) {
     if (pathname.pathname == '/') {
-//        console.log(req.method.toLowerCase(), pathname)
+        resData('./index.html', 'html', res)
+    }
+    if (pathname.pathname == 'upload') {
         if(req.method.toLowerCase() === 'post'){
             uploadfile(res,req)
         }
-        resData('./index.html', 'html', res)
     }
-    if (/^.*\.css$/.test(pathname)) {
-        resData("." + pathname,'css', res)
+    if (/^.*\.css$/.test(pathname.pathname)) {
+        resData("." + pathname.pathname,'css', res)
     }
-    if (/^.*\.js$/.test("." + pathname)) {
-        resData(pathname,'javascript', res)
+    if (/^.*\.js$/.test("." + pathname.pathname)) {
+        resData(pathname.pathname,'javascript', res)
     }
-    if (/^.*\.html$/.test("." + pathname)) {
-        resData(pathname,'html', res)
+    if (/^.*\.html$/.test("." + pathname.pathname)) {
+        resData(pathname.pathname,'html', res)
     }
-    if (/favicon.ico/.test("." + pathname)) {
+    if (/favicon.ico/.test("." + pathname.pathname)) {
         console.log('tried to load favicon')
     }
 

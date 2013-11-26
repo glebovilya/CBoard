@@ -11,7 +11,8 @@ var personSchema = new Schema({
     position: String,
     photo: String,
     current: Boolean,
-    history: [{ type: Number, ref: 'History' }]
+    projectList: [{ type: Number, ref: 'Project' }],
+    history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });
 
 var projectSchema = new Schema({
@@ -21,21 +22,20 @@ var projectSchema = new Schema({
     current: Boolean,
     start: Date,
     end: Date,
-    history: [{ type: Number, ref: 'History' }]
+    history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });
 
 var statusSchema = new Schema({
     _id: Number,
     name: String,
-    history: [{ type: Number, ref: 'History' }]
+    history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });
 
 var historySchema = new Schema({
-    _id: Number,
     person: {type: Number, ref: 'Person'},
     project: {type: Number, ref: 'Project'},
     status: {type: Number, ref: 'Status'},
-    date: Date,
+    date: /*Date*/ { type: Date, default: Date.now },
     leaving: Boolean
 });
 

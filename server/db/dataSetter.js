@@ -1,4 +1,4 @@
-var dbModels = requier('./dbShemas');
+var dbModels = require('./dbShemas');
 
 var addPerson = function(/*Number*/id, /*String*/ name, /*String*/ surname, /*String*/ position, /*String*/ photo) {
     var person = new dbModels.Person({
@@ -8,60 +8,108 @@ var addPerson = function(/*Number*/id, /*String*/ name, /*String*/ surname, /*St
         position: position,
         photo: photo,
         current: false
-    })
+    });
+    person.save()
 };
 
-var addProject = function(/*Number*/id, /*String*/name, /*Boolean*/current) {
-    var project = new dbModels.History ({
+var addProject = function(/*Number*/id, /*String*/name, startDate) {
+    var project = new dbModels.Project ({
         _id: id,
         name: name,
+        start: startDate,
         current: false
-    })
+    });
+
+    project.save();
 }
 
 var addStatus = function(/*number*/id , /*String*/name) {
-    var status = new dbModels.Stats({
+    var status = new dbModels.Status({
         _id: id,
         name: name
-    })
+    });
+    status.save();
 }
 
-var addHistory = function (/*Number*/id, /*Number*/status_id, /*Date*/date, /*Boolean*/leaving) {
+var addHistory = function (/*Number*/status_id, /*Boolean*/leaving, /*Date*/date) {
 
-    var currentPerson = dbModels.Person.findOne({current: true});
-    var currentProject = dbModels.Project.findOne({current: true});
-    var status = dbModels.Status.findOne({id: status_id});
+    dbModels.Person.findOne({current: true},function (err, person) {
+        dbModels.Project.findOne({current: true},function (err, project){
+            dbModels.Status.findOne({_id: status_id}, function(err, status) {
 
-    var person;
-    var project;
+                var history = new dbModels.History({
+                    person: person._id,
+                    project: project._id,
+                    status: status._id,
+                    leaving: leaving
+                });
 
-    currentPerson ? person = currentPerson : person = null;
+                if(date) {
+                    history.date = date
+                }
 
-    currentProject ? project = currentProject : project = null;
+                person.history.push(history);
+                project.history.push(history);
 
-    var history = new dbModels.History({
-        _id: id,
-        person: person._id,
-        project: project._id,
-        status: status._id,
-        date: date,
-        leaving: leaving
+
+                history.save();
+                person.save();
+                project.save();
+            });
+        });
+    });
+};
+
+var setCurrentPerson = function(/*Number*/id, /*true\false*/value) {
+    dbModels.Person.findOne({_id: id}, function(err, doc) {
+        doc.current = value;
+        doc.save()
+    });
+};
+
+var setCurrentProject = function(/*Number*/id, /*true:false*/value) {
+    dbModels.Project.findOne({_id: id}, function(err, doc) {
+        doc.current = value;
+        doc.save()
+    });
+};
+
+var addPersonToProject = function(/*Number*/person_id, /*Number*/project_id) {
+    dbModels.Person.findOne({_id: person_id}, function(err,person) {
+        dbModels.Project.findOne({_id: project_id}, function(err, project) {
+            project.currentEmployees.push(person._id);
+            person.projectList.push(project._id);
+            person.save();
+            project.save();
+        });
+    });
+};
+
+var getall = function(){
+    dbModels.Person.findOne({_id: 1},function(err, history) {
+
+            console.log(history.history)
+        }
+    )
+    dbModels.History.findOne({_id: '529375a50ef5f31410000001'}).populate('person').exec(function(err, history) {
+        console.log(history.person.name)
     })
-}
 
-var aaron = new Person({ _id: 0, name: 'Aaron', age: 100 });
+    dbModels.Status.count({}, function(err, count) {
+        console.log(count)
+    })
 
-aaron.save(function (err) {
-    if (err) return handleError(err);
 
-    var story1 = new Story({
-        title: "Once upon a timex.",
-        _creator: aaron._id    // assign the _id from the person
-    });
+};
 
-    story1.save(function (err) {
-        if (err) return handleError(err);
-        // thats it!
-    });
-})
+exports.addPerson = addPerson;
+exports.addProject = addProject;
+exports.addStatus = addStatus;
+exports.addHistory = addHistory;
+exports.setCurrentPerson = setCurrentPerson;
+exports.setCurrentProject = setCurrentProject;
+exports.addPersonToProject = addPersonToProject;
+exports.getall = getall;
+
+
 

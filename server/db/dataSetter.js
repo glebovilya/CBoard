@@ -168,6 +168,7 @@ var getall = function(){
             console.log(history.projectList)
         }
     )
+<<<<<<< HEAD
 //    dbModels.History.findOne({_id: '529375a50ef5f31410000001'}).populate('person').exec(function(err, history) {
 //        console.log(history.person.name)
 //    })
@@ -178,6 +179,15 @@ var getall = function(){
 
 //    dbModels.Person.find({}, function (err, f) {console.log(f)})
 //    dbModels.History.find({}, function (err, f) {console.log(f)})
+=======
+    dbModels.History.findOne({_id: '529375a50ef5f31410000001'}).populate('person').exec(function(err, history) {
+        console.log(history.person.name)
+    })
+
+    dbModels.Status.count({}, function(err, count) {
+        console.log(count)
+    })
+>>>>>>> issue#4
 
 };
 

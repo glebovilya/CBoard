@@ -3,10 +3,10 @@
 <html lang="en-US">
 <head>
     <title></title>
-    <link href="./bootstrap.css" rel="stylesheet" media="screen">
-    <!--<link href="./bootstrap-responsive.css" rel="stylesheet" media="screen">-->
-    <!--<script src="./plugin/jquery.js"></script>-->
-    <!--<script src="./plugin/bootstrap/js/bootstrap.js"></script>-->
+    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="./bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+    <script src="./bootstrap/jquery.js"></script>
+    <script src="./bootstrap/js/bootstrap.js"></script>
 
 <style>
 
@@ -36,6 +36,9 @@
         top:6px;
         right: 30px;
     }
+    .employee-header button {
+        color: red;
+    }
     .employee .employee-body {
         padding: 0;
     }
@@ -54,6 +57,7 @@
         border-top: none;
         padding: 0;
     }
+
 </style>
 
 </head>
@@ -64,7 +68,7 @@
     <div class="employeeWindow ">
         <div class="employee-header" >
             <div >branch</div>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+            <button type="button" class="close" data-toggle="tooltip" title="remove from project" data-dismiss="modal" aria-hidden="true" >&times;</button>
         </div>
         <div class="employee-body">
               <div class="united" >
@@ -77,6 +81,9 @@
     </div>
 </div>
 
+<script>
+    $(".employee-body").popover({trigger:"hover", content: "project, project, birthday, some information"})
+</script>
 
 
 

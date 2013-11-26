@@ -1,4 +1,5 @@
 var fs  = require('fs');
+var formidable = require("formidable");
 
 var resData = function (path, docType, res) {
     fs.readFile(path, function (err, content){
@@ -16,31 +17,24 @@ var resData = function (path, docType, res) {
 
 var uploadfile = function(response, request) {
     console.log("Request handler 'upload' was called.");
-
     var form = new formidable.IncomingForm();
-
     console.log("about to parse");
-
     form.parse(request, function(error, fields, files) {
-
         console.log("parsing done");
-
-        fs.rename(files.upload.path, "/tmp/test.png", function(err) {
+        fs.rename(files.upload.path, "./img/Persons/" + files.name, function(err) {
             if (err) {
-                fs.unlink("/tmp/test.png");
-                fs.rename(files.upload.path, "/tmp/test.png");
+                console.log(err)
             }
         });
-
-        response.writeHead(200, {"Content-Type": "text/html"});
-        response.write("received image:<br/>");
-        response.write("<img src='/show' />");
-        response.end();
     });
 }
 
 var sendData = function (req, res, pathname) {
-    if (pathname == '/') {
+    if (pathname.pathname == '/') {
+//        console.log(req.method.toLowerCase(), pathname)
+        if(req.method.toLowerCase() === 'post'){
+            uploadfile(res,req)
+        }
         resData('./index.html', 'html', res)
     }
     if (/^.*\.css$/.test(pathname)) {
@@ -55,6 +49,7 @@ var sendData = function (req, res, pathname) {
     if (/favicon.ico/.test("." + pathname)) {
         console.log('tried to load favicon')
     }
+
 
 };
 

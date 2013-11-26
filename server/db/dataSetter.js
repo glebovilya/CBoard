@@ -187,7 +187,6 @@ exports.addStatus = addStatus;
 exports.addHistory = addHistory;
 exports.setCurrentPerson = setCurrentPerson;
 exports.setCurrentProject = setCurrentProject;
-exports.addPersonToProject = addPersonToProject;
 exports.getall = getall;
 
 

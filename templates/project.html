@@ -3,17 +3,17 @@
 <html lang="en-US">
 <head>
     <title></title>
-    <link href="./plugin/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <!--<link href="./plugin/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">-->
-    <!--<script src="./plugin/jquery.js"></script>-->
-    <!--<script src="./plugin/bootstrap/js/bootstrap.js"></script>-->
+    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="./bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+    <script src="./bootstrap/jquery.js"></script>
+    <script src="./bootstrap/js/bootstrap.js"></script>
 
 <style>
     .projectWindow {
         top:50px;
         left: 50px;
         position: relative;
-        width: 600px;
+        width: 550px; /*изменяется js в зависиьости от кол-ва лидеров.*/
         background-color: #ffffff;
         border: 1px solid rgba(0, 0, 0, 0.3);
         /*-webkit-border-radius: 6px;*/
@@ -25,15 +25,30 @@
         background-clip: padding-box;
     }
     .projectWindow>.project-body {
-        height: 190px;
+        height: 170px;
     }
 
     .project-header {
         padding: 1px 6px 6px;
     }
-    li {
-        display: inline-block;
-        margin: 0;
+
+    .project-body .leaders {
+        padding-left: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        width: 100%;
+    }
+
+    .project-body ul{
+        margin-right: 30px;
+    }
+    .project-body .thumbnails li {
+        margin-bottom: 1px;
+
+    }
+    .project-body .thumbnail {
+        padding: 0;
+        border: none;
     }
 
     .employeeWindow {
@@ -62,6 +77,9 @@
         top:6px;
         right: 30px;
     }
+    .employee-header button {
+        color: red;
+    }
     .employee .employee-body {
         padding: 0;
     }
@@ -85,87 +103,88 @@
 </head>
 <body>
 
-<div class = "projectWindow">
+<div class = "projectWindow container-fluid">
     <div class="project-header" >
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+        <button type="button" class="close" data-toggle="tooltip" title="hide project" data-dismiss="modal" aria-hidden="true" >&times;</button>
         <h3>PROJECT</h3>
     </div>
     <div class="project-body">
-        <ul class="thumbnails">
-            <li >
-                <div class = "employee thumbnail">
-                    <div class="employeeWindow ">
-                        <div class="employee-header" >
-                            <div >branch</div>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-                        </div>
-                        <div class="employee-body">
-                            <div class="united" >
-                                <img src="http://placehold.it/90x120" alt="">
-                                <div class= "name" >Name Surname</div>
+        <div class="leaders row-fluid">
+            <ul class="thumbnails pull-right">
+                <li >
+                    <div class = "employee thumbnail span3">
+                        <div class="employeeWindow ">
+                            <div class="employee-header" >
+                                <div >branch</div>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+                            </div>
+                            <div class="employee-body">
+                                <div class="united" >
+                                    <img src="http://placehold.it/90x120" alt="">
+                                    <div class= "name" >Name Surname</div>
+                                </div>
+                            </div>
+                            <div class="employee-footer">
                             </div>
                         </div>
-                        <div class="employee-footer">
-                        </div>
                     </div>
-                </div>
-            </li>
-            <li >
-                <div class = "employee thumbnail">
-                    <div class="employeeWindow ">
-                        <div class="employee-header" >
-                            <div >branch</div>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-                        </div>
-                        <div class="employee-body">
-                            <div class="united" >
-                                <img src="http://placehold.it/90x120" alt="">
-                                <div class= "name" >Name Surname</div>
+                </li>
+                <li >
+                    <div class = "employee thumbnail span3">
+                        <div class="employeeWindow ">
+                            <div class="employee-header" >
+                                <div >branch</div>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+                            </div>
+                            <div class="employee-body">
+                                <div class="united" >
+                                    <img src="http://placehold.it/90x120" alt="">
+                                    <div class= "name" >Name Surname</div>
+                                </div>
+                            </div>
+                            <div class="employee-footer">
                             </div>
                         </div>
-                        <div class="employee-footer">
-                        </div>
                     </div>
-                </div>
-            </li>
-            <li >
-                <div class = "employee thumbnail">
-                    <div class="employeeWindow ">
-                        <div class="employee-header" >
-                            <div >branch</div>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-                        </div>
-                        <div class="employee-body">
-                            <div class="united" >
-                                <img src="http://placehold.it/90x120" alt="">
-                                <div class= "name" >Name Surname</div>
+                </li>
+                <li >
+                    <div class = "employee thumbnail span3">
+                        <div class="employeeWindow ">
+                            <div class="employee-header" >
+                                <div >branch</div>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+                            </div>
+                            <div class="employee-body">
+                                <div class="united" >
+                                    <img src="http://placehold.it/90x120" alt="">
+                                    <div class= "name" >Name Surname</div>
+                                </div>
+                            </div>
+                            <div class="employee-footer">
                             </div>
                         </div>
-                        <div class="employee-footer">
-                        </div>
                     </div>
-                </div>
-            </li>
-            <li >
-                <div class = "employee thumbnail">
-                    <div class="employeeWindow ">
-                        <div class="employee-header" >
-                            <div >branch</div>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-                        </div>
-                        <div class="employee-body">
-                            <div class="united" >
-                                <img src="http://placehold.it/90x120" alt="">
-                                <div class= "name" >Name Surname</div>
+                </li>
+                <li >
+                    <div class = "employee thumbnail span3">
+                        <div class="employeeWindow ">
+                            <div class="employee-header" >
+                                <div >branch</div>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+                            </div>
+                            <div class="employee-body">
+                                <div class="united" >
+                                    <img src="http://placehold.it/90x120" alt="">
+                                    <div class= "name" >Name Surname</div>
+                                </div>
+                            </div>
+                            <div class="employee-footer">
                             </div>
                         </div>
-                        <div class="employee-footer">
-                        </div>
                     </div>
-                </div>
-            </li>
-        </ul>
-
+                </li>
+            </ul>
+        </div>
 
     </div>
 </div>

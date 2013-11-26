@@ -20,8 +20,8 @@ var uploadfile = function(response, request) {
     var form = new formidable.IncomingForm();
     console.log("about to parse");
     form.parse(request, function(error, fields, files) {
-        console.log("parsing done");
-        fs.rename(files.upload.path, "./img/Persons/" + files.name, function(err) {
+        console.log(files);
+        fs.rename(files.upload.path, "./img/Persons/" + files.upload.name, function(err) {
             if (err) {
                 console.log(err)
             }
@@ -33,8 +33,9 @@ var sendData = function (req, res, pathname) {
     if (pathname.pathname == '/') {
         resData('./index.html', 'html', res)
     }
-    if (pathname.pathname == 'upload') {
+    if (pathname.pathname == '/upload') {
         if(req.method.toLowerCase() === 'post'){
+            console.log('upload')
             uploadfile(res,req)
         }
     }

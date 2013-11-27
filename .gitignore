@@ -3,7 +3,6 @@
 ./bootstrap.css
 ./bootstrap-responsive.css
 ./bootstrap.js
-./.idea/
 ./bootstrap/
 /.gitignore
 

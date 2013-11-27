@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
     <meta charset="utf-8">
     <!-- Bootstrap -->
@@ -8,7 +8,8 @@
     <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
     <link href="css/styleForTemplates.css" rel="stylesheet" media="screen">
     <link href="css/styleForIndex.css" rel="stylesheet" media="screen">
-
+    <script src="js/require-jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
 
 
 
@@ -245,7 +246,6 @@
                 <div id="addPeople" class="text-center accordion-group">
                     <button type="button" class="btn accord btn-custom accordion-toggle"
                             data-toggle="modal"
-                            role="button"
                             data-parent="#accordion-people" href="#modalAddPeople">
                         <i class="icon-white icon-file"></i> Add New People
                     </button>
@@ -276,65 +276,19 @@
 </div>
 </div>
 <div class="span10 boxShadow" id="board">
-
-    <div id="inner-board">
-        <!--Body content-->
-        ghgbhn
-
-
-
-        <div id="modalAddPeople" class="modal"
-             role="dialog"
-             aria-labelledby="myModalLabel"
-             aria-hidden="true"
-             data-backdrop = "false"
-
-             >
-
-        <form action="/" method="post">
-            <div class="modal-header" style="height: 20px">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 id="myModalLabel"></h3>
-            </div>
-
-
-            <div class="modal-body pull-right" >
-                <input class="input-medium" type="text" placeholder="name">
-                <input class="input-medium" type="text" placeholder="surname">
-                <input class="input-medium" type="text" placeholder="position">
-
-
-
-                    <br/>
-                    <span> &nbsp;&nbsp;add a photo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-                    <input type="file" class="btn ">
-
-
-
-
-
-            </div>
-            <!--</div>-->
-
-
-
-            <div class="modal-footer">
-                <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
-                <button type= "submit" class="btn btn-custom" data-dismiss="modal" aria-hidden="true">Add employee</button>
-            </div>
-        </form>
-        </div>
-
-
-
-
-
-
-
-    </div>
-    <div class="bottom-line"></div>
-
-
+    <h3>add people</h3>
+    <form action="/upload_people" method="post">
+        Name: <input type="text" name="name"><br>
+        Surname: <input type="text" name="surname"><br>
+        Position: <input type="text" name="surname"><br>
+        <input type="file" name="photo"/>
+        <input type="submit" value="Submit">
+    </form>
+    <h3>add project</h3>
+    <form action="/upload_project" method="post">
+        Name: <input type="text" name="name"><br>
+        <input type="submit" value="Submit">
+    </form>
 </div>
 </div>
 </div>
@@ -342,11 +296,9 @@
 
 
 <script src="js/popoverForEmployee.js"></script>
-<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
-<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
-<script src="js/require-jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/effectsAccordion.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
 
 
 </body>

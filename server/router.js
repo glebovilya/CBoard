@@ -27,12 +27,13 @@ var addProjectToDB = function(response, request) {
 var addPersonToDB = function(response, request) {
     var form = new formidable.IncomingForm();
     form.parse(request, function(error, fields, files) {
-        fs.rename(files.upload.path, "./img/Persons/" + files.upload.name, function(err) {
+        console.log(files);
+        fs.rename(files['photo'].path, "./img/Persons/" + files['photo'].name, function(err) {
             if (err) {
                 console.log(err)
             }
             else {
-                dataSetter.addPerson(fields.name, fields.surname, fields.position, files.photo)
+                dataSetter.addPerson(fields.name, fields.surname, fields.position, ("./img/Persons/" + files['photo'].name))
             }
         });
 

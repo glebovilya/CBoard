@@ -277,11 +277,11 @@
 </div>
 <div class="span10 boxShadow" id="board">
     <h3>add people</h3>
-    <form action="/upload_people" method="post">
+    <form action="/upload_person" method="post" enctype="multipart/form-data">
         Name: <input type="text" name="name"><br>
         Surname: <input type="text" name="surname"><br>
         Position: <input type="text" name="position"><br>
-        <input type="file" name="photo"/>
+        <input type="file" name="photo" multiple="multiple"/>
         <input type="submit" value="Submit">
     </form>
     <h3>add project</h3>

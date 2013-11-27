@@ -1,8 +1,5 @@
 $('.list-item').each(function(idx,elt){
     var el = $('.bubble-icon')[idx];
-    console.log(idx,elt)
-    console.log($('.bubble-icon')[idx]);
-
     $(this).hover(function (ev) {
 
 

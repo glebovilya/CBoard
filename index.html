@@ -245,8 +245,8 @@
                 <div class="line">&nbsp;</div>
                 <div id="addPeople" class="text-center accordion-group">
                     <button type="button" class="btn accord btn-custom accordion-toggle"
-                            data-toggle="collapse"
-                            data-parent="#accordion-people" href="#">
+                            data-toggle="modal"
+                            data-parent="#accordion-people" href="#modalAddPeople">
                         <i class="icon-white icon-file"></i> Add New People
                     </button>
                 </div>
@@ -282,22 +282,56 @@
         ghgbhn
 
 
-        <div class = "employee">
-            <div class="employeeWindow ">
-                <div class="employee-header" >
-                    <div >position</div>
-                    <button type="button" class="close" data-toggle="tooltip" title="remove from project" data-dismiss="modal" aria-hidden="true" >&times;</button>
-                </div>
-                <div class="employee-body">
-                    <div class="united" >
-                        <img src="http://placehold.it/90x120" alt="">
-                        <div class= "name" >Name Surname</div>
-                    </div>
-                </div>
-                <div class="employee-footer">
-                </div>
+        <!--<div class = "employee">-->
+            <!--<div class="employeeWindow ">-->
+                <!--<div class="employee-header" >-->
+                    <!--<div >position</div>-->
+                    <!--<button type="button" class="close" data-toggle="tooltip" title="remove from project" data-dismiss="modal" aria-hidden="true" >&times;</button>-->
+                <!--</div>-->
+                <!--<div class="employee-body">-->
+                    <!--<div class="united" >-->
+                        <!--<img src="http://placehold.it/90x120" alt="">-->
+                        <!--<div class= "name" >Name Surname</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="employee-footer">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+        <div id="modalAddPeople" class="modal"
+             aria-hidden="true"
+             data-backdrop = "false"
+             data-show="false"
+             style="display: none;">
+
+        <form action="" method="post">
+            <div class="modal-header" style="height: 20px">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 id="myModalLabel"></h3>
             </div>
+
+
+            <div class="modal-body" >
+                <input class="input-medium" type="text" placeholder="name">
+                <input class="input-medium" type="text" placeholder="surname">
+                <input class="input-medium" type="text" placeholder="position">
+                <button class="btn">add a photo</button>
+
+            </div>
+            <!--</div>-->
+
+
+
+            <div class="modal-footer">
+                <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
+                <button type= "submit" class="btn btn-custom" data-dismiss="modal" aria-hidden="true">Add employee</button>
+            </div>
+        </form>
         </div>
+
+
 
 
 
@@ -310,6 +344,9 @@
 </div>
 </div>
 </div>
+
+
+
 <script src="js/popoverForEmployee.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>

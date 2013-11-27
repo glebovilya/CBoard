@@ -42,11 +42,14 @@ var sendData = function (req, res, pathname) {
     if (/^.*\.css$/.test(pathname.pathname)) {
         resData("." + pathname.pathname,'css', res)
     }
-    if (/^.*\.js$/.test("." + pathname.pathname)) {
-        resData(pathname.pathname,'javascript', res)
+    if (/^.*\.js$/.test(pathname.pathname)) {
+        resData(("." + pathname.pathname),'javascript', res)
     }
-    if (/^.*\.html$/.test("." + pathname.pathname)) {
-        resData(pathname.pathname,'html', res)
+    if (/^.*\.html$/.test(pathname.pathname)) {
+        resData("." + pathname.pathname,'html', res)
+    }
+    if (/^\/img\//.test(pathname.pathname)) {
+        resData("." + pathname.pathname,'image', res)
     }
     if (/favicon.ico/.test("." + pathname.pathname)) {
         console.log('tried to load favicon')

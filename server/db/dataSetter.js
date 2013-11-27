@@ -161,8 +161,8 @@ var setCurrentProject = function(/*Number*/id, /*Boolean*/value) {
     * */
 
 var getall = function(){
-    dbModels.Project.find(function(err,d){console.log(d)})
-
+//    dbModels.Project.find(function(err,d){console.log(d)})
+    dbModels.Person.find(function(err,d){console.log(d)})
 };
 
 exports.addPerson = addPerson;

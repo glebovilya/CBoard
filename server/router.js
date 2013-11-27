@@ -27,7 +27,6 @@ var addProjectToDB = function(response, request) {
 var addPersonToDB = function(response, request) {
     var form = new formidable.IncomingForm();
     form.parse(request, function(error, fields, files) {
-        console.log(files);
         fs.rename(files['photo'].path, "./img/Persons/" + files['photo'].name, function(err) {
             if (err) {
                 console.log(err)

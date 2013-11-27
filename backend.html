@@ -276,69 +276,19 @@
 </div>
 </div>
 <div class="span10 boxShadow" id="board">
-
-    <div id="inner-board">
-        <!--Body content-->
-        ghgbhn
-
-
-        <!--<div class = "employee">-->
-            <!--<div class="employeeWindow ">-->
-                <!--<div class="employee-header" >-->
-                    <!--<div >position</div>-->
-                    <!--<button type="button" class="close" data-toggle="tooltip" title="remove from project" data-dismiss="modal" aria-hidden="true" >&times;</button>-->
-                <!--</div>-->
-                <!--<div class="employee-body">-->
-                    <!--<div class="united" >-->
-                        <!--<img src="http://placehold.it/90x120" alt="">-->
-                        <!--<div class= "name" >Name Surname</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="employee-footer">-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-
-        <div id="modalAddPeople" class="modal"
-             aria-hidden="true"
-             data-backdrop = "false"
-             data-show="false"
-             style="display: none;">
-
-        <form action="/" method="post">
-            <div class="modal-header" style="height: 20px">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 id="myModalLabel"></h3>
-            </div>
-
-
-            <div class="modal-body" >
-                <input class="input-medium" type="text" placeholder="name" name="name">
-                <input class="input-medium" type="text" placeholder="surname" name="surname">
-                <input class="input-medium" type="text" placeholder="position" name="position">
-                <input class="btn" type="file" name="photo">add a photo
-
-            </div>
-            <!--</div>-->
-
-            <div class="modal-footer">
-                <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
-                <input type="submit" class="btn btn-custom" data-dismiss="modal" aria-hidden="true">
-            </div>
-        </form>
-        </div>
-
-
-
-
-
-
-
-    </div>
-    <div class="bottom-line"></div>
-
-
+    <h3>add people</h3>
+    <form action="/upload_people" method="post">
+        Name: <input type="text" name="name"><br>
+        Surname: <input type="text" name="surname"><br>
+        Position: <input type="text" name="surname"><br>
+        <input type="file" name="photo"/>
+        <input type="submit" value="Submit">
+    </form>
+    <h3>add project</h3>
+    <form action="/upload_project" method="post">
+        Name: <input type="text" name="name"><br>
+        <input type="submit" value="Submit">
+    </form>
 </div>
 </div>
 </div>

@@ -49,6 +49,7 @@ var sendData = function (req, res, pathname) {
         resData("." + pathname.pathname,'html', res)
     }
     if (/^\/img\//.test(pathname.pathname)) {
+        console.log('imp', pathname.pathname)
         resData("." + pathname.pathname,'image', res)
     }
     if (/favicon.ico/.test("." + pathname.pathname)) {

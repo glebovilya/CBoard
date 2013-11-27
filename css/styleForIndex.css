@@ -73,10 +73,10 @@ input {
 
     border-style: solid;
     border-width: 28px 28px 29px 30px;
-    -moz-border-image: url(img/border-img2.png) 28 28 29 30 repeat;
-    -webkit-border-image: url(img/border-img2.png) 28 28 29 30 repeat;
-    -o-border-image: url(img/border-img2.png) 28 28 29 30 repeat;
-    border-image: url(img/border-img2.png) 28 28 29 30 fill repeat;
+    -moz-border-image: url(../img/border-img2.png) 28 28 29 30 repeat;
+    -webkit-border-image: url(../img/border-img2.png) 28 28 29 30 repeat;
+    -o-border-image: url(../img/border-img2.png) 28 28 29 30 repeat;
+    border-image: url(../img/border-img2.png) 28 28 29 30 fill repeat;
     position: relative;
     height: 100%;
     margin-bottom: 30px;
@@ -167,6 +167,10 @@ input {
     /*width: 50%;*/
 }
 
+.custom-view .btn-custom {
+    width: 49%;
+}
+
 .list {
     list-style-type: none;
     background-color: #d9d9d9;
@@ -176,7 +180,7 @@ input {
 }
 
 .list-item, .list-item-last {
-    background: url(img/dot.gif) repeat-x scroll left top rgba(0, 0, 0, 0);
+    background: url(../img/dot.gif) repeat-x scroll left top rgba(0, 0, 0, 0);
     display: block;
     padding: 2px 0 0;
     list-style-position: outside;

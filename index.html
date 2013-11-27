@@ -8,11 +8,22 @@
     <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
     <link href="css/styleForTemplates.css" rel="stylesheet" media="screen">
     <link href="css/styleForIndex.css" rel="stylesheet" media="screen">
-
-
+    <script src="js/require-jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
 
 
     <title>CBoard</title>
+
+    <style>
+        .popover {
+            z-index: 999999999;
+        }
+        .popover-content {
+            z-index: 999999999;
+        }
+
+    </style>
+
 </head>
 <body>
 
@@ -142,7 +153,7 @@
                     <button type="button" class="btn accord btn-custom accordion-toggle"
                             data-toggle="modal"
                             role="button"
-                            data-parent="#accordion-people" href="#modalAddProject">
+                            data-parent="#accordion-project" href="#modalAddProject">
                         <i class="icon-white icon-file"></i> Add New Project
                     </button>
                 </div>
@@ -174,24 +185,24 @@
             <div id="collapseOne" class="accordion-body collapse in">
                 <ul class="list">
 
-                    <li class="list-item">
+                    <li class="list-item" >
                         <a class="fadeThis" href="#"><i class="icon-chevron-right"></i> Project
                             <i class="bubble-icon icon-forward"></i>
                         </a>
                     </li>
 
 
-                    <li class="list-item">
+                    <li class="list-item" data-toggle="tooltip" title="test 7777777777777777777777777777777777777777777777777777777">
                         <a class="fadeThis" href="#"><i class="icon-chevron-right"></i> Project
                             <i class="bubble-icon icon-forward"></i>
                         </a>
                     </li>
-                    <li class="list-item">
+                    <li class="list-item" data-toggle="tooltip" title="test 8888888888888888888888888888888888888888888888888888888">
                         <a class="fadeThis" href="#"><i class="icon-chevron-right"></i> Project
                             <i class="bubble-icon icon-forward"></i>
                         </a>
                     </li>
-                    <li class="list-item">
+                    <li class="list-item" data-toggle="tooltip" title='<img src="img/dot.gif" class="img-polaroid">'>
                         <a class="fadeThis" href="#"><i class="icon-chevron-right"></i> Project
                             <i class="bubble-icon icon-forward"></i>
                         </a>
@@ -324,17 +335,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h3></h3>
             </div>
-
             <form method="post" action="/">
                 <div class="modal-body" >
                     <input class="input-xlarge" type="text" placeholder="enter the name of the project">
-
-
                 </div>
                 <!--</div>-->
-
-
-
                 <div class="modal-footer">
                     <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
                     <button  class="btn btn-custom" type="submit"  >Add project</button>
@@ -342,11 +347,25 @@
             </form>
         </div>
 
-
-
-
-
         <!--    end form addProject      -->
+
+
+        <div class = "employee">
+            <div class="employeeWindow ">
+                <div class="employee-header" >
+                    <div >position</div>
+                    <button type="button" class="close" data-toggle="tooltip" title="remove from project"  aria-hidden="false" >&times;</button>
+                </div>
+                <div class="employee-body">
+                    <div class="united" >
+                        <img src="http://placehold.it/90x120" alt="">
+                        <div class= "name" >Name Surname</div>
+                    </div>
+                </div>
+                <div class="employee-footer">
+                </div>
+            </div>
+        </div>
 
     </div>
     <div class="bottom-line"></div>
@@ -358,13 +377,13 @@
 
 
 
-<script src="js/popoverForEmployee.js"></script>
+
 <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
 <!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
-<script src="js/require-jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/effectsAccordion.js"></script>
 
+
+<script src="js/effectsAccordion.js"></script>
+<script src="js/popoverForEmployee.js"></script>
 
 </body>
 </html>

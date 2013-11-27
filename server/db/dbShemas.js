@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 mongoose.connect('mongodb://localhost/test');
+pureautoinc  = require('mongoose-pureautoinc');
 
 console.log('mongo!');
 
 var personSchema = new Schema({
-    _id: Number,
     name: String,
     surname: String,
     position: String,
@@ -15,15 +15,22 @@ var personSchema = new Schema({
     projectList: [{ type: Number, ref: 'Project' }],
     history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });
+personSchema.plugin(pureautoinc.plugin, {
+    model: 'Person',
+    field: '_id'
+});
 
 var projectSchema = new Schema({
-    _id: Number,
     name: String,
     currentEmployees: [{type: Number, ref: 'Person'}],
     current: Boolean,
     start: Date,
     end: Date,
     history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
+});
+projectSchema.plugin(pureautoinc.plugin, {
+    model: 'Project',
+    field: '_id'
 });
 
 var statusSchema = new Schema({
@@ -45,8 +52,12 @@ var Person = mongoose.model('Person', personSchema);
 var Project = mongoose.model('Project', projectSchema);
 var Status = mongoose.model('Status', statusSchema);
 var History = mongoose.model('History', historySchema);
+var PersonCounter = mongoose.model('PersonCounter', personCounterSchema);
+var ProjectCounter = mongoose.model('ProjectCounter', projectCounterSchema);
 
 exports.Person = Person;
 exports.Project = Project;
 exports.Status = Status;
 exports.History = History;
+exports.PersonCounter = PersonCounter;
+exports.ProjectCounter = ProjectCounter;

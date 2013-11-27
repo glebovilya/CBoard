@@ -18,7 +18,8 @@ var personSchema = new Schema({
 });
 personSchema.plugin(pureautoinc.plugin, {
     model: 'Person',
-    field: '_id'
+    field: '_id',
+    start: 1
 });
 
 var projectSchema = new Schema({
@@ -31,7 +32,8 @@ var projectSchema = new Schema({
 });
 projectSchema.plugin(pureautoinc.plugin, {
     model: 'Project',
-    field: '_id'
+    field: '_id',
+    start: 1
 });
 
 var statusSchema = new Schema({

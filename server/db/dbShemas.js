@@ -11,7 +11,7 @@ var personSchema = new Schema({
     position: String,
     photo: String,
     current: Boolean,
-    currentStatus: [{ type: Number, ref: 'Status' }],
+    currentStatus: { type: Number, ref: 'Status' },
     projectList: [{ type: Number, ref: 'Project' }],
     history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });

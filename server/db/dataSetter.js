@@ -27,7 +27,6 @@ var addProject = function(/*String*/name, /*Date*/startDate) {
         start: startDate,
         current: false
     });
-
     project.save();
 }
 
@@ -162,19 +161,8 @@ var setCurrentProject = function(/*Number*/id, /*Boolean*/value) {
     * */
 
 var getall = function(){
-    dbModels.Person.findOne({_id: 1},function(err, history) {
-            console.log(history.projectList)
-        }
-    )
-
-    dbModels.History.findOne({_id: '529375a50ef5f31410000001'}).populate('person').exec(function(err, history) {
-        console.log(history.person.name)
-    })
-
-    dbModels.Status.count({}, function(err, count) {
-        console.log(count)
-    })
-
+//    dbModels.Project.find(function(err,d){console.log(d)})
+    dbModels.Person.find(function(err,d){console.log(d)})
 };
 
 exports.addPerson = addPerson;

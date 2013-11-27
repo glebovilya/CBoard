@@ -1,6 +1,6 @@
 var fs  = require('fs');
 var formidable = require("formidable");
-var dataSetter = require('./db/dataSetter')
+var dataSetter = require('./db/dataSetter');
 
 var resData = function (path, docType, res) {
     fs.readFile(path, function (err, content){
@@ -16,18 +16,28 @@ var resData = function (path, docType, res) {
     })
 };
 
-var uploadfile = function(response, request) {
-    console.log("Request handler 'upload' was called.");
+var addProjectToDB = function(response, request) {
     var form = new formidable.IncomingForm();
-    console.log("about to parse");
     form.parse(request, function(error, fields, files) {
-        console.log(fields);
-        fs.rename(files.upload.path, "./img/Persons/" + files.upload.name, function(err) {
+        dataSetter.getall();
+        dataSetter.addProject(fields.name, fields.date);
+    });
+}
+
+var addPersonToDB = function(response, request) {
+    var form = new formidable.IncomingForm();
+    form.parse(request, function(error, fields, files) {
+        fs.rename(files['photo'].path, "./img/Persons/" + files['photo'].name, function(err) {
             if (err) {
                 console.log(err)
             }
-
+            else {
+                dataSetter.addPerson(fields.name, fields.surname, fields.position, ("./img/Persons/" + files['photo'].name))
+            }
         });
+
+        dataSetter.getall();
+
     });
 }
 
@@ -37,8 +47,14 @@ var sendData = function (req, res, pathname) {
     }
     if (pathname.pathname == '/upload_project') {
         if(req.method.toLowerCase() === 'post'){
-            console.log('upload')
-            uploadfile(res,req)
+            addProjectToDB(res,req);
+            resData('./backend.html', 'html', res)
+        }
+    }
+    if (pathname.pathname == '/upload_person') {
+        if(req.method.toLowerCase() === 'post'){
+            addPersonToDB(res,req);
+            resData('./backend.html', 'html', res)
         }
     }
     if (/^.*\.css$/.test(pathname.pathname)) {

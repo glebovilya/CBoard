@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost/test');
-pureautoinc  = require('mongoose-pureautoinc');
+var db = mongoose.createConnection('127.0.0.1', 'testDB');
+var pureautoinc  = require('mongoose-pureautoinc');
 
+pureautoinc.init(db);
 console.log('mongo!');
 
 var personSchema = new Schema({
@@ -17,7 +18,8 @@ var personSchema = new Schema({
 });
 personSchema.plugin(pureautoinc.plugin, {
     model: 'Person',
-    field: '_id'
+    field: '_id',
+    start: 1
 });
 
 var projectSchema = new Schema({
@@ -30,7 +32,8 @@ var projectSchema = new Schema({
 });
 projectSchema.plugin(pureautoinc.plugin, {
     model: 'Project',
-    field: '_id'
+    field: '_id',
+    start: 1
 });
 
 var statusSchema = new Schema({
@@ -52,12 +55,8 @@ var Person = mongoose.model('Person', personSchema);
 var Project = mongoose.model('Project', projectSchema);
 var Status = mongoose.model('Status', statusSchema);
 var History = mongoose.model('History', historySchema);
-var PersonCounter = mongoose.model('PersonCounter', personCounterSchema);
-var ProjectCounter = mongoose.model('ProjectCounter', projectCounterSchema);
 
 exports.Person = Person;
 exports.Project = Project;
 exports.Status = Status;
 exports.History = History;
-exports.PersonCounter = PersonCounter;
-exports.ProjectCounter = ProjectCounter;

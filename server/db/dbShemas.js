@@ -26,7 +26,7 @@ var projectSchema = new Schema({
     name: String,
     currentEmployees: [{type: Number, ref: 'Person'}],
     current: Boolean,
-    start: Date,
+    start: { type: Date, default: Date.now },
     end: Date,
     history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });

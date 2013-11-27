@@ -1,9 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var db = mongoose.createConnection('127.0.0.1', 'testDB');
+mongoose.connect('mongodb://localhost/test');
+var db = mongoose.createConnection('127.0.0.1', 'test');
 var pureautoinc  = require('mongoose-pureautoinc');
 
 pureautoinc.init(db);
+
 console.log('mongo!');
 
 var personSchema = new Schema({

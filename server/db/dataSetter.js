@@ -1,13 +1,12 @@
 var dbModels = require('./dbShemas');
 
-var addPerson = function(/*Number*/id, /*String*/ name, /*String*/ surname, /*String*/ position, /*String*/ photo) {
+var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ position, /*String*/ photo) {
 
     /*
      * creates a new person in DB
      * */
 
     var person = new dbModels.Person({
-        _id: id,
         name: name,
         surname: surname,
         position: position,
@@ -17,14 +16,13 @@ var addPerson = function(/*Number*/id, /*String*/ name, /*String*/ surname, /*St
     person.save()
 };
 
-var addProject = function(/*Number*/id, /*String*/name, /*Date*/startDate) {
+var addProject = function(/*String*/name, /*Date*/startDate) {
 
     /*
      * creates a new project in DB
      * */
 
     var project = new dbModels.Project ({
-        _id: id,
         name: name,
         start: startDate,
         current: false

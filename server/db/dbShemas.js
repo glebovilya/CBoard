@@ -1,29 +1,39 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost/test');
+var db = mongoose.createConnection('127.0.0.1', 'testDB');
+var pureautoinc  = require('mongoose-pureautoinc');
 
+pureautoinc.init(db);
 console.log('mongo!');
 
 var personSchema = new Schema({
-    _id: Number,
     name: String,
     surname: String,
     position: String,
     photo: String,
     current: Boolean,
-    currentStatus: [{ type: Number, ref: 'Status' }],
+    currentStatus: { type: Number, ref: 'Status' },
     projectList: [{ type: Number, ref: 'Project' }],
     history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });
+personSchema.plugin(pureautoinc.plugin, {
+    model: 'Person',
+    field: '_id',
+    start: 1
+});
 
 var projectSchema = new Schema({
-    _id: Number,
     name: String,
     currentEmployees: [{type: Number, ref: 'Person'}],
     current: Boolean,
     start: Date,
     end: Date,
     history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
+});
+projectSchema.plugin(pureautoinc.plugin, {
+    model: 'Project',
+    field: '_id',
+    start: 1
 });
 
 var statusSchema = new Schema({

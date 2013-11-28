@@ -1,5 +1,5 @@
 define(['bootstrap'],
-    function () {
+    (function () {
         $('.list-item').each(function(idx,elt){
             var el = $('.bubble-icon')[idx];
             console.log(idx,elt)
@@ -19,5 +19,5 @@ define(['bootstrap'],
                 $(this).stop(true).animate({backgroundColor: '#adadad'}, {speed: 50});
             })
         })
-    }
+    })()
 )

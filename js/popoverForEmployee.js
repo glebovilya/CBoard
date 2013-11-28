@@ -1,5 +1,5 @@
 define(['bootstrap'],
-    function() {
+    (function() {
         $(".employee-body").popover({
             trigger:"hover",
             content: "project, project, birthday, some information"
@@ -8,6 +8,6 @@ define(['bootstrap'],
             trigger:"hover", 
             content: "project, project, birthday, some information"
         });
-    }
+    })()
 )
 

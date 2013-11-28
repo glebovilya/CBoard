@@ -1,9 +1,6 @@
 /.idea
-./jquery.js
-./bootstrap.css
-./bootstrap-responsive.css
-./bootstrap.js
-./bootstrap/
-/.gitignore
+.gitignore
+.idea
+
 
 

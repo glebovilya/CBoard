@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <!-- Bootstrap -->
@@ -8,7 +8,17 @@
     <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
     <link href="css/styleForTemplates.css" rel="stylesheet" media="screen">
     <link href="css/styleForIndex.css" rel="stylesheet" media="screen">
+    <script src="js/require-jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+
     <title>CBoard</title>
+
+    <style>
+
+
+    </style>
+
 </head>
 <body>
 
@@ -44,6 +54,7 @@
                             <button type="button" class="btn accord btn-custom accordion-toggle"
                                     data-toggle="collapse"
                                     data-parent="#accordion-people" href="#">
+                            data-parent="#accordion-project" href="#modalAddProject">
                                 <i class="icon-white icon-file"></i> Add New Project
                             </button>
                         </div>
@@ -54,6 +65,7 @@
                             <div class="line">&nbsp;</div>
                             <button type="button" class="btn accord btn-custom accordion-toggle"
                                     data-toggle="modal"
+                            role="button"
                                     data-parent="#accordion-people" href="#modalAddPeople">
                                 <i class="icon-white icon-file"></i> Add New People
                             </button>
@@ -79,43 +91,103 @@
             <div id="inner-board">
                 <!--Body content-->
                 ghgbhn
+<!-- form addEmployee-->
                 <div id="modalAddPeople" class="modal"
+             role="dialog"
+             aria-labelledby="myModalLabel"
                      aria-hidden="true"
                      data-backdrop="false"
-                     data-show="false"
                      style="display: none;">
-                    <form action="" method="post">
+          <form action="/" method="post">
                         <div class="modal-header" style="height: 20px">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h3 id="myModalLabel"></h3>
-                        </div>
+
+            </div>
                         <div class="modal-body">
                             <input class="input-medium" type="text" placeholder="name">
                             <input class="input-medium" type="text" placeholder="surname">
                             <input class="input-medium" type="text" placeholder="position">
-                            <button class="btn">add a photo</button>
-                        </div>
-                        <!--</div>-->
-                        <div class="modal-footer">
-                            <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
-                            <button type="submit" class="btn btn-custom" data-dismiss="modal" aria-hidden="true">Add
+                 <br/>
+                    <span> &nbsp;&nbsp;add a photo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                    <input type="file" class="btn ">
+             </div>
+            <div class="modal-footer">
+                <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
+                <button type= "submit" class="btn btn-custom"  aria-hidden="true">Add employee</button>
+            </div>
+          </form>
+        </div>
+<!--    end form addEmployee      -->
+
+<!-- form addProject-->
+
+        <div id="modalAddProject" class="modal"
+             role="dialog"
+             aria-labelledby="myModalLabel"
+             aria-hidden="true"
+             data-backdrop = "false"
+             style="display: none;">
+            <div class="modal-header" style="height: 20px">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3></h3>
+            </div>
+            <form method="post" action="/">
+                <div class="modal-body" >
+                    <input class="input-xlarge" type="text" placeholder="enter the name of the project">
+                </div>
+                <!--</div>-->
+                <div class="modal-footer">
+                    <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
+                    <button  class="btn btn-custom" type="submit"  >Add project</button>
                                 employee
                             </button>
-                        </div>
-                    </form>
                 </div>
+            </form>
+                </div>
+        </div>
+
+        <!--    end form addProject      -->
+
+
+        <!--<div class = "employee">-->
+            <!--<div class="employeeWindow ">-->
+                <!--<div class="employee-header" >-->
+                    <!--<div >position</div>-->
+                    <!--<button type="button" class="close" data-toggle="tooltip" title="remove from project"  aria-hidden="false" >&times;</button>-->
+                <!--</div>-->
+                <!--<div class="employee-body">-->
+                    <!--<div class="united" >-->
+                        <!--<img src="http://placehold.it/90x120" alt="">-->
+                        <!--<div class= "name" >Name Surname</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="employee-footer">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+
+
+
+
             </div>
             <div class="bottom-line"></div>
         </div>
     </div>
 </div>
+</div>
+
 
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/require-jquery.js"></script>
-<script src="js/bootstrap.js"></script>
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
+<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
 
+
+<script src="js/effectsAccordion.js"></script>
+<script src="js/popoverForEmployee.js"></script>
 
 <script src="js/generateAccordionHeads.js"></script>
 <script src="js/effectsAccordion.js"></script>

@@ -1,30 +1,26 @@
 <div id="modalAddPeople" class="modal"
+     role="dialog"
+     aria-labelledby="myModalLabel"
      aria-hidden="true"
      data-backdrop = "false"
-     data-show="false"
      style="display: none;">
 
-    <form action="" method="post">
+    <form action="/" method="post">
         <div class="modal-header" style="height: 20px">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 id="myModalLabel"></h3>
+
         </div>
-
-
-        <div class="modal-body" >
+        <div class="modal-body pull-right" >
             <input class="input-medium" type="text" placeholder="name">
             <input class="input-medium" type="text" placeholder="surname">
             <input class="input-medium" type="text" placeholder="position">
-            <button class="btn">add a photo</button>
-
+            <br/>
+            <span> &nbsp;&nbsp;add a photo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <input type="file" class="btn ">
         </div>
-        <!--</div>-->
-
-
-
         <div class="modal-footer">
             <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
-            <button type= "submit" class="btn btn-custom" data-dismiss="modal" aria-hidden="true">Add employee</button>
+            <button type= "submit" class="btn btn-custom"  aria-hidden="true">Add employee</button>
         </div>
     </form>
 </div>

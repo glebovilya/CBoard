@@ -28,7 +28,7 @@ var template = ' <div class = "employee">\
        this.name = data['name'];
        this.surname = data['surname'];
        this.id =data['id'];
-       this.template = template;
+       this.template = data['template'];
        this.photo = data['photo'];
        this.history = data['history'];
 

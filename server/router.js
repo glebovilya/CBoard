@@ -50,7 +50,7 @@ var sendData = function (req, res, pathname) {
         })
         console.log(require('url').parse(pathname.path, true).query)
 //        data = {id: 1, name: 'name'};
-        res.end(JSON.stringify({data:{id:'longstring',email:'testuser@captusr.com'}}))
+        res.end(JSON.stringify({data:{id:'longstring',name:"Vasya", surname:"Pupkin", email:'testuser@captusr.com', photo:'img/45'}}))
     }
     if (pathname.pathname == '/') {
         resData('./index.html', 'html', res)

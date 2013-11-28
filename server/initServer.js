@@ -1,7 +1,6 @@
 var http = require('http');
 var url = require('url');
 var router = require('./router');
-var dbsetter = require('./db/dataSetter');
 
 http.createServer(function (req, res) {
     router.respond(req, res);

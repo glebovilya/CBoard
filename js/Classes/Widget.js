@@ -4,7 +4,7 @@ define (['../require-jquery'],function($){
     * */
     var Widget;
 
-    Widget = $.declare('js.Widget',null,{
+    Widget = $.declare('js.Classes.Widget',null,{
         /*
         * lends widget onto page
         * */
@@ -14,5 +14,6 @@ define (['../require-jquery'],function($){
 //        url of template, it takes from '/templates' folder
         domNode: null,
 
-     })
+     });
+    return Widget;
 })

@@ -6,10 +6,11 @@ define(['bootstrap'],
         });
         $("#people .list-item").popover({
             trigger:"hover",
+            html: "false",
             content: "project, project, birthday, some information"
         });
 
     })()
-)
+);
 
 

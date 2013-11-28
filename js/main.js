@@ -1,5 +1,0 @@
-
-requirejs(['popoverForEmployee', 'effectsAccordion'],
-    function   () {
-
-    });

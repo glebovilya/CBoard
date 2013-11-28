@@ -18,7 +18,7 @@ var resData = function (path, docType, res) {
 
 var addProjectToDB = function(response, request) {
     var form = new formidable.IncomingForm();
-    form.parse(request, function(error, fields, files) {
+    form.parse(request, function(error, fields) {
         dataSetter.getall();
         dataSetter.addProject(fields.name, fields.date);
     });
@@ -42,12 +42,13 @@ var addPersonToDB = function(response, request) {
 }
 
 var sendData = function (req, res, pathname) {
-    console.log(request)
+
     if (pathname.pathname == '/get') {
         res.writeHeader(200,{
 //            'Location': '/backend.html',
             'Content-Type': 'application/json'
         })
+        console.log(require('url').parse(pathname.path, true).query)
 //        data = {id: 1, name: 'name'};
         res.end(JSON.stringify({data:{id:'longstring',email:'testuser@captusr.com'}}))
     }

@@ -1,4 +1,5 @@
 var peopleName = {manager: ['People1', 'People2', 'People3'], employee: ['Emp1', 'Emp2', 'Emp3', 'Emp4'], lead: ['Lead1', 'Lead2', 'Lead3', 'Lead4', 'Lead5']};
+var projects = {open: ['Project1', 'Project2', 'Project3', 'Project4', 'Project5', 'Project6'], closed: ['ClosedProject1', 'ClosedProject2', 'ClosedProject3']}
 
 var templateHead = '\
 <div class="accordion-group" id="idAccordGroup-group">\
@@ -23,11 +24,11 @@ var templateList = '\
 /*
  *  adding accordion heads
  */
-function addHeads(obj, templHead ) {
+function addHeads(obj, templHead, divIdSelector) {
     for (var people in obj) {
         var newTemplateHead = templHead.replace(/someHref/, people).replace(/headTitle/, people).
             replace(/idAccordGroup/, people);
-        $("#accordion-people").append(newTemplateHead);
+        $(divIdSelector).append(newTemplateHead);
     }
 }
 
@@ -52,7 +53,9 @@ function addItems(obj, templWrapperItems, templItem) {
         }
     }
 }
-addHeads(peopleName, templateHead);
+addHeads(projects, templateHead, "#accordion-projects");
+addItems(projects, templateWrapListbefore, templateList);
+addHeads(peopleName, templateHead, "#accordion-people");
 addItems(peopleName, templateWrapListbefore, templateList);
 
 

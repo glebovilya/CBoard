@@ -1,34 +1,37 @@
 
-requirejs(['generateAccordion','popoverForEmployee', 'effectsAccordion'],
-    function   (Accordion) {
+requirejs(['Bogush', 'jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.live-2.2'*/],
+    function () {
+        $('#imp')
+            .drag('init', function (ev, dd) {
+                $(dd.drag).parents('div:eq(0)').css('position', 'absolute')
+                console.log('set current person to true')
+                console.log(ev)
+            })
+            .drag('end', function (ev, dd) {
+                console.log('set current person to false')
+                if (dd.drop) {
+//                    $.ajax('/get')
+                    $(dd.drag).removeAttr('style')
+                    $(dd.drop).append($(dd.drag).parents('div:eq(0)').css('position', 'relative'))
+                    console.log('create history')
+                    $.get('/get', {data: 'sdfasdf', name: 'test'}, function(ell){
+                        console.log(ell)
+                    })
+                }
+            })
+            .drag(function( ev, dd ){
+                $( this ).css({
+                    top: dd.offsetY,
+                    left: dd.offsetX
+                });
+            });
+        $('#drop')
+            .drop('start',function(){
+                console.log('set current project to true');
+            })
+            .drop('end', function(){
+                console.log('set current project to false');
 
-var n = new Accordion();
+            })
+    })
 
-//        console.log(n)
-//        var projects = {open: [
-//            {id: '0', name: 'Project0'},
-//            {id: '1', name: 'Project1'},
-//            {id: '2', name: 'Project2'},
-//            {id: '3', name: 'Project3'},
-//            {id: '4', name: 'Project4'},
-//            {id: '5', name: 'Project5'}
-//        ],
-//            closed: [
-//                {id: '0', name: 'ClosedProject0'},
-//                {id: '1', name: 'ClosedProject1'},
-//                {id: '2', name: 'ClosedProject2'}
-//            ]};
-//
-//        var templateHead= '\
-//<div class="accordion-group" id="idAccordGroup-group">\
-//    <div class="accordion-heading">\
-//        <button type="button" class="btn accord btn-custom accordion-toggle"\
-//        data-toggle="collapse"\
-//        data-parent="#accordion-people" href="#someHref-body">\
-//        headTitle\
-//        </button>\
-//    </div>\
-//</div>';
-
-//         Accordion.addHeads(projects, templateHead, "#accordion-projects");
-    });

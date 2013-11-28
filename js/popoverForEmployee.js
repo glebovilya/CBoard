@@ -5,9 +5,10 @@ define(['bootstrap'],
             content: "project, project, birthday, some information"
         });
         $("#people .list-item").popover({
-            trigger:"hover", 
+            trigger:"hover",
             content: "project, project, birthday, some information"
         });
-    });
+    }
+);
 
 

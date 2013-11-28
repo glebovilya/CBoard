@@ -1,7 +1,45 @@
-var peopleName = {manager: ['People1', 'People2', 'People3'], employee: ['Emp1', 'Emp2', 'Emp3', 'Emp4'], lead: ['Lead1', 'Lead2', 'Lead3', 'Lead4', 'Lead5']};
-var projects = {open: [{id: 'id', name: 'name'}, 'Project2', 'Project3', 'Project4', 'Project5', 'Project6'], closed: ['ClosedProject1', 'ClosedProject2', 'ClosedProject3']}
+define(['generateAccordionItems'], function (AccordionItem) {
 
-var templateHead = '\
+//    var peopleName = {manager: [
+//        {id: '0', name: 'People0'},
+//        {id: '1', name: 'People1'},
+//        {id: '2', name: 'People2'}
+//    ],
+//        employee: [
+//            {id: '0', name: 'Emp0'},
+//            {id: '1', name: 'Emp1'},
+//            {id: '2', name: 'Emp2'},
+//            {id: '3', name: 'Emp3'}
+//        ],
+//        lead: [
+//            {id: '0', name: 'Lead0'},
+//            {id: '1', name: 'Lead1'},
+//            {id: '2', name: 'Lead2'},
+//            {id: '3', name: 'Lead3'},
+//            {id: '4', name: 'Lead4'}
+//        ]};
+//
+//    var projects = {open: [
+//        {id: '0', name: 'Project0'},
+//        {id: '1', name: 'Project1'},
+//        {id: '2', name: 'Project2'},
+//        {id: '3', name: 'Project3'},
+//        {id: '4', name: 'Project4'},
+//        {id: '5', name: 'Project5'}
+//    ],
+//        closed: [
+//            {id: '0', name: 'ClosedProject0'},
+//            {id: '1', name: 'ClosedProject1'},
+//            {id: '2', name: 'ClosedProject2'}
+//        ]};
+    var i = 0;
+
+    function AccordionHead(elem, obj, divIdSelector) {
+        this.elem = elem;
+        this.obj = obj;
+        this.divIdSelector = divIdSelector;
+
+        this.templateHead = '\
 <div class="accordion-group" id="idAccordGroup-group">\
     <div class="accordion-heading">\
         <button type="button" class="btn accord btn-custom accordion-toggle"\
@@ -11,53 +49,40 @@ var templateHead = '\
         </button>\
     </div>\
 </div>';
+        this.templWrapperItems = '<div id="someID-body" data-point="ellement" class="accordion-body collapse"><ul class="list"><li class="list-item-last"></li></ul></div>';
 
-var templateWrapListbefore = '<div id="someID-body" data-point="ellement" class="accordion-body collapse"><ul class="list"><li class="list-item-last"></li></ul></div>';
-var templateList = '\
-    <li class="list-item">\
-        <a class="fadeThis" href="#"><i class="icon-chevron-right"></i> peopleName\
-            <i class="bubble-icon icon-forward"></i>\
-        </a>\
-    </li>';
-
-
-/*
- *  adding accordion heads
- */
-function addHeads(obj, templHead, divIdSelector) {
-    for (var people in obj) {
-        var newTemplateHead = templHead.replace(/someHref/, people).replace(/headTitle/, people).
-            replace(/idAccordGroup/, people);
-        $(divIdSelector).append(newTemplateHead);
+        this.__construct(this.elem, this.obj, this.divIdSelector);
     }
-}
 
-/*
- *  adding inner accordion list items
- */
-function addItems(obj, templWrapperItems, templItem) {
-    var i = 0;
-    for (var elem in obj) {
-        var newTemplWrapListBefore = templWrapperItems.replace(/someID/, elem);
+    AccordionHead.prototype.__construct = function (elem, obj, divIdSelector) {
+
+        var newTemplateHead = this.templateHead.replace(/someHref/, elem).replace(/headTitle/, elem).
+            replace(/idAccordGroup/, elem);
+        $(divIdSelector).append(newTemplateHead);
+
+        var newTemplWrapList = this.templWrapperItems.replace(/someID/, elem);
         if (i == 0) {
-            newTemplWrapListBefore = newTemplWrapListBefore.replace(/collapse/, 'collapse in');
+            newTemplWrapList = newTemplWrapList.replace(/collapse/, 'collapse in');
         }
         i++;
-        var element = $('#' + elem + '-group' + ' div.accordion-heading');
-        element.after(newTemplWrapListBefore);
+        $('#' + elem + '-group' + ' div.accordion-heading').after(newTemplWrapList);
         var item = $('#' + elem + '-body' + ' ul');
+//        console.log(item);
+        console.log(obj[0][elem]);
 
-        for (var elems in obj[elem]) {
-            var newItemlList = templItem.replace(/peopleName/, obj[elem][elems]);
-            item.prepend(newItemlList);
+        for (var elems in obj[0][elem]) {
+            console.log(elems);
+            new AccordionItem(elem, obj[item],item);
+
         }
     }
-}
 
-addHeads(projects, templateHead, "#accordion-projects");
-addItems(projects, templateWrapListbefore, templateList);
-addHeads(peopleName, templateHead, "#accordion-people");
-addItems(peopleName, templateWrapListbefore, templateList);
+
+    return AccordionHead;
+});
+
+
+
 
 
 

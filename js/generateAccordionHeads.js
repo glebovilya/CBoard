@@ -1,5 +1,5 @@
 var peopleName = {manager: ['People1', 'People2', 'People3'], employee: ['Emp1', 'Emp2', 'Emp3', 'Emp4'], lead: ['Lead1', 'Lead2', 'Lead3', 'Lead4', 'Lead5']};
-var projects = {open: ['Project1', 'Project2', 'Project3', 'Project4', 'Project5', 'Project6'], closed: ['ClosedProject1', 'ClosedProject2', 'ClosedProject3']}
+var projects = {open: [{id: 'id', name: 'name'}, 'Project2', 'Project3', 'Project4', 'Project5', 'Project6'], closed: ['ClosedProject1', 'ClosedProject2', 'ClosedProject3']}
 
 var templateHead = '\
 <div class="accordion-group" id="idAccordGroup-group">\
@@ -12,7 +12,7 @@ var templateHead = '\
     </div>\
 </div>';
 
-var templateWrapListbefore = '<div id="someID-body" class="accordion-body collapse"><ul class="list"><li class="list-item-last"></li></ul></div>';
+var templateWrapListbefore = '<div id="someID-body" data-point="ellement" class="accordion-body collapse"><ul class="list"><li class="list-item-last"></li></ul></div>';
 var templateList = '\
     <li class="list-item">\
         <a class="fadeThis" href="#"><i class="icon-chevron-right"></i> peopleName\
@@ -53,6 +53,7 @@ function addItems(obj, templWrapperItems, templItem) {
         }
     }
 }
+
 addHeads(projects, templateHead, "#accordion-projects");
 addItems(projects, templateWrapListbefore, templateList);
 addHeads(peopleName, templateHead, "#accordion-people");

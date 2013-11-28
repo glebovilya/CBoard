@@ -2,7 +2,7 @@ var reqUrlContr = require('./controllers/reqUrlController');
 var resContr = require('./controllers/respondController');
 var dbContr = require('./controllers/dbController');
 
-var sendData = function (req, res, pathname) {
+var sendData = function (req, res) {
     var urlPath = reqUrlContr.readPath(req);
     var data = {};
 

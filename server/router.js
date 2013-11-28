@@ -42,6 +42,15 @@ var addPersonToDB = function(response, request) {
 }
 
 var sendData = function (req, res, pathname) {
+    console.log(request)
+    if (pathname.pathname == '/get') {
+        res.writeHeader(200,{
+//            'Location': '/backend.html',
+            'Content-Type': 'application/json'
+        })
+//        data = {id: 1, name: 'name'};
+        res.end(JSON.stringify({data:{id:'longstring',email:'testuser@captusr.com'}}))
+    }
     if (pathname.pathname == '/') {
         resData('./index.html', 'html', res)
     }
@@ -69,9 +78,7 @@ var sendData = function (req, res, pathname) {
     if (/^\/img\//.test(pathname.pathname)) {
         resData("." + pathname.pathname,'image', res)
     }
-    if (/favicon.ico/.test("." + pathname.pathname)) {
-        console.log('tried to load favicon')
-    }
+    if (/favicon.ico/.test("." + pathname.pathname)) {}
 
 
 };

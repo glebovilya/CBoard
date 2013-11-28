@@ -9,7 +9,6 @@ var controller = {
         var pathname = url.parse(req.url).pathname
         return pathname
     }
-
 }
 
 exports.readQuery = controller.readQuery;

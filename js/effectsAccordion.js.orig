@@ -1,8 +1,17 @@
+<<<<<<< HEAD
+$('.list-item').each(function(idx,elt){
+    var el = $('.bubble-icon')[idx];
+    $(this).hover(function (ev) {
+=======
 define(['bootstrap'],
-    (function () {
+    function () {
         $('.list-item').each(function(idx,elt){
             var el = $('.bubble-icon')[idx];
+            console.log(idx,elt)
+            console.log($('.bubble-icon')[idx]);
+
             $(this).hover(function (ev) {
+>>>>>>> d7b95c0eef8d835801ce17dff0f8cd6e3cc664ea
 
 
                 $(this).stop(true).animate({paddingLeft: '15px'}, {speed: 50});
@@ -16,5 +25,5 @@ define(['bootstrap'],
                 $(this).stop(true).animate({backgroundColor: '#adadad'}, {speed: 50});
             })
         })
-    })()
+    }
 )

@@ -3,7 +3,7 @@
  */
 $(".employee-body").popover({trigger:"hover", content: $("<img src='../img/border-img2.png' />")});
 //var divPeople = $("#people");
-$("#people .list-item").popover({trigger:"hover", content: "project, project, birthday, some information"});
+$("#people .list-item").popover({trigger:"hover", html:"false", content: "project, project, birthday, some information"});
 //$("#people .list-item").hover(function(event){
 //    console.log(event.target);
 //    console.log(event.target.attr("href"));

@@ -18,7 +18,7 @@ var resData = function (path, docType, res) {
 
 var addProjectToDB = function(response, request) {
     var form = new formidable.IncomingForm();
-    form.parse(request, function(error, fields, files) {
+    form.parse(request, function(error, fields) {
         dataSetter.getall();
         dataSetter.addProject(fields.name, fields.date);
     });
@@ -42,6 +42,16 @@ var addPersonToDB = function(response, request) {
 }
 
 var sendData = function (req, res, pathname) {
+
+    if (pathname.pathname == '/get') {
+        res.writeHeader(200,{
+//            'Location': '/backend.html',
+            'Content-Type': 'application/json'
+        })
+        console.log(require('url').parse(pathname.path, true).query)
+//        data = {id: 1, name: 'name'};
+        res.end(JSON.stringify({data:{id:'longstring',email:'testuser@captusr.com'}}))
+    }
     if (pathname.pathname == '/') {
         resData('./index.html', 'html', res)
     }
@@ -69,9 +79,7 @@ var sendData = function (req, res, pathname) {
     if (/^\/img\//.test(pathname.pathname)) {
         resData("." + pathname.pathname,'image', res)
     }
-    if (/favicon.ico/.test("." + pathname.pathname)) {
-        console.log('tried to load favicon')
-    }
+    if (/favicon.ico/.test("." + pathname.pathname)) {}
 
 
 };

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function extend(Child, Parent) {
     var F = function() { };
     F.prototype = Parent.prototype;
@@ -21,9 +20,3 @@ requirejs(['classes/Widget','classes/Project'],
         var project = new Project(document.body, {id:'1'})
     }
 );
-=======
-requirejs(['vlad', 'Bogush', 'effectsAccordion'], function(v){
-        v()
-    }
-)
->>>>>>> 1ebf8874c186a0872e0708c5a714d1d8cfc39d39

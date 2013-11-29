@@ -1,12 +1,14 @@
 var reqUrlContr = require('./controllers/reqUrlController');
 var resContr = require('./controllers/respondController');
 var dbContr = require('./controllers/dbController');
+var queryContr = require('./controllers/queryController');
 
 var sendData = function (req, res) {
     var urlPath = reqUrlContr.readPath(req);
     var data = {};
 
     if (urlPath == '/get') {
+        queryContr.queryLogicController(req, res);
         resContr.resJSON(res, data)
     }
     if (urlPath == '/') {
@@ -37,7 +39,6 @@ var sendData = function (req, res) {
         resContr.resFile("." + urlPath,'image', res)
     }
     if (/favicon.ico/.test("." + urlPath)) {}
-
 
 };
 

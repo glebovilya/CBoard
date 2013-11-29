@@ -1,25 +1,15 @@
 var dbModels = require('./dbShemas');
-var async = require('async')
+var async = require('async');
 
 
+var getPerson = function(/*Person_ID*/person_id, callback, res){
 
-var getPerson = function(/*Person_ID*/person_id){
-
-    /*
-    * function returns an employee data
-    * basing on his ID
-    * */
-
-
-    dbModels.Person.find({_id:person_id}, function(err,person) {
-
+    dbModels.Person.findOne({_id:person_id}, function(err, pers) {
+        callback(res, pers)
     })
 
+};
 
-}
-
-
-//
 //var getPersons = function(/*string Project_ID || Person_status*/cond){
 //
 //    /**
@@ -54,17 +44,19 @@ var getPerson = function(/*Person_ID*/person_id){
 //
 //    return people
 //}
-//
-//var getProject = function(/*string*/ project){
-//
-//    /**
-//     * function returns Project data
-//     * basing on project_ID
-//     */
-//
-//    return Project.findOne({'_id':project});
-//}
-//
+
+var getProject = function(/*string*/ project_id, callback, res){
+
+    /**
+     * function returns Project data
+     * basing on project_ID
+     */
+
+    dbModels.Project.findOne({_id:project_id}, function(err, proj) {
+        callback(res, proj)
+    })
+};
+
 //var getProjects = function(/*array:History delta || string:Person */cond){
 //
 //    /*
@@ -108,4 +100,5 @@ var getPerson = function(/*Person_ID*/person_id){
 //}
 
 exports.getPerson = getPerson;
+exports.getProject = getProject;
 

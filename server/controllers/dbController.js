@@ -34,9 +34,11 @@ var controller = {
     addHistoryToDB: function(/*Number*/status_id, /*Boolean*/leaving, /*Date*/date) {
             dataSetter.addHistory(status_id, leaving, date)
         },
-    getPersonDB: function(id) {
-//        console.log(dataGetter.getPerson(id))
-            dataGetter.getPerson(id)
+    getPersonDB: function(id, callback, res) {
+            dataGetter.getPerson(id, callback, res)
+        },
+    getProjectDB: function(id, callback, res) {
+            dataGetter.getProject(id, callback, res)
         }
 }
 
@@ -46,3 +48,4 @@ exports.setCurrentPersonDB = controller.setCurrentPersonDB;
 exports.setCurrentProjectDB = controller.setCurrentProjectDB;
 exports.addHistoryToDB = controller.addHistoryToDB;
 exports.getPersonDB = controller.getPersonDB;
+exports.getProjectDB = controller.getProjectDB;

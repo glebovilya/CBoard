@@ -1,5 +1,6 @@
 var reqUrlContr = require('./reqUrlController');
 var dbContr = require('./dbController');
+var resContr = require('./respondController');
 var async = require('async');
 
 var queryLogic = function (req, res) {
@@ -42,11 +43,10 @@ var queryLogic = function (req, res) {
     if (reqMethod == 'GET'){
         switch (query['target']) {
             case 'person':
-
-               dbContr.getPersonDB(query['id']);
+                dbContr.getPersonDB(query['id'], resContr.resJSON, res);
                 break;
             case 'project':
-//                statements2
+                dbContr.getProjectDB(query['id'], resContr.resJSON, res);
                 break;
             case 'history':
 //                statementsN

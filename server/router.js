@@ -5,11 +5,9 @@ var queryContr = require('./controllers/queryController');
 
 var sendData = function (req, res) {
     var urlPath = reqUrlContr.readPath(req);
-    var data = {};
 
     if (urlPath == '/get') {
         queryContr.queryLogicController(req, res);
-        resContr.resJSON(res, data)
     }
     if (urlPath == '/') {
         resContr.resFile('./index.html', 'html', res)

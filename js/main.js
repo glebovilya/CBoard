@@ -1,5 +1,6 @@
 
-requirejs(['vlad', 'effectsAccordion'], function(v){
+requirejs(['vlad', 'Bogush', 'effectsAccordion'], function(v){
         v()
     }
 )
+

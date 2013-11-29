@@ -1,5 +1,6 @@
 
-requirejs(['popoverForEmployee', 'effectsAccordion'],
-    function   () {
-            console.log($('body'))
-    });
+requirejs(['vlad', 'Bogush', 'effectsAccordion'], function(v){
+        v()
+    }
+)
+

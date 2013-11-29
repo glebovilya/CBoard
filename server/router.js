@@ -1,77 +1,42 @@
-var fs  = require('fs');
-var formidable = require("formidable");
-var dataSetter = require('./db/dataSetter');
+var reqUrlContr = require('./controllers/reqUrlController');
+var resContr = require('./controllers/respondController');
+var dbContr = require('./controllers/dbController');
 
-var resData = function (path, docType, res) {
-    fs.readFile(path, function (err, content){
-        if(err) {
-            console.log(err);
-            res.end()
-        }
-        else {
-            res.writeHeader('Content-Type', 'text/' + docType + '; charset=utf-8');
-            res.write(content);
-            res.end();
-        }
-    })
-};
+var sendData = function (req, res) {
+    var urlPath = reqUrlContr.readPath(req);
+    var data = {};
 
-var addProjectToDB = function(response, request) {
-    var form = new formidable.IncomingForm();
-    form.parse(request, function(error, fields, files) {
-        dataSetter.getall();
-        dataSetter.addProject(fields.name, fields.date);
-    });
-}
-
-var addPersonToDB = function(response, request) {
-    var form = new formidable.IncomingForm();
-    form.parse(request, function(error, fields, files) {
-        fs.rename(files['photo'].path, "./img/Persons/" + files['photo'].name, function(err) {
-            if (err) {
-                console.log(err)
-            }
-            else {
-                dataSetter.addPerson(fields.name, fields.surname, fields.position, ("./img/Persons/" + files['photo'].name))
-            }
-        });
-
-        dataSetter.getall();
-
-    });
-}
-
-var sendData = function (req, res, pathname) {
-    if (pathname.pathname == '/') {
-        resData('./index.html', 'html', res)
+    if (urlPath == '/get') {
+        resContr.resJSON(res, data)
     }
-    if (pathname.pathname == '/upload_project') {
+    if (urlPath == '/') {
+        resContr.resFile('./index.html', 'html', res)
+    }
+    if (urlPath == '/upload_project') {
         if(req.method.toLowerCase() === 'post'){
-            addProjectToDB(res,req);
-            resData('./backend.html', 'html', res)
+            dbContr.addProjectToDB(res,req);
+            resContr.resFile('./backend.html', 'html', res)
         }
     }
-    if (pathname.pathname == '/upload_person') {
+    if (urlPath == '/upload_person') {
         if(req.method.toLowerCase() === 'post'){
-            addPersonToDB(res,req);
-            resData('./backend.html', 'html', res)
+            dbContr.addPersonToDB(res,req);
+            resContr.resFile('./backend.html', 'html', res)
         }
     }
-    if (/^.*\.css$/.test(pathname.pathname)) {
-        resData("." + pathname.pathname,'css', res)
+    if (/^.*\.css$/.test(urlPath)) {
+        resContr.resFile("." + urlPath,'css', res)
     }
-    if (/^.*\.js$/.test(pathname.pathname)) {
-        resData(("." + pathname.pathname),'javascript', res)
+    if (/^.*\.js$/.test(urlPath)) {
+        resContr.resFile(("." + urlPath),'javascript', res)
     }
-    if (/^.*\.html$/.test(pathname.pathname)) {
-        resData("." + pathname.pathname,'html', res)
+    if (/^.*\.html$/.test(urlPath)) {
+        resContr.resFile("." + urlPath,'html', res)
     }
-    if (/^\/img\//.test(pathname.pathname)) {
-        resData("." + pathname.pathname,'image', res)
+    if (/^\/img\//.test(urlPath)) {
+        resContr.resFile("." + urlPath,'image', res)
     }
-    if (/favicon.ico/.test("." + pathname.pathname)) {
-        console.log('tried to load favicon')
-    }
+    if (/favicon.ico/.test("." + urlPath)) {}
 
 
 };

@@ -9,6 +9,7 @@ require(['employee','jquery.event.drag-2.2','jquery.event.drop-2.2' ], function(
     $(".liTEST").click(function(event){
         console.log(event.target);
         var dom = event.target;
+//        data-point-id="45" так должно быть на кнопках
         var id = $(dom).attr("data-point-id");
         console.log($(dom).attr("data-point-id"));
 

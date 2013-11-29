@@ -1,4 +1,4 @@
-define(['generateAccordion', 'bootstrap'], function (Accordion) {
+define(['Accordion', 'bootstrap'], function (Accordion) {
 
     var peopleName = {manager: [
         {id: '0', name: 'People0'},
@@ -33,13 +33,8 @@ define(['generateAccordion', 'bootstrap'], function (Accordion) {
             {id: '2', name: 'ClosedProject2'}
         ]};
 
-//    $.get('/get', function(ell){
-//        console.log(ell)
-
-    var n = new Accordion(peopleName,  "#accordion-people");
-    var n = new Accordion(projects, "#accordion-projects");})
+    new Accordion(peopleName, "#accordion-people");
+    new Accordion(projects, "#accordion-projects");
+})
 
 
-
-
-//})

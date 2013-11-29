@@ -39,7 +39,13 @@ var controller = {
         },
     getProjectDB: function(id, callback, res) {
             dataGetter.getProject(id, callback, res)
-        }
+        },
+    getPersonsDB: function(res, callback) {
+            dataGetter.getPersons(res, callback)
+        },
+    getProjectsDB: function(res, callback) {
+        dataGetter.getProjects(res, callback)
+    },
 }
 
 exports.addPersonToDB = controller.addPersonToDB;
@@ -49,3 +55,5 @@ exports.setCurrentProjectDB = controller.setCurrentProjectDB;
 exports.addHistoryToDB = controller.addHistoryToDB;
 exports.getPersonDB = controller.getPersonDB;
 exports.getProjectDB = controller.getProjectDB;
+exports.getPersonsDB  = controller.getPersonsDB;
+exports.getProjectsDB = controller.getProjectsDB;

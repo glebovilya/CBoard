@@ -5,8 +5,8 @@ requirejs(['vlad', 'effectsAccordion'], function(v){
     }
 )
 
-requirejs(['Bogush', 'jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.live-2.2'*/],
-    function () {
+requirejs(['Bogush', 'jquery.event.drag-2.2', 'jquery.event.drop-2.2', 'addEmployee', 'newEmployee'/* 'jquery.event.drag.live-2.2'*/],
+    function (empl) {
         $('#imp')
             .drag('init', function (ev, dd) {
                 $(dd.drag).parents('div:eq(0)').css('position', 'absolute')

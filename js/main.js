@@ -4,7 +4,7 @@ requirejs(['vlad', 'effectsAccordion'], function(v){
         v()
     }
 )
-=======
+
 requirejs(['Bogush', 'jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.live-2.2'*/],
     function () {
         $('#imp')

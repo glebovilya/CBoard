@@ -15,12 +15,11 @@ require(['employee','jquery.event.drag-2.2','jquery.event.drop-2.2' ], function(
 
 
 
-              $.post(
+              $.get(
                   "/get",
                   {
                       target: 'person',
-                      action: 'get',
-                      id: id
+                       id: id
                   },
                   onAjaxSuccess
               );
@@ -41,9 +40,9 @@ require(['employee','jquery.event.drag-2.2','jquery.event.drop-2.2' ], function(
 
                   var empl = new Employee({
                       domNode: $("#" + id),
-                      photo: data.data.photo,
-                      name: data.data.name,
-                      surname: data.data.surname
+                      photo: data.photo,
+                      name: data.name,
+                      surname: data.surname
                    });
 
 var template = ' <div class = "employee">\

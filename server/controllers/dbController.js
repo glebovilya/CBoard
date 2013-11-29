@@ -1,6 +1,7 @@
 var fs  = require('fs');
 var formidable = require("formidable");
 var dataSetter = require('../db/dataSetter');
+var dataGetter = require('../db/dataGetter');
 
 var controller = {
     addProjectToDB: function(res, req) {
@@ -23,9 +24,28 @@ var controller = {
                 });
                 dataSetter.getall();
             });
+        },
+    setCurrentPersonDB: function (id, value) {
+            dataSetter.setCurrentPerson(id, value)
+        },
+    setCurrentProjectDB: function (id, value) {
+            dataSetter.setCurrentProject(id, value)
+        },
+    addHistoryToDB: function(/*Number*/status_id, /*Boolean*/leaving, /*Date*/date) {
+            dataSetter.addHistory(status_id, leaving, date)
+        },
+    getPersonDB: function(id, callback, res) {
+            dataGetter.getPerson(id, callback, res)
+        },
+    getProjectDB: function(id, callback, res) {
+            dataGetter.getProject(id, callback, res)
         }
-
 }
 
 exports.addPersonToDB = controller.addPersonToDB;
 exports.addProjectToDB = controller.addProjectToDB;
+exports.setCurrentPersonDB = controller.setCurrentPersonDB;
+exports.setCurrentProjectDB = controller.setCurrentProjectDB;
+exports.addHistoryToDB = controller.addHistoryToDB;
+exports.getPersonDB = controller.getPersonDB;
+exports.getProjectDB = controller.getProjectDB;

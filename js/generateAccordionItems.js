@@ -1,20 +1,57 @@
-define(function () {
+define(['effectsAccordion'], function (Effect) {
 
-   function AccordionItem(elem, obj) {
-       this.templateList = '\
+    function AccordionItem(obj, item) {
+        this.templateList = '\
     <li class="list-item" data-point-id="itemID">\
-        <a class="fadeThis" href="#"><i class="icon-chevron-right"></i> peopleName\
+        <a class="fadeThis" href="#"><i class="icon-chevron-right"></i> ItemName\
             <i class="bubble-icon icon-forward"></i>\
         </a>\
     </li>';
-
-        this.__construct(elem, obj);
+//       console.log(elem)
+//console.log(obj)
+//       console.log(item)
+        this.__construct(obj, item);
     }
 
-    AccordionItem.prototype.__construct = function (elem, obj) {
+    AccordionItem.prototype.__construct = function (obj, item) {
 
-            var newItemlList = templItem.replace(/peopleName/, obj[elem][elems].name).replace(/itemID/, obj[elem][elems].id);
-            obj.prepend(newItemlList);
+        var newItemlList = this.templateList.replace(/ItemName/, obj.name).replace(/itemID/, obj.id);
+        item.prepend(newItemlList);
+
+//        console.log(this)
+
+
+                $(newItemlList).each(function (idx, elt) {
+                    console.log($(this))
+            var el = $('.bubble-icon')[idx];
+                    $(this).click(function(){alert('dfg')})
+            $(this).hover(function (ev) {
+
+
+                $(this).stop(true).animate({paddingLeft: '15px'}, {speed: 50});
+//                $(el).stop(true).animate({opacity: '1', marginTop: '3px'}, {speed: 50});
+            }, function () {
+                $(this).stop(true).animate({paddingLeft: '0'}, {speed: 50});
+//                $(el).stop(true).animate({opacity: '0', marginTop: '-15px'}, {speed: 50});
+            })})
+
+       
+
+
+//                    console.log($(this))})
+
+//
+////        var e = new Effect(newItemlList);
+//        console.log($(newItemlList) );
+//        $(newItemlList).hover(function (ev) {
+////
+//
+//            $(newItemlList).stop(true).animate({paddingLeft: '15px'}, {speed: 50});
+////        $(el).stop(true).animate({opacity: '1', marginTop: '3px'}, {speed: 50});
+//        }, function () {
+//            $(newItemlList).stop(true).animate({paddingLeft: '0'}, {speed: 50});
+////        $(el).stop(true).animate({opacity: '0', marginTop: '-15px'}, {speed: 50});
+//        });
 
     }
 

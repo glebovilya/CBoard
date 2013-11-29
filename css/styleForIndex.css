@@ -14,12 +14,10 @@ body, .container-fluid, .row-fluid {
 
 .tab-content {
     padding-top: 20px;
-    overflow: visible;
     height: 100%;
 
 }
 .collapse {
-    overflow: visible;
 
 }
 
@@ -240,6 +238,8 @@ a:hover, a:focus, a:link {
 
 .btn-wrap {
     /*margin-top: -50px;*/
+    /*position: relative;*/
+    /*top: */
 
 }
 

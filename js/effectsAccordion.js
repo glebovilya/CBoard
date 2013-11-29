@@ -1,20 +1,14 @@
-define(['bootstrap'],
-    (function () {
-        $('.list-item').each(function(idx,elt){
-            var el = $('.bubble-icon')[idx];
-            $(this).hover(function (ev) {
-
-
-                $(this).stop(true).animate({paddingLeft: '15px'}, {speed: 50});
-                $(el).stop(true).animate({opacity:'1', marginTop:'3px'}, {speed: 50});
-            }, function () {
-                $(this).stop(true).animate({paddingLeft: '0'}, {speed: 50});
-                $(el).stop(true).animate({opacity:'0', marginTop:'-15px'}, {speed: 50});
+define(function () {
+    function setEffects(item) {
+        $(item).hover(function (ev) {
+                $(this).stop(true).animate({paddingLeft: '15px'}, {duration: 400});
+                $(this).find('i.bubble-icon').stop(true).animate({opacity: '1', marginTop: '3px'}, {duration: 300});
+            },
+            function (ev) {
+                $(this).stop(true).animate({paddingLeft: '0'}, {duration: 400});
+                $(this).find('i.bubble-icon').stop(true).animate({opacity: '0', marginTop: '-15px'}, {duration: 300});
             });
+    }
 
-            $(this).click(function(){
-                $(this).stop(true).animate({backgroundColor: '#adadad'}, {speed: 50});
-            })
-        })
-    })()
-)
+    return setEffects;
+});

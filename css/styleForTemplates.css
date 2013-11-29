@@ -1,6 +1,7 @@
 .employeeWindow {
     position: absolute;
     width: 96px;
+    height: 151px;
     background-color: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.3);
     /*-webkit-border-radius: 6px;*/
@@ -86,3 +87,7 @@
     padding: 0;
     border: none;
 }
+/*.united img {*/
+    /*height: 120px;*/
+    /*width: 90px;*/
+/*}*/

@@ -1,7 +1,7 @@
 /**
  * Created by stepanjuk on 28.11.13.
  */
-require(['employee'], function(Employee){
+require(['employee','jquery.event.drag-2.2','jquery.event.drop-2.2' ], function(Employee){
 
 
 
@@ -9,7 +9,7 @@ require(['employee'], function(Employee){
     $(".liTEST").click(function(event){
         console.log(event.target);
         var dom = event.target;
-
+        var id = $(dom).attr("data-point-id");
         console.log($(dom).attr("data-point-id"));
 
 
@@ -17,15 +17,17 @@ require(['employee'], function(Employee){
               $.post(
                   "/get",
                   {
-                      id: $(dom).attr("data-point-id")
+                      target: 'person',
+                      action: 'get',
+                      id: id
                   },
                   onAjaxSuccess
               );
 
               function onAjaxSuccess(data)
               {
-                  // Здесь мы получаем данные, отправленные сервером и выводим их на экран.
-                  console.log(data.data.surname);
+                  // Здесь мы получаем данные, отправленные сервером in Object{data:{Object}}.
+                  console.log(data);
 
                   var divWindow =document.createElement("div");
                   document.body.appendChild(divWindow);
@@ -33,18 +35,26 @@ require(['employee'], function(Employee){
                   divWindow.style.position = "absolute";
                   divWindow.style.top = "100px";
                   divWindow.style.left = "500px";
+                  id = "person"+id;
+                  divWindow.id = id;
 
+                  var empl = new Employee({
+                      domNode: $("#" + id),
+                      photo: data.data.photo,
+                      name: data.data.name,
+                      surname: data.data.surname
+                   });
 
 var template = ' <div class = "employee">\
         <div class="employeeWindow ">\
             <div class="employee-header" >\
                 <div >position</div>\
-                <button type="button" class="close" data-toggle="tooltip" title="remove from project" data-dismiss="modal" aria-hidden="true" >&times;</button>\
+                <button type="button" class="close" data-toggle="tooltip" title="remove from project"  aria-hidden="true" >&times;</button>\
             </div>\
             <div class="employee-body">\
                 <div class="united" >\
-                    <img src="http://placehold.it/90x120" alt="">\
-                        <div class= "name" >'+data.data.surname +''+data.data.surname +'</div>\
+                    <img src=' + empl.photo + ' alt="">\
+                        <div class= "name" >'+empl.name +'</br>'+empl.surname +'</div>\
                     </div>\
                 </div>\
                 <div class="employee-footer">\
@@ -53,15 +63,24 @@ var template = ' <div class = "employee">\
         </div>\
     '
 
-                  var empl = new Employee({
-                                name:"Vasya",
-                                surname:"Pupkin",
-                                photo:"path",
-                                history:"jjj"
-                  });
+
+                  if(!empl.photo) empl.photo = "/img/images.jpg";
 
                   empl.template = template;
                   $(divWindow).append(empl.template);
+
+                  $(empl.domNode).find("button").on('click', function(event){
+                      $(empl.domNode).remove();
+                  });
+                  jQuery(function($){
+                      $(empl.domNode).drag(function( ev, dd ){
+                          $( this ).css({
+                              top: dd.offsetY,
+                              left: dd.offsetX
+                          });
+                      });
+                  });
+
 
                   return empl;
 

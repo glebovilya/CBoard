@@ -1,7 +1,7 @@
 /**
  * Created by stepanjuk on 28.11.13.
  */
-require(['employee','jquery.event.drag-2.2','jquery.event.drop-2.2' ], function(Employee){
+require(['employee'/*,'jquery.event.drag-2.2','jquery.event.drop-2.2'*/ ], function(Employee){
 
 
     $("#buttonPeople").on('click', function(){
@@ -68,8 +68,7 @@ require(['employee','jquery.event.drag-2.2','jquery.event.drop-2.2' ], function(
     '
 
 
-                    if(!empl.photo) empl.photo = "/img/images.jpg";
-                    if (!'<img scr=' + empl.photo + ' alt="">') empl.photo = "/img/images.jpg";
+                    if(!empl.photo) empl.photo = "../img/images.jpg";
 
                     empl.template = template;
                     $(divWindow).append(empl.template);

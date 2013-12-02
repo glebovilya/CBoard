@@ -1,7 +1,7 @@
 /**
  * Created by stepanjuk on 02.12.13.
  */
-require(['employee', ], function(Employee){
+require(['employee' ], function(Employee){
 
 
     $("#buttonPeople").on('click', function(){
@@ -9,7 +9,7 @@ require(['employee', ], function(Employee){
 //            console.log($(".list-item"));
 
             $(".list-item").click(function(event){
-//                console.log(event.target);
+                console.log(event.target);
                 var dom = event.target;// в случае если внутри li нет <a> или другого потомка
                 var dom = $(dom).parent("li")// if there <> inside
 //        data-point-id="45" так должно быть на кнопках

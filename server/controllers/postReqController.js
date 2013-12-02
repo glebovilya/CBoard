@@ -30,9 +30,11 @@ var controller = {
         req.on('data', function (data) {
             // Append data.
             content += data;
+            console.log(content);
         });
-
+        console.log(content);
         req.on('end', function () {
+
             // Assuming, we're receiving JSON, parse the string into a JSON object to return.
             var data = JSON.parse(content);
 

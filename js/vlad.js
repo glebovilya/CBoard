@@ -11,7 +11,7 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
                     console.log(ev)
                 })
                 .drag('end', function (ev, dd) {
-                    $.post('/get', {target: 'person', method: 'setCurrent', id: 1}, function(ell){
+//                    $.post('/get', {target: 'person', method: 'setCurrent', id: 1}, function(ell){
                         console.log('dismiss--->',ell)
                     })
                     console.log('set current person to false')
@@ -20,9 +20,9 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
                         $(dd.drag).removeAttr('style')
                         $(dd.drop).append($(dd.drag).parents('div:eq(0)').css('position', 'relative'));
                         console.log('create history')
-                        $.get('/get', {target: 'person', method: 'one', id: 1}, function(ell){
-//                            console.log(ell)
-                        })
+//                        $.get('/get', {target: 'person', method: 'one', id: 1}, function(ell){
+////                            console.log(ell)
+//                        })
                     }
                 })
                 .drag(function( ev, dd ){

@@ -5,7 +5,7 @@
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
     <link href="css/styleForTemplates.css" rel="stylesheet" media="screen">
-    <!--<link href="css/styleForIndex.css" rel="stylesheet" media="screen">-->
+    <link href="css/styleForIndex.css" rel="stylesheet" media="screen">
     <title>CBoard</title>
 </head>
 <body>
@@ -96,7 +96,29 @@
         <div class="span10 boxShadow" id="board">
             <div id="inner-board">
                 <!--Body content-->
-                ghgbhn
+                <div id="modalAddProject" class="modal"
+                     role="dialog"
+                     aria-labelledby="myModalLabel"
+                     aria-hidden="true"
+                     data-backdrop = "false"
+                     style="display: block;">
+                    <div class="modal-header" style="height: 20px">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3></h3>
+                    </div>
+                    <form method="POST" action="/get">
+                        <div class="modal-body" >
+                            <input class="input-xlarge" name="target" value="project" type="text" placeholder="enter the name of the project">
+                            <input class="input-xlarge" name="method" value="add" type="text" placeholder="enter the name of the project">
+                            <input class="input-xlarge" name="name" type="text" placeholder="enter the name of the project">
+                        </div>
+                        <!--</div>-->
+                        <div class="modal-footer">
+                            <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
+                            <button  class="btn btn-custom" type="submit"  >Add project</button>
+                        </div>
+                    </form>
+                </div>
 
                 <div id="drop" style="background-color: red; width: 300px; height: 300px;"></div>
             </div>

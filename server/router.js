@@ -9,13 +9,13 @@ var sendData = function (req, res) {
     if (urlPath == '/get') {
         queryContr.queryLogicController(req, res);
     }
-    if (urlPath == '/getPerson') {
-        resContr.resJSON(res, data)
-    }
-    if (urlPath == '/server') {
-
-        resContr.resJSON(res, data)
-    }
+//    if (urlPath == '/getPerson') {
+//        resContr.resJSON(res, data)
+//    }
+//    if (urlPath == '/server') {
+//
+//        resContr.resJSON(res, data)
+//    }
     if (urlPath == '/') {
         resContr.resFile('./index.html', 'html', res)
     }

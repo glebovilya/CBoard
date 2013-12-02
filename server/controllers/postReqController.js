@@ -7,8 +7,10 @@ var resContr = require('./respondController');
 var controller = {
     addProjectToDB: function(res, req) {
         var form = new formidable.IncomingForm();
+
         form.parse(req, function(error, fields) {
-            dataSetter.addProject(fields.name, fields.date, resContr.resJSON, res);
+            console.log(fields.name)
+            dataSetter.addProject(fields.name, new Date()/*fields.date*/, resContr.resJSON, res);
         });
     },
     addPersonToDB: function(res, req) {
@@ -35,7 +37,6 @@ var controller = {
 
         req.on('end', function () {
             var data = querystring.parse(content);
-
             switch (data['target']) {
                 case 'person':
                     if(data['method'] == 'setCurrent'){
@@ -54,6 +55,7 @@ var controller = {
                         return
                     }
                     if(data['method'] == 'add'){
+                        console.log('add project')
                         controller.addProjectToDB(res, req);
                         return
                     }

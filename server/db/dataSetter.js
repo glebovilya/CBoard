@@ -30,7 +30,6 @@ var addProject = function(/*String*/name, /*Date*/startDate, callback, res) {
         current: false
     });
     project.save();
-
     callback(res, project)
 }
 

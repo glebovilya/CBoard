@@ -5,6 +5,7 @@ html {
 
 body, .container-fluid, .row-fluid {
     height: 100%;
+    overflow: hidden;
 }
 
 .nav-tabs {
@@ -17,10 +18,56 @@ body, .container-fluid, .row-fluid {
     height: 100%;
 
 }
+
 .collapse {
 
 }
 
+/*//---------------*/
+.screen {
+    position: relative;
+}
+
+.screen ul {
+    max-height: 50px;
+    /*overflow: hidden;*/
+    /*padding-bottom: 30px;*/
+}
+
+#scrollbar {
+    position: fixed;
+    width: 2px;
+    height: 0px;
+    background: #fff;
+    right: 0;
+    padding: 3px;
+    display: none;
+    z-index: 9000;
+}
+
+#scroller {
+    height: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+element.style {
+    cursor: auto;
+}
+
+#scrollbar {
+    background: none repeat scroll 0 0 #FFFFFF;
+    display: none;
+    height: 0;
+    padding: 3px;
+    position: fixed;
+    right: 0;
+    width: 12px;
+    z-index: 9000;
+}
+
+/*//-------------------*/
 .custom-view {
     position: relative;
     margin: 0 auto;
@@ -110,13 +157,41 @@ input {
     /*box-shadow: inset 9px 9px 7px 0px rgba(119, 119, 119, 0.3);*/
     /*-moz-box-shadow: inset 9px 9px 7px 0px rgba(119, 119, 119, 0.3);*/
     /*-webkit-box-shadow: inset 9px 9px 7px 0px rgba(119, 119, 119, 0.3);*/
+    -webkit-box-shadow: inset 10px 10px 5px -9px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 10px 10px 5px -9px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 10px 10px 5px -9px rgba(0, 0, 0, 0.75);
 
-    background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #E8E8E8), color-stop(0.66, #F5F5F5), color-stop(1, #F7F7F7), color-stop(1, #FFFFFF));
-    background-image: -o-linear-gradient(right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);
-    background-image: -moz-linear-gradient(right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);
-    background-image: -webkit-linear-gradient(right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);
-    background-image: -ms-linear-gradient(right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);
-    background-image: linear-gradient(to right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);
+    /*background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #E8E8E8), color-stop(0.66, #F5F5F5), color-stop(1, #F7F7F7), color-stop(1, #FFFFFF));*/
+    /*background-image: -o-linear-gradient(right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+    /*background-image: -moz-linear-gradient(right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+    /*background-image: -webkit-linear-gradient(right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+    /*background-image: -ms-linear-gradient(right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+    /*background-image: linear-gradient(to right bottom, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+
+    /*background-image: -webkit-gradient(linear, right bottom, left top, color-stop(0, #E8E8E8), color-stop(0.66, #F5F5F5), color-stop(1, #F7F7F7), color-stop(1, #FFFFFF));*/
+    /*background-image: -o-linear-gradient(left top, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+    /*background-image: -moz-linear-gradient(left top, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+    /*background-image: -webkit-linear-gradient(left top, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+    /*background-image: -ms-linear-gradient(left top, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+    /*background-image: linear-gradient(to left top, #E8E8E8 0%, #F5F5F5 66%, #F7F7F7 100%, #FFFFFF 100%);*/
+
+    /*background: rgb(238,238,238); *//* Old browsers */
+    /*background: -moz-radial-gradient(center, ellipse cover,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); *//* FF3.6+ */
+    /*background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(238,238,238,1)), color-stop(100%,rgba(204,204,204,1))); *//* Chrome,Safari4+ */
+    /*background: -webkit-radial-gradient(center, ellipse cover,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); *//* Chrome10+,Safari5.1+ */
+    /*background: -o-radial-gradient(center, ellipse cover,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); *//* Opera 12+ */
+    /*background: -ms-radial-gradient(center, ellipse cover,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); *//* IE10+ */
+    /*background: radial-gradient(ellipse at center,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); *//* W3C */
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=1 ); *//* IE6-9 fallback on horizontal gradient */
+
+    background: rgb(255, 255, 255); /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 
     -moz-border-radius: 10px; /* закругление для старых Mozilla Firefox */
     -webkit-border-radius: 10px; /* закругление для старых Chrome и Safari */
@@ -209,14 +284,11 @@ a:hover, a:focus, a:link {
     outline: none;
 }
 
-
-
 .bubble-icon {
     opacity: 0;
     float: right;
     margin-top: -15px;
 }
-
 
 .line {
     height: 100%;

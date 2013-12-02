@@ -1,4 +1,9 @@
-define(['Accordion', 'bootstrap'], function (Accordion) {
+define(['Accordion', 'bootstrap', 'resize', 'scrolling' ], function (Accordion, boot, resize, Scrolling) {
+
+
+
+
+
 
 //    var peopleName = {manager: [
 //        {id: '0', name: 'People0'},
@@ -65,13 +70,64 @@ define(['Accordion', 'bootstrap'], function (Accordion) {
         new Accordion(people, "#accordion-people");
     })
 
+//    var ht = $('div#board').height()-18;
+    $('div#inner-board').height($('div#board').height() - 18);
+    $('div#inner-board').width($('div#board').width() - 18);
+
     $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
-//         divResize('#right', 150, 100);
-//           console.log('xdftbrty')
+        $('div#inner-board').height($('div#board').height() - 18);
+        $('div#inner-board').width($('div#board').width() - 18);
+        divResize()
     });
 
+    $('div.tab-content').resize(function () {
+
+//     var elem = $(this);
+//        var height = $('div[class="span2 wrap"]').css("height");
+//        console.log(height);
+
+//        elem.css("height",)
+//        console.log('xdftbrty')
+        // Update the info div width and height - replace this with your own code
+        // to do something useful!
+// elem.closest('.container').find('.info').text( this.tagName + ' width: ' + elem.width() + ', height: ' + elem.height() );
+    });
+
+
     function divResize() {
+        var height_tabs = $('div[id="accordion-projects"]').outerHeight(true) ? $('div[id="accordion-projects"]').outerHeight(true) : $('div[id="accordion-people"]').outerHeight(true);
+        var height = $('div[class="span2 wrap"]').outerHeight(true) - $('div[class="custom-view"]').outerHeight(true) -
+            $('div[id="search"]').outerHeight(true) - height_tabs - $('div[class="row-fluid btn-wrap"]').outerHeight(true) - $('hr').outerHeight(true);
+//        $('div.line').height(height);
+//        console.log($('div[class="span2 wrap"]').outerHeight(true)-$('div[class="custom-view"]').outerHeight(true))
+//        console.log($('div.line').height())
+
+
     }
+
+
+//    $(document).ready(f);
+f();
+    function f() {
+        scrolling = new Scrolling();
+        scrolling.initScreen();
+        scrolling.initScrollbar();
+        scrolling.scroll();
+        if (window.addEventListener) window.addEventListener('DOMMouseScroll', function (event) {
+            scrolling.wheel(event);
+        }, false);
+        window.onmousewheel = document.onmousewheel = function (event) {
+            scrolling.wheel(event);
+        };
+        window.onmousemove = function (event) {
+            scrolling.setScrollbarCursor(event);
+        }
+        window.onresize = function () {
+            scrolling.scroll();
+        }
+    }
+
+
 })
 
 

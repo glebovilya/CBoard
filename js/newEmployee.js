@@ -1,7 +1,7 @@
 /**
  * Created by stepanjuk on 02.12.13.
  */
-require(['employee','jquery.event.drag-2.2','jquery.event.drop-2.2' ], function(Employee){
+require(['employee', ], function(Employee){
 
 
     $("#buttonPeople").on('click', function(){

@@ -18,8 +18,8 @@ require(['employee','jquery.event.drag-2.2','jquery.event.drop-2.2' ], function(
               $.get(
                   "/get",
                   {
-                      target: 'person',
-                       id: id
+                      target:'person',
+                       id:id
                   },
                   onAjaxSuccess
               );

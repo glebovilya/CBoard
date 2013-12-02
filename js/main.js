@@ -1,9 +1,5 @@
-requirejs(['vlad', 'Bogush'], function(v){
-        v()
-    }
-)
 
-requirejs(['Bogush', 'jquery.event.drag-2.2', 'jquery.event.drop-2.2', 'addEmployee', 'newEmployee'/* 'jquery.event.drag.live-2.2'*/],
+requirejs(['Bogush', 'jquery.event.drag-2.2', 'jquery.event.drop-2.2', 'addEmployee', 'newEmployee','stepa'/* 'jquery.event.drag.live-2.2'*/],
     function (empl) {
         $('#imp')
             .drag('init', function (ev, dd) {

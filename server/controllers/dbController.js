@@ -45,7 +45,7 @@ var controller = {
         },
     getProjectsDB: function(res, callback) {
         dataGetter.getProjects(res, callback)
-    },
+    }
 }
 
 exports.addPersonToDB = controller.addPersonToDB;

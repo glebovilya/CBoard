@@ -17,6 +17,7 @@ var queryLogic = function (req, res) {
                     return
                 }
                 if(query['method'] == 'add'){
+                    console.log('прошли queryControler')
                     dbContr.addPersonToDB(res, req);
                     return
                 }

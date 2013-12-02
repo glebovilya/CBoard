@@ -4,10 +4,21 @@ var dbContr = require('./controllers/dbController');
 var queryContr = require('./controllers/queryController');
 
 var sendData = function (req, res) {
+
+
+
+
     var urlPath = reqUrlContr.readPath(req);
 
+
+    if (urlPath == '/db') {
+        resContr.resFile('./stepa.html', 'html', res)
+    }
+
     if (urlPath == '/get') {
+        console.log('прошли router')
         queryContr.queryLogicController(req, res);
+
     }
     if (urlPath == '/getPerson') {
         resContr.resJSON(res, data)

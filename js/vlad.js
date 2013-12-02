@@ -4,14 +4,14 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
             $('#imp')
                 .drag('init', function (ev, dd) {
                     $(dd.drag).parents('div:eq(0)').css('position', 'absolute')
-                    $.post('/get', {"target": "person", "method": "add", "name": "superTEST", "surname": "TESTSurname", "position": "gg", "photo": "dd"}, function(ell){
-                        console.log('setCur--->', ell)
-                    })
+//                    $.post('/get', {"target": "person", "method": "add", "name": "superTEST", "surname": "TESTSurname", "position": "gg", "photo": "dd"}, function(ell){
+//                        console.log('setCur--->', ell)
+//                    })
                     console.log('set current person to true')
                     console.log(ev)
                 })
                 .drag('end', function (ev, dd) {
-                    $.post('/get', {target: 'person', method: 'setCurrent', id: 1}, function(ell){
+                    $.post('/get', {target: 'person', id: 1}, function(ell){
                         console.log('dismiss--->',ell)
                     })
                     console.log('set current person to false')
@@ -39,6 +39,11 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
                     console.log('set current project to false');
 
                 })
+            $('#addperson').submit(function( event ) {
+                console.log('s')
+                alert( "Handler for .submit() called." );
+                event.preventDefault();
+            });
         }
         return init
     }

@@ -7,7 +7,8 @@ var controller = {
                     res.end()
                 }
                 else {
-                    res.writeHeader('Content-Type', 'text/' + docType + '; charset=utf-8');
+                    var ContType = 'text/' + docType
+                    res.writeHeader(200, {'Content-Type': ContType, 'charset': 'utf-8'});
                     res.write(content);
                     res.end();
                 }
@@ -15,7 +16,7 @@ var controller = {
         },
     resJSON: function (res, /*object*/data) {
         res.writeHeader(200,{
-//            'Location': '/backend.html',
+            'Location': '/backend.html',
             'Content-Type': 'application/json'
         })
 

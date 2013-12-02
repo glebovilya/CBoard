@@ -1,19 +1,21 @@
-define (['../require-jquery'],function($){
+define (function(){
+
     /*
     *  declaring Widget - base class for project and people views
     * */
-    var Widget;
 
-    Widget = $.declare('js.Classes.Widget',null,{
-        /*
-        * lends widget onto page
-        * */
-        init: function(){},
-        render:function(){},
-        template: '',
-//        url of template, it takes from '/templates' folder
-        domNode: null,
+    function Widget(DOMNode, opts){
+        this.DOMNode = DOMNode;
+        this.opts = opts;
+        this.init();
+    };
 
-     });
+    Widget.prototype.self = function(){return this};
+    Widget.prototype.init = function(){};
+    Widget.prototype.render = function(){};
+    Widget.prototype.template = '';
+    Widget.prototype.DOMNode = null;
+    Widget.prototype.destroy = function(){self.remove()};
+
     return Widget;
-})
+    });

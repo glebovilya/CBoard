@@ -43,13 +43,23 @@ var queryLogic = function (req, res) {
     if (reqMethod == 'GET'){
         switch (query['target']) {
             case 'person':
-                dbContr.getPersonDB(query['id'], resContr.resJSON, res);
+                if(query['method'] == 'one'){
+                    dbContr.getPersonDB(query['id'], resContr.resJSON, res);
+                }
+                if(query['method'] == 'all'){
+                    dbContr.getPersonsDB(res, resContr.resJSON)
+                }
                 break;
             case 'project':
-                dbContr.getProjectDB(query['id'], resContr.resJSON, res);
+                if(query['method'] == 'one'){
+                    dbContr.getProjectDB(query['id'], resContr.resJSON, res);
+                }
+                if(query['method'] == 'all'){
+                    dbContr.getProjectsDB(res, resContr.resJSON)
+                }
                 break;
             case 'history':
-//                statementsN
+
                 break;
             default:
 //                statements_def

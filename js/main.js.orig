@@ -1,7 +1,0 @@
-<<<<<<< HEAD
-=======
-requirejs(['vlad', 'Bogush'], function(v){
-        v()
-    }
-)
->>>>>>> e4fb0b7012402f3a48b6e5033c02ceeaa0d65cf4

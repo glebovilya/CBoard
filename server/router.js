@@ -1,6 +1,7 @@
 var reqUrlContr = require('./controllers/reqUrlController');
 var resContr = require('./controllers/respondController');
-var dbContr = require('./controllers/dbController');
+var formContr = require('./controllers/postReqFormController');
+
 var queryContr = require('./controllers/queryController');
 
 var sendData = function (req, res) {
@@ -20,27 +21,16 @@ var sendData = function (req, res) {
         queryContr.queryLogicController(req, res);
 
     }
-    if (urlPath == '/getPerson') {
-        resContr.resJSON(res, data)
-    }
-    if (urlPath == '/server') {
-
-        resContr.resJSON(res, data)
-    }
     if (urlPath == '/') {
         resContr.resFile('./index.html', 'html', res)
     }
     if (urlPath == '/upload_project') {
-        if(req.method.toLowerCase() === 'post'){
-            dbContr.addProjectToDB(res,req);
-            resContr.resFile('./backend.html', 'html', res)
-        }
+        console.log('/upload_project');
+        formContr.addProjectToDB(res,req);
     }
     if (urlPath == '/upload_person') {
-        if(req.method.toLowerCase() === 'post'){
-            dbContr.addPersonToDB(res,req);
-            resContr.resFile('./backend.html', 'html', res)
-        }
+        console.log('/upload_person');
+        formContr.addPersonToDB(res,req);
     }
     if (/^.*\.css$/.test(urlPath)) {
         resContr.resFile("." + urlPath,'css', res)

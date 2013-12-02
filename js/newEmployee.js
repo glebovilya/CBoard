@@ -1,7 +1,7 @@
 /**
- * Created by stepanjuk on 28.11.13.
+ * Created by stepanjuk on 02.12.13.
  */
-require(['employee'/*,'jquery.event.drag-2.2','jquery.event.drop-2.2'*/ ], function(Employee){
+require(['employee' ], function(Employee){
 
 
     $("#buttonPeople").on('click', function(){
@@ -9,7 +9,7 @@ require(['employee'/*,'jquery.event.drag-2.2','jquery.event.drop-2.2'*/ ], funct
 //            console.log($(".list-item"));
 
             $(".list-item").click(function(event){
-//                console.log(event.target);
+                console.log(event.target);
                 var dom = event.target;// в случае если внутри li нет <a> или другого потомка
                 var dom = $(dom).parent("li")// if there <> inside
 //        data-point-id="45" так должно быть на кнопках
@@ -68,7 +68,8 @@ require(['employee'/*,'jquery.event.drag-2.2','jquery.event.drop-2.2'*/ ], funct
     '
 
 
-                    if(!empl.photo) empl.photo = "../img/images.jpg";
+                    if(!empl.photo) empl.photo = "/img/images.jpg";
+                    if (!'<img scr=' + empl.photo + ' alt="">') empl.photo = "/img/images.jpg";
 
                     empl.template = template;
                     $(divWindow).append(empl.template);
@@ -84,7 +85,7 @@ require(['employee'/*,'jquery.event.drag-2.2','jquery.event.drop-2.2'*/ ], funct
                             });
                         });
                     });
-                   return empl;
+                    return empl;
                 }
             });
 

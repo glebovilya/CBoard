@@ -1,6 +1,6 @@
 var dbModels = require('./dbShemas');
 
-var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ position, /*String*/ photo) {
+var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ position, /*String*/ photo, callback, res) {
 
     /**
      * creates a new person in DB
@@ -14,9 +14,11 @@ var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ positio
         current: false
     });
     person.save()
+    console.log(person)
+    callback(res, person)
 };
 
-var addProject = function(/*String*/name, /*Date*/startDate) {
+var addProject = function(/*String*/name, /*Date*/startDate, callback, res) {
 
     /**
      * creates a new project in DB
@@ -28,6 +30,7 @@ var addProject = function(/*String*/name, /*Date*/startDate) {
         current: false
     });
     project.save();
+    callback(res, project)
 }
 
 var addStatus = function(/*number*/id , /*String*/name) {
@@ -132,33 +135,41 @@ var addHistory = function (/*Number*/status_id, /*Boolean*/leaving, /*Date*/date
     });
 };
 
-var setCurrentPerson = function(/*Number*/id, /*Boolean*/value) {
+var setCurrentPerson = function(/*Number*/id, callback, res) {
 
     /**
     * marks/unmarks this person as current to be able to create history for it
     */
 
      dbModels.Person.findOne({_id: id}, function(err, pers) {
-        pers.current = value;
-        pers.save()
+         if(pers.current === true) {
+             pers.current = false
+         } else {
+             pers.current = true
+         }
+         pers.save();
+         //sends JSON to a client to respond that person was marked/unmarked as current
+         callback(res, pers)
     });
 };
 
-var setCurrentProject = function(/*Number*/id, /*Boolean*/value) {
+var setCurrentProject = function(/*Number*/id, callback, res) {
 
     /**
      * marks/unmarks this project as current to be able to create history for it
      */
 
     dbModels.Project.findOne({_id: id}, function(err, proj) {
-        proj.current = value;
-        proj.save()
+        if(proj.current === true) {
+            proj.current = false
+        } else {
+            proj.current = true
+        }
+        proj.save();
+        //sends JSON to a client to respond that project was marked/unmarked as current
+        callback(res, proj)
     });
 };
-
-    /**
-    * getall is just for testing!
-    */
 
 var getall = function(){
 //    dbModels.Project.find(function(err,d){console.log(d)})

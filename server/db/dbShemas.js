@@ -6,8 +6,6 @@ var pureautoinc  = require('mongoose-pureautoinc');
 
 pureautoinc.init(db);
 
-console.log('mongo!');
-
 var personSchema = new Schema({
     name: String,
     surname: String,

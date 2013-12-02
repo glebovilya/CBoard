@@ -14,7 +14,7 @@ var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ positio
         current: false
     });
     person.save()
-
+    console.log(person)
     callback(res, person)
 };
 

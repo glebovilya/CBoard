@@ -62,6 +62,7 @@ define(['Accordion', 'bootstrap'], function (Accordion) {
                     {id: dataPerson[elems]._id, name: dataPerson[elems].name}
                 ];
         }
+        console.log(dataPerson)
         new Accordion(people, "#accordion-people");
     })
 

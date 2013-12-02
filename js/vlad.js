@@ -41,14 +41,15 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
                 })
             $('#addperson').submit(function( event ) {
                 console.log('s')
-                alert( "Handler for .submit() called." );
-                event.preventDefault();
+//                alert( "Handler for .submit() called." );
+//                event.preventDefault();
             });
             $('#addproject').submit(function( event ) {
                 console.log('s')
-                alert( "Handler for .submit() called." );
-                event.preventDefault();
+//                alert( "Handler for .submit() called." );
+//                event.preventDefault();
             });
+//            $('body').on('click', function() {$.ajax({url: '/img/45.jpg', dataType: 'image'}, function() {console.log('2')})})
         }
         return init
     }

@@ -1,5 +1,4 @@
-requirejs(['vlad', 'Bogush', 'stepa'], function(v){
-        v()
-    }
-)
+requirejs(['vlad', 'Bogush', 'ilya', 'stepa'], function(){
+//        v();
+});
 

@@ -1,6 +1,6 @@
 var reqUrlContr = require('./controllers/reqUrlController');
 var resContr = require('./controllers/respondController');
-var dbContr = require('./controllers/dbController');
+var dbContr = require('./controllers/postReqController');
 var queryContr = require('./controllers/queryController');
 
 var sendData = function (req, res) {

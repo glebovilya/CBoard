@@ -132,33 +132,42 @@ var addHistory = function (/*Number*/status_id, /*Boolean*/leaving, /*Date*/date
     });
 };
 
-var setCurrentPerson = function(/*Number*/id, /*Boolean*/value) {
+var setCurrentPerson = function(/*Number*/id, callback, res) {
 
     /**
     * marks/unmarks this person as current to be able to create history for it
     */
-
+    console.log('deep')
      dbModels.Person.findOne({_id: id}, function(err, pers) {
-        pers.current = value;
-        pers.save()
+         if(pers.current === true) {
+             pers.current = false
+         } else {
+             pers.current = true
+         }
+         console.log(pers)
+         pers.save();
+         //sends JSON to a client to respond that person was marked/unmarked as current
+         callback(res, pers)
     });
 };
 
-var setCurrentProject = function(/*Number*/id, /*Boolean*/value) {
+var setCurrentProject = function(/*Number*/id, callback, res) {
 
     /**
      * marks/unmarks this project as current to be able to create history for it
      */
 
     dbModels.Project.findOne({_id: id}, function(err, proj) {
-        proj.current = value;
-        proj.save()
+        if(proj.current === true) {
+            proj.current = false
+        } else {
+            proj.current = true
+        }
+        proj.save();
+        //sends JSON to a client to respond that project was marked/unmarked as current
+        callback(res, proj)
     });
 };
-
-    /**
-    * getall is just for testing!
-    */
 
 var getall = function(){
 //    dbModels.Project.find(function(err,d){console.log(d)})

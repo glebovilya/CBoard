@@ -21,7 +21,7 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
                         $(dd.drop).append($(dd.drag).parents('div:eq(0)').css('position', 'relative'));
                         console.log('create history')
                         $.get('/get', {target: 'person', method: 'one', id: 1}, function(ell){
-                            console.log(ell)
+//                            console.log(ell)
                         })
                     }
                 })

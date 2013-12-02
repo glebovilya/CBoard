@@ -9,6 +9,7 @@
     <title>CBoard</title>
 </head>
 <body>
+
 <div class="container-fluid">
     <div class="row-fluid main-wrap">
         <!-- Sidebar -->
@@ -17,13 +18,12 @@
             <div class="row-fluid newwrap">
                 <div class="tabbable">
                     <div class="custom-view" data-toggle="buttons-radio">
-                        <button type="button" class="btn btn-large btn-custom active liTEST "
-                                data-point-id = "3"
+                        <button type="button" class="btn btn-large btn-custom active"
                                 href="#projects" data-toggle="tab">
                             <i class="icon-white icon-folder-close"></i> Projects
                         </button>
-                        <button type="button" id = "buttonPeople" class="btn btn-large btn-custom "
-                                href="#people"  data-toggle="tab">
+                        <button type="button" class="btn btn-large btn-custom liTEST"
+                                href="#people" data-point-id = "45" data-toggle="tab">
                             <i class="icon-white icon-user"></i> People
                         </button>
                     </div>
@@ -40,7 +40,6 @@
                             </div>
                             <div class="line">&nbsp;</div>
                             <button type="button" class="btn accord btn-custom accordion-toggle"
-                                    id="buttonAddNewProject"
                                     data-toggle="collapse"
                                     data-parent="#accordion-people" href="#">
                                 <i class="icon-white icon-file"></i> Add New Project
@@ -50,9 +49,8 @@
                             <div class="accordion" id="accordion-people">
                                 <!--automatically-generated content for list of people here-->
                             </div>
-                            <div class="inner-line">&nbsp;</div>
+                            <div class="line">&nbsp;</div>
                             <button type="button" class="btn accord btn-custom accordion-toggle"
-                                    id ="buttonAddNewPeople"
                                     data-toggle="modal"
                                     data-parent="#accordion-people" href="#modalAddPeople">
                                 <i class="icon-white icon-file"></i> Add New People
@@ -74,28 +72,21 @@
                     <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-close"></i> Hide
                         All Projects</a>
                 </div>
-                <div class="line" style="padding:-300px; min-height:100px">&nbsp;</div>
             </div>
-
             <!-- Sidebar buttons -->
         </div>
         <!-- Sidebar -->
 
 
-
-
-
         <div class="span10 boxShadow" id="board">
             <div id="inner-board">
                 <!--Body content-->
-
-
-
-
-
-             
+            </div>
+            <div class="bottom-line"></div>
+        </div>
+    </div>
+</div>
 
 <script data-main="js/main.js" src="js/require-jquery.js"></script>
 </body>
 </html>
-

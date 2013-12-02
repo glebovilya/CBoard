@@ -14,6 +14,8 @@ define(['jquery-ui-1.10.3.custom.min'],function () {
         this.scrollSpeed = this.options.scrollSpeed || 50;
         this.scrollbar = false;
         this.scroller = false;
+
+
     }
 
     Scrolling.prototype = {
@@ -109,7 +111,7 @@ define(['jquery-ui-1.10.3.custom.min'],function () {
             if (false == !!this.isWheel) this.moveScreen(-1 * Math.round((screendata.max_position * scrollerdata.percent) / 100));
         },
         initScreen: function () {
-            this.screen = $(".screen");
+            this.screen = $("ul.screen");
         },
         moveScreen: function (top) {
             this.screen.css("top", top + "px");
@@ -123,10 +125,10 @@ define(['jquery-ui-1.10.3.custom.min'],function () {
             this.screenBottom = this.screen.height() + this.screenPosition - this.windowBottom + this.screenPaddingTop;
         },
         getWindowWidth: function () {
-            this.windowWidth = $(window).width();
+            this.windowWidth = $('ul.screen').width();
         },
         getWindowBottom: function () {
-            this.windowBottom = $(window).height();
+            this.windowBottom = $('ul.screen').height();
         }
     }
     return Scrolling;

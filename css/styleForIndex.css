@@ -5,7 +5,7 @@ html {
 
 body, .container-fluid, .row-fluid {
     height: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .nav-tabs {
@@ -26,20 +26,22 @@ body, .container-fluid, .row-fluid {
 /*//---------------*/
 .screen {
     position: relative;
+    max-height: 55px;
+    overflow: hidden;
 }
 
-.screen ul {
-    max-height: 50px;
+/*.screen ul {*/
+    /*max-height: 50px;*/
     /*overflow: hidden;*/
     /*padding-bottom: 30px;*/
-}
+/*}*/
 
 #scrollbar {
     position: fixed;
     width: 2px;
     height: 0px;
-    background: #fff;
-    right: 0;
+    /*background: #d9d9d9;*/
+    left: 285px;
     padding: 3px;
     display: none;
     z-index: 9000;
@@ -52,19 +54,72 @@ body, .container-fluid, .row-fluid {
     border-radius: 10px;
 }
 
-element.style {
-    cursor: auto;
+/*element.style {*/
+    /*cursor: auto;*/
+    /*display: none;*/
+    /*height: 597px;*/
+/*}*/
+
+.scroll-pane{
+    max-height: 70px;
+    overflow: auto;
+}
+.jScrollPaneContainer {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
-#scrollbar {
-    background: none repeat scroll 0 0 #FFFFFF;
-    display: none;
-    height: 0;
-    padding: 3px;
-    position: fixed;
+.jScrollPaneTrack {
+    position: absolute;
+    cursor: pointer;
     right: 0;
-    width: 12px;
-    z-index: 9000;
+    top: 0;
+    height: 100%;
+}
+.jScrollPaneDrag {
+    position: absolute;
+    cursor: pointer;
+    overflow: hidden;
+    /*background:url(images/drag.gif) no-repeat left top;*/
+    height:42px
+}
+.jScrollPaneDragTop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.jScrollPaneDragBottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+a.jScrollArrowUp {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    text-indent: -2000px;
+    overflow: hidden;
+    /*background:url(images/but.gif) no-repeat center top;*/
+    height:18px;
+}
+a.jScrollArrowDown {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    text-indent: -2000px;
+    overflow: hidden;
+    /*background:url(images/but.gif) no-repeat center top;*/
+    height:18px;
+}
+a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
+    /*background-color: #f00;*/
 }
 
 /*//-------------------*/

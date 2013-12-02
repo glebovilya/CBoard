@@ -1,8 +1,4 @@
-define(['Accordion', 'bootstrap', 'resize', 'scrolling' ], function (Accordion, boot, resize, Scrolling) {
-
-
-
-
+define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane' ], function (Accordion, boot, resize, Scrolling) {
 
 
 //    var peopleName = {manager: [
@@ -52,6 +48,13 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling' ], function (Accordion, 
         project.open = openProject;
         project.closed = closedProject;
         new Accordion(project, "#accordion-projects");
+
+        $(function()
+        {
+//            console.log(jScrollPane)
+            $('.scroll-pane').jScrollPane({showArrows:true, scrollbarWidth:19, dragMaxHeight:43});
+        });
+//        f();
 
     })
 
@@ -107,24 +110,39 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling' ], function (Accordion, 
 
 
 //    $(document).ready(f);
-f();
+
     function f() {
         scrolling = new Scrolling();
         scrolling.initScreen();
         scrolling.initScrollbar();
         scrolling.scroll();
-        if (window.addEventListener) window.addEventListener('DOMMouseScroll', function (event) {
+        if ($('ul.screen').bind) $('ul.screen').bind('DOMMouseScroll', function (event) {
             scrolling.wheel(event);
         }, false);
-        window.onmousewheel = document.onmousewheel = function (event) {
+        $('ul.screen').bind("mousewheel", /*=*/ /*document.onmousewheel =*/ function (event) {
             scrolling.wheel(event);
-        };
-        window.onmousemove = function (event) {
+        });
+        $('ul.screen').bind("mousemove", function (event) {
             scrolling.setScrollbarCursor(event);
-        }
-        window.onresize = function () {
+        })
+        $('ul.screen').bind("resize",  function () {
             scrolling.scroll();
-        }
+        })
+
+        console.log(scrolling.windowWidth);
+        console.log(scrolling.windowBottom)
+        console.log(scrolling.scroller)
+//         this.screen
+//         this.screenPaddingTop
+//         this.screenPosition
+//         this.screenBottom
+//         this.isWheel
+//         this.wheelTimer
+//         this.isCursor
+//         this.scrollEnabled
+//         this.scrollSpeed
+//         this.scrollbar
+//         this.scroller
     }
 
 

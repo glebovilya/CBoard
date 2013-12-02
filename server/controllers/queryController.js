@@ -22,7 +22,7 @@ var queryLogic = function (req, res) {
                     return
                 }
                 if(query['method'] == 'all'){
-                    dbContr.getPersonsDB(res, resContr.resJSON)
+                    dataGetter.getPersons(res, resContr.resJSON)
                     return
                 }
 

@@ -17,7 +17,7 @@ require(['stepa'], function(){
             aria-hidden="true"\
             data-backdrop = "false"\
             style="display: none;">\
-                <form action="/get" method="post" id="">\
+                <form action="/upload_person" method="post" enctype="multipart/form-data" id="addperson">\
                     <div class="modal-header" style="height: 20px">\
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
                     </div>\
@@ -27,7 +27,7 @@ require(['stepa'], function(){
                         <input id="positionAddPeople" class="input-medium" type="text" name="position" placeholder="position">\
                                     <br/>\
                         <span> &nbsp;&nbsp;add a photo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>\
-                        <input id="photoAddPeople" type="file" name="photo" class="btn ">\
+                        <input id="photoAddPeople" type="file" name="photo" class="btn " multiple="multiple">\
                     </div>\
                     <div class="modal-footer">\
                                         <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->\
@@ -38,19 +38,19 @@ require(['stepa'], function(){
 
                  $(template).appendTo($("#inner-board"));
 
-            $('#modalAddPeople form').submit(function(){ //listen for submit event
-
-                    $('<input />').attr('type', 'hidden')
-                        .attr('name', 'target')
-                        .attr('value', 'person')
-                        .appendTo('#modalAddPeople form');
-
-                    $('<input />').attr('type', 'hidden')
-                        .attr('name', 'method')
-                        .attr('value', 'add')
-                        .appendTo('#modalAddPeople form');
-                    return true;
-            });
+//            $('#modalAddPeople form').submit(function(){ //listen for submit event
+//
+//                    $('<input />').attr('type', 'hidden')
+//                        .attr('name', 'target')
+//                        .attr('value', 'person')
+//                        .appendTo('#modalAddPeople form');
+//
+//                    $('<input />').attr('type', 'hidden')
+//                        .attr('name', 'method')
+//                        .attr('value', 'add')
+//                        .appendTo('#modalAddPeople form');
+//                    return true;
+//            });
 
             $("#modalAddPeople .close").on('click', function(){
                 $("#modalAddPeople").remove();

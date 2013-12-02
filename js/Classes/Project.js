@@ -1,43 +1,55 @@
-define(['js/Widget','text!cboard/templates/project.html'],function($,Widget,template){
-    var Person;
+define(['classes/Widget', 'text!../../templates/project.html'], function (Widget, template) {
+    var Project;
 
-    //declaration of Project class
+    Project = {
+        // first, we have to inherit parent class to have a constructor
 
-    Project = $.declare(Widget,{
-        /*
-        * A container, horizontally split on two logical areas:
-        *top:
-            * contains person widgets of project manager and groupleads
-        *bottom:
-            * this area is a container for displaying developers list
-            * and is acceptor for drop event of draggable person widgets
-        * */
-        __construct: function(/*string|domElement|jQuery*/node, /*object*/args){
+
+
+            //declaration of Project class
+            /*
+             * A container, horizontally split on two logical areas:
+             *top:
+             * contains person widgets of project manager and groupleads
+             *bottom:
+             * this area is a container for displaying developers list
+             * and is acceptor for drop event of draggable person widgets
+             * */
+
+        __construct : function (/*string|domElement|jQuery*/node, /*object*/args) {
+            console.log(this);
+//          this.superclass.apply(this, arguments);
             this.renderView(node);
             this.buildLogic(args);
             this.id = response//todo arr server response for setting id
-        }
-        renderView: function(node){
+            this.template = template;
+        },
+
+        renderView : function (node) {
             $('<div.project-container>').appendTo(node).inneerHTML(template);
         },
-        buildLogic: function(args){
-            this.apply(args);
-        }
-        close: this.remove(),
-        pushHistory: function(){
-            /*
-            * this method creates a new history records
-            * on drag person over the project
-            * in the project and person schemas
-            * */
-            $.ajax(){
-//               temprary url
+        buildLogic : function (args) {
+                this.apply(args);
+        },
+            //        this.pushHistory = function(){
+            //            /*
+            //            * this method creates a new history records
+            //            * on drag person over the project
+            //            * in the project and person schemas
+            //            * */
+            //            $.get('/server',{
+            //                id:'asd'
+            //            },function(){
+            //                console.log('success')
+            //            }
+            //         }
+        id : null,
+        name : ''
 
-            }
-         },
-        id:null,
-        name:'',
-     })
+    };
 
-    return Project;
-})
+    extend( Project ,Widget);
+    return Project.__construct;
+
+
+});

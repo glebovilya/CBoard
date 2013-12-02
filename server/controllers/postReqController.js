@@ -11,7 +11,9 @@ var controller = {
         form.parse(req, function(error, fields) {
             console.log(fields.name)
             dataSetter.addProject(fields.name, new Date()/*fields.date*/, resContr.resJSON, res);
+
         });
+        res.end()
     },
     addPersonToDB: function(res, req) {
         var form = new formidable.IncomingForm();
@@ -54,7 +56,7 @@ var controller = {
                         dataSetter.setCurrentProject(data['id'], resContr.resJSON, res);
                         return
                     }
-                    if(data['method'] == 'add'){
+                    if(data['meth'] == 'add'){
                         console.log('add project')
                         controller.addProjectToDB(res, req);
                         return

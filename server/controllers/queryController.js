@@ -2,7 +2,6 @@ var reqUrlContr = require('./reqUrlController');
 var postReqController = require('./postReqController');
 var dataGetter = require('../db/dataGetter')
 var resContr = require('./respondController');
-var async = require('async');
 
 var queryLogic = function (req, res) {
 
@@ -25,7 +24,6 @@ var queryLogic = function (req, res) {
                     dataGetter.getPersons(res, resContr.resJSON)
                     return
                 }
-
                 break;
             case 'project':
                 if(query['method'] == 'one'){

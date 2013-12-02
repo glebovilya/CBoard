@@ -15,7 +15,7 @@ var controller = {
         },
     resJSON: function (res, /*object*/data) {
         res.writeHeader(200,{
-//            'Location': '/backend.html',
+            'Location': '/backend.html',
             'Content-Type': 'application/json'
         })
 

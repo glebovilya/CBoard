@@ -1,55 +1,54 @@
-define(['classes/Widget', 'text!../../templates/project.html'], function (Widget, template) {
-    var Project;
+define(['text!../../templates/addproject.html'], function (template) {
+    var Project = function (node, /*object?*/opts) {
 
-    Project = {
-        // first, we have to inherit parent class to have a constructor
+        //declaration of Project class
+        /*
+         * A container, horizontally split on two logical areas:
+         *top:
+         * contains person widgets of project manager and group leads
+         *bottom:
+         * this area is a container for displaying developers list
+         * and is acceptor for drop event of draggable person widgets
+         * */
 
-
-
-            //declaration of Project class
-            /*
-             * A container, horizontally split on two logical areas:
-             *top:
-             * contains person widgets of project manager and groupleads
-             *bottom:
-             * this area is a container for displaying developers list
-             * and is acceptor for drop event of draggable person widgets
-             * */
-
-        __construct : function (/*string|domElement|jQuery*/node, /*object*/args) {
-            console.log(this);
-//          this.superclass.apply(this, arguments);
+        this.__construct = function (/*object*/args) {
+            for (var i in opts) {
+                this[i] = opts[i];
+            }
+            console.log(node);
             this.renderView(node);
             this.buildLogic(args);
-            this.id = response//todo arr server response for setting id
+//            this.id = response//todo arr server response for setting id
             this.template = template;
-        },
+        };
+        this.container = node;
+        this.renderView = function (container) {
 
-        renderView : function (node) {
-            $('<div.project-container>').appendTo(node).inneerHTML(template);
-        },
-        buildLogic : function (args) {
-                this.apply(args);
-        },
-            //        this.pushHistory = function(){
-            //            /*
-            //            * this method creates a new history records
-            //            * on drag person over the project
-            //            * in the project and person schemas
-            //            * */
-            //            $.get('/server',{
-            //                id:'asd'
-            //            },function(){
-            //                console.log('success')
-            //            }
-            //         }
-        id : null,
-        name : ''
-
+            $(template).appendTo(container);
+        };
+        this.buildLogic = function () {
+        };
+        this.pushHistory = function () {
+            /*
+             * this method creates a new history records
+             * on drag person over the project
+             * in the project and person schemas
+             * */
+            $.get('/get', {
+                target: 'project',
+                id: this.id
+            }, function () {
+                console.log('project request sent')
+            });
+        };
+        this.response = function () {
+            $.get('/get', {}, function () {
+            })
+            return response;
+        };
+        this.id = null;
+        this.name = '';
+        this.__construct();
     };
-
-    extend( Project ,Widget);
-    return Project.__construct;
-
-
+    return Project;
 });

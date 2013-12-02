@@ -1,13 +1,14 @@
 var fs  = require('fs');
 var formidable = require("formidable");
 var dataSetter = require('../db/dataSetter');
+var querystring = require('querystring');
 var resContr = require('./respondController');
 
 var controller = {
     addProjectToDB: function(res, req) {
         var form = new formidable.IncomingForm();
         form.parse(req, function(error, fields) {
-            dataSetter.addProject(fields.name, fields.date);
+            dataSetter.addProject(fields.name, fields.date, resContr.resJSON, res);
         });
     },
     addPersonToDB: function(res, req) {
@@ -18,25 +19,22 @@ var controller = {
                     console.log(err)
                 }
                 else {
-                    dataSetter.addPerson(fields.name, fields.surname, fields.position, ("./img/Persons/" + files['photo'].name))
+                    dataSetter.addPerson(fields.name, fields.surname, fields.position, ("./img/Persons/" + files['photo'].name), resContr.resJSON, res)
                 }
             });
-            dataSetter.getall();
         });
     },
     readPostQuery: function(req, res) {
+
         var content = '';
 
         req.on('data', function (data) {
             // Append data.
             content += data;
-            console.log(content);
         });
-        console.log(content);
-        req.on('end', function () {
 
-            // Assuming, we're receiving JSON, parse the string into a JSON object to return.
-            var data = JSON.parse(content);
+        req.on('end', function () {
+            var data = querystring.parse(content);
 
             switch (data['target']) {
                 case 'person':
@@ -45,7 +43,7 @@ var controller = {
                         return
                     }
                     if(data['method'] == 'add'){
-                        controller.addPerson(res, req);
+                        controller.addPersonToDB(res, req);
                         return
                     }
                     break;
@@ -56,7 +54,7 @@ var controller = {
                         return
                     }
                     if(data['method'] == 'add'){
-                        controller.addProject(res, req);
+                        controller.addProjectToDB(res, req);
                         return
                     }
                     break;

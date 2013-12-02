@@ -1,6 +1,6 @@
 var dbModels = require('./dbShemas');
 
-var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ position, /*String*/ photo) {
+var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ position, /*String*/ photo, callback, res) {
 
     /**
      * creates a new person in DB
@@ -14,9 +14,11 @@ var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ positio
         current: false
     });
     person.save()
+
+    callback(res, person)
 };
 
-var addProject = function(/*String*/name, /*Date*/startDate) {
+var addProject = function(/*String*/name, /*Date*/startDate, callback, res) {
 
     /**
      * creates a new project in DB
@@ -28,6 +30,8 @@ var addProject = function(/*String*/name, /*Date*/startDate) {
         current: false
     });
     project.save();
+
+    callback(res, project)
 }
 
 var addStatus = function(/*number*/id , /*String*/name) {
@@ -137,14 +141,13 @@ var setCurrentPerson = function(/*Number*/id, callback, res) {
     /**
     * marks/unmarks this person as current to be able to create history for it
     */
-    console.log('deep')
+
      dbModels.Person.findOne({_id: id}, function(err, pers) {
          if(pers.current === true) {
              pers.current = false
          } else {
              pers.current = true
          }
-         console.log(pers)
          pers.save();
          //sends JSON to a client to respond that person was marked/unmarked as current
          callback(res, pers)

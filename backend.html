@@ -123,6 +123,30 @@
                     </form>
                 </div>
                 <!--ENDS HERE-->
+
+                <!--START HERE-->
+                <div id="modalAddProject" class="modal"
+                     role="dialog"
+                     aria-labelledby="myModalLabel"
+                     aria-hidden="true"
+                     data-backdrop = "false"
+                     style="display: block;">
+                    <div class="modal-header" style="height: 20px">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3></h3>
+                    </div>
+                    <form method="post" action="/upload_project" id="addproject">
+                        <div class="modal-body" >
+                            <input class="input-xlarge" type="text" placeholder="enter the name of the project" name="name">
+                        </div>
+                        <!--</div>-->
+                        <div class="modal-footer">
+                            <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
+                            <button  class="btn btn-custom" type="submit"  >Add project</button>
+                        </div>
+                    </form>
+                </div>
+                <!--ENDS HERE-->
             </div>
             <div class="bottom-line"></div>
         </div>

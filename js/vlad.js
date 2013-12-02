@@ -44,6 +44,11 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
                 alert( "Handler for .submit() called." );
                 event.preventDefault();
             });
+            $('#addproject').submit(function( event ) {
+                console.log('s')
+                alert( "Handler for .submit() called." );
+                event.preventDefault();
+            });
         }
         return init
     }

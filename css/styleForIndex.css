@@ -19,114 +19,6 @@ body, .container-fluid, .row-fluid {
 
 }
 
-.collapse {
-
-}
-
-/*//---------------*/
-.screen {
-    position: relative;
-    max-height: 55px;
-    overflow: hidden;
-}
-
-/*.screen ul {*/
-    /*max-height: 50px;*/
-    /*overflow: hidden;*/
-    /*padding-bottom: 30px;*/
-/*}*/
-
-#scrollbar {
-    position: fixed;
-    width: 2px;
-    height: 0px;
-    /*background: #d9d9d9;*/
-    left: 285px;
-    padding: 3px;
-    display: none;
-    z-index: 9000;
-}
-
-#scroller {
-    height: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-}
-
-/*element.style {*/
-    /*cursor: auto;*/
-    /*display: none;*/
-    /*height: 597px;*/
-/*}*/
-
-.scroller::-webkit-scrollbar {
-    width: 0;
-}
-
-.scroll-pane{
-    max-height: 70px;
-    overflow: auto;
-}
-.jScrollPaneContainer {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.jScrollPaneTrack {
-    position: absolute;
-    cursor: pointer;
-    right: 0;
-    top: 0;
-    height: 100%;
-}
-.jScrollPaneDrag {
-    position: absolute;
-    cursor: pointer;
-    overflow: hidden;
-    /*background:url(images/drag.gif) no-repeat left top;*/
-    height:42px
-}
-.jScrollPaneDragTop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-}
-.jScrollPaneDragBottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-}
-a.jScrollArrowUp {
-    display: block;
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    text-indent: -2000px;
-    overflow: hidden;
-    /*background:url(images/but.gif) no-repeat center top;*/
-    height:18px;
-}
-a.jScrollArrowDown {
-    display: block;
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    right: 0;
-    text-indent: -2000px;
-    overflow: hidden;
-    /*background:url(images/but.gif) no-repeat center top;*/
-    height:18px;
-}
-a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
-    /*background-color: #f00;*/
-}
-
-/*//-------------------*/
 .custom-view {
     position: relative;
     margin: 0 auto;
@@ -354,17 +246,17 @@ a:hover, a:focus, a:link {
 }
 
 .main-wrap {
-    min-height: 100%;
+    height: 100%;
 }
 
 .wrap {
     position: relative;
-    min-height: 100% !important;
+    height: 100% !important;
 }
 
 .newwrap {
     position: relative;
-    min-height: 100% !important;
+    height: 100% !important;
 }
 
 .btn-wrap {
@@ -391,4 +283,150 @@ a:hover, a:focus, a:link {
 
 .accordion {
     margin-bottom: 0;
+}
+
+/*/------------*/
+
+.container-scroll {
+    /*display: inline-block;*/
+    /*height: 30%!important;*/
+    /*vertical-align: top;*/
+
+    overflow: hidden;
+    position: relative;
+    /*overflow-y: auto;*/
+
+    /*width: 30%;*/
+
+}
+/*#open-body{*/
+    /*overflow: hidden;*/
+/*}*/
+/*ul.list{*/
+    /*overflow: hidden;*/
+/*}*/
+.scroller {
+    height: 100%;
+    overflow-y: scroll;
+    /*-webkit-overflow-scrolling: touch;*/
+    /* uncomment to accelerate scrolling on iOs */
+}
+.scroller::-webkit-scrollbar {
+    width: 0;
+}
+.scroller__bar-wrapper {
+    position: absolute;
+    z-index: 3;
+    top: 10px;
+    bottom: 10px;
+    right: 5px;
+    width: 8px;
+    border-radius: 5px;
+    background: #ddf;
+    background: rgba(0, 0, 255, .1);
+    pointer-events: none;
+}
+.scroller__bar {
+    position: absolute;
+    z-index: 1;
+    width: 8px;
+    border-radius: 3px;
+    background: #987;
+    opacity: 0;
+    -webkit-transition: opacity .2s linear;
+    transition: opacity .2s linear;
+    pointer-events: auto;
+}
+.scroller__bar:hover {
+    opacity: .8;
+}
+.baron .scroller__bar {
+    opacity: .6;
+}
+.baron_h .scroller__bar_h {
+    opacity: .6;
+    bottom: 30px;
+}
+
+.header__title {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 0;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #ebe7e4;
+    background-color: rgba(200, 209, 250, 1);
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .05);
+    color: #222;
+    font-size: 14px;
+    line-height: 20px; /* sync with .search-results__header-wrapper height */
+    opacity: 1;
+    -webkit-transition: background-color .2s;
+    transition: background-color .2s;
+    cursor: pointer;
+}
+.header__title_state_fixed {
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(220, 209, 250, .95);
+    text-shadow: 0 0 5px #fff;
+}
+.header__title_position_top {
+    background-color: rgba(200, 250, 200, .8);
+}
+.header__title_position_top:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -30px;
+    width: 100%;
+    height: 30px;
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+}
+.header__title_position_bottom {
+    background-color: rgba(250, 200, 200, .8);
+}
+.header__title_position_bottom:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -30px;
+    width: 100%;
+    height: 30px;
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    pointer-events: none;
+}
+
+.wrapper_2 .text {
+    width: 800px;
+}
+.wrapper_2 .header__title {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+}
+.wrapper_2 .header__title_state_fixed {
+    position: static;
+}
+
+.text {
+    overflow: hidden;
+    margin: 10px;
+    font-size: 12px;
+}
+
+.wrapper_iphone .header__title_state_fixed {
+    position: relative;
+}
+.wrapper_iphone .header__title_position_top {
+    position: absolute;
+    top: 0;
+}
+.wrapper_iphone .header__title_position_bottom {
+    position: absolute;
+    bottom: 0;
 }

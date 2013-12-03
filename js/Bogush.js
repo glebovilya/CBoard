@@ -1,5 +1,9 @@
-define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' ], function (Accordion, boot, resize, Scrolling) {
+define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' ], function (Accordion, boot, resize, Scrolling,k) {
 
+//    window.onload = function() {
+
+
+//    };
 
 //    var peopleName = {manager: [
 //        {id: '0', name: 'People0'},
@@ -54,7 +58,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
 ////            console.log(jScrollPane)
 ////            $('.scroll-pane').jScrollPane({showArrows:false, scrollbarWidth:3, dragMaxHeight:43});
 //        });
-        anotherf();
+//        anotherf();
 //        f();
 
     })
@@ -114,10 +118,8 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
 
     function anotherf(){
 
-
-
             window.dima = baron({
-                root: '.wrapper_1',
+                root: '.wrapper_scroll',
                 scroller: '.scroller',
                 bar: '.scroller__bar',
                 barOnCls: 'baron'
@@ -137,56 +139,51 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
                         $('.load').css('background', 'red');
                     }
                 });
-            baron({
-                scroller: '.wrapper_2 .scroller',
-                bar: '.scroller__bar',
-                barOnCls: 'baron'
-            }).fix({
-                    elements: '.header__title',
-                    outside: 'header__title_state_fixed',
-                    before: 'header__title_position_top',
-                    after: 'header__title_position_bottom'
-                }).baron({
-                    barOnCls: 'baron_h',
-                    bar: '.scroller__bar_h'
-                });
-
     }
 
-    function f() {
-        scrolling = new Scrolling();
-        scrolling.initScreen();
-        scrolling.initScrollbar();
-        scrolling.scroll();
-        if ($('ul.screen').bind) $('ul.screen').bind('DOMMouseScroll', function (event) {
-            scrolling.wheel(event);
-        }, false);
-        $('ul.screen').bind("mousewheel", /*=*/ /*document.onmousewheel =*/ function (event) {
-            scrolling.wheel(event);
+//    function f() {
+//        scrolling = new Scrolling();
+//        scrolling.initScreen();
+//        scrolling.initScrollbar();
+//        scrolling.scroll();
+//        if ($('ul.screen').bind) $('ul.screen').bind('DOMMouseScroll', function (event) {
+//            scrolling.wheel(event);
+//        }, false);
+//        $('ul.screen').bind("mousewheel", /*=*/ /*document.onmousewheel =*/ function (event) {
+//            scrolling.wheel(event);
+//        });
+//        $('ul.screen').bind("mousemove", function (event) {
+//            scrolling.setScrollbarCursor(event);
+//        })
+//        $('ul.screen').bind("resize",  function () {
+//            scrolling.scroll();
+//        })
+//
+//    }
+    $('div.container-scroll').height('250px!important');
+
+    window.dima = baron({
+        root: '.container-scroll',
+        scroller: '.scroller',
+        bar: '.scroller__bar',
+        barOnCls: 'baron'
+    }).fix({
+            elements: '.header__title',
+            outside: 'header__title_state_fixed',
+            before: 'header__title_position_top',
+            after: 'header__title_position_bottom',
+            clickable: true
+        }).pull({
+            block: '.load',
+            elements: [{
+                self: '.load__value',
+                property: 'width'
+            }],
+            limit: 115,
+            onExpand: function() {
+                $('.load').css('background', 'red');
+            }
         });
-        $('ul.screen').bind("mousemove", function (event) {
-            scrolling.setScrollbarCursor(event);
-        })
-        $('ul.screen').bind("resize",  function () {
-            scrolling.scroll();
-        })
-
-        console.log(scrolling.windowWidth);
-        console.log(scrolling.windowBottom)
-        console.log(scrolling.scroller)
-//         this.screen
-//         this.screenPaddingTop
-//         this.screenPosition
-//         this.screenBottom
-//         this.isWheel
-//         this.wheelTimer
-//         this.isCursor
-//         this.scrollEnabled
-//         this.scrollSpeed
-//         this.scrollbar
-//         this.scroller
-    }
-
 
 })
 

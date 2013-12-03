@@ -20,30 +20,33 @@ define(['text!/templates/accordionHead.html', 'text!/templates/accordionItem.htm
 
     Accordion.prototype.addHead = function (/*string name of accordion heads*/elem, /*object with accordion data*/obj, /*DOMNode to insert accordion with #*/divIdSelector, /*integer counter to determine first elem to be opened*/i) {
 
-        var newTemplateHead = this.templateHead.replace(/someHref/, elem).replace(/headTitle/, elem).
-            replace(/idAccordGroup/, elem).replace(/dataParentId/, divIdSelector);
+        var newTemplateHead = this.templateHead.replace(/someHref/g, elem).replace(/headTitle/g, elem).
+            replace(/idAccordGroup/g, elem).replace(/dataParentId/g, divIdSelector);
+//        console.log(newTemplateHead);
         $(divIdSelector).append(newTemplateHead);
-        var newTemplWrapList = this.templWrapperItems.replace(/someID/, elem);
-        if (i == 0) {
-            newTemplWrapList = newTemplWrapList.replace(/collapse/, 'collapse in');
-        }
-        i++;
-        var handlerClick = $('#' + elem + '-group' + ' div.accordion-heading').after(newTemplWrapList);
-        handlerClick.click(function () {
-            if (this.nextSibling.className.match(/.*accordion-body.*collapse in/) || this.nextSibling.className.match(/.*accordion-body.*in collapse/)) {
-                return false;
-            }
-        })
+        var newTemplWrapList = this.templWrapperItems.replace(/someID/g, elem);
+//        if (i == 0) {
+//            newTemplWrapList = newTemplWrapList.replace(/collapse/, 'collapse in');
+//        }
+//        i++;
+        var handlerClick = $('#' + elem + '-group').after(newTemplWrapList);
+//        handlerClick.click(function () {
+//            if (this.nextSibling.className.match(/.*accordion-body.*collapse in/) || this.nextSibling.className.match(/.*accordion-body.*in collapse/)) {
+//                return false;
+//            }
+//        })
 
         for (var elems in obj[elem]) {
             this.addItem(obj[elem][elems], elem);
+//            console.log(elem)
         }
     }
 
     Accordion.prototype.addItem = function (obj, item) {
         this.item = $('#' + item + '-body').find('ul.list');
-        var newItemlList = this.templateList.replace(/ItemName/, obj.name).replace(/itemID/, obj.id);
+        var newItemlList = this.templateList.replace(/ItemName/g, obj.name).replace(/itemID/g, obj.id);
         var newItem = this.item.prepend(newItemlList);
+
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
     }

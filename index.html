@@ -23,7 +23,7 @@
                             <i class="icon-white icon-folder-close"></i> Projects
                         </button>
                         <button type="button" class="btn btn-large btn-custom liTEST"
-                                href="#people" data-point-id = "45" data-toggle="tab">
+                                href="#people" data-point-id="45" data-toggle="tab">
                             <i class="icon-white icon-user"></i> People
                         </button>
                     </div>
@@ -35,9 +35,19 @@
 
                     <div class="tab-content">
                         <div class="tab-pane active" id="projects">
-                            <div class="accordion" id="accordion-projects">
-                                <!--automatically-generated content for list of projects here-->
+
+                            <div class="container-scroll">
+                                <div class="scroller" id="accordion-projects">
+                                    <!--automatically-generated content for list of projects here-->
+
+                                    <div class="scroller__bar-wrapper">
+                                        <div class="scroller__bar"></div>
+                                    </div>
+
+                                </div>
+
                             </div>
+
                             <div class="line">&nbsp;</div>
                             <button type="button" class="btn accord btn-custom accordion-toggle"
                                     data-toggle="collapse"
@@ -46,9 +56,17 @@
                             </button>
                         </div>
                         <div class="tab-pane" id="people">
-                            <div class="accordion" id="accordion-people">
-                                <!--automatically-generated content for list of people here-->
+                            <div class="container-scroll">
+                                <div class="scroller" id="accordion-people">
+
+                                    <!--automatically-generated content for list of people here-->
+                                    <div class="scroller__bar-wrapper">
+                                        <div class="scroller__bar"></div>
+                                    </div>
+                                </div>
+
                             </div>
+
                             <div class="line">&nbsp;</div>
                             <button type="button" class="btn accord btn-custom accordion-toggle"
                                     data-toggle="modal"
@@ -59,21 +77,22 @@
                     </div>
                     <hr/>
                 </div>
+                <!-- Sidebar buttons -->
+                <div class="row-fluid btn-wrap">
+                    <div id="showAll" class="text-center">
+                        <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-open"></i> Show
+                            All Projects</a>
+                    </div>
+                    <div id="hideAll" class="text-center">
+                        <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-close"></i> Hide
+                            All Projects</a>
+                    </div>
+                </div>
+                <!-- Sidebar buttons -->
             </div>
             <!-- Sidebar content -->
 
-            <!-- Sidebar buttons -->
-            <div class="row-fluid btn-wrap">
-                <div id="showAll" class="text-center">
-                    <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-open"></i> Show
-                        All Projects</a>
-                </div>
-                <div id="hideAll" class="text-center">
-                    <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-close"></i> Hide
-                        All Projects</a>
-                </div>
-            </div>
-            <!-- Sidebar buttons -->
+
         </div>
         <!-- Sidebar -->
 

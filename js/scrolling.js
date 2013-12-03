@@ -112,6 +112,7 @@ define(['jquery-ui-1.10.3.custom.min'],function () {
         },
         initScreen: function () {
             this.screen = $("ul.screen");
+            console.log(this.screen)
         },
         moveScreen: function (top) {
             this.screen.css("top", top + "px");

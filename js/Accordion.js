@@ -30,8 +30,7 @@ define(['text!/templates/accordionHead.html', 'text!/templates/accordionItem.htm
         i++;
         var handlerClick = $('#' + elem + '-group' + ' div.accordion-heading').after(newTemplWrapList);
         handlerClick.click(function () {
-
-            if (this.nextSibling.className == "accordion-body collapse in" || this.nextSibling.className == "accordion-body in collapse") {
+            if (this.nextSibling.className.match(/.*accordion-body.*collapse in/) || this.nextSibling.className.match(/.*accordion-body.*in collapse/)) {
                 return false;
             }
         })

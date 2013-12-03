@@ -16,6 +16,7 @@ var controller = {
         var form = new formidable.IncomingForm();
 
         form.parse(req, function(error, fields, files) {
+            console.log(fields, files)
             fs.rename(files['photo'].path, "./img/Persons/" + files['photo'].name, function(err) {
                 if (err) {
                     console.log(err)

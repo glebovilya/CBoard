@@ -1,4 +1,4 @@
-define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane' ], function (Accordion, boot, resize, Scrolling) {
+define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' ], function (Accordion, boot, resize, Scrolling) {
 
 
 //    var peopleName = {manager: [
@@ -49,11 +49,12 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane' ], functio
         project.closed = closedProject;
         new Accordion(project, "#accordion-projects");
 
-        $(function()
-        {
-//            console.log(jScrollPane)
-            $('.scroll-pane').jScrollPane({showArrows:true, scrollbarWidth:19, dragMaxHeight:43});
-        });
+//        $(function()
+//        {
+////            console.log(jScrollPane)
+////            $('.scroll-pane').jScrollPane({showArrows:false, scrollbarWidth:3, dragMaxHeight:43});
+//        });
+        anotherf();
 //        f();
 
     })
@@ -110,6 +111,47 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane' ], functio
 
 
 //    $(document).ready(f);
+
+    function anotherf(){
+
+
+
+            window.dima = baron({
+                root: '.wrapper_1',
+                scroller: '.scroller',
+                bar: '.scroller__bar',
+                barOnCls: 'baron'
+            }).fix({
+                    elements: '.header__title',
+                    outside: 'header__title_state_fixed',
+                    before: 'header__title_position_top',
+                    after: 'header__title_position_bottom'
+                }).pull({
+                    block: '.load',
+                    elements: [{
+                        self: '.load__value',
+                        property: 'width'
+                    }],
+                    limit: 115,
+                    onExpand: function() {
+                        $('.load').css('background', 'red');
+                    }
+                });
+            baron({
+                scroller: '.wrapper_2 .scroller',
+                bar: '.scroller__bar',
+                barOnCls: 'baron'
+            }).fix({
+                    elements: '.header__title',
+                    outside: 'header__title_state_fixed',
+                    before: 'header__title_position_top',
+                    after: 'header__title_position_bottom'
+                }).baron({
+                    barOnCls: 'baron_h',
+                    bar: '.scroller__bar_h'
+                });
+
+    }
 
     function f() {
         scrolling = new Scrolling();

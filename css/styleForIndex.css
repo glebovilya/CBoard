@@ -60,6 +60,10 @@ body, .container-fluid, .row-fluid {
     /*height: 597px;*/
 /*}*/
 
+.scroller::-webkit-scrollbar {
+    width: 0;
+}
+
 .scroll-pane{
     max-height: 70px;
     overflow: auto;

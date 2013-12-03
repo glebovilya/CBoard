@@ -12,11 +12,11 @@ define(['newEmployee', 'addEmployee'/*'confirmDate', 'bootstrap-datepicker'/*,'a
 
 
 //  тест получить данные из базы
-$.get('/get', {target: 'person', method: 'all'}, function (dataPerson) {
-    var people = {};
-    for(var i=0; i<dataPerson.length; i++){
-        console.log(dataPerson[i]);
-    }
-});
-
+//$.get('/get', {target: 'person', method: 'all'}, function (dataPerson) {
+//    var people = {};
+//    for(var i=0; i<dataPerson.length; i++){
+//        console.log(dataPerson[i]);
+//    }
+//});
+//
 });

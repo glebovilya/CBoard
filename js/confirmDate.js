@@ -2,7 +2,7 @@
  * Created by stepanjuk on 02.12.13.
  */
 
-require(['newEmployee, bootstrap-datepicker'], function(){
+require(['text!../templates/addRemoveDate.html','newEmployee', 'bootstrap-datepicker'], function(templ){
 
 
 

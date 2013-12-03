@@ -1,4 +1,4 @@
-var fs  = require('fs');
+var fs  = require('fs.extra');
 var formidable = require("formidable");
 var dataSetter = require('../db/dataSetter');
 var resContr = require('./respondController');
@@ -14,14 +14,7 @@ var controller = {
     addPersonToDB: function(res, req) {
         var form = new formidable.IncomingForm();
         form.parse(req, function(error, fields, files) {
-            fs.rename(files['photo'].path, "./img/Persons/" + files['photo'].name, function(err) {
-                if (err) {
-                    console.log(err)
-                }
-                else {
-                    dataSetter.addPerson(fields.name, fields.surname, fields.position, ("/img/Persons/" + files['photo'].name), resContr.resJSON, res)
-                }
-            });
+            dataSetter.addPerson(fields.name, fields.surname, fields.position, resContr.resJSON, res, files['photo'])
         });
     }
 }

@@ -1,6 +1,7 @@
 var dbModels = require('./dbShemas');
+var fs  = require('fs.extra');
 
-var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ position, /*String*/ photo, callback, res) {
+var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ position, callback, res, photoFile) {
 
     /**
      * creates a new person in DB
@@ -10,13 +11,19 @@ var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ positio
         name: name,
         surname: surname,
         position: position,
-        photo: photo,
         current: false
     });
     person.save(function(){
+        fs.move(photoFile.path, "./img/Persons/" + person._id + photoFile.name, function(err) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                person.photo = "./img/Persons/" + person._id + photoFile.name;
+            }
+        });
         callback(res, person)
     })
-    console.log(person)
 
 };
 
@@ -31,9 +38,10 @@ var addProject = function(/*String*/name, /*Date*/startDate, callback, res) {
         start: startDate,
         current: false
     });
-    project.save();
-    console.log(project)
-    callback(res, project)
+    project.save(function(){
+        callback(res, project)
+    });
+
 }
 
 var addStatus = function(/*number*/id , /*String*/name) {

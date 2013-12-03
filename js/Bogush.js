@@ -1,42 +1,76 @@
 define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' ], function (Accordion, boot, resize, Scrolling,k) {
 
-//    window.onload = function() {
+    var peopleName = {manager: [
+        {id: '0', name: 'People0'},
+        {id: '1', name: 'People1'},
+        {id: '2', name: 'People1'},
+        {id: '3', name: 'People1'},
+        {id: '4', name: 'People1'},
+        {id: '5', name: 'People1'},
+        {id: '6', name: 'People1'},
+        {id: '7', name: 'People1'},
+        {id: '8', name: 'People1'},
+        {id: '9', name: 'People2'},
+        {id: '10', name: 'People2'},
+        {id: '11', name: 'People2'},
+        {id: '12', name: 'People2'}
+    ],
+        employee: [
+            {id: '0', name: 'Emp0'},
+            {id: '1', name: 'Emp1'},
+            {id: '2', name: 'Emp2'},
+            {id: '3', name: 'Emp2'},
+            {id: '4', name: 'Emp2'},
+            {id: '5', name: 'Emp2'},
+            {id: '6', name: 'Emp2'},
+            {id: '7', name: 'Emp2'},
+            {id: '8', name: 'Emp2'},
+            {id: '9', name: 'Emp2'},
+            {id: '10', name: 'Emp2'},
+            {id: '11', name: 'Emp2'},
+            {id: '12', name: 'Emp2'},
+            {id: '13', name: 'Emp2'},
+            {id: '14', name: 'Emp3'}
+        ],
+        lead: [
+            {id: '0', name: 'Lead0'},
+            {id: '1', name: 'Lead1'},
+            {id: '2', name: 'Lead2'},
+            {id: '3', name: 'Lead3'},
+            {id: '4', name: 'Lead3'},
+            {id: '5', name: 'Lead3'},
+            {id: '6', name: 'Lead3'},
+            {id: '7', name: 'Lead3'},
+            {id: '8', name: 'Lead3'},
+            {id: '9', name: 'Lead3'},
+            {id: '10', name: 'Lead3'},
+            {id: '11', name: 'Lead3'},
+            {id: '12', name: 'Lead4'}
+        ]};
 
-
-//    };
-
-//    var peopleName = {manager: [
-//        {id: '0', name: 'People0'},
-//        {id: '1', name: 'People1'},
-//        {id: '2', name: 'People2'}
-//    ],
-//        employee: [
-//            {id: '0', name: 'Emp0'},
-//            {id: '1', name: 'Emp1'},
-//            {id: '2', name: 'Emp2'},
-//            {id: '3', name: 'Emp3'}
-//        ],
-//        lead: [
-//            {id: '0', name: 'Lead0'},
-//            {id: '1', name: 'Lead1'},
-//            {id: '2', name: 'Lead2'},
-//            {id: '3', name: 'Lead3'},
-//            {id: '4', name: 'Lead4'}
-//        ]};
-
-//    var projects = {open: [
-//        {id: '0', name: 'Project0'},
-//        {id: '1', name: 'Project1'},
-//        {id: '2', name: 'Project2'},
-//        {id: '3', name: 'Project3'},
-//        {id: '4', name: 'Project4'},
-//        {id: '5', name: 'Project5'}
-//    ],
-//        closed: [
-//            {id: '0', name: 'ClosedProject0'},
-//            {id: '1', name: 'ClosedProject1'},
-//            {id: '2', name: 'ClosedProject2'}
-//        ]};
+    var projects = {open: [
+        {id: '0', name: 'Project0'},
+        {id: '1', name: 'Project1'},
+        {id: '2', name: 'Project2'},
+        {id: '3', name: 'Project3'},
+        {id: '4', name: 'Project4'},
+        {id: '5', name: 'Project5'},
+        {id: '6', name: 'Project5'},
+        {id: '7', name: 'Project5'},
+        {id: '8', name: 'Project5'},
+        {id: '9', name: 'Project5'},
+        {id: '10', name: 'Project5'}
+    ],
+        closed: [
+            {id: '0', name: 'ClosedProject0'},
+            {id: '1', name: 'ClosedProject1'},
+            {id: '2', name: 'ClosedProject2'},
+            {id: '3', name: 'ClosedProject2'},
+            {id: '4', name: 'ClosedProject2'},
+            {id: '5', name: 'ClosedProject2'},
+            {id: '6', name: 'ClosedProject2'},
+            {id: '7', name: 'ClosedProject2'}
+        ]};
 
     /*generate accordion "projects"*/
     $.get('/get', {target: 'project', method: 'all'}, function (dataProject) {
@@ -51,7 +85,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
         }
         project.open = openProject;
         project.closed = closedProject;
-        new Accordion(project, "#accordion-projects");
+        new Accordion(projects, "#accordion-projects");
 
 //        $(function()
 //        {
@@ -75,7 +109,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
                     {id: dataPerson[elems]._id, name: dataPerson[elems].name}
                 ];
         }
-        new Accordion(people, "#accordion-people");
+        new Accordion(peopleName, "#accordion-people");
     })
 
 //    var ht = $('div#board').height()-18;
@@ -160,7 +194,9 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
 //        })
 //
 //    }
-    $('div.container-scroll').height('250px!important');
+//    $('div.container-scroll').css("height",250);
+    $('div.container-scroll').height(250);
+    console.log($('div.container-scroll'))
 
     window.dima = baron({
         root: '.container-scroll',
@@ -184,7 +220,6 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
                 $('.load').css('background', 'red');
             }
         });
-
 })
 
 

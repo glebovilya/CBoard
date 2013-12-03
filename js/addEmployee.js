@@ -2,7 +2,7 @@
  * Created by stepanjuk on 29.11.13.
  */
 
-require(['stepa'], function(){
+require(['stepa','Accordion'], function(){
 
 // прицепить на ининциирующую кнопку  id ="buttonAddNewPeople"
 //    console.log($("#buttonAddPeople"));
@@ -53,7 +53,8 @@ require(['stepa'], function(){
                     contentType: false,
                     processData: false,
                     success: function (returndata) {
-                        alert(returndata);
+                        onAjaxSuccess(returndata);
+                        console.log(returndata)
                     }
                 });
 
@@ -67,29 +68,12 @@ require(['stepa'], function(){
 
 
 
-//                 $("#ajaxAddNewPeople").on('click', function(){
-//
-//                     $.post(
-//                         "/get",
-//                         {
-//                             target: 'person',
-//                             method: 'add',
-//                             name: $("#nameAddPeople").val(),
-//                             surname: $("#surnameAddPeople").val(),
-//                             position: $("#positionAddPeople").val(),
-//                             photo: $("#photoAddPeople").val()
-//
-//                         },
-//                         onAjaxSuccess
-//
-//                     );
 
-//                     function onAjaxSuccess(data){
-//                         // Здесь мы получаем данные, отправленные сервером in Object{data:{Object}}.
-//                         console.log(data);
-//                 }
-//        });
 
-//
+            function onAjaxSuccess(data){
+
+                $("#modalAddPeople :input").val("");
+             }
+
      });
 });

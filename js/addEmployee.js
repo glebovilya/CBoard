@@ -38,19 +38,28 @@ require(['stepa'], function(){
 
                  $(template).appendTo($("#inner-board"));
 
-//            $('#modalAddPeople form').submit(function(){ //listen for submit event
-//
-//                    $('<input />').attr('type', 'hidden')
-//                        .attr('name', 'target')
-//                        .attr('value', 'person')
-//                        .appendTo('#modalAddPeople form');
-//
-//                    $('<input />').attr('type', 'hidden')
-//                        .attr('name', 'method')
-//                        .attr('value', 'add')
-//                        .appendTo('#modalAddPeople form');
-//                    return true;
-//            });
+
+
+            $('#modalAddPeople form').submit(function(){ //listen for submit event
+
+                var formData = new FormData($(this)[0]);
+
+                $.ajax({
+                    url: '/upload_person',
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (returndata) {
+                        alert(returndata);
+                    }
+                });
+
+                return false;
+
+            });
 
             $("#modalAddPeople .close").on('click', function(){
                 $("#modalAddPeople").remove();

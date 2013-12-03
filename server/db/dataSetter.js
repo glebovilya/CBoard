@@ -13,9 +13,11 @@ var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ positio
         photo: photo,
         current: false
     });
-    person.save()
+    person.save(function(){
+        callback(res, person)
+    })
     console.log(person)
-    callback(res, person)
+
 };
 
 var addProject = function(/*String*/name, /*Date*/startDate, callback, res) {
@@ -30,6 +32,7 @@ var addProject = function(/*String*/name, /*Date*/startDate, callback, res) {
         current: false
     });
     project.save();
+    console.log(project)
     callback(res, project)
 }
 

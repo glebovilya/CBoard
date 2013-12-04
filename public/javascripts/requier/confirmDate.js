@@ -2,7 +2,7 @@
  * Created by stepanjuk on 02.12.13.
  */
 
-require(['text!../templates/addRemoveDate.html','newEmployee', 'bootstrap-datepicker'], function(templ){
+require(['newEmployee, bootstrap-datepicker'], function(){
 
 
 
@@ -30,7 +30,24 @@ var template = '<div id="myModal" class="modal" tabindex="-1" role="dialog" aria
             </div>\
             </form>\
                             </div>\
-                           <div class=" span3 pull-right windowForPhoto">\
+                           <div class=" span3 pull-right">\
+                                <div class = "employee">\
+                                    <div class="employeeWindow ">\
+                                        <div class="employee-header" >\
+                                            <div >branch</div>\
+                                            <button type="button" class="close" data-toggle="tooltip" title="remove from project"  aria-hidden="true" >&times;</button>\
+                                        </div>\
+                                        <div class="employee-body">\
+                                            <div class="united" >\
+                                                <img src="http://placehold.it/90x120" alt="">\
+                                                    <div class= "name" >Name Surname</div>\
+                                                </div>\
+                                            </div>\
+                                            <div class="employee-footer">\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
                             </div>\
                         </div>\
                         <div class="modal-footer">\
@@ -40,50 +57,15 @@ var template = '<div id="myModal" class="modal" tabindex="-1" role="dialog" aria
                     </div>';
 
 
-
-
-
-
-
-
-
-var templateEmployee = ' <div class = "employee">\
-        <div class="employeeWindow ">\
-            <div class="employee-header" >\
-                <div >position</div>\
-                <button type="button" class="close" data-toggle="tooltip" title="remove from project"  aria-hidden="true" >&times;</button>\
-            </div>\
-            <div class="employee-body">\
-                <div class="united" >\
-                    <img src=' + empl.photo + ' alt="">\
-                        <div class= "name" >'+empl.name +'</br>'+empl.surname +'</div>\
-                </div>\
-            </div>\
-            <div class="employee-footer">\
-            </div>\
-        </div>\
-        </div>';
-
-
-
-
-
-    $(template).appendTo($("#inner-board"));
-
-
+        $(template).appendTo($("#inner-board"));
 
 
         $("#formConfirmDate").ready(function(){
             console.log("yep");
              $(".datepicker").datepicker();
 
-            $(templateEmployee).appendTo($(".windowForPhoto"));
 
-
-        });
-        $("#myModal").ready(function(){
-
-        });
+        })
 
 
 });

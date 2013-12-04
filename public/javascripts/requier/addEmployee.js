@@ -5,12 +5,13 @@
 require([/*'stepa','Accordion',*/'text!./templates/addEmployee.html'], function(templ){
 
 
-    var template = templ;
 
 
+$(document).ready(function(){
     $("#buttonAddNewPeople").click(function(event){
 
-    $(template).appendTo($("#inner-board"));
+        var template = templ;
+        $(template).appendTo($("#inner-board"));
 
     $('#modalAddPeople form').submit(function(){ //listen for submit event
 
@@ -48,3 +49,4 @@ require([/*'stepa','Accordion',*/'text!./templates/addEmployee.html'], function(
 
 });
 
+});

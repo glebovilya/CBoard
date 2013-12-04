@@ -34,8 +34,7 @@ define(['text!../templates/addproject.html'], function (template) {
              * on drag person over the project
              * in the project and person schemas
              * */
-            $.get('/get', {
-                target: 'project',
+            $.get('/project', {
                 id: this.id
             }, function () {
                 console.log('project request sent')

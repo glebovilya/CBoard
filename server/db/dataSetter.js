@@ -6,7 +6,7 @@ var respondJSON = function(res, data) {
         'Content-Type': 'application/json'
     });
     res.end(JSON.stringify(data))
-}
+};
 
 exports.addPerson = function(req, res) {
 
@@ -35,7 +35,7 @@ exports.addPerson = function(req, res) {
 
     })
 
-}
+};
 exports.addProject = function(req, res) {
 
     var project = new dbModels.Project ({
@@ -46,7 +46,7 @@ exports.addProject = function(req, res) {
     project.save(function(){
         respondJSON(res, project)
     });
-}
+};
 exports.addStatus = function(req, res) {
 
     var status = new dbModels.Status({
@@ -56,7 +56,7 @@ exports.addStatus = function(req, res) {
     status.save(function(){
         respondJSON(res, status)
     });
-}
+};
 exports.addHistory = function (req, res) {
 
     /**
@@ -144,7 +144,7 @@ exports.addHistory = function (req, res) {
             });
         });
     });
-}
+};
 exports.setCurrentPerson = function(req, res) {
 
     /**
@@ -160,7 +160,7 @@ exports.setCurrentPerson = function(req, res) {
         pers.save(respondJSON(res, pers));
 
     });
-}
+};
 exports.setCurrentProject = function(req, res) {
 
     /**
@@ -176,7 +176,7 @@ exports.setCurrentProject = function(req, res) {
         proj.save(respondJSON(res, proj));
 
     });
-}
+};
 
 
 

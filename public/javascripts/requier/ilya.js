@@ -5,6 +5,6 @@
 require(['Classes/Project'], function (Project){
     var project;
 
-    project = new Project($("#drop"),{'id':'test'});
+    project = new Project($("#drop"),{'id':'10'});
     project.pushHistory();
 });

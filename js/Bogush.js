@@ -74,6 +74,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll'
 
     /*generate accordion "projects"*/
     $.get('/get', {target: 'project', method: 'all'}, function (dataProject) {
+//        console.log(dataProject)
         var project = {};
         var openProject = [];
         var closedProject = [];
@@ -109,7 +110,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll'
                     {id: dataPerson[elems]._id, name: dataPerson[elems].name}
                 ];
         }
-        console.log(dataPerson)
+//        console.log(dataPerson)
         new Accordion(people, "#accordion-people");
     })
 
@@ -151,75 +152,34 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll'
 
 //    $(document).ready(f);
 
-    function anotherf() {
+    $('div.container-scroll').height(250);
+    setScroll('.container-scroll', '.scroller', '.scroller__bar');
 
-        window.dima = baron({
-            root: '.wrapper_scroll',
-            scroller: '.scroller',
-            bar: '.scroller__bar',
-            barOnCls: 'baron'
-        }).fix({
-                elements: '.header__title',
-                outside: 'header__title_state_fixed',
-                before: 'header__title_position_top',
-                after: 'header__title_position_bottom'
-            }).pull({
-                block: '.load',
-                elements: [
-                    {
-                        self: '.load__value',
-                        property: 'width'
-                    }
-                ],
-                limit: 115,
-                onExpand: function () {
-                    $('.load').css('background', 'red');
-                }
-            });
-    }
-
-//    function f() {
-//        scrolling = new Scrolling();
-//        scrolling.initScreen();
-//        scrolling.initScrollbar();
-//        scrolling.scroll();
-//        if ($('ul.screen').bind) $('ul.screen').bind('DOMMouseScroll', function (event) {
-//            scrolling.wheel(event);
-//        }, false);
-//        $('ul.screen').bind("mousewheel", /*=*/ /*document.onmousewheel =*/ function (event) {
-//            scrolling.wheel(event);
-//        });
-//        $('ul.screen').bind("mousemove", function (event) {
-//            scrolling.setScrollbarCursor(event);
-//        })
-//        $('ul.screen').bind("resize",  function () {
-//            scrolling.scroll();
-//        })
-//
-//    }
-//    $('div.container-scroll').css("height",250);
-    $(document).ready( function(){
+    $(document).ready(function () {
 //        console.log('fgh');
-    $('div.container-scroll-proj').height(250);
-    $('div.container-scroll-people').height(250);
+
+//        $('div.container-scroll-people').height(250);
 //        $("div#people").click()
 //    $('div#people').addClass("active")
 
 //    $('div#people').removeClass('active')
 //    $('div#projects').addClass('active')
 //        $("div#projects").click()
-    setScroll('.container-scroll-proj', '.scroller-proj', '.scroller__bar-proj');
+
+
 //        setScroll('.container-scroll-people', '.scroller-people', '.scroller__bar-people');
-    setScroll('.container-scroll-people', '.scroller-people', '.scroller__bar-people');
-    $('button[href="#people"]').bind("click", function () {
+
+//        setScroll('.container-scroll-people', '.scroller-people', '.scroller__bar-people');
+//        $('div#projects').addClass('active')
+//        $('button[href="#people"]').bind("click", function () {
 //        console.log('dfh')
 
 //        setScroll('.container-scroll-people', '.scroller-people', '.scroller__bar-people');
 //
-    })
+//        })
 //console.log($('.container-scroll-people .header__title'))
 
-    } )
+    })
 
 
     function setScroll(container, scroller, scroll) {
@@ -234,19 +194,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll'
                 before: 'header__title_position_top',
                 after: 'header__title_position_bottom',
                 clickable: true
-//            })
-// .pull({
-//                block: '.load',
-//                elements: [
-//                    {
-//                        self: '.load__value',
-//                        property: 'width'
-//                    }
-//                ],
-//                limit: 115
-//                onExpand: function () {
-//                    $('.load').css('background', 'red');
-//                }
+
             });
     }
 

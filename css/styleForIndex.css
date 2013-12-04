@@ -287,7 +287,7 @@ a:hover, a:focus, a:link {
 
 /*/------------*/
 
-.container-scroll-proj, .container-scroll-people {
+.container-scroll {
     /*display: inline-block;*/
     /*height: 30%!important;*/
     /*vertical-align: top;*/
@@ -305,7 +305,7 @@ a:hover, a:focus, a:link {
 /*ul.list{*/
     /*overflow: hidden;*/
 /*}*/
-.scroller-proj, .scroller-people {
+.scroller{
     height: 100%;
     overflow-y: scroll;
     /*-webkit-overflow-scrolling: touch;*/
@@ -326,7 +326,7 @@ a:hover, a:focus, a:link {
     background: rgba(0, 0, 255, .1);
     pointer-events: none;
 }
-.scroller__bar-proj, .scroller__bar-people {
+.scroller__bar {
     position: absolute;
     z-index: 1;
     width: 8px;
@@ -337,10 +337,10 @@ a:hover, a:focus, a:link {
     transition: opacity .2s linear;
     pointer-events: auto;
 }
-.scroller__bar-proj:hover, .scroller__bar-people:hover {
+.scroller__bar:hover {
     opacity: .8;
 }
-.baron .scroller__bar-proj, .baron .scroller__bar-people {
+.baron .scroller__bar{
     opacity: .6;
 }
 .baron_h .scroller__bar_h {
@@ -351,7 +351,7 @@ a:hover, a:focus, a:link {
 .header__title {
     /*position: relative;*/
     /*z-index: 2;*/
-    /*width: 100%;*/
+    width: 100%;
     /*margin: 0;*/
     /*-moz-box-sizing: border-box;*/
     /*box-sizing: border-box;*/

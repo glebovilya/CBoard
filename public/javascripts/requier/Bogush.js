@@ -73,7 +73,7 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
         ]};
 
     /*generate accordion "projects"*/
-//    new Accordion(projects, "#accordion-projects");
+    new Accordion(projects, "#accordion-projects");
     $.get('/projects', function (dataProject) {
         console.log(dataProject)
         var project = {};
@@ -87,7 +87,7 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
         }
         project.open = openProject;
         project.closed = closedProject;
-        new Accordion(project, "#accordion-projects");
+//        new Accordion(project, "#accordion-projects");
 
 //        $(function()
 //        {
@@ -101,17 +101,20 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
 //    new Accordion(peopleName, "#accordion-people");
     /*generate accordion "people"*/
     $.get('/users', function (dataPerson) {
+        console.log(peopleName)
+
         var people = {};
         for (var elems in dataPerson) {
             var itemk = dataPerson[elems].position
             if (itemk in people)
-                people[itemk][people[itemk].length] = {id: dataPerson[elems]._id, name: dataPerson[elems].name};
+                people[itemk][people[itemk].length] = {id: dataPerson[elems]._id+"", name: dataPerson[elems].name};
             else
                 people[itemk] = [
-                    {id: dataPerson[elems]._id, name: dataPerson[elems].name}
+                    {id: dataPerson[elems]._id+"", name: dataPerson[elems].name}
                 ];
         }
 //        console.log(dataPerson)
+        console.log(people)
         new Accordion(people, "#accordion-people");
     })
 

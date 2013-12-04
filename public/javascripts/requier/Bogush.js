@@ -72,10 +72,11 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
             {id: '7', name: 'ClosedProject2'}
         ]};
 
+    $('div.container-scroll').height(250);
     /*generate accordion "projects"*/
     new Accordion(projects, "#accordion-projects");
     $.get('/projects', function (dataProject) {
-        console.log(dataProject)
+//        console.log(dataProject)
         var project = {};
         var openProject = [];
         var closedProject = [];
@@ -89,19 +90,11 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
         project.closed = closedProject;
 //        new Accordion(project, "#accordion-projects");
 
-//        $(function()
-//        {
-////            console.log(jScrollPane)
-////            $('.scroll-pane').jScrollPane({showArrows:false, scrollbarWidth:3, dragMaxHeight:43});
-//        });
-//        anotherf();
-//        f();
-
     })
 //    new Accordion(peopleName, "#accordion-people");
     /*generate accordion "people"*/
-    $.get('/users', function (dataPerson) {
-        console.log(peopleName)
+//    var dataPerson =
+    var people =  function fr(people){
 
         var people = {};
         for (var elems in dataPerson) {
@@ -113,10 +106,64 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
                     {id: dataPerson[elems]._id+"", name: dataPerson[elems].name}
                 ];
         }
-//        console.log(dataPerson)
         console.log(people)
-        new Accordion(people, "#accordion-people");
-    })
+        return people;
+    }
+
+    function f(dataPerson){
+
+
+        var people = {};
+        for (var elems in dataPerson) {
+            var itemk = dataPerson[elems].position
+            if (itemk in people)
+                people[itemk][people[itemk].length] = {id: dataPerson[elems]._id+"", name: dataPerson[elems].name};
+            else
+                people[itemk] = [
+                    {id: dataPerson[elems]._id+"", name: dataPerson[elems].name}
+                ];
+        }
+
+        var kr = document.createElement('div')
+        console.log(kr)
+        kr.text = people;
+        kr.id = 'hrt';
+        $("#projects").append(kr)
+        console.log($('#projects #hrt'))
+
+    }
+
+
+      $.get('/users', function(dataPerson){
+//        console.log(dataPerson)
+f(dataPerson);
+
+    });
+
+    console.log($('#hrt'))
+
+
+    new Accordion(window.lok, "#accordion-people");
+//    Accordion.setScroll('.container-scroll', '.scroller', '.scroller__bar');
+
+//    console.log(k);
+//        , function (dataPersons) {
+//        dataPerson = dataPersons
+//   var people =  function fr(people){
+//       console.log(people)
+//        return people;
+//    }
+
+
+//    new Accordion(people, "#accordion-people");
+//
+//    })
+//------------------
+//    console.log(dataPerson)
+
+
+
+    //---------------------
 
 //    var ht = $('div#board').height()-18;
     $('div#inner-board').height($('div#board').height() - 18);
@@ -156,7 +203,7 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
 
 //    $(document).ready(f);
 
-    $('div.container-scroll').height(250);
+
     setScroll('.container-scroll', '.scroller', '.scroller__bar');
 
     $(document).ready(function () {
@@ -186,21 +233,21 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
     })
 
 
-    function setScroll(container, scroller, scroll) {
-        baron({
-            root: container,
-            scroller: scroller,
-            bar: scroll,
-            barOnCls: 'baron'
-        }).fix({
-                elements: '.header__title',
-                outside: 'header__title_state_fixed',
-                before: 'header__title_position_top',
-                after: 'header__title_position_bottom',
-                clickable: true
-
-            });
-    }
+//    function setScroll(container, scroller, scroll) {
+//        baron({
+//            root: container,
+//            scroller: scroller,
+//            bar: scroll,
+//            barOnCls: 'baron'
+//        }).fix({
+//                elements: '.header__title',
+//                outside: 'header__title_state_fixed',
+//                before: 'header__title_position_top',
+//                after: 'header__title_position_bottom',
+//                clickable: true
+//
+//            });
+//    }
 
 })
 

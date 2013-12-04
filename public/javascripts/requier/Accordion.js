@@ -1,12 +1,13 @@
-define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion'], function (accordHead, accordItem, accordWrapItem, setEffects) {
+define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'scroll'], function (accordHead, accordItem, accordWrapItem, setEffects) {
 
     function Accordion(/*object with data for accordion*/object, /*DOMNode to insert accordion with #*/divId) {
-        console.log(accordHead)
+//        console.log(accordHead)
         this.templateHead = accordHead;
         this.templWrapperItems = accordWrapItem;
         this.templateList = accordItem;
         this.item;
         this.__construct(object, divId);
+        this.setScroll('.container-scroll', '.scroller', '.scroller__bar');
     }
 
     Accordion.prototype.__construct = function (object, divId) {
@@ -50,7 +51,26 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
 
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
+
     }
+
+    Accordion.prototype.setScroll = function(container, scroller, scroll){
+        baron({
+            root: container,
+            scroller: scroller,
+            bar: scroll,
+            barOnCls: 'baron'
+        }).fix({
+                elements: '.header__title',
+                outside: 'header__title_state_fixed',
+                before: 'header__title_position_top',
+                after: 'header__title_position_bottom',
+                clickable: true
+
+            });
+    }
+
+
 
     return Accordion;
 })

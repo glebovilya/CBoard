@@ -1,4 +1,4 @@
-define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' ], function (Accordion, boot, resize, Scrolling,k) {
+define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll' ], function (Accordion, boot, resize, Scrolling, k) {
 
     var peopleName = {manager: [
         {id: '0', name: 'People0'},
@@ -85,7 +85,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
         }
         project.open = openProject;
         project.closed = closedProject;
-        new Accordion(projects, "#accordion-projects");
+        new Accordion(project, "#accordion-projects");
 
 //        $(function()
 //        {
@@ -109,7 +109,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
                     {id: dataPerson[elems]._id, name: dataPerson[elems].name}
                 ];
         }
-        new Accordion(peopleName, "#accordion-people");
+        new Accordion(people, "#accordion-people");
     })
 
 //    var ht = $('div#board').height()-18;
@@ -150,29 +150,31 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
 
 //    $(document).ready(f);
 
-    function anotherf(){
+    function anotherf() {
 
-            window.dima = baron({
-                root: '.wrapper_scroll',
-                scroller: '.scroller',
-                bar: '.scroller__bar',
-                barOnCls: 'baron'
-            }).fix({
-                    elements: '.header__title',
-                    outside: 'header__title_state_fixed',
-                    before: 'header__title_position_top',
-                    after: 'header__title_position_bottom'
-                }).pull({
-                    block: '.load',
-                    elements: [{
+        window.dima = baron({
+            root: '.wrapper_scroll',
+            scroller: '.scroller',
+            bar: '.scroller__bar',
+            barOnCls: 'baron'
+        }).fix({
+                elements: '.header__title',
+                outside: 'header__title_state_fixed',
+                before: 'header__title_position_top',
+                after: 'header__title_position_bottom'
+            }).pull({
+                block: '.load',
+                elements: [
+                    {
                         self: '.load__value',
                         property: 'width'
-                    }],
-                    limit: 115,
-                    onExpand: function() {
-                        $('.load').css('background', 'red');
                     }
-                });
+                ],
+                limit: 115,
+                onExpand: function () {
+                    $('.load').css('background', 'red');
+                }
+            });
     }
 
 //    function f() {
@@ -195,31 +197,58 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling','jScrollPane', 'scroll' 
 //
 //    }
 //    $('div.container-scroll').css("height",250);
-    $('div.container-scroll').height(250);
-    console.log($('div.container-scroll'))
+    $(document).ready( function(){
+//        console.log('fgh');
+    $('div.container-scroll-proj').height(250);
+    $('div.container-scroll-people').height(250);
+//        $("div#people").click()
+//    $('div#people').addClass("active")
 
-    window.dima = baron({
-        root: '.container-scroll',
-        scroller: '.scroller',
-        bar: '.scroller__bar',
-        barOnCls: 'baron'
-    }).fix({
-            elements: '.header__title',
-            outside: 'header__title_state_fixed',
-            before: 'header__title_position_top',
-            after: 'header__title_position_bottom',
-            clickable: true
-        }).pull({
-            block: '.load',
-            elements: [{
-                self: '.load__value',
-                property: 'width'
-            }],
-            limit: 115,
-            onExpand: function() {
-                $('.load').css('background', 'red');
-            }
-        });
+//    $('div#people').removeClass('active')
+//    $('div#projects').addClass('active')
+//        $("div#projects").click()
+    setScroll('.container-scroll-proj', '.scroller-proj', '.scroller__bar-proj');
+//        setScroll('.container-scroll-people', '.scroller-people', '.scroller__bar-people');
+    setScroll('.container-scroll-people', '.scroller-people', '.scroller__bar-people');
+    $('button[href="#people"]').bind("click", function () {
+//        console.log('dfh')
+        console.log(window.baron)
+//        setScroll('.container-scroll-people', '.scroller-people', '.scroller__bar-people');
+//
+    })
+//console.log($('.container-scroll-people .header__title'))
+
+    } )
+
+
+    function setScroll(container, scroller, scroll) {
+        baron({
+            root: container,
+            scroller: scroller,
+            bar: scroll,
+            barOnCls: 'baron'
+        }).fix({
+                elements: '.header__title',
+                outside: 'header__title_state_fixed',
+                before: 'header__title_position_top',
+                after: 'header__title_position_bottom',
+                clickable: true
+//            })
+// .pull({
+//                block: '.load',
+//                elements: [
+//                    {
+//                        self: '.load__value',
+//                        property: 'width'
+//                    }
+//                ],
+//                limit: 115
+//                onExpand: function () {
+//                    $('.load').css('background', 'red');
+//                }
+            });
+    }
+
 })
 
 

@@ -420,7 +420,7 @@
                         $(self.clipper).css(self.origin.crossSize, self.clipper[self.origin.crossClient] - delta + 'px');
                     }
                     $(self.scroller).css(self.origin.crossSize, self.clipper[self.origin.crossClient] + delta + 'px');
-
+//                    console.log($(self.scroller).css("width", 290))
                     Array.prototype.unshift.call(arguments, 'resize');
                     fire.apply(self, arguments);
 
@@ -552,6 +552,7 @@
             eventManager = this.event,
             $ = this.$,
             self = this;
+//        console.log(topRealHeights)
 
         function fixElement(i, pos) {
             if (viewPortSize < (params.minView || 0)) { // No headers fixing when no enought space for viewport
@@ -584,18 +585,25 @@
             }
 
             elements = this.$(params.elements, this.scroller);
-
+//            console.log(elements)
             if (elements) {
+
                 viewPortSize = this.scroller[this.origin.client];
+//                console.log(viewPortSize)
                 for (var i = 0 ; i < elements.length ; i++) {
                     // Variable header heights
                     pos = {};
                     pos[this.origin.size] = elements[i][this.origin.offset];
+//                    pos = {height:30}
+//                    console.log(pos)
                     if (elements[i].parentNode !== this.scroller) {
                         this.$(elements[i].parentNode).css(pos);
                     }
+                    // Variable header width
                     pos = {};
                     pos[this.origin.crossSize] = elements[i].parentNode[this.origin.crossClient];
+//                    console.log(pos)
+//                    pos = {width: 273}
                     this.$(elements[i]).css(pos);
 
                     // Between fixed headers
@@ -622,6 +630,7 @@
                     if (this.track && this.track != this.scroller) {
                         pos = {};
                         pos[this.origin.pos] = elements[0].parentNode[this.origin.offset];
+                        console.log(pos)
                         this.$(this.track).css(pos);
                     } else {
                         this.barTopLimit = elements[0].parentNode[this.origin.offset];
@@ -746,312 +755,312 @@
     };
 })(window);
 /* Controls plugin for baron 0.6+ */
-(function(window, undefined) {
-    var controls = function(params) {
-        var forward, backward, track, screen,
-            self = this; // AAAAAA!!!!!11
-
-        screen = params.screen || 0.9;
-
-        if (params.forward) {
-            forward = this.$(params.forward, this.clipper);
-
-            this.event(forward, 'click', function() {
-                var y = self.pos() - params.delta || 30;
-
-                self.pos(y);
-            });
-        }
-
-        if (params.backward) {
-            backward = this.$(params.backward, this.clipper);
-
-            this.event(backward, 'click', function() {
-                var y = self.pos() + params.delta || 30;
-
-                self.pos(y);
-            });
-        }
-
-        if (params.track) {
-            if (params.track === true) {
-                track = this.track;
-            } else {
-                track = this.$(params.track, this.clipper)[0];
-            }
-
-            if (track) {
-                this.event(track, 'mousedown', function(e) {
-                    var x = e['offset' + self.origin.x],
-                        xBar = self.bar[self.origin.offsetPos],
-                        sign = 0;
-
-                    if (x < xBar) {
-                        sign = -1;
-                    } else if (x > xBar + self.bar[self.origin.offset]) {
-                        sign = 1;
-                    }
-
-                    var y = self.pos() + sign * screen * self.scroller[self.origin.client];
-                    self.pos(y);
-                });
-            }
-        }
-
-    };
-
-    baron.fn.controls = function(params) {
-        var i = 0;
-
-        while (this[i]) {
-            controls.call(this[i], params);
-            i++;
-        }
-
-        return this;
-    };
-})(window);
+//(function(window, undefined) {
+//    var controls = function(params) {
+//        var forward, backward, track, screen,
+//            self = this; // AAAAAA!!!!!11
+//
+//        screen = params.screen || 0.9;
+//
+//        if (params.forward) {
+//            forward = this.$(params.forward, this.clipper);
+//
+//            this.event(forward, 'click', function() {
+//                var y = self.pos() - params.delta || 30;
+//
+//                self.pos(y);
+//            });
+//        }
+//
+//        if (params.backward) {
+//            backward = this.$(params.backward, this.clipper);
+//
+//            this.event(backward, 'click', function() {
+//                var y = self.pos() + params.delta || 30;
+//
+//                self.pos(y);
+//            });
+//        }
+//
+//        if (params.track) {
+//            if (params.track === true) {
+//                track = this.track;
+//            } else {
+//                track = this.$(params.track, this.clipper)[0];
+//            }
+//
+//            if (track) {
+//                this.event(track, 'mousedown', function(e) {
+//                    var x = e['offset' + self.origin.x],
+//                        xBar = self.bar[self.origin.offsetPos],
+//                        sign = 0;
+//
+//                    if (x < xBar) {
+//                        sign = -1;
+//                    } else if (x > xBar + self.bar[self.origin.offset]) {
+//                        sign = 1;
+//                    }
+//
+//                    var y = self.pos() + sign * screen * self.scroller[self.origin.client];
+//                    self.pos(y);
+//                });
+//            }
+//        }
+//
+//    };
+//
+//    baron.fn.controls = function(params) {
+//        var i = 0;
+//
+//        while (this[i]) {
+//            controls.call(this[i], params);
+//            i++;
+//        }
+//
+//        return this;
+//    };
+//})(window);
 /* Autotests plugin for baron 0.6+ (for developers) */
-(function(window, undefined) {
-    var test = function(params) {
-        var errCount = 0,
-            totalCount = 0;
-
-        var log = function(type, msg, obj) {
-            var text = type + ': ' + msg;
-
-            switch (type) {
-                case 'log': css = 'color: #0b0'; break;
-                case 'warn': css = 'color: #fc9'; break;
-                case 'error': css = 'color: #f00'; break;
-            }
-            totalCount++;
-            if (type == 'log') {
-                errCount++;
-            }
-
-            console.log('%c ' + totalCount + '. ' + text, css);
-            if (obj !== undefined) {
-                console.log(obj);
-            }
-        };
-
-        if (this.scroller && this.scroller.nodeType === 1) {
-            log('log', 'Scroller defined and has proper nodeType value', this.scroller);
-        } else {
-            log('error', 'Scroller not defined or has wrong type (should be html node).', this.scroller);
-        }
-
-        if (this.$ && typeof this.$ == 'function') {
-            log('log', 'Local $ defined and it is a function');
-        } else {
-            log('error', 'Local $ has wrong value or is not defined, or custom params.dom and params.selector not defined', params.$);
-        }
-
-        if (this.scroller.getAttribute('data-baron-v')) {
-            log('log', 'Baron initialized in vertical direction', this.scroller.getAttribute('data-baron-v'));
-            if (this.scroller.clientHeight < this.scroller.scrollHeight && this.scroller.getAttribute('data-baron-v')) {
-                log('log', 'There are enought space for scrolling in vertical direction right now', this.scroller.scrollHeight - this.scroller.clientHeight + 'px');
-            } else {
-                log('log', 'There are not enought space for scrolling in vertical direction right now');
-            }
-        }
-        if (this.scroller.getAttribute('data-baron-h')) {
-            log('log', 'Baron initialized in horizontal direction', this.scroller.getAttribute('data-baron-h'));
-            if (this.scroller.clientWidth < this.scroller.scrollWidth) {
-                log('log', 'There are enought space for scrolling in horizontal direction right now', this.scroller.scrollWidth - this.scroller.clientWidth + 'px');
-            } else {
-                log('log', 'There are not enought space for scrolling in horizontal direction right now');
-            }
-        }
-
-        if (this.bar && this.bar.nodeType === 1) {
-            log('log', 'Bar defined and has proper nodeType value', this.bar);
-        } else {
-            log('warn', 'Bar not defined or has wrong type (should be html node).', this.bar);
-        }
-
-        if (this.barOnCls) {
-            log('log', 'CSS classname barOnCls defined', this.barOnCls);
-        } else {
-            log('warn', 'barOnCls not defined - bar will be visible or not visible all the time', this.barOnCls);
-        }
-
-        // Preformance test
-        var t1 = new Date().getTime(),
-            x;
-        for (var i = 0 ; i < 1000 ; i += 10) {
-            x = i % (this.scroller[this.origin.scrollSize] - this.scroller[this.origin.client]);
-            this.pos(x);
-            this.event(this.scroller, 'scroll', undefined, 'trigger');
-        }
-        var t2 = new Date().getTime();
-        log('log', 'Preformance test: ' + (t2 - t1) / 1000 + ' milliseconds per scroll event');
-
-        log('log', 'Result is ' + errCount + ' / ' + totalCount + '\n');
-    };
-
-    baron.fn.test = function(params) {
-        var i = 0;
-
-        while (this[i]) {
-            test.call(this[i], params);
-            i++;
-        }
-
-        return this;
-    };
-})(window);
+//(function(window, undefined) {
+//    var test = function(params) {
+//        var errCount = 0,
+//            totalCount = 0;
+//
+//        var log = function(type, msg, obj) {
+//            var text = type + ': ' + msg;
+//
+//            switch (type) {
+//                case 'log': css = 'color: #0b0'; break;
+//                case 'warn': css = 'color: #fc9'; break;
+//                case 'error': css = 'color: #f00'; break;
+//            }
+//            totalCount++;
+//            if (type == 'log') {
+//                errCount++;
+//            }
+//
+//            console.log('%c ' + totalCount + '. ' + text, css);
+//            if (obj !== undefined) {
+//                console.log(obj);
+//            }
+//        };
+//
+//        if (this.scroller && this.scroller.nodeType === 1) {
+//            log('log', 'Scroller defined and has proper nodeType value', this.scroller);
+//        } else {
+//            log('error', 'Scroller not defined or has wrong type (should be html node).', this.scroller);
+//        }
+//
+//        if (this.$ && typeof this.$ == 'function') {
+//            log('log', 'Local $ defined and it is a function');
+//        } else {
+//            log('error', 'Local $ has wrong value or is not defined, or custom params.dom and params.selector not defined', params.$);
+//        }
+//
+//        if (this.scroller.getAttribute('data-baron-v')) {
+//            log('log', 'Baron initialized in vertical direction', this.scroller.getAttribute('data-baron-v'));
+//            if (this.scroller.clientHeight < this.scroller.scrollHeight && this.scroller.getAttribute('data-baron-v')) {
+//                log('log', 'There are enought space for scrolling in vertical direction right now', this.scroller.scrollHeight - this.scroller.clientHeight + 'px');
+//            } else {
+//                log('log', 'There are not enought space for scrolling in vertical direction right now');
+//            }
+//        }
+//        if (this.scroller.getAttribute('data-baron-h')) {
+//            log('log', 'Baron initialized in horizontal direction', this.scroller.getAttribute('data-baron-h'));
+//            if (this.scroller.clientWidth < this.scroller.scrollWidth) {
+//                log('log', 'There are enought space for scrolling in horizontal direction right now', this.scroller.scrollWidth - this.scroller.clientWidth + 'px');
+//            } else {
+//                log('log', 'There are not enought space for scrolling in horizontal direction right now');
+//            }
+//        }
+//
+//        if (this.bar && this.bar.nodeType === 1) {
+//            log('log', 'Bar defined and has proper nodeType value', this.bar);
+//        } else {
+//            log('warn', 'Bar not defined or has wrong type (should be html node).', this.bar);
+//        }
+//
+//        if (this.barOnCls) {
+//            log('log', 'CSS classname barOnCls defined', this.barOnCls);
+//        } else {
+//            log('warn', 'barOnCls not defined - bar will be visible or not visible all the time', this.barOnCls);
+//        }
+//
+//        // Preformance test
+//        var t1 = new Date().getTime(),
+//            x;
+//        for (var i = 0 ; i < 1000 ; i += 10) {
+//            x = i % (this.scroller[this.origin.scrollSize] - this.scroller[this.origin.client]);
+//            this.pos(x);
+//            this.event(this.scroller, 'scroll', undefined, 'trigger');
+//        }
+//        var t2 = new Date().getTime();
+//        log('log', 'Preformance test: ' + (t2 - t1) / 1000 + ' milliseconds per scroll event');
+//
+//        log('log', 'Result is ' + errCount + ' / ' + totalCount + '\n');
+//    };
+//
+//    baron.fn.test = function(params) {
+//        var i = 0;
+//
+//        while (this[i]) {
+//            test.call(this[i], params);
+//            i++;
+//        }
+//
+//        return this;
+//    };
+//})(window);
 /* Pull to load plugin for baron 0.6+ */
-(function(window, undefined) {
-    var pull = function(params) {
-        var block = this.$(params.block),
-            size = params.size || this.origin.size,
-            limit = params.limit || 80,
-            onExpand = params.onExpand,
-            elements = params.elements || [],
-            inProgress = params.inProgress || '',
-            self = this,
-            _insistence = 0,
-            _zeroXCount = 0,
-            _interval,
-            _timer,
-            _x = 0,
-            _onExpandCalled,
-            _waiting = params.waiting || 500,
-            _on;
-
-        function getSize() {
-            return self.scroller[self.origin.scroll] + self.scroller[self.origin.offset];
-        }
-
-        // Scroller content height
-        function getContentSize() {
-            return self.scroller[self.origin.scrollSize];
-        }
-
-        // Scroller height
-        function getScrollerSize() {
-            return self.scroller[self.origin.client];
-        }
-
-        function step(x, force) {
-            var k = x * 0.0005;
-
-            return Math.floor(force - k * (x + 550));
-        }
-
-        function toggle(on) {
-            _on = on;
-
-            if (on) {
-                update(); // First time with no delay
-                _interval = setInterval(update, 200);
-            } else {
-                clearInterval(_interval);
-            }
-        }
-
-        function update() {
-            var pos = {},
-                height = getSize(),
-                scrollHeight = getContentSize(),
-                dx,
-                op4,
-                scrollInProgress = _insistence == 1;
-
-            op4 = 0; // Возвращающая сила
-            if (_insistence > 0) {
-                op4 = 40;
-            }
-            //if (_insistence > -1) {
-            dx = step(_x, op4);
-            if (height >= scrollHeight - _x && _insistence > -1) {
-                if (scrollInProgress) {
-                    _x += dx;
-                }
-            } else {
-                _x = 0;
-            }
-
-            if (_x < 0) _x = 0;
-
-            pos[size] = _x + 'px';
-            if (getScrollerSize() <= getContentSize()) {
-                self.$(block).css(pos);
-                for (var i = 0 ; i < elements.length ; i++) {
-                    self.$(elements[i].self).css(elements[i].property, Math.min(_x / limit * 100, 100) + '%');
-                }
-            }
-
-            if (inProgress && _x) {
-                self.$(self.root).addClass(inProgress);
-            }
-
-            if (_x == 0) {
-                if (params.onCollapse) {
-                    params.onCollapse();
-                }
-            }
-
-            _insistence = 0;
-            _timer = setTimeout(function() {
-                _insistence = -1;
-            }, _waiting);
-            //}
-
-            if (onExpand && _x > limit && !_onExpandCalled) {
-                onExpand();
-                _onExpandCalled = true;
-            }
-
-            if (_x == 0) {
-                _zeroXCount++;
-            } else {
-                _zeroXCount = 0;
-
-            }
-            if (_zeroXCount > 1) {
-                toggle(false);
-                _onExpandCalled = false;
-                if (inProgress) {
-                    self.$(self.root).removeClass(inProgress);
-                }
-            }
-        }
-
-        this.on('init', function() {
-            toggle(true);
-        });
-
-        this.on('dispose', function() {
-            toggle(false);
-        });
-
-        this.event(this.scroller, 'mousewheel DOMMouseScroll', function(e) {
-            var down = e.wheelDelta < 0 || (e.originalEvent && e.originalEvent.wheelDelta < 0) || e.detail > 0;
-
-            if (down) {
-                _insistence = 1;
-                clearTimeout(_timer);
-                if (!_on && getSize() >= getContentSize()) {
-                    toggle(true);
-                }
-            }
-            // else {
-            // toggle(false);
-            // }
-        });
-    };
-
-    baron.fn.pull = function(params) {
-        var i = 0;
-
-        while (this[i]) {
-            pull.call(this[i], params);
-            i++;
-        }
-
-        return this;
-    };
-})(window);
+//(function(window, undefined) {
+//    var pull = function(params) {
+//        var block = this.$(params.block),
+//            size = params.size || this.origin.size,
+//            limit = params.limit || 80,
+//            onExpand = params.onExpand,
+//            elements = params.elements || [],
+//            inProgress = params.inProgress || '',
+//            self = this,
+//            _insistence = 0,
+//            _zeroXCount = 0,
+//            _interval,
+//            _timer,
+//            _x = 0,
+//            _onExpandCalled,
+//            _waiting = params.waiting || 500,
+//            _on;
+//
+//        function getSize() {
+//            return self.scroller[self.origin.scroll] + self.scroller[self.origin.offset];
+//        }
+//
+//        // Scroller content height
+//        function getContentSize() {
+//            return self.scroller[self.origin.scrollSize];
+//        }
+//
+//        // Scroller height
+//        function getScrollerSize() {
+//            return self.scroller[self.origin.client];
+//        }
+//
+//        function step(x, force) {
+//            var k = x * 0.0005;
+//
+//            return Math.floor(force - k * (x + 550));
+//        }
+//
+//        function toggle(on) {
+//            _on = on;
+//
+//            if (on) {
+//                update(); // First time with no delay
+//                _interval = setInterval(update, 200);
+//            } else {
+//                clearInterval(_interval);
+//            }
+//        }
+//
+//        function update() {
+//            var pos = {},
+//                height = getSize(),
+//                scrollHeight = getContentSize(),
+//                dx,
+//                op4,
+//                scrollInProgress = _insistence == 1;
+//
+//            op4 = 0; // Возвращающая сила
+//            if (_insistence > 0) {
+//                op4 = 40;
+//            }
+//            //if (_insistence > -1) {
+//            dx = step(_x, op4);
+//            if (height >= scrollHeight - _x && _insistence > -1) {
+//                if (scrollInProgress) {
+//                    _x += dx;
+//                }
+//            } else {
+//                _x = 0;
+//            }
+//
+//            if (_x < 0) _x = 0;
+//
+//            pos[size] = _x + 'px';
+//            if (getScrollerSize() <= getContentSize()) {
+//                self.$(block).css(pos);
+//                for (var i = 0 ; i < elements.length ; i++) {
+//                    self.$(elements[i].self).css(elements[i].property, Math.min(_x / limit * 100, 100) + '%');
+//                }
+//            }
+//
+//            if (inProgress && _x) {
+//                self.$(self.root).addClass(inProgress);
+//            }
+//
+//            if (_x == 0) {
+//                if (params.onCollapse) {
+//                    params.onCollapse();
+//                }
+//            }
+//
+//            _insistence = 0;
+//            _timer = setTimeout(function() {
+//                _insistence = -1;
+//            }, _waiting);
+//            //}
+//
+//            if (onExpand && _x > limit && !_onExpandCalled) {
+//                onExpand();
+//                _onExpandCalled = true;
+//            }
+//
+//            if (_x == 0) {
+//                _zeroXCount++;
+//            } else {
+//                _zeroXCount = 0;
+//
+//            }
+//            if (_zeroXCount > 1) {
+//                toggle(false);
+//                _onExpandCalled = false;
+//                if (inProgress) {
+//                    self.$(self.root).removeClass(inProgress);
+//                }
+//            }
+//        }
+//
+//        this.on('init', function() {
+//            toggle(true);
+//        });
+//
+//        this.on('dispose', function() {
+//            toggle(false);
+//        });
+//
+//        this.event(this.scroller, 'mousewheel DOMMouseScroll', function(e) {
+//            var down = e.wheelDelta < 0 || (e.originalEvent && e.originalEvent.wheelDelta < 0) || e.detail > 0;
+//
+//            if (down) {
+//                _insistence = 1;
+//                clearTimeout(_timer);
+//                if (!_on && getSize() >= getContentSize()) {
+//                    toggle(true);
+//                }
+//            }
+//            // else {
+//            // toggle(false);
+//            // }
+//        });
+//    };
+//
+//    baron.fn.pull = function(params) {
+//        var i = 0;
+//
+//        while (this[i]) {
+//            pull.call(this[i], params);
+//            i++;
+//        }
+//
+//        return this;
+//    };
+//})(window);

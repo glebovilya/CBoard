@@ -2,7 +2,7 @@
  * Created by stepanjuk on 29.11.13.
  */
 
-require([/*'stepa','Accordion',*/'text!../templates/addEmployee.html'], function(templ){
+require([/*'stepa','Accordion',*/'text!./templates/addEmployee.html'], function(templ){
 
 // прицепить на ининциирующую кнопку  id ="buttonAddNewPeople"
 //    console.log($("#buttonAddPeople"));
@@ -102,7 +102,7 @@ require([/*'stepa','Accordion',*/'text!../templates/addEmployee.html'], function
     });
 //
      });
-});
+//});
 
 //            var template = '<div id="modalAddPeople" class="modal"\
 //            role="dialog"\

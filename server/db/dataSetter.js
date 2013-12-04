@@ -6,23 +6,26 @@ var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ positio
     /**
      * creates a new person in DB
      */
-
+   var random = Math.random().toString(36).slice(3,12);
     var person = new dbModels.Person({
         name: name,
         surname: surname,
         position: position,
-        current: false
+        current: false,
+        photo: "./img/Persons/" + random + photoFile.name
     });
     person.save(function(){
-        fs.move(photoFile.path, "./img/Persons/" + person._id + photoFile.name, function(err) {
+        fs.move(photoFile.path, "./img/Persons/" + random
+            + photoFile.name, function(err) {
             if (err) {
                 console.log(err)
             }
             else {
-                person.photo = "./img/Persons/" + person._id + photoFile.name;
+
+                person.save(function () {callback(res, person)})
             }
         });
-        callback(res, person)
+
     })
 
 };

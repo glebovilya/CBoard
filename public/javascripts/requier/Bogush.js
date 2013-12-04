@@ -73,6 +73,7 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
         ]};
 
     /*generate accordion "projects"*/
+    new Accordion(projects, "#accordion-projects");
     $.get('/projects', function (dataProject) {
         console.log(dataProject)
         var project = {};
@@ -86,7 +87,7 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
         }
         project.open = openProject;
         project.closed = closedProject;
-        new Accordion(project, "#accordion-projects");
+        new Accordion(projects, "#accordion-projects");
 
 //        $(function()
 //        {
@@ -97,7 +98,7 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
 //        f();
 
     })
-
+    new Accordion(peopleName, "#accordion-people");
     /*generate accordion "people"*/
     $.get('/users', function (dataPerson) {
         var people = {};

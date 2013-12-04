@@ -1,66 +1,63 @@
 var dbModels = require('./dbShemas');
 var fs  = require('fs.extra');
 
-var addPerson = function(/*String*/ name, /*String*/ surname, /*String*/ position, callback, res, photoFile) {
-
-    /**
-     * creates a new person in DB
-     */
-   var random = Math.random().toString(36).slice(3,12);
-    var person = new dbModels.Person({
-        name: name,
-        surname: surname,
-        position: position,
-        current: false,
-        photo: "./img/Persons/" + random + photoFile.name
+var respondJSON = function(res, data) {
+    res.writeHeader(200,{
+        'Content-Type': 'application/json'
     });
+    res.end(JSON.stringify(data))
+};
+
+exports.addPerson = function(req, res) {
+
+    var person = new dbModels.Person({
+        name: req.body.name,
+        surname: req.body.surname,
+        position: req.body.position,
+        current: false
+    });
+
+    var photo = req.files.photo;
     person.save(function(){
-        fs.move(photoFile.path, "./img/Persons/" + random
-            + photoFile.name, function(err) {
+
+        var photoPath = "./public/images/DB_persons/" + person._id + photo.name;
+
+        fs.move(photo.path, photoPath, function(err) {
             if (err) {
                 console.log(err)
             }
             else {
-
-                person.save(function () {callback(res, person)})
+                dbModels.Person.findOneAndUpdate({_id: person._id}, {photo: photoPath}, function(err, pers) {
+                    respondJSON(res, pers)
+                })
             }
         });
 
     })
 
 };
-
-var addProject = function(/*String*/name, /*Date*/startDate, callback, res) {
-
-    /**
-     * creates a new project in DB
-     */
+exports.addProject = function(req, res) {
 
     var project = new dbModels.Project ({
-        name: name,
-        start: startDate,
+        name: req.body.name,
+        start: req.body.startDate,
         current: false
     });
     project.save(function(){
-        callback(res, project)
+        respondJSON(res, project)
     });
-
-}
-
-var addStatus = function(/*number*/id , /*String*/name) {
-
-    /**
-     * creates a new status(free, manager, lead, etc.) in DB
-     */
+};
+exports.addStatus = function(req, res) {
 
     var status = new dbModels.Status({
-        _id: id,
-        name: name
+        _id: req.body.id,
+        name: req.body.name
     });
-    status.save();
-}
-
-var addHistory = function (/*Number*/status_id, /*Boolean*/leaving, /*Date*/date) {
+    status.save(function(){
+        respondJSON(res, status)
+    });
+};
+exports.addHistory = function (req, res) {
 
     /**
      *
@@ -73,8 +70,8 @@ var addHistory = function (/*Number*/status_id, /*Boolean*/leaving, /*Date*/date
 
     dbModels.Person.findOne({current: true},function (err, person) {
         /**
-        * checks if any person was selected
-        */
+         * checks if any person was selected
+         */
         if(err) {
             console.log('u didn`t selected any person');
             return
@@ -82,35 +79,35 @@ var addHistory = function (/*Number*/status_id, /*Boolean*/leaving, /*Date*/date
 
         dbModels.Project.findOne({current: true},function (err, project){
             /**
-            * checkes if any project was selected to edit
-            */
+             * checkes if any project was selected to edit
+             */
             if(err) {
                 console.log('u didn`t selected any project to edit');
                 return
             }
 
-            dbModels.Status.findOne({_id: status_id}, function(err, status) {
+            dbModels.Status.findOne({_id: req.body.statusID}, function(err, status) {
                 /**
-                * checks if status with that id exists
-                */
+                 * checks if status with that id exists
+                 */
                 if(err) {
                     console.log('no such status');
                     return
                 }
                 /**
-                * creating new history
-                */
+                 * creating new history
+                 */
                 var history = new dbModels.History({
                     person: person._id,
                     project: project._id,
                     status: status._id,
-                    leaving: leaving
+                    leaving: req.body.leaving
                 });
                 /**
-                * if date was past as argument assume it, otherwise default date(current date)
-                */
+                 * if date was past as argument assume it, otherwise default date(current date)
+                 */
                 if(date) {
-                    history.date = date
+                    history.date = req.body.date
                 }
 
                 if(!(project._id in person.projectList)){
@@ -118,9 +115,9 @@ var addHistory = function (/*Number*/status_id, /*Boolean*/leaving, /*Date*/date
                 }
 
                 /**
-                * if the person is leaving that project we had
-                * to remove him from current project in DB.
-                */
+                 * if the person is leaving that project we had
+                 * to remove him from current project in DB.
+                 */
 
                 if(leaving){
                     var curEmp = project.currentEmployees;
@@ -131,72 +128,59 @@ var addHistory = function (/*Number*/status_id, /*Boolean*/leaving, /*Date*/date
                     }
                 }
                 /**
-                * Otherwise we had to add him
-                */
+                 * Otherwise we had to add him
+                 */
                 else {
                     project.currentEmployees.push(person._id)
                 }
-
+                person.current = false;
+                project.current = false;
                 person.currentStatus = status._id;
                 person.history.push(history);
                 project.history.push(history);
 
-                history.save();
+                history.save(respondJSON(res, history));
                 person.save();
                 project.save();
             });
         });
     });
 };
-
-var setCurrentPerson = function(/*Number*/id, callback, res) {
+exports.setCurrentPerson = function(req, res) {
 
     /**
-    * marks/unmarks this person as current to be able to create history for it
-    */
+     * marks/unmarks this person as current to be able to create history for it
+     */
 
-     dbModels.Person.findOne({_id: id}, function(err, pers) {
-         if(pers.current === true) {
-             pers.current = false
-         } else {
-             pers.current = true
-         }
-         pers.save();
-         //sends JSON to a client to respond that person was marked/unmarked as current
-         callback(res, pers)
+    dbModels.Person.findOne({_id: req.params.id}, function(err, pers) {
+        if(pers.current === true) {
+            pers.current = false
+        } else {
+            pers.current = true
+        }
+        pers.save(respondJSON(res, pers));
+
     });
 };
-
-var setCurrentProject = function(/*Number*/id, callback, res) {
+exports.setCurrentProject = function(req, res) {
 
     /**
      * marks/unmarks this project as current to be able to create history for it
      */
 
-    dbModels.Project.findOne({_id: id}, function(err, proj) {
+    dbModels.Project.findOne({_id: req.params.id}, function(err, proj) {
         if(proj.current === true) {
             proj.current = false
         } else {
             proj.current = true
         }
-        proj.save();
-        //sends JSON to a client to respond that project was marked/unmarked as current
-        callback(res, proj)
+        proj.save(respondJSON(res, proj));
+
     });
 };
 
-var getall = function(){
-//    dbModels.Project.find(function(err,d){console.log(d)})
-    dbModels.Person.find(function(err,d){console.log(d)})
-};
 
-exports.addPerson = addPerson;
-exports.addProject = addProject;
-exports.addStatus = addStatus;
-exports.addHistory = addHistory;
-exports.setCurrentPerson = setCurrentPerson;
-exports.setCurrentProject = setCurrentProject;
-exports.getall = getall;
+
 
 
 

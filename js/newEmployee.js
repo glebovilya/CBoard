@@ -64,15 +64,6 @@ require(['Classes/Person','text!../templates/employe.html' ], function(Employee,
 
 
 
-//                    jQuery(function($){
-//                        $(empl.domNode).drag(function( ev, dd ){
-//                            $( this ).css({
-//                                top: dd.offsetY,
-//                                left: dd.offsetX
-//                            });
-//                        });
-//                    });
-
 
                     jQuery(function($){
                         $(empl.domNode).drag(function( ev, dd ){

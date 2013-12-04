@@ -36,7 +36,7 @@ app.get('/user', dataGetter.getPerson);
 app.get('/users', dataGetter.getPersons);
 app.post('/user', express.bodyParser(), dataSetter.addPerson);
 app.post('/user/:id', dataSetter.setCurrentPerson);
-app.get('project', dataGetter.getProject);
+app.get('/project', dataGetter.getProject);
 app.get('/projects', dataGetter.getProjects);
 app.post('/project', express.bodyParser(), dataSetter.addProject);
 app.post('/project/:id', dataSetter.setCurrentProject);

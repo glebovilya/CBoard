@@ -209,7 +209,7 @@ input {
 }
 
 .list-item, .list-item-last {
-    background: url(../img/dot.gif) repeat-x scroll left top rgba(0, 0, 0, 0);
+    background: url(../images/static/dot.gif) repeat-x scroll left top rgba(0, 0, 0, 0);
     display: block;
     padding: 2px 0 0;
     list-style-position: outside;

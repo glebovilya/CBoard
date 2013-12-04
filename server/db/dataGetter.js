@@ -15,6 +15,9 @@ var dbModels = require('./dbShemas');
          * basing on a project_ID or employee's status
          */
         dbModels.Person.find(function(err, persons) {
+            res.writeHeader(200,{
+                'Content-Type': 'application/json'
+            })
             res.end(JSON.stringify(persons))
         })
     }
@@ -32,6 +35,9 @@ var dbModels = require('./dbShemas');
     exports.getProjects = function(req, res){
 
         dbModels.Project.find(function(err, projects) {
+            res.writeHeader(200,{
+                'Content-Type': 'application/json'
+            })
             res.end(JSON.stringify(projects))
         })
     }

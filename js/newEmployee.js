@@ -1,7 +1,7 @@
 /**
  * Created by stepanjuk on 02.12.13.
  */
-require(['employee' ], function(Employee){
+require(['text!../templates/employee.html','employee' ], function(template,Employee){
 
 
     $("#buttonPeople").on('click', function(){
@@ -10,7 +10,7 @@ require(['employee' ], function(Employee){
             $("#people .list-item").click(function(event){
 //                console.log(event.target);
                 var dom = event.target;// в случае если внутри li нет <a> или другого потомка
-                var dom = $(dom).parent("li")// if there <> inside
+                dom = $(dom).parent("li")// if there <> inside
                 var id = $(dom).attr("data-point-id");
 
                 $.get(

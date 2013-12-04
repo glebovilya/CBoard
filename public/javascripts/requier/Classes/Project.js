@@ -1,5 +1,5 @@
-define(['text!../templates/addproject.html'], function (template) {
-    var Project = function (node, /*object?*/opts) {
+define(['text!../templates/project.html'], function (template) {
+    var Project = function (opts) {
 
         //declaration of Project class
         /*
@@ -15,16 +15,16 @@ define(['text!../templates/addproject.html'], function (template) {
             for (var i in opts) {
                 this[i] = opts[i];
             }
-            console.log(node);
-            this.renderView(node);
+
+            this.renderView();
             this.buildLogic(args);
 //            this.id = response//todo arr server response for setting id
             this.template = template;
         };
-        this.container = node;
-        this.renderView = function (container) {
-
-            $(template).appendTo(container);
+        this.container = $("#board");
+        console.log(this.container);
+        this.renderView = function () {
+            $(template).appendTo(this.container);
         };
         this.buildLogic = function () {
         };

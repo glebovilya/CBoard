@@ -1,45 +1,35 @@
 var dbModels = require('./dbShemas');
 
-    exports.getPerson = function(req, res){
+var respondJSON = function(res, data) {
+    res.writeHeader(200,{
+        'Content-Type': 'application/json'
+    })
+    res.end(JSON.stringify(data))
+}
 
-        dbModels.Person.findOne({_id: req.body.id}, function(err, pers) {
-            res.end(JSON.stringify(pers))
-        })
 
-    }
-    exports.getPersons = function(req, res){
+exports.getPerson = function(req, res){
+    dbModels.Person.findOne({_id: req.body.id}, function(err, pers) {
+        respondJSON(res, pers)
+    })
+}
 
-        /**
-         * depends on a type of condition, translated into a function call
-         * function returns an array of employees_ID's
-         * basing on a project_ID or employee's status
-         */
-        dbModels.Person.find(function(err, persons) {
-            res.writeHeader(200,{
-                'Content-Type': 'application/json'
-            })
-            res.end(JSON.stringify(persons))
-        })
-    }
-    exports.getProject = function(req, res){
+exports.getPersons = function(req, res){
+    dbModels.Person.find(function(err, persons) {
+        respondJSON(res, persons)
+    })
+}
 
-        /**
-         * function returns Project data
-         * basing on project_ID
-         */
+exports.getProject = function(req, res){
+    dbModels.Project.findOne({_id: req.body.id}, function(err, proj) {
+        respondJSON(res, proj)
+    })
+}
 
-        dbModels.Project.findOne({_id: req.body.id}, function(err, proj) {
-            res.end(JSON.stringify(proj))
-        })
-    }
-    exports.getProjects = function(req, res){
-
-        dbModels.Project.find(function(err, projects) {
-            res.writeHeader(200,{
-                'Content-Type': 'application/json'
-            })
-            res.end(JSON.stringify(projects))
-        })
-    }
+exports.getProjects = function(req, res){
+    dbModels.Project.find(function(err, projects) {
+        respondJSON(res, projects)
+    })
+}
 
 

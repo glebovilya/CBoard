@@ -46,7 +46,7 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
             $('#addperson').submit(function(event){
 
                 //disable the default form submission
-                event.preventDefault();
+//                event.preventDefault();
 
                 //grab all form data
                 var formData = new FormData($(this)[0]);
@@ -62,7 +62,7 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
                     success: function (returndata) {
                         alert(returndata);
                     }
-                });
+                }, function(pers){console.log(pers)});
 
                 return false;
             });

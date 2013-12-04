@@ -3,8 +3,6 @@
 * */
 
 require(['Classes/Project'], function (Project){
-    var project;
-
-    project = new Project($("#drop"),{'id':'10'});
-    project.pushHistory();
+    var project = new Project($("#board"),{name:'projectSetup'})
+    console.log(project);
 });

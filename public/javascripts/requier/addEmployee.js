@@ -7,6 +7,7 @@ require([/*'stepa','Accordion',*/'text!./templates/addEmployee.html'], function(
 
     var template = templ;
 
+
     $("#buttonAddNewPeople").click(function(event){
 
     $(template).appendTo($("#inner-board"));

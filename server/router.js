@@ -14,9 +14,11 @@ var sendData = function (req, res) {
         resContr.resFile('./index.html', 'html', res)
     }
     if (urlPath == '/upload_project') {
+        console.log('/upload_project');
         formContr.addProjectToDB(res,req);
     }
     if (urlPath == '/upload_person') {
+        console.log('/upload_person');
         formContr.addPersonToDB(res,req);
     }
     if (/^.*\.css$/.test(urlPath)) {

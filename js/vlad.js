@@ -39,16 +39,36 @@ define(['jquery.event.drag-2.2', 'jquery.event.drop-2.2'/*, 'jquery.event.drag.l
                     console.log('set current project to false');
 
                 })
-            $('#addperson').submit(function( event ) {
-                console.log('s')
-                alert( "Handler for .submit() called." );
+
+
+
+
+            $('#addperson').submit(function(event){
+
+                //disable the default form submission
 //                event.preventDefault();
+
+                //grab all form data
+                var formData = new FormData($(this)[0]);
+
+                $.ajax({
+                    url: '/upload_person',
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (returndata) {
+                        alert(returndata);
+                    }
+                });
+
+                return false;
             });
-            $('#addproject').submit(function( event ) {
-                console.log('s')
-                alert( "Handler for .submit() called." );
-                event.preventDefault();
+            $('#addproject').submit(function( captureSubmit ) {
             });
+//            $('body').on('click', function() {$.ajax({url: '/img/45.jpg', dataType: 'image'}, function() {console.log('2')})})
         }
         return init
     }

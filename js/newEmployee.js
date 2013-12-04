@@ -6,17 +6,12 @@ require(['employee' ], function(Employee){
 
     $("#buttonPeople").on('click', function(){
         $(document).ready(function(){
-//            console.log($(".list-item"));
 
-            $(".list-item").click(function(event){
-                console.log(event.target);
+            $("#people .list-item").click(function(event){
+//                console.log(event.target);
                 var dom = event.target;// в случае если внутри li нет <a> или другого потомка
                 var dom = $(dom).parent("li")// if there <> inside
-//        data-point-id="45" так должно быть на кнопках
                 var id = $(dom).attr("data-point-id");
-//                console.log($(dom).attr("data-point-id"));
-
-
 
                 $.get(
                     "/get",
@@ -46,33 +41,38 @@ require(['employee' ], function(Employee){
                         domNode: $("#" + id),
                         photo: data.photo,
                         name: data.name,
-                        surname: data.surname
+                        surname: data.surname,
+                        position:data.position
                     });
 
                     var template = ' <div class = "employee">\
         <div class="employeeWindow ">\
             <div class="employee-header" >\
-                <div >position</div>\
+                <div class="emplPosition"></div>\
                 <button type="button" class="close" data-toggle="tooltip" title="remove from project"  aria-hidden="true" >&times;</button>\
             </div>\
             <div class="employee-body">\
                 <div class="united" >\
-                    <img src=' + empl.photo + ' alt="">\
-                        <div class= "name" >'+empl.name +'</br>'+empl.surname +'</div>\
+                    <img >\
+                        <div class= "name"  ></div>\
                     </div>\
                 </div>\
                 <div class="employee-footer">\
                 </div>\
             </div>\
-        </div>\
-    '
+        </div>';
 
 
-                    if(!empl.photo) empl.photo = "/img/images.jpg";
-                    if (!'<img scr=' + empl.photo + ' alt="">') empl.photo = "/img/images.jpg";
+//                    if(!empl.photo) empl.photo = "/img/images.jpg";
+//                    if (!'<img scr=' + empl.photo + ' alt="">') empl.photo = "/img/images.jpg";
 
                     empl.template = template;
                     $(divWindow).append(empl.template);
+                    $(empl.template).ready(function(){
+                        $(".united .name").html(empl.name+'<br/>'+empl.surname);
+                        $(".emplPosition").html(empl.position);
+                        $(".united img").attr("src", empl.photo)
+                    });
 
                     $(empl.domNode).find("button").on('click', function(event){
                         $(empl.domNode).remove();

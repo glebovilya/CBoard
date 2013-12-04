@@ -109,6 +109,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll'
                     {id: dataPerson[elems]._id, name: dataPerson[elems].name}
                 ];
         }
+        console.log(dataPerson)
         new Accordion(people, "#accordion-people");
     })
 
@@ -212,7 +213,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll'
     setScroll('.container-scroll-people', '.scroller-people', '.scroller__bar-people');
     $('button[href="#people"]').bind("click", function () {
 //        console.log('dfh')
-        console.log(window.baron)
+
 //        setScroll('.container-scroll-people', '.scroller-people', '.scroller__bar-people');
 //
     })

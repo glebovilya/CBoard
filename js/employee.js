@@ -14,14 +14,17 @@ define ([], function(){
        this.id =data['id'];
        this.template = data['template'];
        this.photo = data['photo'];
-//       this.history = data['history'];
+       this.position = data['position'];
+
        this.destroy = function (event){
            console.log($(this.domNode));
            this.domNode.remove();
        };
 
 
-
+       Employee.prototype.destroy = function(){
+           this.domNode.remove();
+       }
 
 
        Employee.init = function(){

@@ -1,0 +1,96 @@
+.employeeWindow {
+    position: absolute;
+    width: 96px;
+    height: 151px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    /*-webkit-border-radius: 6px;*/
+    border-radius: 6px;
+    outline: none;
+    /*-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);*/
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    /*-webkit-background-clip: padding-box;*/
+    background-clip: padding-box;
+}
+
+
+.employee .employee-header{
+    height: 16px;
+    padding: 1px 6px 6px;
+    border-bottom: none;
+}
+.employee .employee-header>div{
+    position: absolute;
+    text-align: left;
+    top:6px;
+    right: 30px;
+}
+.employee-header button {
+    color: red;
+}
+.employee .employee-body {
+    padding: 0;
+}
+
+.employee .united {
+    border-top: none;
+    padding: 3px;
+}
+
+.employee .united .name {
+    position: absolute;
+    text-align:center;
+    bottom: 3px;
+}
+.employee .employee-footer {
+    border-top: none;
+    padding: 0;
+}
+.projectWindow {
+    top:50px;
+    left: 50px;
+    position: relative;
+    width: 550px; /*изменяется js в зависиьости от кол-ва лидеров.*/
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    /*-webkit-border-radius: 6px;*/
+    border-radius: 6px;
+    outline: none;
+    /*-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);*/
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    /*-webkit-background-clip: padding-box;*/
+    background-clip: padding-box;
+}
+.projectWindow>.project-body {
+    height: 170px;
+}
+
+.project-header {
+    padding: 1px 6px 6px;
+}
+
+.project-body .leaders {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.project-body ul{
+    margin-right: 30px;
+}
+.project-body .thumbnails li {
+    margin-bottom: 1px;
+
+}
+.project-body .thumbnail {
+    padding: 0;
+    border: none;
+}
+.dropdown-menu {
+    z-index: 9999;
+}
+/*.united img {*/
+    /*height: 120px;*/
+    /*width: 90px;*/
+/*}*/

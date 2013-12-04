@@ -1,46 +1,39 @@
 var dbModels = require('./dbShemas');
 
-var getPerson = function(/*Person_ID*/person_id, callback, res){
+    exports.getPerson = function(req, res){
 
-    dbModels.Person.findOne({_id:person_id}, function(err, pers) {
-        callback(res, pers)
-    })
+        dbModels.Person.findOne({_id: req.body.id}, function(err, pers) {
+            res.end(JSON.stringify(pers))
+        })
 
-};
+    }
+    exports.getPersons = function(req, res){
 
-var getPersons = function(res, callback){
+        /**
+         * depends on a type of condition, translated into a function call
+         * function returns an array of employees_ID's
+         * basing on a project_ID or employee's status
+         */
+        dbModels.Person.find(function(err, persons) {
+            res.end(JSON.stringify(persons))
+        })
+    }
+    exports.getProject = function(req, res){
 
-    /**
-     * depends on a type of condition, translated into a function call
-     * function returns an array of employees_ID's
-     * basing on a project_ID or employee's status
-     */
-    dbModels.Person.find(function(err, persons) {
-        callback(res, persons)
-    })
-}
+        /**
+         * function returns Project data
+         * basing on project_ID
+         */
 
-var getProject = function(/*string*/ project_id, callback, res){
+        dbModels.Project.findOne({_id: req.body.id}, function(err, proj) {
+            res.end(JSON.stringify(proj))
+        })
+    }
+    exports.getProjects = function(req, res){
 
-    /**
-     * function returns Project data
-     * basing on project_ID
-     */
+        dbModels.Project.find(function(err, projects) {
+            res.end(JSON.stringify(projects))
+        })
+    }
 
-    dbModels.Project.findOne({_id:project_id}, function(err, proj) {
-        callback(res, proj)
-    })
-};
-
-var getProjects = function(res, callback){
-
-    dbModels.Project.find(function(err, projects) {
-        callback(res, projects)
-    })
-}
-
-exports.getPerson = getPerson;
-exports.getProject = getProject;
-exports.getPersons = getPersons;
-exports.getProjects = getProjects;
 

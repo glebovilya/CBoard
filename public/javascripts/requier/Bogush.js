@@ -1,4 +1,4 @@
-define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll' ], function (Accordion, boot, resize, Scrolling, k) {
+define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', '../requier/scroll' ], function (Accordion, boot) {
 
     var peopleName = {manager: [
         {id: '0', name: 'People0'},
@@ -73,8 +73,8 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll'
         ]};
 
     /*generate accordion "projects"*/
-    $.get('/get', {target: 'project', method: 'all'}, function (dataProject) {
-//        console.log(dataProject)
+    $.get('/projects', function (dataProject) {
+        console.log(dataProject)
         var project = {};
         var openProject = [];
         var closedProject = [];
@@ -99,7 +99,7 @@ define(['Accordion', 'bootstrap', 'resize', 'scrolling', 'jScrollPane', 'scroll'
     })
 
     /*generate accordion "people"*/
-    $.get('/get', {target: 'person', method: 'all'}, function (dataPerson) {
+    $.get('/users', function (dataPerson) {
         var people = {};
         for (var elems in dataPerson) {
             var itemk = dataPerson[elems].position

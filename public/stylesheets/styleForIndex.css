@@ -43,6 +43,7 @@ body, .container-fluid, .row-fluid {
     margin: 0 auto;
     text-align: center;
     width: 100%;
+    padding-bottom: 20px;
 }
 
 #showAll, .left-block {
@@ -63,6 +64,21 @@ body, .container-fluid, .row-fluid {
 
 input {
     width: 70%;
+}
+
+#projects{
+    position: relative;
+
+    /*top: 0px;*/
+    /*display: inline;*/
+}
+
+#people{
+    position: relative;
+    /*top: -400px;*/
+    /*left: -1000px;*/
+    /*z-index: 5;*/
+    /*display: inline;*/
 }
 
 #board {
@@ -262,8 +278,8 @@ a:hover, a:focus, a:link {
 .btn-wrap {
     /*margin-top: -50px;*/
 
-    /*position: relative;*/
-    /*top: */
+    position: absolute;
+    /*bottom: 0;*/
 
 }
 
@@ -325,6 +341,7 @@ a:hover, a:focus, a:link {
     background: #ddf;
     background: rgba(0, 0, 255, .1);
     pointer-events: none;
+    opacity: 0;
 }
 .scroller__bar {
     position: absolute;
@@ -338,13 +355,16 @@ a:hover, a:focus, a:link {
     pointer-events: auto;
 }
 .scroller__bar:hover {
-    opacity: .8;
+    /*opacity: .8;*/
+    opacity: 0;
 }
 .baron .scroller__bar{
-    opacity: .6;
+    /*opacity: .6;*/
+    opacity: 0;
 }
 .baron_h .scroller__bar_h {
-    opacity: .6;
+    /*opacity: .6;*/
+    opacity: 0;
     bottom: 30px;
 }
 

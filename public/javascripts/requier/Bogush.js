@@ -35,10 +35,11 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
         new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
-        function setPeople(){
+        function setPeople() {
 
         }
-        setTimeout(function(){
+
+        setTimeout(function () {
             var peop;
             $.ajax({
                 type: "GET",
@@ -49,10 +50,10 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                     for (var elems in dataPerson) {
                         var itemk = dataPerson[elems].position
                         if (itemk in people)
-                            people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name};
+                            people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
                         else
                             people[itemk] = [
-                                {id: dataPerson[elems]._id + "", name: dataPerson[elems].name}
+                                {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname}
                             ];
                     }
                     peop = people;

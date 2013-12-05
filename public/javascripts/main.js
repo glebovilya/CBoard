@@ -3,7 +3,7 @@ require.config({
 });
 
 
-requirejs(['vlad', /*'Bogush'*/ 'ilya', 'stepa'], function(v){
+requirejs(['vlad', 'Bogush', 'ilya', 'stepa'], function(v){
 
 });
 

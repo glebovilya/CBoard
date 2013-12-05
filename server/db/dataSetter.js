@@ -51,16 +51,14 @@ exports.addProject = function(req, res) {
 exports.addStatus = function( id, name/*req, res*/) {
 
     /**
-    * Commented code(and arguments represent creating new status from HTTP request function)
+    * Commented code(and arguments) represent creating new status from HTTP request function)
     **/
 
     var status = new dbModels.Status({
         _id: id,
         name: name
     });
-    status.save(function(){
-        respondJSON(res, status)
-    });
+    status.save();
 
 //    var status = new dbModels.Status({
 //        _id: req.body.id,

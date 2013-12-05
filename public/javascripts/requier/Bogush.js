@@ -106,7 +106,7 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
 //    var dataPerson =
 
 
-
+    console.log(peopleName)
     $.ajax({
         type: "GET",
         url: "/users",
@@ -123,9 +123,8 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
                     {id: dataPerson[elems]._id+"", name: dataPerson[elems].name}
                 ];
         }
-
             new Accordion(people, "#accordion-people");
-
+            console.log(people)
 
     }
     });

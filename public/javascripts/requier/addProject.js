@@ -15,15 +15,17 @@ $(document).ready(function(){
 
 
     $(template).appendTo($("#inner-board"));
-
+        $(".datepicker").datepicker();
 
         $('#modalAddProject form').submit(function(){ //listen for submit event
-
+            var date = new Date($(".datepicker").val());
+            console.log(date);
             var formData = new FormData($(this)[0]);
 
             $.ajax({
                 url: '/project',
                 type: 'POST',
+                startDate:date,
                 data: formData,
                 async: false,
                 cache: false,
@@ -31,7 +33,7 @@ $(document).ready(function(){
                 processData: false,
                 success: function (returndata) {
                     onAjaxSuccess(returndata);
-                        console.log(returndata)
+                    console.log(returndata)
                 }
             });
 
@@ -46,21 +48,6 @@ $(document).ready(function(){
         }
 
 
-
-//    $('#modalAddProject form').submit(function(){ //listen for submit event
-//
-//        $('<input />').attr('type', 'hidden')
-//            .attr('name', 'target')
-//            .attr('value', 'project')
-//            .appendTo('#modalAddProject form');
-//
-//        $('<input />').attr('type', 'hidden')
-//            .attr('name', 'method')
-//            .attr('value', 'add')
-//            .appendTo('#modalAddProject form');
-//        return true;
-//    });
-
         $("#modalAddProject .close").on('click', function(){
             $("#modalAddProject").remove();
         })
@@ -69,23 +56,3 @@ $(document).ready(function(){
 })
 
 });
-
-// '<div id="modalAddProject" class="modal"\
-//    role="dialog"\
-//    aria-labelledby="myModalLabel"\
-//    aria-hidden="true"\
-//    data-backdrop = "false">\
-//        <div class="modal-header" style="height: 20px">\
-//            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
-//            <h3></h3>\
-//        </div>\
-//        <form method="post" action="/get">\
-//        <div class="modal-body" >\
-//            <input class="input-xlarge" type="text"  name = "project" placeholder="enter the name of the project">\
-//            </div>\
-//            <div class="modal-footer">\
-//                <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->\
-//                <button  class="btn btn-custom" type="submit"  >Add project</button>\
-//            </div>\
-//        </form>\
-//        </div>';

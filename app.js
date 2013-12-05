@@ -10,6 +10,7 @@ var http = require('http');
 var path = require('path');
 var dataSetter = require('./server/db/dataSetter');
 var dataGetter = require('./server/db/dataGetter');
+//var dbModels = require('./server/db/dbShemas'); /*uncomment this line to call collections methods*/
 
 var app = express();
 
@@ -17,7 +18,7 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-//app.use(express.favicon());
+app.use(express.favicon());
 app.use(express.logger('dev'));
 //app.use(express.json());
 //app.use(express.urlencoded());
@@ -41,6 +42,15 @@ app.get('/projects', dataGetter.getProjects);
 app.post('/project', express.bodyParser(), dataSetter.addProject);
 app.post('/project/:id', dataSetter.setCurrentProject);
 
+/**
+* uncomment lines to add new statuses to the DB
+**/
+
+//dataSetter.addStatus(1, 'Free');
+//dataSetter.addStatus(2, 'Manager');
+//dataSetter.addStatus(3, 'Lead');
+//dataSetter.addStatus(4, 'Assigned');
+//dbModels.Status.find({}, function(err, doc) {console.log(doc)})
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

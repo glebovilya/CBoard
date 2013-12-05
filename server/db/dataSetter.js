@@ -47,15 +47,28 @@ exports.addProject = function(req, res) {
         respondJSON(res, project)
     });
 };
-exports.addStatus = function(req, res) {
+exports.addStatus = function( id, name/*req, res*/) {
+
+    /**
+    * Commented code(and arguments represent creating new status from HTTP request function)
+    **/
 
     var status = new dbModels.Status({
-        _id: req.body.id,
-        name: req.body.name
+        _id: id,
+        name: name
     });
     status.save(function(){
         respondJSON(res, status)
     });
+
+//    var status = new dbModels.Status({
+//        _id: req.body.id,
+//        name: req.body.name
+//    });
+//    status.save(function(){
+//        respondJSON(res, status)
+//    });
+
 };
 exports.addHistory = function (req, res) {
 

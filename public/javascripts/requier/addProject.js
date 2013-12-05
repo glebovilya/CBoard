@@ -20,10 +20,11 @@ $(document).ready(function(){
         $('#modalAddProject form').submit(function(){ //listen for submit event
 //            var date = new Date($(".datepicker").val());
 
-            console.log(formData)
+
 
             var formData = new FormData($(this)[0]);
-            console.log(formData);
+
+
             $.ajax({
                 url: '/project',
                 type: 'POST',

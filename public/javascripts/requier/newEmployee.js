@@ -1,18 +1,27 @@
 /**
  * Created by stepanjuk on 02.12.13.
  */
-require(['Classes/Person','text!./templates/employe.html' ], function(Employee, templ){
+define(['Classes/Person','text!./templates/employe.html' ], function(Employee, templ){
 
 
 
 
-        $(document).ready(function(){
+        function showPerson(dataId){
+//        $(document).ready(function(){
 
-            $("#people").find($(".list-item")).click(function(event){
+//            $("#people").find($(".list-item")).click(function(event){
 //                console.log(event.target);
+
+
+
+
+
+
+
                 var dom = event.target;// в случае если внутри li нет <a> или другого потомка
                 var dom = $(dom).parent("li")// if there <> inside
-                var id = $(dom).attr("data-point-id");
+//                var id = $(dom).attr("data-point-id");
+                var id = dataId;
                 var idFix = Math.random().toString(36).slice(3,9);
 
                 $.get(
@@ -67,6 +76,7 @@ require(['Classes/Person','text!./templates/employe.html' ], function(Employee, 
 
                     jQuery(function($){
                         $(empl.domNode).drag(function( ev, dd ){
+                            console.log(this.id);
                             $( this ).css({
                                 top: dd.offsetY,
                                 left: dd.offsetX
@@ -104,9 +114,10 @@ require(['Classes/Person','text!./templates/employe.html' ], function(Employee, 
                     });
                  return empl;
                 }
-            });
 
-        });
+
+        }
+    return showPerson
 
 });
 

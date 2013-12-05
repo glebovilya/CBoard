@@ -1,18 +1,27 @@
 /**
  * Created by stepanjuk on 02.12.13.
  */
-require(['Classes/Person','text!./templates/employe.html' ], function(Employee, templ){
+define(['Classes/Person','text!./templates/employe.html' ], function(Employee, templ){
 
 
-//    $("#buttonPeople").on('click', function(){
 
-        $(document).ready(function(){
 
-            $("#people").find($(".list-item")).click(function(event){
-                console.log(event.target);
+        function showPerson(dataId){
+//        $(document).ready(function(){
+
+//            $("#people").find($(".list-item")).click(function(event){
+//                console.log(event.target);
+
+
+
+
+
+
+
                 var dom = event.target;// в случае если внутри li нет <a> или другого потомка
                 var dom = $(dom).parent("li")// if there <> inside
-                var id = $(dom).attr("data-point-id");
+//                var id = $(dom).attr("data-point-id");
+                var id = dataId;
                 var idFix = Math.random().toString(36).slice(3,9);
 
                 $.get(
@@ -46,7 +55,7 @@ require(['Classes/Person','text!./templates/employe.html' ], function(Employee, 
                         surname: data.surname,
                         position:data.position
                     });
-                    console.log(empl.domNode);
+//                    console.log(empl.domNode);
                     empl.template =templ;
 
                     $(divWindow).append(empl.template);
@@ -67,6 +76,7 @@ require(['Classes/Person','text!./templates/employe.html' ], function(Employee, 
 
                     jQuery(function($){
                         $(empl.domNode).drag(function( ev, dd ){
+                            console.log(this.id);
                             $( this ).css({
                                 top: dd.offsetY,
                                 left: dd.offsetX
@@ -78,9 +88,10 @@ require(['Classes/Person','text!./templates/employe.html' ], function(Employee, 
 
                     $(empl.domNode).drag('init',function (ev, dd) {
                         $(dd.drag).parents('div:eq(0)').css('position', 'absolute');
-//                    $.post('/get', {"target": "person", "method": "add", "name": "superTEST", "surname": "TESTSurname", "position": "gg", "photo": "dd"}, function(ell){
-//                        console.log('setCur--->', ell)
-//                    })
+//                   $.post('/user/:id', {"target": "person", "method": "add", "name": "superTEST", "surname": "TESTSurname", "position": "gg", "photo": "dd"}, function(ell){
+                   $.post('/user/:'+this.id, {}, function(ell){
+                        console.log('setCur--->'+ ell+"id="+this.id )
+                    })
 //                        console.log('set current person to true');
 //                        console.log(ev)
                     });
@@ -101,47 +112,14 @@ require(['Classes/Person','text!./templates/employe.html' ], function(Employee, 
 //                        })
                         }
                     });
-
-
-
-
-
-
-
-
-
-
-                    return empl;
+                 return empl;
                 }
-            });
 
-        });
-//    });
+
+        }
+    return showPerson
+
 });
-
-//                        ' <div class = "employee">\
-//        <div class="employeeWindow ">\
-//            <div class="employee-header" >\
-//                <div class="emplPosition"></div>\
-//                <button type="button" class="close" data-toggle="tooltip" title="remove from project"  aria-hidden="true" >&times;</button>\
-//            </div>\
-//            <div class="employee-body">\
-//                <div class="united" >\
-//                    <img >\
-//                        <div class= "name"  ></div>\
-//                    </div>\
-//                </div>\
-//                <div class="employee-footer">\
-//                </div>\
-//            </div>\
-//        </div>';
-
-
-//                    if(!empl.photo) empl.photo = "/img/images.jpg";
-//                    if (!'<img scr=' + empl.photo + ' alt="">') empl.photo = "/img/images.jpg";
-
-
-
 
 
 

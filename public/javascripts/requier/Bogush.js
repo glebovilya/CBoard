@@ -1,5 +1,6 @@
 define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (Accordion, boot) {
-
+var accordProjects;
+    var accordPeople;
     $(document).ready(function () {
 
         $("#people").css("left", -1000);
@@ -32,13 +33,14 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                 projects = project;
             }
         })
-        new Accordion(projects, "#accordion-projects");
+        accordProjects = new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
-        function setPeople(){
+        function setPeople() {
 
         }
-        setTimeout(function(){
+
+        setTimeout(function () {
             var peop;
             $.ajax({
                 type: "GET",
@@ -49,10 +51,10 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                     for (var elems in dataPerson) {
                         var itemk = dataPerson[elems].position
                         if (itemk in people)
-                            people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name};
+                            people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
                         else
                             people[itemk] = [
-                                {id: dataPerson[elems]._id + "", name: dataPerson[elems].name}
+                                {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname}
                             ];
                     }
                     peop = people;
@@ -64,29 +66,6 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
             setSizes();
 
         }, 500)
-//        var peop;
-//        $.ajax({
-//            type: "GET",
-//            url: "/users",
-//            async: false,
-//            success: function (dataPerson) {
-//                var people = {};
-//                for (var elems in dataPerson) {
-//                    var itemk = dataPerson[elems].position
-//                    if (itemk in people)
-//                        people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name};
-//                    else
-//                        people[itemk] = [
-//                            {id: dataPerson[elems]._id + "", name: dataPerson[elems].name}
-//                        ];
-//                }
-//                peop = people;
-//            }
-//        });
-//        new Accordion(peop, "#accordion-people");
-
-
-
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();
@@ -119,6 +98,17 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
         $('#people').css("top", -topHeightPeople);
         $('div.btn-wrap').css("top", topHeight + $("#people").outerHeight())
     }
+    function setAccordItems(type, obj, item){
+
+if (type=="projects") {
+    console.log(accordProjects);
+    accordProjects.addItem(obj, item);
+}
+//        console.log(obj, item)
+//        accordProjects.addItem(obj, item);
+    }
+
+    return setAccordItems
 })
 
 

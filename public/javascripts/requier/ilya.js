@@ -9,7 +9,7 @@ require(['Classes/Project'], function (Project){
 //        console.log(res)
 //    })
     $.get('/users',{},function(res){
-        console.log(res);
+//        console.log(res);
         project.getEmployees();
     })
 });

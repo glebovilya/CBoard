@@ -43,8 +43,8 @@ define(['text!./templates/addProject.html', 'Accordion', 'Bogush'], function (te
 
                         var obj = {id: returndata._id, name: returndata.name}
                         var item = "";
-                        if (returndata.end) item = "closed"
-                        else item = "open"
+                        if (returndata.end) item = "Closed"
+                        else item = "Open"
                         setAccordItem("projects", obj, item);
                     }
                 });

@@ -20,7 +20,7 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
             async: false,
             success: function (dataStatus) {
                 userStatuses = dataStatus;
-                console.log(userStatuses)
+
             }
         })
         /*generate accordion "projects"*/
@@ -39,8 +39,8 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                     else
                         openProject[openProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
                 }
-                project.open = openProject;
-                project.closed = closedProject;
+                project.Open = openProject;
+                project.Closed = closedProject;
                 projects = project;
             }
         })
@@ -112,11 +112,11 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
     function setAccordItems(type, obj, item) {
 
         if (type == "projects") {
-            console.log(accordProjects);
+//            console.log(accordProjects);
             accordProjects.addItem(obj, item);
         }
         if (type == "people") {
-            console.log(accordPeople);
+//            console.log(accordPeople);
             for (var stat in userStatuses) {
                 if (userStatuses[stat]._id == obj.status)
                     var item = userStatuses[stat].name;

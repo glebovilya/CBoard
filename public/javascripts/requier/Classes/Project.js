@@ -1,5 +1,5 @@
 define(['text!../templates/project.html'], function (template) {
-    var Project = function (opts) {
+    var Project = function (args) {
 
         //declaration of Project class
         /*
@@ -10,24 +10,37 @@ define(['text!../templates/project.html'], function (template) {
          * this area is a container for displaying developers list
          * and is acceptor for drop event of draggable person widgets
          * */
+        var self = this;
 
         this.__construct = function (/*object*/args) {
-            for (var i in opts) {
-                this[i] = opts[i];
-            }
-
-            this.renderView();
             this.buildLogic(args);
+            this.renderView();
 //            this.id = response//todo arr server response for setting id
             this.template = template;
         };
-        this.container = $("#board");
-        console.log(this.container);
+
+
         this.renderView = function () {
             $(template).appendTo(this.container);
         };
-        this.buildLogic = function () {
+        this.buildLogic = function (args) {
+            for (var i in args) {
+                this[i] = args[i];
+            }
         };
+
+
+
+        this.start = new Date();
+        this.end = null;
+        this.currentEmployees = [];
+        this.current = false;
+        this.id = null;
+        this.name = '';
+        this.history = [];
+
+
+
         this.pushHistory = function () {
             /*
              * this method creates a new history records
@@ -40,14 +53,14 @@ define(['text!../templates/project.html'], function (template) {
                 console.log('project request sent')
             });
         };
-        this.response = function () {
-            $.get('/get', {}, function () {
-            })
-            return response;
-        };
-        this.id = null;
-        this.name = '';
+        this.getEmployees = function(){
+            self.currentEmployees || $.get()
+        }
+
+//        at last, call of project constructor
+
         this.__construct();
     };
     return Project;
 });
+

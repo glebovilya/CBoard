@@ -21,13 +21,14 @@ exports.addPerson = function(req, res) {
     person.save(function(){
 
         var photoPath = "./public/images/DB_persons/" + person._id + photo.name;
+        var dbPhotoPath = "/images/DB_persons/" + person._id + photo.name;
 
         fs.move(photo.path, photoPath, function(err) {
             if (err) {
                 console.log(err)
             }
             else {
-                dbModels.Person.findOneAndUpdate({_id: person._id}, {photo: photoPath}, function(err, pers) {
+                dbModels.Person.findOneAndUpdate({_id: person._id}, {photo: dbPhotoPath}, function(err, pers) {
                     respondJSON(res, pers)
                 })
             }

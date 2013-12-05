@@ -18,8 +18,8 @@ define(['Classes/Person','text!./templates/employe.html' ], function(Employee, t
 
 
 
-                var dom = event.target;// в случае если внутри li нет <a> или другого потомка
-                var dom = $(dom).parent("li")// if there <> inside
+//                var dom = event.target;// в случае если внутри li нет <a> или другого потомка
+//                var dom = $(dom).parent("li")// if there <> inside
 //                var id = $(dom).attr("data-point-id");
                 var id = dataId;
                 var idFix = Math.random().toString(36).slice(3,9);

@@ -1,4 +1,4 @@
-define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'newEmployee'], function (accordHead, accordItem, accordWrapItem, setEffects, setshowPerson) {
+define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'newEmployee'], function (accordHead, accordItem, accordWrapItem, setEffects, setShowPerson) {
 
     function Accordion(/*object with data for accordion*/object, /*DOMNode to insert accordion with #*/divId) {
         this.templateHead = accordHead;
@@ -39,7 +39,7 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
         this.item.prepend(newItemlList);
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
-//        setshowPerson(obj.id);
+        $(itemString).bind("click", function(){setShowPerson(obj.id);})
 
     }
 

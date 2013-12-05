@@ -40,6 +40,8 @@ define(['text!../templates/project.html'], function (template) {
                 console.log('project request sent')
             });
         };
+        this.start = new Date();
+        this.finish = null;
         this.response = function () {
             $.get('/get', {}, function () {
             })
@@ -51,3 +53,4 @@ define(['text!../templates/project.html'], function (template) {
     };
     return Project;
 });
+

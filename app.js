@@ -42,11 +42,12 @@ app.get('/project', dataGetter.getProject);
 app.get('/projects', dataGetter.getProjects);
 app.post('/project', express.bodyParser(), dataSetter.addProject);
 app.post('/project/:id', dataSetter.setCurrentProject);
+app.get('/status', dataGetter.getStatus);
 
 /**
 * uncomment lines to add new statuses to the DB
 **/
-
+//
 //dataSetter.addStatus(1, 'Free');
 //dataSetter.addStatus(2, 'Manager');
 //dataSetter.addStatus(3, 'Lead');

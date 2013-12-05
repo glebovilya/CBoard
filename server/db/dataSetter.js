@@ -59,7 +59,7 @@ exports.addStatus = function( id, name/*req, res*/) {
         name: name
     });
     status.save(function(){
-        respondJSON(res, status)
+//        respondJSON(res, status)
     });
 
 //    var status = new dbModels.Status({

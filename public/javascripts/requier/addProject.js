@@ -19,14 +19,15 @@ $(document).ready(function(){
 
         $('#modalAddProject form').submit(function(){ //listen for submit event
 //            var date = new Date($(".datepicker").val());
-//            console.log(date);
-            var formData = new FormData($(this)[0]);
+
             console.log(formData)
 
+            var formData = new FormData($(this)[0]);
+            console.log(formData);
             $.ajax({
                 url: '/project',
                 type: 'POST',
-                startDate:date,
+//                startDate:date,
                 data: formData,
                 async: false,
                 cache: false,
@@ -34,7 +35,7 @@ $(document).ready(function(){
                 processData: false,
                 success: function (returndata) {
                     onAjaxSuccess(returndata);
-                    console.log(returndata)
+//                    console.log(returndata)
                 }
             });
 

@@ -16,9 +16,9 @@ exports.getPerson = function(req, res){
 exports.getPersons = function(req, res){
     var query = {};
 
-//    if (req.body.currentEmployees){
-//        query = {'_id': {$in: req.body.currentEmployees}}
-//    }
+    if (req.body.currentEmployees){
+        query = {'_id': {$in: req.body.currentEmployees}}
+    }
 
     dbModels.Person.find(query, function(err, persons) {
         respondJSON(res, persons)

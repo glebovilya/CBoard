@@ -35,7 +35,7 @@ if ('development' == app.get('env')) {
 //todo: create route logic
 app.get('/', routes.index);
 app.get('/user', dataGetter.getPerson);
-app.get('/users', dataGetter.getPersons);
+app.get('/users', express.bodyParser(), dataGetter.getPersons);
 app.post('/user', express.bodyParser(), dataSetter.addPerson);
 app.post('/user/:id', dataSetter.setCurrentPerson);
 app.get('/project', dataGetter.getProject);

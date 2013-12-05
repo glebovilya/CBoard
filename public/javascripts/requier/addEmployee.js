@@ -16,7 +16,7 @@ $(document).ready(function(){
     $('#modalAddPeople form').submit(function(){ //listen for submit event
 
                 var formData = new FormData($(this)[0]);
-
+                    console.log(formData);
                 $.ajax({
                     url: '/user',
                     type: 'POST',

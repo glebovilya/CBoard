@@ -12,7 +12,7 @@ $(document).ready(function(){
 
         var template = templatadd;
         $(template).appendTo($("#inner-board"));
-        console.log(template);
+//        console.log(template);
     $('#modalAddPeople form').submit(function(){ //listen for submit event
 
                 var formData = new FormData($(this)[0]);

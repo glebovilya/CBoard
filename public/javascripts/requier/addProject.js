@@ -15,7 +15,12 @@ $(document).ready(function(){
 
 
     $(template).appendTo($("#inner-board"));
-        $(".datepicker").datepicker();
+        $(".input-append input").datepicker();
+
+
+//        $(".input-append").datepicker();
+
+
 
         $('#modalAddProject form').submit(function(){ //listen for submit event
 //            var date = new Date($(".datepicker").val());

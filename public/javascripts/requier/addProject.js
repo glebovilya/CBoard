@@ -1,4 +1,4 @@
-/**
+/*
  * Created by stepanjuk on 02.12.13.
  */
 
@@ -12,7 +12,11 @@ define(['text!./templates/addProject.html', 'Accordion', 'Bogush'], function (te
 
 
             $(template).appendTo($("#inner-board"));
-            $(".datepicker").datepicker();
+            $(".input-append input").datepicker();
+
+
+
+
 
             $('#modalAddProject form').submit(function () { //listen for submit event
 //            var date = new Date($(".datepicker").val());

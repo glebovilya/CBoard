@@ -1,17 +1,39 @@
-var template = '<div class = "employee">\
-    <div class="employeeWindow ">\
-        <div class="employee-header" >\
-            <div >position</div>\
-            <button type="button" class="close" data-toggle="tooltip" title="remove from project" data-dismiss="modal" aria-hidden="true" >&times;</button>\
-        </div>\
-        <div class="employee-body">\
-            <div class="united" >\
-                <img src="http://placehold.it/90x120" alt="">\
-                    <div class= "name" >Name Surname</div>\
-                </div>\
-            </div>\
-            <div class="employee-footer">\
-            </div>\
-        </div>\
-    </div>';
+/**
+ * Created by stepanjuk on 28.11.13.
+ */
 
+
+define ([], function(){
+
+
+
+    function Employee(data){
+        
+        this.domNode = data['domNode'];
+        this.name = data['name'];
+        this.surname = data['surname'];
+        this.id =data['id'];
+        this.template = data['template'];
+        this.photo = data['photo'];
+        this.position = data['position'];
+
+        this.destroy = function (event){
+            console.log($(this.domNode));
+            this.domNode.remove();
+        };
+
+
+        Employee.prototype.destroy = function(){
+            this.domNode.remove();
+        }
+
+
+        Employee.init = function(){
+
+        }
+    }
+
+
+    return Employee;
+
+});

@@ -37,4 +37,10 @@ exports.getProjects = function(req, res){
     })
 };
 
+exports.getStatus = function(req, res){
+    dbModels.Status.find(function(err, statuses){
+        respondJSON(res, statuses)
+    })
+}
+
 

@@ -18,24 +18,14 @@
             <!-- Sidebar content -->
             <div class="row-fluid newwrap">
                 <div class="tabbable">
-                    <!--<div class="custom-view" data-toggle="buttons-radio">-->
-                        <!--<button type="button" class="btn btn-large btn-custom active"-->
-                                <!--href="#projects" data-toggle="tab">-->
-                            <!--<i class="icon-white icon-folder-close"></i> Projects-->
-                        <!--</button>-->
-                        <!--<button type="button" class="btn btn-large btn-custom"-->
-                                <!--href="#people" data-toggle="tab">-->
-                            <!--<i class="icon-white icon-user"></i> People-->
-                        <!--</button>-->
-                    <!--</div>-->
 
                     <div class="custom-view" data-toggle="buttons-radio">
                         <button type="button" class="btn btn-large btn-custom active"
-                                href="#">
+                                href="#" id="projects-tab">
                             <i class="icon-white icon-folder-close"></i> Projects
                         </button>
                         <button type="button" class="btn btn-large btn-custom"
-                                href="#">
+                                href="#" id="people-tab">
                             <i class="icon-white icon-user"></i> People
                         </button>
                     </div>
@@ -45,7 +35,7 @@
                         <input type="text" data-provide="typeahead" placeholder="Search">
                     </div>
 
-                    <div >
+                    <div>
                         <div id="projects">
                             <div class="container-scroll">
                                 <div class="scroller" id="accordion-projects">
@@ -81,10 +71,10 @@
                             </button>
                         </div>
                     </div>
-                    <hr/>
                 </div>
                 <!-- Sidebar buttons -->
                 <div class="row-fluid btn-wrap">
+                    <hr />
                     <div id="showAll" class="text-center">
                         <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-open"></i> Show
                             All Projects</a>

@@ -20,7 +20,7 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
             async: false,
             success: function (dataStatus) {
                 userStatuses = dataStatus;
-                console.log(userStatuses)
+
             }
         })
         /*generate accordion "projects"*/
@@ -39,8 +39,8 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                     else
                         openProject[openProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
                 }
-                project.open = openProject;
-                project.closed = closedProject;
+                project.Open = openProject;
+                project.Closed = closedProject;
                 projects = project;
             }
         })

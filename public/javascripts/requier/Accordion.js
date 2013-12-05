@@ -33,13 +33,18 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
     }
 
     Accordion.prototype.addItem = function (obj, item) {
-
+        console.log(item)
         this.item = $('#' + item + '-body').find('ul.list');
         var newItemlList = this.templateList.replace(/ItemName/g, obj.name).replace(/itemID/g, obj.id);
         this.item.prepend(newItemlList);
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
-        $(itemString).bind("click", function(){setShowPerson(obj.id);})
+        if(item =="Open" || item == "Closed" )
+        {
+            /*$(itemString).bind("click", function(){function ShowProject})*/
+        }
+        else
+            $(itemString).bind("click", function(){setShowPerson(obj.id);})
 
     }
 

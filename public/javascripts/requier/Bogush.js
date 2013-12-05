@@ -1,6 +1,7 @@
 define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (Accordion, boot) {
-var accordProjects;
+    var accordProjects;
     var accordPeople;
+    var userStatuses;
     $(document).ready(function () {
 
         $("#people").css("left", -1000);
@@ -11,6 +12,16 @@ var accordProjects;
         $('#projects-tab').bind("click", function () {
             $("#people").css("left", -1000);
             $("#projects").css("left", 0);
+        })
+
+        $.ajax({
+            type: "GET",
+            url: "/status",
+            async: false,
+            success: function (dataStatus) {
+                userStatuses = dataStatus;
+                console.log(userStatuses)
+            }
         })
         /*generate accordion "projects"*/
         var projects;
@@ -49,7 +60,10 @@ var accordProjects;
                 success: function (dataPerson) {
                     var people = {};
                     for (var elems in dataPerson) {
-                        var itemk = dataPerson[elems].position
+                        for (var stat in userStatuses) {
+                            if (userStatuses[stat]._id == dataPerson[elems].currentStatus)
+                                var itemk = userStatuses[stat].name;
+                        }
                         if (itemk in people)
                             people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
                         else
@@ -60,7 +74,7 @@ var accordProjects;
                     peop = people;
                 }
             });
-            new Accordion(peop, "#accordion-people");
+            accordPeople = new Accordion(peop, "#accordion-people");
 
             setScroll('.container-scroll', '.scroller', '.scroller__bar');
             setSizes();
@@ -98,14 +112,21 @@ var accordProjects;
         $('#people').css("top", -topHeightPeople);
         $('div.btn-wrap').css("top", topHeight + $("#people").outerHeight())
     }
-    function setAccordItems(type, obj, item){
 
-if (type=="projects") {
-    console.log(accordProjects);
-    accordProjects.addItem(obj, item);
-}
-//        console.log(obj, item)
-//        accordProjects.addItem(obj, item);
+    function setAccordItems(type, obj, item) {
+
+        if (type == "projects") {
+            console.log(accordProjects);
+            accordProjects.addItem(obj, item);
+        }
+        if (type == "people") {
+            console.log(accordPeople);
+            for (var stat in userStatuses) {
+                if (userStatuses[stat]._id == obj.status)
+                    var item = userStatuses[stat].name;
+            }
+            accordPeople.addItem(obj, item);
+        }
     }
 
     return setAccordItems

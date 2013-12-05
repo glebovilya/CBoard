@@ -11,7 +11,6 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
             $("#people").css("left", -1000);
             $("#projects").css("left", 0);
         })
-
         /*generate accordion "projects"*/
         var projects;
         $.ajax({
@@ -36,32 +35,59 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
         new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
-        var peop;
-        $.ajax({
-            type: "GET",
-            url: "/users",
-            async: false,
-            success: function (dataPerson) {
-                var people = {};
-                for (var elems in dataPerson) {
-                    var itemk = dataPerson[elems].position
-                    if (itemk in people)
-                        people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name};
-                    else
-                        people[itemk] = [
-                            {id: dataPerson[elems]._id + "", name: dataPerson[elems].name}
-                        ];
+        function setPeople(){
+
+        }
+        setTimeout(function(){
+            var peop;
+            $.ajax({
+                type: "GET",
+                url: "/users",
+                async: false,
+                success: function (dataPerson) {
+                    var people = {};
+                    for (var elems in dataPerson) {
+                        var itemk = dataPerson[elems].position
+                        if (itemk in people)
+                            people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name};
+                        else
+                            people[itemk] = [
+                                {id: dataPerson[elems]._id + "", name: dataPerson[elems].name}
+                            ];
+                    }
+                    peop = people;
                 }
-                peop = people;
+            });
+            new Accordion(peop, "#accordion-people");
 
-            }
-        });
-        new Accordion(peop, "#accordion-people");
+            setScroll('.container-scroll', '.scroller', '.scroller__bar');
+            setSizes();
+
+        }, 500)
+//        var peop;
+//        $.ajax({
+//            type: "GET",
+//            url: "/users",
+//            async: false,
+//            success: function (dataPerson) {
+//                var people = {};
+//                for (var elems in dataPerson) {
+//                    var itemk = dataPerson[elems].position
+//                    if (itemk in people)
+//                        people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name};
+//                    else
+//                        people[itemk] = [
+//                            {id: dataPerson[elems]._id + "", name: dataPerson[elems].name}
+//                        ];
+//                }
+//                peop = people;
+//            }
+//        });
+//        new Accordion(peop, "#accordion-people");
 
 
 
-        setScroll('.container-scroll', '.scroller', '.scroller__bar');
-        setSizes();
+
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();
         });

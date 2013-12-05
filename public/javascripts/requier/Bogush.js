@@ -1,5 +1,6 @@
 define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (Accordion, boot) {
-
+var accordProjects;
+    var accordPeople;
     $(document).ready(function () {
 
         $("#people").css("left", -1000);
@@ -32,7 +33,7 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                 projects = project;
             }
         })
-        new Accordion(projects, "#accordion-projects");
+        accordProjects = new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
         function setPeople() {
@@ -97,6 +98,17 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
         $('#people').css("top", -topHeightPeople);
         $('div.btn-wrap').css("top", topHeight + $("#people").outerHeight())
     }
+    function setAccordItems(type, obj, item){
+
+if (type=="projects") {
+    console.log(accordProjects);
+    accordProjects.addItem(obj, item);
+}
+//        console.log(obj, item)
+//        accordProjects.addItem(obj, item);
+    }
+
+    return setAccordItems
 })
 
 

@@ -20,10 +20,15 @@ $(document).ready(function(){
         $('#modalAddProject form').submit(function(){ //listen for submit event
 //            var date = new Date($(".datepicker").val());
 
-            console.log(formData)
+            var datePicker = $("input[name='startDate']")[0];
+
+            var date = new Date(datePicker.value);
+            date.setDate(date.getDate()+1); //issue on server --> date -1 day
+
+            datePicker.value = date;
 
             var formData = new FormData($(this)[0]);
-            console.log(formData);
+
             $.ajax({
                 url: '/project',
                 type: 'POST',

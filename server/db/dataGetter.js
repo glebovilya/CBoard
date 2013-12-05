@@ -7,7 +7,6 @@ var respondJSON = function(res, data) {
     res.end(JSON.stringify(data))
 };
 
-
 exports.getPerson = function(req, res){
     dbModels.Person.findOne({_id: req.query.id}, function(err, pers) {
         respondJSON(res, pers)
@@ -16,11 +15,10 @@ exports.getPerson = function(req, res){
 
 exports.getPersons = function(req, res){
     var query = {};
-    var curEmp = req.body.currentEmployees;
 
-    if (curEmp){
-        query = {'_id': {$in: curEmp}}
-    }
+//    if (req.body.currentEmployees){
+//        query = {'_id': {$in: req.body.currentEmployees}}
+//    }
 
     dbModels.Person.find(query, function(err, persons) {
         respondJSON(res, persons)

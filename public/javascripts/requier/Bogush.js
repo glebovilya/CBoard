@@ -64,29 +64,6 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
             setSizes();
 
         }, 500)
-//        var peop;
-//        $.ajax({
-//            type: "GET",
-//            url: "/users",
-//            async: false,
-//            success: function (dataPerson) {
-//                var people = {};
-//                for (var elems in dataPerson) {
-//                    var itemk = dataPerson[elems].position
-//                    if (itemk in people)
-//                        people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name};
-//                    else
-//                        people[itemk] = [
-//                            {id: dataPerson[elems]._id + "", name: dataPerson[elems].name}
-//                        ];
-//                }
-//                peop = people;
-//            }
-//        });
-//        new Accordion(peop, "#accordion-people");
-
-
-
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();

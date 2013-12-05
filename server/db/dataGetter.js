@@ -5,31 +5,38 @@ var respondJSON = function(res, data) {
         'Content-Type': 'application/json'
     });
     res.end(JSON.stringify(data))
-}
+};
 
 
 exports.getPerson = function(req, res){
     dbModels.Person.findOne({_id: req.query.id}, function(err, pers) {
         respondJSON(res, pers)
     })
-}
+};
 
 exports.getPersons = function(req, res){
-    dbModels.Person.find(function(err, persons) {
+    var query = {};
+    var curEmp = req.body.currentEmployees;
+
+    if (curEmp){
+        query = {'_id': {$in: curEmp}}
+    }
+
+    dbModels.Person.find(query, function(err, persons) {
         respondJSON(res, persons)
     })
-}
+};
 
 exports.getProject = function(req, res){
     dbModels.Project.findOne({_id: req.query.id}, function(err, proj) {
         respondJSON(res, proj)
     })
-}
+};
 
 exports.getProjects = function(req, res){
     dbModels.Project.find(function(err, projects) {
         respondJSON(res, projects)
     })
-}
+};
 
 

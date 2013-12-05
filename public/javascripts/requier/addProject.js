@@ -50,7 +50,9 @@ $(document).ready(function(){
 
         function onAjaxSuccess(data){// по приходу колбэка после сохранения нового сотрудника
 
-            $("#modalAddProject :input").val("");
+//            $("#modalAddProject :input").val("");
+            console.log(data)
+//            var h = {"__v":0,"_id":1,"name":"NewProject","current":false,"history":[],"start":"2013-12-02T22:00:00.000Z","currentEmployees":[]}
 
         }
 

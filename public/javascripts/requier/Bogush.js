@@ -47,10 +47,6 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
         accordProjects = new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
-        function setPeople() {
-
-        }
-
         setTimeout(function () {
             var peop;
             $.ajax({

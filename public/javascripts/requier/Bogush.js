@@ -1,6 +1,7 @@
 define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (Accordion, boot) {
 
     $(document).ready(function () {
+
         $("#people").css("left", -1000);
         $('#people-tab').bind("click", function () {
             $("#projects").css("left", -1000);
@@ -29,12 +30,13 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                 }
                 project.open = openProject;
                 project.closed = closedProject;
-                new Accordion(project, "#accordion-projects");
-
+                projects = project;
             }
         })
+        new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
+        var peop;
         $.ajax({
             type: "GET",
             url: "/users",
@@ -50,9 +52,14 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                             {id: dataPerson[elems]._id + "", name: dataPerson[elems].name}
                         ];
                 }
-                new Accordion(people, "#accordion-people");
+                peop = people;
+
             }
         });
+        new Accordion(peop, "#accordion-people");
+
+
+
         setScroll('.container-scroll', '.scroller', '.scroller__bar');
         setSizes();
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию

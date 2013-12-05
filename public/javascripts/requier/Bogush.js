@@ -112,11 +112,11 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
     function setAccordItems(type, obj, item) {
 
         if (type == "projects") {
-            console.log(accordProjects);
+//            console.log(accordProjects);
             accordProjects.addItem(obj, item);
         }
         if (type == "people") {
-            console.log(accordPeople);
+//            console.log(accordPeople);
             for (var stat in userStatuses) {
                 if (userStatuses[stat]._id == obj.status)
                     var item = userStatuses[stat].name;

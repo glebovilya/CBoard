@@ -33,7 +33,6 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
     }
 
     Accordion.prototype.addItem = function (obj, item) {
-        console.log(item)
         this.item = $('#' + item + '-body').find('ul.list');
         var newItemlList = this.templateList.replace(/ItemName/g, obj.name).replace(/itemID/g, obj.id);
         this.item.prepend(newItemlList);

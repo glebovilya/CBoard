@@ -133,7 +133,8 @@ exports.addHistory = function (req, res) {
                 else {
                     project.currentEmployees.push(person._id)
                 }
-
+                person.current = false;
+                project.current = false;
                 person.currentStatus = status._id;
                 person.history.push(history);
                 project.history.push(history);

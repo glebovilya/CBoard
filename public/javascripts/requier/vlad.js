@@ -62,7 +62,7 @@ define(['../thirdParty/jquery.event.drag-2.2', '../thirdParty/jquery.event.drop-
                     success: function (returndata) {
                         alert(returndata);
                     }
-                });
+                }, function(pers){console.log(pers)});
 
                 return false;
             });

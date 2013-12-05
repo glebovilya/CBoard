@@ -2,7 +2,7 @@
  * Created by stepanjuk on 29.11.13.
  */
 
-require([/*'stepa','Accordion',*/'text!./templates/addEmployee.html'], function(templ){
+require([/*'stepa','Accordion',*/'text!./templates/addEmployee.html', 'Bogush'], function(templatadd, setAccordItem){
 
 
 
@@ -10,9 +10,9 @@ require([/*'stepa','Accordion',*/'text!./templates/addEmployee.html'], function(
 $(document).ready(function(){
     $("#buttonAddNewPeople").click(function(event){
 
-        var template = templ;
+        var template = templatadd;
         $(template).appendTo($("#inner-board"));
-
+//        console.log(template);
     $('#modalAddPeople form').submit(function(){ //listen for submit event
 
                 var formData = new FormData($(this)[0]);
@@ -26,8 +26,11 @@ $(document).ready(function(){
                     contentType: false,
                     processData: false,
                     success: function (returndata) {
-                        onAjaxSuccess(returndata);
-                        console.log(returndata)
+
+                        var obj = {id: returndata._id, name: returndata.name + " " + returndata.surname, status:returndata.currentStatus}
+//                        console.log(returndata)
+                        var item = "";
+                        setAccordItem("people", obj, item);
                     }
                 });
 
@@ -39,11 +42,6 @@ $(document).ready(function(){
                 $("#modalAddPeople").remove();
     });
 
-    function onAjaxSuccess(data){// по приходу колбэка после сохранения нового сотрудника
-
-                $("#modalAddPeople :input").val("");
-
-             }
 
     });
 

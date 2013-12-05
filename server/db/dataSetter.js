@@ -21,13 +21,14 @@ exports.addPerson = function(req, res) {
     person.save(function(){
 
         var photoPath = "./public/images/DB_persons/" + person._id + photo.name;
+        var dbPhotoPath = "/images/DB_persons/" + person._id + photo.name;
 
         fs.move(photo.path, photoPath, function(err) {
             if (err) {
                 console.log(err)
             }
             else {
-                dbModels.Person.findOneAndUpdate({_id: person._id}, {photo: photoPath}, function(err, pers) {
+                dbModels.Person.findOneAndUpdate({_id: person._id}, {photo: dbPhotoPath}, function(err, pers) {
                     respondJSON(res, pers)
                 })
             }
@@ -47,15 +48,28 @@ exports.addProject = function(req, res) {
         respondJSON(res, project)
     });
 };
-exports.addStatus = function(req, res) {
+exports.addStatus = function( id, name/*req, res*/) {
+
+    /**
+    * Commented code(and arguments represent creating new status from HTTP request function)
+    **/
 
     var status = new dbModels.Status({
-        _id: req.body.id,
-        name: req.body.name
+        _id: id,
+        name: name
     });
     status.save(function(){
-        respondJSON(res, status)
+//        respondJSON(res, status)
     });
+
+//    var status = new dbModels.Status({
+//        _id: req.body.id,
+//        name: req.body.name
+//    });
+//    status.save(function(){
+//        respondJSON(res, status)
+//    });
+
 };
 exports.addHistory = function (req, res) {
 

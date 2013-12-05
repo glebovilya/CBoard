@@ -63,6 +63,7 @@
 }
 .projectWindow>.project-body {
     height: 170px;
+    padding-left:0;
 }
 
 .project-header {
@@ -70,10 +71,16 @@
 }
 
 .project-body .leaders {
-    padding-left: 20px;
     padding-bottom: 20px;
     padding-right: 20px;
     width: 100%;
+    border: 1px solid black;
+}
+.project-body .developers {
+    padding-bottom: 20px;
+    padding-right: 20px;
+    width: 100%;
+    border: 1px solid black;
 }
 
 .project-body ul{

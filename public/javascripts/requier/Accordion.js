@@ -7,7 +7,7 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
         this.templateList = accordItem;
         this.item;
         this.__construct(object, divId);
-        this.setScroll('.container-scroll', '.scroller', '.scroller__bar');
+//        this.setScroll('.container-scroll', '.scroller', '.scroller__bar');
     }
 
     Accordion.prototype.__construct = function (object, divId) {
@@ -54,21 +54,21 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
 
     }
 
-    Accordion.prototype.setScroll = function(container, scroller, scroll){
-        baron({
-            root: container,
-            scroller: scroller,
-            bar: scroll,
-            barOnCls: 'baron'
-        }).fix({
-                elements: '.header__title',
-                outside: 'header__title_state_fixed',
-                before: 'header__title_position_top',
-                after: 'header__title_position_bottom',
-                clickable: true
-
-            });
-    }
+//    Accordion.prototype.setScroll = function(container, scroller, scroll){
+//        baron({
+//            root: container,
+//            scroller: scroller,
+//            bar: scroll,
+//            barOnCls: 'baron'
+//        }).fix({
+//                elements: '.header__title',
+//                outside: 'header__title_state_fixed',
+//                before: 'header__title_position_top',
+//                after: 'header__title_position_bottom',
+//                clickable: true
+//
+//            });
+//    }
 
 
 

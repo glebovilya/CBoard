@@ -74,10 +74,16 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
 
     $('div.container-scroll').height(250);
     /*generate accordion "projects"*/
-    new Accordion(projects, "#accordion-projects");
-    $.get('/projects', function (dataProject) {
-//        console.log(dataProject)
-        var project = {};
+    var dp;
+//    new Accordion(projects, "#accordion-projects");
+    $.ajax({
+        type: "GET",
+        url: "/projects",
+        async: false,
+        success: function(dataProject) {
+
+            dp = dataProject;
+            var project = {};
         var openProject = [];
         var closedProject = [];
         for (var elems in dataProject) {
@@ -88,13 +94,24 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
         }
         project.open = openProject;
         project.closed = closedProject;
-//        new Accordion(project, "#accordion-projects");
-
+        new Accordion(project, "#accordion-projects");
+        }
     })
+
+//    console.log(dp)
 //    new Accordion(peopleName, "#accordion-people");
+
     /*generate accordion "people"*/
+
 //    var dataPerson =
-    var people =  function fr(people){
+
+
+
+    $.ajax({
+        type: "GET",
+        url: "/users",
+        async: false,
+        success: function(dataPerson) {
 
         var people = {};
         for (var elems in dataPerson) {
@@ -106,44 +123,17 @@ define(['../requier/Accordion', '../thirdParty/bootstrap', '../requier/resize', 
                     {id: dataPerson[elems]._id+"", name: dataPerson[elems].name}
                 ];
         }
-        console.log(people)
-        return people;
-    }
 
-    function f(dataPerson){
+            new Accordion(people, "#accordion-people");
 
-
-        var people = {};
-        for (var elems in dataPerson) {
-            var itemk = dataPerson[elems].position
-            if (itemk in people)
-                people[itemk][people[itemk].length] = {id: dataPerson[elems]._id+"", name: dataPerson[elems].name};
-            else
-                people[itemk] = [
-                    {id: dataPerson[elems]._id+"", name: dataPerson[elems].name}
-                ];
-        }
-
-        var kr = document.createElement('div')
-        console.log(kr)
-        kr.text = people;
-        kr.id = 'hrt';
-        $("#projects").append(kr)
-        console.log($('#projects #hrt'))
 
     }
-
-
-      $.get('/users', function(dataPerson){
-//        console.log(dataPerson)
-f(dataPerson);
-
     });
 
-    console.log($('#hrt'))
 
 
-    new Accordion(window.lok, "#accordion-people");
+
+
 //    Accordion.setScroll('.container-scroll', '.scroller', '.scroller__bar');
 
 //    console.log(k);
@@ -233,21 +223,21 @@ f(dataPerson);
     })
 
 
-//    function setScroll(container, scroller, scroll) {
-//        baron({
-//            root: container,
-//            scroller: scroller,
-//            bar: scroll,
-//            barOnCls: 'baron'
-//        }).fix({
-//                elements: '.header__title',
-//                outside: 'header__title_state_fixed',
-//                before: 'header__title_position_top',
-//                after: 'header__title_position_bottom',
-//                clickable: true
-//
-//            });
-//    }
+    function setScroll(container, scroller, scroll) {
+        baron({
+            root: container,
+            scroller: scroller,
+            bar: scroll,
+            barOnCls: 'baron'
+        }).fix({
+                elements: '.header__title',
+                outside: 'header__title_state_fixed',
+                before: 'header__title_position_top',
+                after: 'header__title_position_bottom',
+                clickable: true
+
+            });
+    }
 
 })
 

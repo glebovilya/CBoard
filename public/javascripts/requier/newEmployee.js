@@ -15,10 +15,9 @@ require(['Classes/Person','text!./templates/employe.html' ], function(Employee, 
                 var idFix = Math.random().toString(36).slice(3,9);
 
                 $.get(
-                    "/get",
+                    "/user",
                     {
-                        target: 'person',
-                        method: 'one',
+
                         id: id
                     },
                     onAjaxSuccess

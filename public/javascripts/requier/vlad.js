@@ -6,15 +6,13 @@ define(['../thirdParty/jquery.event.drag-2.2', '../thirdParty/jquery.event.drop-
             var projects = $('#accordion-projects');
 
             var searchLogic = function(accordion) {
-
-
                 search.keyup(function(){
                     var searchQuery = search.val();
+                    var reg = new RegExp(searchQuery);
+
                     accordion.find('li').each(function(ell, node){
 
                         var name = $(node).text(); //inner text of particular li, represents person name and surname
-                        var reg = new RegExp(searchQuery);
-
                         if(!reg.test(name)) {
                             $(node).css('display', 'none')
                         } else {
@@ -34,7 +32,7 @@ define(['../thirdParty/jquery.event.drag-2.2', '../thirdParty/jquery.event.drop-
             searchLogic(people);
             searchLogic(projects);
 
-            search.click(function(){
+            search.dblclick(function(){
                 search.val('');
                 displayDefault(people);
                 displayDefault(projects);

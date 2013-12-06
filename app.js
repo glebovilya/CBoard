@@ -1,7 +1,7 @@
 
-/**
- * Module dependencies.
- */
+/*********************
+* Module dependencies.
+**********************/
 
 var express = require('express');
 var routes = require('./routes');
@@ -32,26 +32,33 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-//todo: create route logic
-app.get('/', routes.index);
-app.get('/user', dataGetter.getPerson); //req should look like {id: 'some id'}
-app.get('/users', express.bodyParser(), dataGetter.getPersons); //req can be empty or looks like {id:'array of ids'}
-app.post('/user', express.bodyParser(), dataSetter.addPerson); //req should look like {name:'name', surname: 'surname', position: 'position', file: 'file'}
-app.get('/project', dataGetter.getProject); //req should look like {id: 'some id'}
-app.get('/projects', dataGetter.getProjects); //just send req here
-app.post('/project', express.bodyParser(), dataSetter.addProject); //req should contain {name: 'name'(optional -> startDate: 'date')}
-app.get('/status', dataGetter.getStatus); //just senr req here
 
-/****************************************
+app.get('/', routes.index);
+
+/*******************************************************************
+ * every app.get||app.post below returns json with requested obj
+ * commented lines represents data to be send in request from client
+ *******************************************************************/
+
+
+app.get('/user', dataGetter.getPerson); //{id: 'num'}
+app.get('/users', express.bodyParser(), dataGetter.getPersons); //{} or {id:'array of ids'}
+app.post('/user', express.bodyParser(), dataSetter.addPerson); //{name:'str', surname: 'str', position: 'str', file: 'filepath'}
+app.get('/project', dataGetter.getProject); //{id: 'num'}
+app.get('/projects', dataGetter.getProjects); //just send req here
+app.post('/project', express.bodyParser(), dataSetter.addProject); //{name: 'str'(optional -> startDate: 'date')}
+app.post('/history', express.bodyParser(), dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
+app.get('/status', dataGetter.getStatus); //just send req here
+
+/*************************************
  * rudiment routs will be removed soon
- *****************************************/
+ *************************************/
 app.post('/project/:id', dataSetter.setCurrentProject); //rudiment
 app.post('/user/:id', dataSetter.setCurrentPerson); //rudiment
 
-/**
-* uncomment lines to add new statuses to the DB
-**/
-//
+/****************************************************
+* uncomment lines below to add new statuses to the DB
+*****************************************************/
 //dataSetter.addStatus(1, 'Free');
 //dataSetter.addStatus(2, 'Manager');
 //dataSetter.addStatus(3, 'Lead');

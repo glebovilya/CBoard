@@ -20,7 +20,7 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
             async: false,
             success: function (dataStatus) {
                 userStatuses = dataStatus;
-                console.log(userStatuses)
+
             }
         })
         /*generate accordion "projects"*/
@@ -39,20 +39,18 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                     else
                         openProject[openProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
                 }
-                project.open = openProject;
-                project.closed = closedProject;
+                project.Open = openProject;
+                project.Closed = closedProject;
                 projects = project;
             }
         })
+
         accordProjects = new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
-        function setPeople() {
-
-        }
-
+        var peop;
         setTimeout(function () {
-            var peop;
+
             $.ajax({
                 type: "GET",
                 url: "/users",
@@ -75,11 +73,11 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                 }
             });
             accordPeople = new Accordion(peop, "#accordion-people");
-
-            setScroll('.container-scroll', '.scroller', '.scroller__bar');
-            setSizes();
-
         }, 500)
+
+        setSizes();
+        setScroll('.container-scroll', '.scroller', '.scroller__bar');
+//        setScroll('.container-scroll-2', '.scroller-2', '.scroller__bar-2');
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();
@@ -116,11 +114,11 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
     function setAccordItems(type, obj, item) {
 
         if (type == "projects") {
-            console.log(accordProjects);
+//            console.log(accordProjects);
             accordProjects.addItem(obj, item);
         }
         if (type == "people") {
-            console.log(accordPeople);
+//            console.log(accordPeople);
             for (var stat in userStatuses) {
                 if (userStatuses[stat]._id == obj.status)
                     var item = userStatuses[stat].name;

@@ -1,4 +1,4 @@
-define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'newEmployee'], function (accordHead, accordItem, accordWrapItem, setEffects, setshowPerson) {
+define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'Classes/Person'], function (accordHead, accordItem, accordWrapItem, setEffects, Person) {
 
     function Accordion(/*object with data for accordion*/object, /*DOMNode to insert accordion with #*/divId) {
         this.templateHead = accordHead;
@@ -33,14 +33,17 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
     }
 
     Accordion.prototype.addItem = function (obj, item) {
-
         this.item = $('#' + item + '-body').find('ul.list');
         var newItemlList = this.templateList.replace(/ItemName/g, obj.name).replace(/itemID/g, obj.id);
         this.item.prepend(newItemlList);
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
-//        setshowPerson(obj.id);
-
+        if(item =="Open" || item == "Closed" )
+        {
+            /*$(itemString).bind("click", function(){ShowProject()})*/
+        }
+        else
+            $(itemString).bind("click", function(){Person.init(obj.id);})
     }
 
     return Accordion;

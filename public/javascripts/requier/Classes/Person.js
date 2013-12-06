@@ -86,7 +86,7 @@ define (['text!../templates/employe.html'], function(templ){
 
 
                         jQuery(function(S){
-                         $(employee.domNode).drag(function( ev, dd ){
+                         $("#"+employee.idFix).drag(function( ev, dd ){
                               $( this ).css({
                                  top: dd.offsetY,
                                  left: dd.offsetX

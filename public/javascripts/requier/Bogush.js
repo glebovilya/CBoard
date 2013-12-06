@@ -128,7 +128,7 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
 
 
 
-        $('div.btn-wrap').css("top", $('#projects').outerHeight()+topHeight)
+//        $('div.btn-wrap').css("top", $('#projects').outerHeight()+topHeight)
         $('div.list').height($('div.accordion').height() - $('div.line').outerHeight() - $('#buttonAddNewPeople').outerHeight())
 
         /*set height of ul*/

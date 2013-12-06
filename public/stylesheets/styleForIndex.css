@@ -225,7 +225,13 @@ a:hover, a:focus, a:link {
 }
 
 .btn-wrap {
-   position: absolute;
+   /*position: absolute;*/
+    margin-top: -100px; height: 100px; background: red;
+}
+
+.row-fluid.btn-wrap .bottom {
+    /*position: absolute;*/
+    /*bottom: 0;*/
 }
 
 .bubble {

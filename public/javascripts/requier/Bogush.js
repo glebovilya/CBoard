@@ -44,11 +44,13 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                 projects = project;
             }
         })
+
         accordProjects = new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
+        var peop;
         setTimeout(function () {
-            var peop;
+
             $.ajax({
                 type: "GET",
                 url: "/users",
@@ -71,11 +73,11 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                 }
             });
             accordPeople = new Accordion(peop, "#accordion-people");
-
-            setScroll('.container-scroll', '.scroller', '.scroller__bar');
-            setSizes();
-
         }, 500)
+
+        setSizes();
+        setScroll('.container-scroll', '.scroller', '.scroller__bar');
+//        setScroll('.container-scroll-2', '.scroller-2', '.scroller__bar-2');
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();

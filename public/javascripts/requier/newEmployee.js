@@ -6,8 +6,6 @@ define(['Classes/Person'], function(Person){
         function showPerson(dataId){
 
                     Person.init(dataId);
-
-
         }
     return showPerson
 });

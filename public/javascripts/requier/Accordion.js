@@ -1,4 +1,4 @@
-define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'newEmployee'], function (accordHead, accordItem, accordWrapItem, setEffects, setShowPerson) {
+define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'Classes/Person'], function (accordHead, accordItem, accordWrapItem, setEffects, Person) {
 
     function Accordion(/*object with data for accordion*/object, /*DOMNode to insert accordion with #*/divId) {
         this.templateHead = accordHead;
@@ -40,11 +40,10 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
         setEffects(itemString);
         if(item =="Open" || item == "Closed" )
         {
-            /*$(itemString).bind("click", function(){function ShowProject})*/
+            /*$(itemString).bind("click", function(){ShowProject()})*/
         }
         else
-            $(itemString).bind("click", function(){setShowPerson(obj.id);})
-
+            $(itemString).bind("click", function(){Person.init(obj.id);})
     }
 
     return Accordion;

@@ -22,6 +22,6 @@ define(['newEmployee', 'addEmployee','addProject','newProject'/*,'confirmDate'*/
     );
 
 function onAjaxSuccess(data){
-    console.log(data);
+//    console.log(data);
 }
 });

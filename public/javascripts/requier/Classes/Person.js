@@ -32,44 +32,35 @@ define (['text!../templates/employe.html'], function(templ){
                     divWindow.id = employee.idFix;
                     divWindow.className = "newEmployee";
                     $(divWindow).append(Person.template);
+
                     $(employee.template).ready(function(){
+                         $(employee.domNode).attr("dataId", employee.id);
                          $(employee.domNode).find(".employee-header").append('<button type="button" class="close" data-toggle="tooltip" title="remove from project"  aria-hidden="true" >&times;</button>');
                          $(employee.domNode).find(".united .name").html(employee.name+'<br/>'+employee.surname);
                          $(employee.domNode).find(".emplPosition").html(employee.position);
-                         $(employee.domNode).find(".united img").attr("src", employee.photo)
+                         $(employee.domNode).find(".united img").attr("src", employee.photo);
+                         Person.setHandler(employee);
+                         });
+                    },
+        setHandler: function(employee){
                          $(employee.domNode).find("button").on('click', function(event){
                              $(employee.domNode).remove();
                          });
-                        $(employee.domNode).drag(function( ev, dd ){
-                                 console.log("dtag");
-                            $( this ).css({
-                                top: dd.offsetY,
-                                left: dd.offsetX
-                            });
-                        });
-                     });
-                }
+                         $(employee.domNode).drag(function( ev, dd ){
+                             console.log("dtag");
+                             $( this ).css({
+                                 top: dd.offsetY,
+                                 left: dd.offsetX
+                             });
+                         });
+
+                    }
     };
     return Person;
 });
 
 
 
-//$(empl.domNode).attr("dataId", id);
-//jQuery(function($){
-//
-//    $(empl.domNode).drag(function( ev, dd ){
-//
-//
-////                            console.log($(this).attr("dataId"));
-//        $( this ).css({
-//            top: dd.offsetY,
-//            left: dd.offsetX
-//        });
-//
-//
-//    });
-//});
 
 //$(empl.domNode).drag('init',function (ev, dd) {
 //    $(dd.drag).parents('div:eq(0)').css('position', 'absolute');

@@ -3,7 +3,10 @@ require.config({
 });
 
 
-requirejs(['vlad', 'Bogush', 'ilya', 'stepa'], function(v){
-
+requirejs([/*'./myEmployee/emp'*/ 'vlad', 'Bogush', 'ilya', 'stepa'], function(/*Emp*/ v){
+//    var emp = new Emp(1);
+    v();
 });
+
+
 

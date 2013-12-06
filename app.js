@@ -1,7 +1,7 @@
 
-/**
- * Module dependencies.
- */
+/*********************
+* Module dependencies.
+**********************/
 
 var express = require('express');
 var routes = require('./routes');
@@ -32,22 +32,33 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-//todo: create route logic
-app.get('/', routes.index);
-app.get('/user', dataGetter.getPerson);
-app.get('/users', express.bodyParser(), dataGetter.getPersons);
-app.post('/user', express.bodyParser(), dataSetter.addPerson);
-app.post('/user/:id', dataSetter.setCurrentPerson);
-app.get('/project', dataGetter.getProject);
-app.get('/projects', dataGetter.getProjects);
-app.post('/project', express.bodyParser(), dataSetter.addProject);
-app.post('/project/:id', dataSetter.setCurrentProject);
-app.get('/status', dataGetter.getStatus);
 
-/**
-* uncomment lines to add new statuses to the DB
-**/
-//
+app.get('/', routes.index);
+
+/*******************************************************************
+ * every app.get||app.post below returns json with requested obj
+ * commented lines represents data to be send in request from client
+ *******************************************************************/
+
+
+app.get('/user', dataGetter.getPerson); //{id: 'num'}
+app.get('/users', express.bodyParser(), dataGetter.getPersons); //{} or {id:'array of ids'}
+app.post('/user', express.bodyParser(), dataSetter.addPerson); //{name:'str', surname: 'str', position: 'str', file: 'filepath'}
+app.get('/project', dataGetter.getProject); //{id: 'num'}
+app.get('/projects', dataGetter.getProjects); //just send req here
+app.post('/project', express.bodyParser(), dataSetter.addProject); //{name: 'str'(optional -> startDate: 'date')}
+app.post('/history', express.bodyParser(), dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
+app.get('/status', dataGetter.getStatus); //just send req here
+
+/*************************************
+ * rudiment routs will be removed soon
+ *************************************/
+app.post('/project/:id', dataSetter.setCurrentProject); //rudiment
+app.post('/user/:id', dataSetter.setCurrentPerson); //rudiment
+
+/****************************************************
+* uncomment lines below to add new statuses to the DB
+*****************************************************/
 //dataSetter.addStatus(1, 'Free');
 //dataSetter.addStatus(2, 'Manager');
 //dataSetter.addStatus(3, 'Lead');

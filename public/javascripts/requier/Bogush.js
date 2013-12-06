@@ -82,11 +82,14 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
             });
 
             accordPeople = new Accordion(person, "#accordion-people");
-        }, 500)
+            setSizes();
 
-        setSizes();
+        }, 500)
+//       setTimeout(setSizes,200);
+//        setSizes();
 //        setScroll('.container-scroll', '.scroller', '.scroller__bar','baron');
 //        setScroll('.container-scroll-2', '.scroller-2', '.scroller__bar-2', 'baron-2');
+
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();
@@ -94,13 +97,13 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
         });
     })
 
-//    function setScroll(container, scroller, scroll, bon) {
-//        baron({
-//            root: container,
-//            scroller: scroller,
-//            bar: scroll,
-//            barOnCls: bon
-//        });
+    function setScroll(container, scroller, scroll, bon) {
+        baron({
+            root: container,
+            scroller: scroller,
+            bar: scroll,
+            barOnCls: bon
+        });
 //            .fix({
 //                elements: '.header__title',
 //                outside: 'header__title_state_fixed',
@@ -109,7 +112,7 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
 //                clickable: true
 //
 //            });
-//    }
+    }
 
     function setSizes() {
         $('div#inner-board').height($('div#board').height() - 18);
@@ -120,13 +123,28 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
 
 
         var hContainerScroll = $(window).innerHeight() - topHeight - bottomHeight -  2 * $('div.line').outerHeight() - $('#buttonAddNewPeople').outerHeight()-20-$('#buttonAddNewPeople').outerHeight();
-        $('div.accordion').height(hContainerScroll);
+        var heightAccord = $('div.accordion').height(hContainerScroll);
+//        console.log(heightAccord)
 
 
 
         $('div.btn-wrap').css("top", $('#projects').outerHeight()+topHeight)
         $('div.list').height($('div.accordion').height() - $('div.line').outerHeight() - $('#buttonAddNewPeople').outerHeight())
-        console.log($('div.accordion').height() - $('div.line').outerHeight() - $('#buttonAddNewPeople').outerHeight())
+
+        /*set height of ul*/
+
+       var headsProj = $('#accordion-projects .accordion-heading');
+        var headsPeop = $('#accordion-people .accordion-heading');
+//        countHeight(headsProj);
+//        countHeight(headsPeop);
+
+$('#accordion-projects ul.list').height($('div.accordion').height()-$(headsProj[0]).outerHeight()*headsProj.length-28);
+        $('#accordion-people ul.list').height($('div.accordion').height()-$(headsPeop[0]).outerHeight()*headsPeop.length-28);
+//        function countHeight(obj){
+//            ($(obj[0]).outerHeight()*obj.length
+//
+//
+//        }
     }
 
     function setAccordItems(type, obj, item) {

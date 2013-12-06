@@ -38,7 +38,6 @@ exports.addPerson = function(req, res) {
 
 };
 exports.addProject = function(req, res) {
-
     var project = new dbModels.Project ({
         name: req.body.name,
         start: req.body.startDate,

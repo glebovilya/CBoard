@@ -3,7 +3,7 @@
  */
 define (['text!../templates/employe.html'], function(templ){
 
-    var Person ={
+    var Person = {
         init: function(idPerson){
                      function  onAjaxSuccess(data){
                          data.id = id;

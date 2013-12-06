@@ -106,8 +106,8 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
         var topHeight = $('div.custom-view').outerHeight() + $('#search').outerHeight();
         var hContainerScroll = $(window).innerHeight() - 2 * $('div.line').outerHeight() - $('#buttonAddNewPeople').outerHeight() - 2 * $('#showAll').outerHeight() - topHeight - 20;
         $('div.container-scroll').height(hContainerScroll)
-        var topHeightPeople = $('#people div.scroller').outerHeight() + $('div.line').outerHeight() + $('#buttonAddNewPeople').outerHeight()
-        $('#people').css("top", -topHeightPeople);
+//        var topHeightPeople = $('#people div.scroller').outerHeight() + $('div.line').outerHeight() + $('#buttonAddNewPeople').outerHeight()
+//        $('#people').css("top", -topHeightPeople);
         $('div.btn-wrap').css("top", topHeight + $("#people").outerHeight())
     }
 

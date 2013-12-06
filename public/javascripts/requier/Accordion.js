@@ -43,7 +43,7 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
             /*$(itemString).bind("click", function(){ShowProject()})*/
         }
         else
-            $(itemString).bind("click", function(){Person.init(obj.id);})
+            $(itemString).bind("click", function(){Person.init({id:obj.id});})
     }
 
     return Accordion;

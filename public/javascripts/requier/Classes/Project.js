@@ -1,5 +1,6 @@
-define(['text!../templates/project.html'], function (template) {
-    var Project = function (args) {
+define(['text!../templates/project.html','newEmployee'], function (template,Employee) {
+
+    var Project = function (/*string*/id) {
 
         //declaration of Project class
         /*
@@ -10,34 +11,75 @@ define(['text!../templates/project.html'], function (template) {
          * this area is a container for displaying developers list
          * and is acceptor for drop event of draggable person widgets
          * */
+
+        // object alias
         var self = this;
 
-        this.__construct = function (/*object*/args) {
-            this.buildLogic(args);
+        this.__construct = function (){
             this.renderView();
-//            this.id = response//todo arr server response for setting id
-            this.template = template;
+            this.buildLogic();
         };
-
 
         this.renderView = function () {
-            $(template).appendTo(this.container);
+            $(template).appendTo($("#inner-board"));
+
         };
-        this.buildLogic = function (args) {
-            for (var i in args) {
-                this[i] = args[i];
-            }
+        this.a;
+        this.buildLogic = function () {
+            //return a project record from db
+            $.ajax({
+                url:'/project',
+                async: false,
+                method: 'GET',
+                data: {id : id},
+                success : function(res){
+                    for (var i in res) {
+                        self[i] = res[i];
+                    }
+                    // временный костыль, при появлении функционала истории исчезнет сам по себе
+                    self.setDefaults();
+                    for(var i=2; i<6; i++){
+                        self.addEmployee(i);
+                    }
+                    var empl = self.currentEmployees;
+                    var devs = $('[data-role=devs]');
+                    for(var i in empl){
+                        console.log(empl[i].position);
+                        var name = empl[i].name;
+                        name = new Employee(empl[i]);
+// $(name).appendTo(devs);
+                    };
+
+                }}
+            )
         };
+        this.setDefaults = function(){
+            //      class Project defaults:
+//            alert(self);
+//            console.log();
+            !self.container ? self.container = $("#inner-board") : true;
+            !self.start ? self.start = null : true;
+            !self.end ? self.end = null : true;
+            !self.currentEmployees ? self.currentEmployees = [] : true;
+            !self.current ? self.current = false : true;
+            !self.id ? self.id = null : true;
+            !self.name ? self.name = '' : true;
+            !self.history ? self.history = [] : true;
 
-
-
-        this.start = new Date();
-        this.end = null;
-        this.currentEmployees = [];
-        this.current = false;
-        this.id = null;
-        this.name = '';
-        this.history = [];
+        };
+        this.addEmployee = function(empId){
+            //this function adds employee, taken from db by his ID, to this project
+//            self.currentEmployees ? console.log('I have some employees!') : self.currentEmployees = [];
+            $.ajax({
+                url: '/user',
+                data: {id:empId},
+                async: false,
+                method: 'GET',
+                success: function(data){
+                    self.currentEmployees.push(data);
+                }
+            })
+        }
 
 
 
@@ -46,16 +88,17 @@ define(['text!../templates/project.html'], function (template) {
              * this method creates a new history records
              * on drag person over the project
              * in the project and person schemas
-             * */
-            $.get('/project', {
-                id: this.id
-            }, function () {
-                console.log('project request sent')
-            });
+            */
         };
         this.getEmployees = function(){
-            self.currentEmployees || $.get()
-        }
+//Закоменчено пока не разобрались с историей
+//            $.get('/project',{id:id},function(data){
+//                console.log(data);
+//            })
+            console.log (self);
+            return self.currentEmployees;
+
+        };
 
 //        at last, call of project constructor
 

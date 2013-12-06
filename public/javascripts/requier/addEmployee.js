@@ -5,8 +5,6 @@
 require([/*'stepa','Accordion',*/'text!./templates/addEmployee.html', 'Bogush'], function(templatadd, setAccordItem){
 
 
-
-
 $(document).ready(function(){
     $("#buttonAddNewPeople").click(function(event){
 

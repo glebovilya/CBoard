@@ -20,7 +20,7 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
             async: false,
             success: function (dataStatus) {
                 userStatuses = dataStatus;
-                console.log(userStatuses)
+//                console.log(userStatuses)
             }
         })
         /*generate accordion "projects"*/

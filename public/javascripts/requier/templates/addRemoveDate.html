@@ -5,22 +5,39 @@
     </div>
     <div class="modal-body" >
         <div class = "row-fluid">
-            <div class="span3">
-                <form class="form-horizontal" action="/" method="post">
-                    <input class="input-xlarge" type="text" placeholder="enter the name of the project">
+            <div class="span9">
+                <form  action="/" method="post">
+                    <input class="span12" type="text" placeholder="enter the name of the project">
                     <div></br></div>
-                    <input class="input-xlarge" type="text" placeholder="enter the name of the project">
+                    <input class="span12" type="text" placeholder="enter the name of the project">
                     <div></br></div>
-                    <div class="input-append date" id="add"  data-date-format="dd-mm-yyyy">
-                        <input  size="16"  class = "datepicker" data-provide="datepicker" type="text"  placeholder="Date of joining the project">
-                        <span class="add-on "><i class="icon-th"></i></span>
-                        <div></br></div>
+                    <div class="form-inline">
+                        <div class="span6"  >
+                             <select class="span">
+                                <option disabled>select status</option>
+                                <option value="1">free</option>
+                                <option value="2">manager</option>
+                                <option value="3">lead</option>
+                                <option value="4">assigned</option>
+                              </select>
+                        </div>
                     </div>
+
+
+                    <div class="input-append date span6" id="add"  data-date-format="dd-mm-yyyy">
+                        <input   class = "datepicker" data-provide="datepicker" type="text"  placeholder="Date of joining the project">
+                        <span class="add-on "><i class="icon-th"></i></span>
+
+                    </div>
+
                 </form>
             </div>
-            <div class=" span3 pull-right windowForPhoto">
-            </div>
+            <div class="span3">
+                <div id="windowForPhoto">
+                </div>
+             </div>
         </div>
+    </div>
         <div class="modal-footer">
             <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
             <button class="btn btn-custom" data-dismiss="modal" aria-hidden="true">Save changes</button>

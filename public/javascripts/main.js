@@ -3,9 +3,10 @@ require.config({
 });
 
 
-requirejs(['./myEmployee/emp', 'Bogush', 'ilya', 'stepa'], function(Emp){
-    var emp = new Emp(1);
-//    emp.render();
-//    console.log(emp)
+requirejs([/*'./myEmployee/emp'*/ 'vlad', 'Bogush', 'ilya', 'stepa'], function(/*Emp*/ v){
+//    var emp = new Emp(1);
+    v();
 });
+
+
 

@@ -7,6 +7,7 @@ define (['text!../templates/employe.html'], function(templ){
         init: function(idPerson){
                      function  onAjaxSuccess(data){
                          data.id = id;
+                         if(parentNode) data.parentNode =parentNode;
                          var employee = new Person.Employee(data);
                          Person.render(employee);
 
@@ -17,6 +18,7 @@ define (['text!../templates/employe.html'], function(templ){
                          Person.renderForPhoto(employee);
                      }
                      var id = idPerson['id'];
+                     var parentNode =idPerson['parentNode'];
                      if(idPerson['forPhoto']=="true"){
                             $.get("/user",{ id: id}, onAjaxSuccessForPhoto);
                      } else{
@@ -33,14 +35,23 @@ define (['text!../templates/employe.html'], function(templ){
                      this.id =data['id'];
                      this.photo = data['photo'];
                      this.position = data['position'];
+                     this.parentNode = data['parentNode']
                     },
 
         template: templ,
         render: function(employee){
                     var divWindow =document.createElement("div");
-                    document.body.appendChild(divWindow);
+                    if(employee.parentNode){
+                        employee.parentNode.append(divWindow)
+
+                    }else{
+                        document.body.appendChild(divWindow);
+                        divWindow.className = "newEmployee";
+                    }
+
+
                     divWindow.id = employee.idFix;
-                    divWindow.className = "newEmployee";
+
                     $(divWindow).append(Person.template);
 
                     $(employee.template).ready(function(){

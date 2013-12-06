@@ -76,7 +76,6 @@ define(['Classes/Person','text!./templates/employe.html' ], function(Employee, t
 
                     jQuery(function($){
                         $(empl.domNode).drag(function( ev, dd ){
-                            console.log(this.id);
                             $( this ).css({
                                 top: dd.offsetY,
                                 left: dd.offsetX
@@ -114,8 +113,6 @@ define(['Classes/Person','text!./templates/employe.html' ], function(Employee, t
                     });
                  return empl;
                 }
-
-
         }
     return showPerson
 

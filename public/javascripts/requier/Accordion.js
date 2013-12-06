@@ -40,11 +40,10 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
         setEffects(itemString);
         if(item =="Open" || item == "Closed" )
         {
-            /*$(itemString).bind("click", function(){function ShowProject})*/
+            /*$(itemString).bind("click", function(){ShowProject()})*/
         }
         else
             $(itemString).bind("click", function(){setShowPerson(obj.id);})
-
     }
 
     return Accordion;

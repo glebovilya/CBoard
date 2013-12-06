@@ -47,7 +47,6 @@ define (['text!../templates/employe.html'], function(templ){
                              $(employee.domNode).remove();
                          });
                          $(employee.domNode).drag(function( ev, dd ){
-                             console.log("dtag");
                              $( this ).css({
                                  top: dd.offsetY,
                                  left: dd.offsetX

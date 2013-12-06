@@ -66,19 +66,28 @@ input {
     width: 70%;
 }
 
-#projects{
+.wrapAccord {
     position: relative;
+}
+
+#projects{
+    /*position: relative;*/
+    position: absolute;
+
+    top: 0px;
+    width: 100%;
+
 
     /*top: 0px;*/
     /*display: inline;*/
 }
 
 #people{
-    position: relative;
-    /*top: -400px;*/
-    /*left: -1000px;*/
-    /*z-index: 5;*/
-    /*display: inline;*/
+    position: absolute;
+    top: 0px;
+    left: -1000px;
+    z-index: 2;
+    width: 100%;
 }
 
 #board {
@@ -303,7 +312,7 @@ a:hover, a:focus, a:link {
 
 /*/------------*/
 
-.container-scroll {
+.container-scroll, .container-scroll-2{
     /*display: inline-block;*/
     /*height: 30%!important;*/
     /*vertical-align: top;*/
@@ -321,7 +330,7 @@ a:hover, a:focus, a:link {
 /*ul.list{*/
     /*overflow: hidden;*/
 /*}*/
-.scroller{
+.scroller, .scroller-2{
     height: 100%;
     overflow-y: scroll;
     /*-webkit-overflow-scrolling: touch;*/
@@ -343,7 +352,7 @@ a:hover, a:focus, a:link {
     pointer-events: none;
     opacity: 0;
 }
-.scroller__bar {
+.scroller__bar, .scroller__bar-2 {
     position: absolute;
     z-index: 1;
     width: 8px;
@@ -354,11 +363,11 @@ a:hover, a:focus, a:link {
     transition: opacity .2s linear;
     pointer-events: auto;
 }
-.scroller__bar:hover {
+.scroller__bar:hover, .scroller__bar-2:hover {
     /*opacity: .8;*/
     opacity: 0;
 }
-.baron .scroller__bar{
+.baron .scroller__bar, .baron .scroller__bar-2{
     /*opacity: .6;*/
     opacity: 0;
 }

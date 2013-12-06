@@ -101,3 +101,9 @@
     /*height: 120px;*/
     /*width: 90px;*/
 /*}*/
+.newEmployee {
+    z-index: 99999;
+    position: absolute;
+    top: 100px;
+    left: 500px;
+}

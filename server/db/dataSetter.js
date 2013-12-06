@@ -50,16 +50,14 @@ exports.addProject = function(req, res) {
 exports.addStatus = function( id, name/*req, res*/) {
 
     /**
-    * Commented code(and arguments represent creating new status from HTTP request function)
+    * Commented code(and arguments) represent creating new status from HTTP request function)
     **/
 
     var status = new dbModels.Status({
         _id: id,
         name: name
     });
-    status.save(function(){
-//        respondJSON(res, status)
-    });
+    status.save();
 
 //    var status = new dbModels.Status({
 //        _id: req.body.id,
@@ -73,15 +71,15 @@ exports.addStatus = function( id, name/*req, res*/) {
 exports.addHistory = function (req, res) {
 
     /**
-     *
-     * creates a new history in DB
-     *
-     * acts like a aggregation field to show
-     * what actions were made to person/project in that particular date
-     *
-     */
+    *
+    * creates a new history in DB
+    *
+    * acts like a aggregation field to show
+    * what actions were made to person/project in that particular date
+    *
+    **/
 
-    dbModels.Person.findOne({current: true},function (err, person) {
+    dbModels.Person.findOne({_id: req.body.personID},function (err, person) {
         /**
          * checks if any person was selected
          */
@@ -90,7 +88,7 @@ exports.addHistory = function (req, res) {
             return
         }
 
-        dbModels.Project.findOne({current: true},function (err, project){
+        dbModels.Project.findOne({_id: req.body.projectID},function (err, project){
             /**
              * checkes if any project was selected to edit
              */
@@ -159,6 +157,11 @@ exports.addHistory = function (req, res) {
         });
     });
 };
+
+/****************************************
+* rudiment function will be removed soon
+*****************************************/
+
 exports.setCurrentPerson = function(req, res) {
 
     /**

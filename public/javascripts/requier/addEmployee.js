@@ -26,7 +26,7 @@ $(document).ready(function(){
                     success: function (returndata) {
 
                         var obj = {id: returndata._id, name: returndata.name + " " + returndata.surname, status:returndata.currentStatus}
-                        console.log(returndata)
+//                        console.log(returndata)
                         var item = "";
                         setAccordItem("people", obj, item);
                     }

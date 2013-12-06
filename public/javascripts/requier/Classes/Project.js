@@ -1,4 +1,4 @@
-define(['text!../templates/project.html','newEmployee'], function (template,Employee) {
+define(['text!../templates/project.html','Classes/Person'], function (template,Person) {
 
     var Project = function (/*string*/id) {
 
@@ -24,7 +24,6 @@ define(['text!../templates/project.html','newEmployee'], function (template,Empl
             $(template).appendTo($("#inner-board"));
 
         };
-        this.a;
         this.buildLogic = function () {
             //return a project record from db
             $.ajax({
@@ -44,10 +43,9 @@ define(['text!../templates/project.html','newEmployee'], function (template,Empl
                     var empl = self.currentEmployees;
                     var devs = $('[data-role=devs]');
                     for(var i in empl){
-                        console.log(empl[i].position);
                         var name = empl[i].name;
-                        name = new Employee(empl[i]);
-// $(name).appendTo(devs);
+                        console.log(empl[i].position);
+                        name = Person.init(empl[i]._id);
                     };
 
                 }}

@@ -72,13 +72,13 @@ exports.addStatus = function( id, name/*req, res*/) {
 exports.addHistory = function (req, res) {
 
     /**
-     *
-     * creates a new history in DB
-     *
-     * acts like a aggregation field to show
-     * what actions were made to person/project in that particular date
-     *
-     */
+    *
+    * creates a new history in DB
+    *
+    * acts like a aggregation field to show
+    * what actions were made to person/project in that particular date
+    *
+    **/
 
     dbModels.Person.findOne({_id: req.body.personID},function (err, person) {
         /**
@@ -158,6 +158,11 @@ exports.addHistory = function (req, res) {
         });
     });
 };
+
+/****************************************
+* rudiment function will be removed soon
+*****************************************/
+
 exports.setCurrentPerson = function(req, res) {
 
     /**

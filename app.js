@@ -34,15 +34,19 @@ if ('development' == app.get('env')) {
 
 //todo: create route logic
 app.get('/', routes.index);
-app.get('/user', dataGetter.getPerson);
-app.get('/users', express.bodyParser(), dataGetter.getPersons);
-app.post('/user', express.bodyParser(), dataSetter.addPerson);
-app.post('/user/:id', dataSetter.setCurrentPerson);
-app.get('/project', dataGetter.getProject);
-app.get('/projects', dataGetter.getProjects);
-app.post('/project', express.bodyParser(), dataSetter.addProject);
-app.post('/project/:id', dataSetter.setCurrentProject);
-app.get('/status', dataGetter.getStatus);
+app.get('/user', dataGetter.getPerson); //req should look like {id: 'some id'}
+app.get('/users', express.bodyParser(), dataGetter.getPersons); //req can be empty or looks like {id:'array of ids'}
+app.post('/user', express.bodyParser(), dataSetter.addPerson); //req should look like {name:'name', surname: 'surname', position: 'position', file: 'file'}
+app.get('/project', dataGetter.getProject); //req should look like {id: 'some id'}
+app.get('/projects', dataGetter.getProjects); //just send req here
+app.post('/project', express.bodyParser(), dataSetter.addProject); //req should contain {name: 'name'(optional -> startDate: 'date')}
+app.get('/status', dataGetter.getStatus); //just senr req here
+
+/****************************************
+ * rudiment routs will be removed soon
+ *****************************************/
+app.post('/project/:id', dataSetter.setCurrentProject); //rudiment
+app.post('/user/:id', dataSetter.setCurrentPerson); //rudiment
 
 /**
 * uncomment lines to add new statuses to the DB

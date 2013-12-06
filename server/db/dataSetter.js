@@ -80,7 +80,7 @@ exports.addHistory = function (req, res) {
      *
      */
 
-    dbModels.Person.findOne({current: true},function (err, person) {
+    dbModels.Person.findOne({_id: req.body.personID},function (err, person) {
         /**
          * checks if any person was selected
          */
@@ -89,7 +89,7 @@ exports.addHistory = function (req, res) {
             return
         }
 
-        dbModels.Project.findOne({current: true},function (err, project){
+        dbModels.Project.findOne({_id: req.body.projectID},function (err, project){
             /**
              * checkes if any project was selected to edit
              */

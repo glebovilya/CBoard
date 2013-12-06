@@ -45,7 +45,7 @@ define (['text!../templates/employe.html'], function(templ){
                         employee.parentNode.append(divWindow)
 
                     }else{
-                        document.body.appendChild(divWindow);
+                        $("#inner-board").append(divWindow);
                         divWindow.className = "newEmployee";
                     }
 
@@ -79,6 +79,7 @@ define (['text!../templates/employe.html'], function(templ){
                         });
                     },
         setHandler: function(employee){
+                         console.log(employee);
                          $(employee.domNode).find("button").on('click', function(event){
                              $(employee.domNode).remove();
                          });

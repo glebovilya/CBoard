@@ -8335,7 +8335,7 @@ function findInputs( elem ) {
 	}
 }
 
-// Derived From: http://www.iecss.com/shimprove/javascript/shimprove.1-0-1.js
+// Derived From: http://www.iecss.com/shimprove/javascript/shimprove.1-0-Person.js
 function shimCloneNode( elem ) {
 	var div = document.createElement( "div" );
 	safeFragment.appendChild( div );

@@ -13,15 +13,15 @@ define(['newEmployee', 'addEmployee','addProject','newProject'/*,'confirmDate'*/
 
 ////  тест получить данные из базы
 
-//    $.get(
-//        "/users",
-//        {
-//
-//        },
-//        onAjaxSuccess
-//    );
-//
-//function onAjaxSuccess(data){
-//    console.log(data);
-//}
+    $.get(
+        "/users",
+        {
+
+        },
+        onAjaxSuccess
+    );
+
+function onAjaxSuccess(data){
+    console.log(data);
+}
 });

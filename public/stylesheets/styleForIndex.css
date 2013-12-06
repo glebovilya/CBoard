@@ -449,3 +449,8 @@ a:hover, a:focus, a:link {
     -webkit-transition: all .2s linear;
     transition: all .2s linear;
 }
+.projectWindow .employeeWindow {
+    float: left;
+    position: relative;
+    margin: 5px;
+}

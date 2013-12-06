@@ -42,10 +42,17 @@ define(['text!../templates/project.html','Classes/Person'], function (template,P
                     }
                     var empl = self.currentEmployees;
                     var devs = $('[data-role=devs]');
+                    var leads = $('[data-role=leads]');
                     for(var i in empl){
-                        var name = empl[i].name;
-                        console.log(empl[i].position);
-                        name = Person.init(empl[i]._id);
+                        var idPerson, parentNode, id, name = empl[i].name;
+                        if(empl[i].position!='Developer'){
+                            idPerson = {id:empl[i]._id, parentNode:leads}
+                            name = Person.init(idPerson);
+                        }else{
+                            idPerson = {id:empl[i]._id, parentNode:devs}
+                            name = Person.init(idPerson);
+                        }
+
                     };
 
                 }}

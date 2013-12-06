@@ -1,11 +1,11 @@
 (function(window, undefined) {
-    'use strict';
+//    'use strict';
 
-    if (!window) return; // Server side
+//    if (!window) return; // Server side
 
     var
         _baron = window.baron, // Stored baron value for noConflict usage
-        $ = window.jQuery, // Trying to use jQuery
+//        $ = window.jQuery, // Trying to use jQuery
         origin = {
             v: { // Vertical
                 x: 'Y', pos: 'top', crossPos: 'left', size: 'height', crossSize: 'width',
@@ -164,6 +164,7 @@
 
                 handler: function() {
                     item.update();
+//                    console.log('dsh')
                 },
 
                 type: 'resize'
@@ -173,6 +174,7 @@
 
                 handler: function() {
                     item.update();
+//                    console.log(item)
                 },
 
                 type: 'sizeChange'
@@ -382,10 +384,12 @@
             // Switch on the bar by adding user-defined CSS classname to scroller
             this.barOn = function(dispose) {
                 if (this.barOnCls) {
+                    $(this.root).addClass(this.barOnCls);
                     if (dispose || this.scroller[this.origin.client] >= this.scroller[this.origin.scrollSize]) {
-                        $(this.root).removeClass(this.barOnCls);
+//                        $(this.root).removeClass(this.barOnCls);
+//                        console.log('dsg')
                     } else {
-                        $(this.root).addClass(this.barOnCls);
+//                        $(this.root).addClass(this.barOnCls);
                     }
                 }
             };
@@ -552,12 +556,11 @@
             eventManager = this.event,
             $ = this.$,
             self = this;
-//        console.log(topRealHeights)
 
         function fixElement(i, pos) {
-            if (viewPortSize < (params.minView || 0)) { // No headers fixing when no enought space for viewport
-                pos = undefined;
-            }
+//            if (viewPortSize < (params.minView || 0)) { // No headers fixing when no enought space for viewport
+//                pos = undefined;
+//            }
 
             if (pos !== undefined) {
                 pos += 'px';

@@ -24,7 +24,7 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
             replace(/idAccordGroup/g, elem).replace(/dataParentId/g, divIdSelector);
 
         $(divIdSelector).append(newTemplateHead);
-        var newTemplWrapList = this.templWrapperItems.replace(/someID/g, elem);
+        var newTemplWrapList = this.templWrapperItems.replace(/someID|IdDataParent/g, elem);
         $('#' + elem + '-group').after(newTemplWrapList);
 
         for (var elems in obj[elem]) {

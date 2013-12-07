@@ -16,7 +16,7 @@ var template = templ;
             $("#formConfirmDate").ready(function(){
 
                  $(".datepicker").datepicker();
-                 Person.init({id:id,forPhoto:'true'})
+                 Person.init({id:id,forPhoto:'true',parentNode:"#windowForPhoto"})
 //                $(templateEmployee).appendTo($(".windowForPhoto"));
 
 
@@ -29,5 +29,5 @@ var template = templ;
          }
 
     }
-//    return initConfirm({id:1,action:'transfer'});
+//    return initConfirm({id:8,action:'transfer',forPhoto:'true'});
 });

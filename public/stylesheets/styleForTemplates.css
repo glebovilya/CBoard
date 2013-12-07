@@ -107,13 +107,7 @@
     top: 100px;
     left: 100px;
 }
-.windowForPhoto {
+#windowForPhoto {
+    position: relative;
+}
 
-}
-.forPhoto {
-
-}
-.dropped {
-    background-color: #EBC;
-    border-color: #B89;
-}

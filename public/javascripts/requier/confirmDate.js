@@ -29,5 +29,5 @@ var template = templ;
          }
 
     }
-    return initConfirm({id:1,action:'transfer'});
+//    return initConfirm({id:1,action:'transfer'});
 });

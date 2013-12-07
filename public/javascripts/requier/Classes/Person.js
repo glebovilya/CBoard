@@ -46,13 +46,14 @@ define (['text!../templates/employe.html'], function(templ){
 
                     }else{
                         $("#inner-board").append(divWindow);
-                        divWindow.className = "newEmployee";
+                        divWindow.className = "employeeWindow";
                     }
 
 
                     divWindow.id = employee.idFix;
 
                     $(divWindow).append(Person.template);
+
 
                     $(employee.template).ready(function(){
                          $(employee.domNode).attr("dataId", employee.id);
@@ -86,17 +87,30 @@ define (['text!../templates/employe.html'], function(templ){
 
 
                         jQuery(function(S){
-                         $("#"+employee.idFix).drag(function( ev, dd ){
+                         $(employee.domNode).drag(function( ev, dd ){
                               $( this ).css({
                                  top: dd.offsetY,
                                  left: dd.offsetX
                              });
                          });
+                            $(employee.domNode).drag('init',function (ev, dd) {
+                                $(dd.drag).parents('div:eq(0)').css('position', 'absolute');
+//                              $.post('/user/:id', {"target": "person", "method": "add", "name": "superTEST", "surname": "TESTSurname", "position": "gg", "photo": "dd"}, function(ell){
 
-                            $(".drop").drop(function(){
-                                $( this ).toggleClass('dropped');
+                                var self=this;
+                                $.post('/user/'+$(this).attr("dataId"), {}, function(ell){
+                                    console.log("id="+$(self).attr("dataId") );
+                                });
+                            });
+                            $(employee.domNode).drag('end', function (ev, dd) {
+//                                 $.post('/get', {target: 'person', id: 1}, function(ell){
+                                console.log(dd.drop)
 
                             });
+//                            $(".drop").drop(function(){
+//                                $( this ).toggleClass('dropped');
+//
+//                            });
                         });
 
 

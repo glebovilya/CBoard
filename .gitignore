@@ -2,6 +2,8 @@
 .gitignore
 .idea
 ./public/images/DB_persons/
-./public/javascripts/requir/myEmployee
+./public/javascripts/main.js
+
+
 
 

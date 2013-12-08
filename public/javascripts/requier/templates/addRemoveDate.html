@@ -7,13 +7,13 @@
         <div class = "row-fluid">
             <div class="span9">
                 <form  action="/" method="post">
-                    <input class="span12" type="text" placeholder="enter the name of the project">
+                    <input class="span12" id = "lastProject" name = "lastProject" type="text" placeholder="enter the name of the project">
                     <div></br></div>
-                    <input class="span12" type="text" placeholder="enter the name of the project">
+                    <input class="span12" id = "currentProject" name = "currentProject" type="text" placeholder="enter the name of the project">
                     <div></br></div>
                     <div class="form-inline">
                         <div class="span6"  >
-                             <select class="span">
+                             <select class="span" name="status">
                                 <option >select status</option>
                                 <option value="1">free</option>
                                 <option value="2">manager</option>
@@ -25,7 +25,7 @@
 
 
                     <div class="input-append date span6" id="add"  data-date-format="dd-mm-yyyy">
-                        <input   class = "datepicker" data-provide="datepicker" type="text"  placeholder="Date of joining the project">
+                        <input   name="date" class = "datepicker" data-provide="datepicker" type="text"  placeholder="Date of joining the project">
                         <span class="add-on "><i class="icon-th"></i></span>
 
                     </div>

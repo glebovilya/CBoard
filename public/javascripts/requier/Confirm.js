@@ -46,7 +46,7 @@ define([/*'Classes/Person',*/'text!./templates/addRemoveDate.html'], function(/*
             });
 
             $(".modal-footer button").on('click', function(){
-                formData ={personID: '4', projectID: '1', statusID: '3', leaving: 'true'}
+                formData ={personID: '73', projectID: '1', statusID: '3', leaving: 'true'};
                 $.ajax({
                    url: '/history',
                    type: 'POST',

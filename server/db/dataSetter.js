@@ -120,7 +120,7 @@ exports.addHistory = function (req, res) {
                 if(req.body.date) {
                     history.date = req.body.date
                 }
-                console.log(person.projectList.indexOf(project._id));
+
                 if(person.projectList.indexOf(project._id) == -1){
                     person.projectList.push(project);
                     person.statusList.push(status);

@@ -10,7 +10,7 @@ define(['./Classes/Project'], function(Project){
             $.ajax({
                 url: '/projects',
                 method: 'GET',
-                success: showHide.renderProjects(projects)
+                success: function(projects){showHide.renderProjects(projects)}
             })
         },
         renderProjects: function(/*array of objs*/projects){

@@ -160,42 +160,6 @@ exports.addHistory = function (req, res) {
     });
 };
 
-/****************************************
-* rudiment function will be removed soon
-*****************************************/
-
-exports.setCurrentPerson = function(req, res) {
-
-    /**
-     * marks/unmarks this person as current to be able to create history for it
-     */
-
-    dbModels.Person.findOne({_id: req.params.id}, function(err, pers) {
-        if(pers.current === true) {
-            pers.current = false
-        } else {
-            pers.current = true
-        }
-        pers.save(respondJSON(res, pers));
-
-    });
-};
-exports.setCurrentProject = function(req, res) {
-
-    /**
-     * marks/unmarks this project as current to be able to create history for it
-     */
-
-    dbModels.Project.findOne({_id: req.params.id}, function(err, proj) {
-        if(proj.current === true) {
-            proj.current = false
-        } else {
-            proj.current = true
-        }
-        proj.save(respondJSON(res, proj));
-
-    });
-};
 
 
 

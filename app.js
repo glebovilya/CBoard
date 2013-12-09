@@ -40,7 +40,6 @@ app.get('/', routes.index);
  * commented lines represents data to be send in request from client
  *******************************************************************/
 
-
 app.get('/user', dataGetter.getPerson); //{id: 'num'}
 app.get('/users', express.bodyParser(), dataGetter.getPersons); //{} or {id:'array of ids'}
 app.post('/user', express.bodyParser(), dataSetter.addPerson); //{name:'str', surname: 'str', position: 'str', file: 'filepath'}
@@ -50,11 +49,6 @@ app.post('/project', express.bodyParser(), dataSetter.addProject); //{name: 'str
 app.post('/history', express.bodyParser(), dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
 app.get('/status', dataGetter.getStatus); //just send req here
 
-/*************************************
- * rudiment routs will be removed soon
- *************************************/
-app.post('/project/:id', dataSetter.setCurrentProject); //rudiment
-app.post('/user/:id', dataSetter.setCurrentPerson); //rudiment
 
 /****************************************************
 * uncomment lines below to add new statuses to the DB

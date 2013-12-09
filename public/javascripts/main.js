@@ -11,9 +11,7 @@ requirejs([/*'./myEmployee/emp'*/ 'vlad', 'ShowHide', 'Bogush', /*'ilya',*/ 'ste
     v();
     showHide.init();
 
-    /************************************
-    * uncomment this to test history push
-    *************************************/
+
 
 //    $.ajax({
 //        url: '/history',

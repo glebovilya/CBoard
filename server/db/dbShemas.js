@@ -14,11 +14,13 @@ var personSchema = new Schema({
     current: Boolean,
     currentStatus: { type: Number, ref: 'Status', default: 1 },
     projectList: [{ type: Number, ref: 'Project' }],
+    statusList: [{ type: Number, ref: 'Status'}],
     history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
 });
 personSchema.plugin(pureautoinc.plugin, {
     model: 'Person',
     field: '_id',
+    update: false,
     start: 1
 });
 
@@ -33,6 +35,7 @@ var projectSchema = new Schema({
 projectSchema.plugin(pureautoinc.plugin, {
     model: 'Project',
     field: '_id',
+    update: false,
     start: 1
 });
 

@@ -1,15 +1,10 @@
 /*
 * This is have to be addProject.js soon
 * */
-
-require(['Classes/Project'], function (Project){
-    var project = new Project({name:'projectSetup'})
-//    console.log(project);
-//    $.post('/project',{name:project.name,startDate:project.start},function(res){
-//        console.log(res)
+define(['Classes/Project'], function (Project){
+    var id = 83;
+    var project = new Project(id);
+//    $.get('/project',{id:2},function(data){
+//        console.log(data);
 //    })
-    $.get('/users',{},function(res){
-//        console.log(res);
-        project.getEmployees();
-    })
-});
+})

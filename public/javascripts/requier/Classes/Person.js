@@ -1,5 +1,5 @@
 /** Created by stepanjuk on 28.11.13. */
-define (['text!../templates/employe.html','../confirm'], function(templ,Confirm){
+define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
 
     var Person = {
         template: templ,
@@ -73,19 +73,21 @@ define (['text!../templates/employe.html','../confirm'], function(templ,Confirm)
                          });
                           $('.drop')
                                 .drop(function (ev,dd){
-                                    //drag сброшен внутрь
+                                    //drag ??????? ??????
 //                                $( this ).toggleClass('dropped');
-//                                  console.log(dd.target.id);//принял
-//                                  console.log($(dd.drag).attr("data-id"));//работник
-//                                  console.log(dd.drag.parentNode.id);//отдал
+//                                  console.log(dd.target.id);//??????
+//                                  console.log($(dd.drag).attr("data-id"));//????????
+//                                  console.log(dd.drag.parentNode.id);//?????
 
-                                  Confirm.init({
+
+
+                                  transit({
                                       domNode:dd.drag,
                                       id: $(dd.drag).attr("data-id"),
                                       lastProject: dd.drag.parentNode.id,
                                       currentProject: dd.target.id,
                                       action: 'transfer'
-                                  });
+                                  },Person);
                                 })
 
                         });

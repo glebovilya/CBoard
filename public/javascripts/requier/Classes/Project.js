@@ -40,7 +40,7 @@ define(['text!../templates/project.html', 'Classes/Person'], function (template,
                             // временный костыль, при появлении функционала истории исчезнет сам по себе
                             self.setDefaults();
 
-                            for (var i = 2; i < 7; i++) {
+                            for (var i = 2; i < 5; i++) {
                                 self.addEmployee(i);
                             }
 

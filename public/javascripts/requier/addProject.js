@@ -46,6 +46,7 @@ define(['text!./templates/addProject.html', 'Accordion', 'Bogush'], function (te
                         if (returndata.end) item = "Closed"
                         else item = "Open"
                         setAccordItem("projects", obj, item);
+                        $("#modalAddProject input").val("");
                     }
                 });
 

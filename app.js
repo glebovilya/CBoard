@@ -23,9 +23,10 @@ app.use(express.logger('dev'));
 //app.use(express.json());
 //app.use(express.urlencoded());
 //app.use(express.methodOverride());
-app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.bodyParser());
+app.use(app.router);
+
 
 // development only
 if ('development' == app.get('env')) {
@@ -40,21 +41,15 @@ app.get('/', routes.index);
  * commented lines represents data to be send in request from client
  *******************************************************************/
 
-
 app.get('/user', dataGetter.getPerson); //{id: 'num'}
-app.get('/users', express.bodyParser(), dataGetter.getPersons); //{} or {id:'array of ids'}
-app.post('/user', express.bodyParser(), dataSetter.addPerson); //{name:'str', surname: 'str', position: 'str', file: 'filepath'}
+app.get('/users', dataGetter.getPersons); //{} or {id:'array of ids'}
+app.post('/user', dataSetter.addPerson); //{name:'str', surname: 'str', position: 'str', file: 'filepath'}
 app.get('/project', dataGetter.getProject); //{id: 'num'}
 app.get('/projects', dataGetter.getProjects); //just send req here
-app.post('/project', express.bodyParser(), dataSetter.addProject); //{name: 'str'(optional -> startDate: 'date')}
-app.post('/history', express.bodyParser(), dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
+app.post('/project', dataSetter.addProject); //{name: 'str'(optional -> startDate: 'date')}
+app.post('/history', dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
 app.get('/status', dataGetter.getStatus); //just send req here
 
-/*************************************
- * rudiment routs will be removed soon
- *************************************/
-app.post('/project/:id', dataSetter.setCurrentProject); //rudiment
-app.post('/user/:id', dataSetter.setCurrentPerson); //rudiment
 
 /****************************************************
 * uncomment lines below to add new statuses to the DB

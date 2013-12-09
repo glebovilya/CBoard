@@ -11,7 +11,6 @@ var personSchema = new Schema({
     surname: String,
     position: String,
     photo: String,
-    current: Boolean,
     currentStatus: { type: Number, ref: 'Status', default: 1 },
     projectList: [{ type: Number, ref: 'Project' }],
     statusList: [{ type: Number, ref: 'Status'}],
@@ -27,7 +26,6 @@ personSchema.plugin(pureautoinc.plugin, {
 var projectSchema = new Schema({
     name: String,
     currentEmployees: [{type: Number, ref: 'Person'}],
-    current: Boolean,
     start: { type: Date, default: Date.now },
     end: Date,
     history: [{ type: Schema.Types.ObjectId, ref: 'History' }]

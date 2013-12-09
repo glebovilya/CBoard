@@ -80,31 +80,19 @@ exports.addHistory = function (req, res) {
     **/
 
     dbModels.Person.findOne({_id: req.body.personID},function (err, person) {
-        /**
-         * checks if any person was selected
-         */
-        if(err) {
-            console.log('u didn`t selected any person');
-            return
-        }
-
+        if(err){console.log(err)}
         dbModels.Project.findOne({_id: req.body.projectID},function (err, project){
-            /**
-             * checkes if any project was selected to edit
-             */
-            if(err) {
-                console.log('u didn`t selected any project to edit');
-                return
-            }
-
+            if(err){console.log(err)}
             dbModels.Status.findOne({_id: req.body.statusID}, function(err, status) {
-                /**
-                 * checks if status with that id exists
-                 */
-                if(err) {
-                    console.log('no such status');
+                if(err){console.log(err)}
+
+                if(!person || !project || !status) {
+                    respondJSON(res, {err: 'wrong IDs'});
                     return
                 }
+
+
+
                 /**
                  * creating new history
                  */

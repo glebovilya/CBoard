@@ -1,13 +1,24 @@
+<!--project window container needs to have ability to drag
+----it's position have to be absolute: this is necessary option of drag&drop plugin
+----for correct and clear look of project window we need to have
+----relatively positioned container of project content, which have to be
+----a first-child  of .projectWindow and parentNode for project header and body
+---------------------------------------------------------------------------------
+----this changes was called by need of automatically computed projectWindow height
+-->
 <div class = "projectWindow container-fluid">
-    <div class="project-header" >
-        <button type="button" class="close" data-toggle="tooltip" title="hide project" data-dismiss="modal" aria-hidden="true" >&times;</button>
-        <h3>PROJECT</h3>
-    </div>
-    <div class="project-body">
-        <div class="leaders row-fluid" data-role="leads">
-        </div>
-        <div class="developers row-fluid" data-role="devs">
-        </div>
-    </div>
+    <div class="projectContent">
+        <div class="project-header">
+            <button type="button" class="close" data-toggle="tooltip" title="hide project" data-dismiss="modal" aria-hidden="true" >&times;</button>
+            <span>Project Name</span>
+        </div><!--project header-->
+        <div class="project-body">
+            <div class="leaders row-fluid" data-role="leads">
+            </div>
+            <div class="developers row-fluid" data-role="devs" data-view="collapsed">
+                <a href="#show">&#709;&#709;&#709;</a>
+            </div>
+        </div><!--project body-->
+    </div><!--projectContent-->
 </div>
 

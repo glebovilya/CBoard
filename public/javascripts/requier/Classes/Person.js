@@ -1,32 +1,26 @@
-/**
- * Created by stepanjuk on 28.11.13.
- */
-define (['text!../templates/employe.html'], function(templ){
+/** Created by stepanjuk on 28.11.13. */
+define (['text!../templates/employe.html','../confirm'], function(templ,Confirm){
 
     var Person = {
+        template: templ,
+
         init: function(idPerson){
                      function  onAjaxSuccess(data){
                          data.id = id;
-                         if(parentNode) data.parentNode =parentNode;
+                         if(parentProject) data.parentProject = parentProject;
+                         if(forPhoto) data.forPhoto = forPhoto;
                          var employee = new Person.Employee(data);
                          Person.render(employee);
+                     }
 
-                     }
-                     function onAjaxSuccessForPhoto(data){
-                         data.id = id;
-                         var employee = new Person.Employee(data);
-                         Person.renderForPhoto(employee);
-                     }
                      var id = idPerson['id'];
-                     var parentNode =idPerson['parentNode'];
-                     if(idPerson['forPhoto']=="true"){
-                            $.get("/user",{ id: id}, onAjaxSuccessForPhoto);
-                     } else{
-                        $.get("/user",{ id: id}, onAjaxSuccess);
-                     }
+                     var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
+                     var forPhoto =idPerson['forPhoto'];
+
+                     $.get("/user",{ id: id}, onAjaxSuccess);
                },
 
-        Employee: function (data){
+        Employee: function (data){ // избыточная сущность, пока оставлю, вообще создана для наследования методов, но еще не придумал каких
                      var idFix = Math.random().toString(36).slice(3,9);
                      this.idFix = idFix;
                      this.domNode= "#"+idFix;
@@ -35,116 +29,77 @@ define (['text!../templates/employe.html'], function(templ){
                      this.id =data['id'];
                      this.photo = data['photo'];
                      this.position = data['position'];
-                     this.parentNode = data['parentNode']
-                    },
+                     this.parentProject = data['parentProject'];
+                     this.forPhoto = data['forPhoto'];
+               },
 
-        template: templ,
         render: function(employee){
-                    var divWindow =document.createElement("div");
-                    if(employee.parentNode){
-                        employee.parentNode.append(divWindow)
+                        if(!employee.parentProject){employee.parentProject = "#inner-board";}
 
-                    }else{
-                        document.body.appendChild(divWindow);
-                        divWindow.className = "newEmployee";
-                    }
-
-
-                    divWindow.id = employee.idFix;
-
-                    $(divWindow).append(Person.template);
-
-                    $(employee.template).ready(function(){
-                         $(employee.domNode).attr("dataId", employee.id);
-                         $(employee.domNode).find(".employee-header").append('<button type="button" class="close" data-toggle="tooltip" title="remove from project"  aria-hidden="true" >&times;</button>');
-                         $(employee.domNode).find(".united .name").html(employee.name+'<br/>'+employee.surname);
-                         $(employee.domNode).find(".emplPosition").html(employee.position);
-                         $(employee.domNode).find(".united img").attr("src", employee.photo);
-                         Person.setHandler(employee);
-                         });
-                    },
-        renderForPhoto: function(employee){
                         var divWindow =document.createElement("div");
-                        $(divWindow).appendTo($("#windowForPhoto"));
+                        $(employee.parentProject).append(divWindow);
+                        $(employee.parentProject).append(divWindow);
+                        divWindow.className = "employeeWindow";
                         divWindow.id = employee.idFix;
-                        divWindow.className = "forPhoto";
-
-                        $(Person.template).appendTo($(divWindow));
-
+                        $(divWindow).append(Person.template);
 
                         $(employee.template).ready(function(){
+                            $(employee.domNode).attr("data-id", employee.id);
+                            if(!employee.forPhoto)$(employee.domNode).find(".employee-header").append('<button type="button" class="close" data-toggle="tooltip" title="remove from project" aria-hidden="true" >&times;</button>');
                             $(employee.domNode).find(".united .name").html(employee.name+'<br/>'+employee.surname);
                             $(employee.domNode).find(".emplPosition").html(employee.position);
                             $(employee.domNode).find(".united img").attr("src", employee.photo);
+                            if(!employee.forPhoto)Person.setHandler(employee);
                         });
-                    },
+                 },
+
         setHandler: function(employee){
                          $(employee.domNode).find("button").on('click', function(event){
                              $(employee.domNode).remove();
                          });
 
-
                         jQuery(function(S){
-                         $(employee.domNode).drag(function( ev, dd ){
-                              $( this ).css({
-                                 top: dd.offsetY,
-                                 left: dd.offsetX
-                             });
+                         $(employee.domNode)
+                             .drag("init", function(){
+//                                 console.log(parseInt($(this.parentNode).css("margin-left")));
+//                                 console.log($(this.parentNode).offset().left);
+
+                            })
+                             .drag(function( ev, dd ){
+                                 $( this ).css({
+                                     top: dd.offsetY-$(this.parentNode).offset().top,
+                                     left: dd.offsetX-$(this.parentNode).offset().left
+                                 });
                          });
+                          $('.drop')
+                                .drop(function (ev,dd){
+                                    //drag сброшен внутрь
+//                                $( this ).toggleClass('dropped');
+//                                  console.log(dd.target.id);//принял
+//                                  console.log($(dd.drag).attr("data-id"));//работник
+//                                  console.log(dd.drag.parentNode.id);//отдал
 
-                            $(".drop").drop(function(){
-                                $( this ).toggleClass('dropped');
+                                  Confirm.init({
+                                      domNode:dd.drag,
+                                      id: $(dd.drag).attr("data-id"),
+                                      lastProject: dd.drag.parentNode.id,
+                                      currentProject: dd.target.id,
+                                      action: 'transfer'
+                                  });
+                                })
 
-                            });
                         });
-
-
-
-
-
-
-
-                     }
+                  }
     };
+
     return Person;
 });
 
-//
-//$(employee.domNode).drag('init',function (ev, dd) {
-//    $(dd.drag).parents('div:eq(0)').css('position', 'absolute');
-////                              $.post('/user/:id', {"target": "person", "method": "add", "name": "superTEST", "surname": "TESTSurname", "position": "gg", "photo": "dd"}, function(ell){
-//
-//    var self=this;
-//    $.post('/user/'+$(this).attr("dataId"), {}, function(ell){
-//        console.log("id="+$(self).attr("dataId") );
+//.drop("start",function(){
+//    //drag двигается над зоной drop
+//    $( this ).addClass("active");
+//})
+//    .drop("end",function(ev,dd){
+//        //drag покинул зону drop
+//        $( this ).removeClass("active");
 //    });
-//});
-//$(employee.domNode).drag('end', function (ev, dd) {
-////                                 $.post('/get', {target: 'person', id: 1}, function(ell){
-//    console.log(dd.drop)
-//
-//});
-
-//$(empl.domNode).drag('init',function (ev, dd) {
-//    $(dd.drag).parents('div:eq(0)').css('position', 'absolute');
-////                   $.post('/user/:id', {"target": "person", "method": "add", "name": "superTEST", "surname": "TESTSurname", "position": "gg", "photo": "dd"}, function(ell){
-//
-////
-//    $.post('/user/'+$(this).attr("dataId"), {}, function(ell){
-//        console.log('setCur--->'+ ell+"id="+$(this).attr("dataId") )
-//    });
-//
-//});
-//
-//$(empl.domNode).drag('end', function (ev, dd) {
-//    $.post('/get', {target: 'person', id: 1}, function(ell){
-//
-//    });
-//
-//    if (dd.drop) {
-//
-//        $(dd.drag).removeAttr('style');
-//        $(dd.drop).append($(dd.drag).parents('div:eq(0)').css('position', 'relative'));
-////
-//    }
-//});

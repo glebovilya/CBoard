@@ -2,12 +2,12 @@
  * Created by stepanjuk on 02.12.13.
  */
 
-require(['text!./templates/addRemoveDate.html', '../thirdParty/bootstrap-datepicker','Classes/Person'], function(templ,darepicker,Person){
-
-var template = templ;
-
-    Person.init({id:1,parentNode:$("#mama")});
-
+define(['Classes/Person','text!./templates/addRemoveDate.html'], function(Person,templ){
+console.log(Person);
+//var template = templ;
+//
+////    Person.init({id:1,parentNode:$("#mama")});
+//
 //    function initConfirm(data/*{id:1,action:(add,transfer,remove)}*/){
 //    var id = data['id'];
 //        if(data['action'] == 'transfer'){
@@ -16,16 +16,59 @@ var template = templ;
 //            $("#formConfirmDate").ready(function(){
 //
 //                 $(".datepicker").datepicker();
-//                 Person.init({id:id,forPhoto:'true'})
+//                 Person.init({id:9,forPhoto:'true',parentNode:"#windowForPhoto"})
 ////                $(templateEmployee).appendTo($(".windowForPhoto"));
 //
 //
 //            });
 //            $("#myModal").ready(function(){
-//
+//                $(".modal-header>button").on('click', function(event){
+//                    $("#myModal").remove();
+//                });
 //            });
 //         }
-//
 //    }
-//    return initConfirm({id:1,action:'transfer'});
+//    var Confirm  = {
+//        template: templ,
+//        init: function(data){
+//            console.log(data)
+//            Confirm.id = data['id'];
+//            if(data['lastProject']){
+//                Confirm.lastProject = data['lastProject'];
+//            }else{
+//                Confirm.lastProject = "freeShooter";
+//            }
+//            if(data['currentProject']){
+//                Confirm.currentProject = data['currentProject'];
+//            }else{
+//                Confirm.currentProject = "freeShooter";
+//            }
+//
+//
+//            Confirm.render();
+//        },
+//        render: function(){
+//            $(Confirm.template).appendTo($("#inner-board"));
+//            $("#formConfirmDate").ready(function(){
+//                $(".datepicker").datepicker();
+//                $("#formConfirmDate").find($("#lastProject")).val(Person['lastProject']);
+//                $("#formConfirmDate").find($("#currentProject")).val(Person.currentProject);
+//                Person.init({
+//                    id: Confirm.id,
+//                    forPhoto: 'true',
+//                    parentNode: "#windowForPhoto"
+//                });
+//
+//
+//
+//
+//
+//            });
+//
+//
+//        }
+//    }
+//
+//        return Confirm;
+//    return initConfirm({id:8,action:'transfer',forPhoto:'true'});
 });

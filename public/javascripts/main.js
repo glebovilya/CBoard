@@ -8,6 +8,19 @@ requirejs([/*'./myEmployee/emp'*/ 'vlad', 'ShowHide', 'Bogush', /*'ilya',*/ 'ste
 
     v();
     showHide.init();
+
+    /************************************
+    * uncomment this to test history push
+    *************************************/
+
+//    $.ajax({
+//        url: '/history',
+//        type: 'POST',
+//        data: {personID: 1, projectID: 1, statusID: 3, leaving: true},
+//        success: function(res) {
+//            console.log(res)
+//        }
+//    })
 });
 
 

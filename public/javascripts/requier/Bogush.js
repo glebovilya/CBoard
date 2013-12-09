@@ -1,30 +1,41 @@
-define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (Accordion, boot) {
+define(['Accordion', '../thirdParty/bootstrap'], function (Accordion) {
     var accordProjects;
     var accordPeople;
-    var userStatuses;
+    var personStatuses;
+    var divIdPeople = $("#accordion-people");
+    var btnInIdPeople = $('#buttonAddNewPeople');
+    var divIdProjects = $("#accordion-projects");
+    var btnInIdProjects = $('#buttonAddNewProject');
+    var projects;
+    var person;
     $(document).ready(function () {
 
-        $("#people").css("left", -1000);
+        /* set the initial position of tabs elements and their changing */
         $('#people-tab').bind("click", function () {
-            $("#projects").css("left", -1000);
-            $("#people").css("left", 0);
+            divIdProjects.css("left", -1000);
+            btnInIdProjects.css("left", -1000);
+            divIdPeople.css("left", 0);
+            btnInIdPeople.css("left", 0);
         })
         $('#projects-tab').bind("click", function () {
-            $("#people").css("left", -1000);
-            $("#projects").css("left", 0);
+            divIdPeople.css("left", -1000);
+            btnInIdPeople.css("left", -1000);
+            divIdProjects.css("left", 0);
+            btnInIdProjects.css("left", 0);
         })
 
+        /*get all person statuses from DB*/
         $.ajax({
             type: "GET",
             url: "/status",
             async: false,
             success: function (dataStatus) {
-                userStatuses = dataStatus;
+                personStatuses = dataStatus;
 
             }
         })
+
         /*generate accordion "projects"*/
-        var projects;
         $.ajax({
             type: "GET",
             url: "/projects",
@@ -48,9 +59,7 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
         accordProjects = new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
-        var peop;
         setTimeout(function () {
-
             $.ajax({
                 type: "GET",
                 url: "/users",
@@ -58,9 +67,9 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                 success: function (dataPerson) {
                     var people = {};
                     for (var elems in dataPerson) {
-                        for (var stat in userStatuses) {
-                            if (userStatuses[stat]._id == dataPerson[elems].currentStatus)
-                                var itemk = userStatuses[stat].name;
+                        for (var stat in personStatuses) {
+                            if (personStatuses[stat]._id == dataPerson[elems].currentStatus)
+                                var itemk = personStatuses[stat].name;
                         }
                         if (itemk in people)
                             people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
@@ -69,59 +78,43 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
                                 {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname}
                             ];
                     }
-                    peop = people;
+                    person = people;
+
                 }
             });
-            accordPeople = new Accordion(peop, "#accordion-people");
-        }, 500)
 
-        setSizes();
-        setScroll('.container-scroll', '.scroller', '.scroller__bar');
-//        setScroll('.container-scroll-2', '.scroller-2', '.scroller__bar-2');
+            accordPeople = new Accordion(person, "#accordion-people");
+            setSizes();
+
+        }, 500)
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();
         });
+
     })
 
-    function setScroll(container, scroller, scroll) {
-        baron({
-            root: container,
-            scroller: scroller,
-            bar: scroll,
-            barOnCls: 'baron'
-        }).fix({
-                elements: '.header__title',
-                outside: 'header__title_state_fixed',
-                before: 'header__title_position_top',
-                after: 'header__title_position_bottom',
-                clickable: true
-
-            });
-    }
-
     function setSizes() {
-        $('div#inner-board').height($('div#board').height() - 18);
-        $('div#inner-board').width($('div#board').width() - 18);
         var topHeight = $('div.custom-view').outerHeight() + $('#search').outerHeight();
-        var hContainerScroll = $(window).innerHeight() - 2 * $('div.line').outerHeight() - $('#buttonAddNewPeople').outerHeight() - 2 * $('#showAll').outerHeight() - topHeight - 20;
-        $('div.container-scroll').height(hContainerScroll)
-//        var topHeightPeople = $('#people div.scroller').outerHeight() + $('div.line').outerHeight() + $('#buttonAddNewPeople').outerHeight()
-//        $('#people').css("top", -topHeightPeople);
-        $('div.btn-wrap').css("top", topHeight + $("#people").outerHeight())
+        var bottomHeight = $('div.btn-wrap').outerHeight();
+
+        var headsProj = divIdProjects.find('div.accordion-heading').length;
+        var headsPeop = divIdPeople.find('div.accordion-heading').length;
+
+        divIdProjects.find('ul.list').height($('div.wrap').height() - topHeight - bottomHeight - 30*headsProj - 40)
+        divIdPeople.find('ul.list').height($('div.wrap').height() - topHeight - bottomHeight - 30*headsPeop - 40)
+
     }
 
     function setAccordItems(type, obj, item) {
 
         if (type == "projects") {
-//            console.log(accordProjects);
             accordProjects.addItem(obj, item);
         }
         if (type == "people") {
-//            console.log(accordPeople);
-            for (var stat in userStatuses) {
-                if (userStatuses[stat]._id == obj.status)
-                    var item = userStatuses[stat].name;
+            for (var stat in personStatuses) {
+                if (personStatuses[stat]._id == obj.status)
+                    var item = personStatuses[stat].name;
             }
             accordPeople.addItem(obj, item);
         }

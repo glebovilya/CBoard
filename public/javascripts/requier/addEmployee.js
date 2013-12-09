@@ -29,6 +29,8 @@ $(document).ready(function(){
 //                        console.log(returndata)
                         var item = "";
                         setAccordItem("people", obj, item);
+
+                       $("#modalAddPeople input").val("");
                     }
                 });
 

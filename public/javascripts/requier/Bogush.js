@@ -1,24 +1,27 @@
-define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (Accordion, boot) {
+define(['Accordion', '../thirdParty/bootstrap'], function (Accordion) {
     var accordProjects;
     var accordPeople;
     var personStatuses;
-    var divIdPeople = $("#people");
-    var divIdProjects = $("#projects");
+    var divIdPeople = $("#accordion-people");
+    var btnInIdPeople = $('#buttonAddNewPeople');
+    var divIdProjects = $("#accordion-projects");
+    var btnInIdProjects = $('#buttonAddNewProject');
     var projects;
     var person;
     $(document).ready(function () {
 
-
-        /* set the initial position of tabs elements and their changing*/
-
-        divIdPeople.css("left", -1000);
+        /* set the initial position of tabs elements and their changing */
         $('#people-tab').bind("click", function () {
             divIdProjects.css("left", -1000);
+            btnInIdProjects.css("left", -1000);
             divIdPeople.css("left", 0);
+            btnInIdPeople.css("left", 0);
         })
         $('#projects-tab').bind("click", function () {
             divIdPeople.css("left", -1000);
+            btnInIdPeople.css("left", -1000);
             divIdProjects.css("left", 0);
+            btnInIdProjects.css("left", 0);
         })
 
         /*get all person statuses from DB*/
@@ -31,8 +34,8 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
 
             }
         })
-        /*generate accordion "projects"*/
 
+        /*generate accordion "projects"*/
         $.ajax({
             type: "GET",
             url: "/projects",
@@ -56,7 +59,6 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
         accordProjects = new Accordion(projects, "#accordion-projects");
 
         /*generate accordion "people"*/
-
         setTimeout(function () {
             $.ajax({
                 type: "GET",
@@ -85,79 +87,34 @@ define(['Accordion', '../thirdParty/bootstrap', 'resize', 'scroll' ], function (
             setSizes();
 
         }, 500)
-//       setTimeout(setSizes,200);
-//        setSizes();
-//        setScroll('.container-scroll', '.scroller', '.scroller__bar','baron');
-//        setScroll('.container-scroll-2', '.scroller-2', '.scroller__bar-2', 'baron-2');
-
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();
-
         });
+
     })
 
-    function setScroll(container, scroller, scroll, bon) {
-        baron({
-            root: container,
-            scroller: scroller,
-            bar: scroll,
-            barOnCls: bon
-        });
-//            .fix({
-//                elements: '.header__title',
-//                outside: 'header__title_state_fixed',
-//                before: 'header__title_position_top',
-//                after: 'header__title_position_bottom',
-//                clickable: true
-//
-//            });
-    }
-
     function setSizes() {
-        $('div#inner-board').height($('div#board').height() - 18);
-        $('div#inner-board').width($('div#board').width() - 18);
-
         var topHeight = $('div.custom-view').outerHeight() + $('#search').outerHeight();
-        var bottomHeight = $('#showAll').outerHeight()+ parseInt($('#showAll').css("top"));
+        var bottomHeight = $('div.btn-wrap').outerHeight();
 
+        var headsProj = divIdProjects.find('div.accordion-heading').length;
+        var headsPeop = divIdPeople.find('div.accordion-heading').length;
 
-        var hContainerScroll = $(window).innerHeight() - topHeight - bottomHeight -  2 * $('div.line').outerHeight() - $('#buttonAddNewPeople').outerHeight()-20-$('#buttonAddNewPeople').outerHeight();
-        var heightAccord = $('div.accordion').height(hContainerScroll);
-//        console.log(heightAccord)
+        divIdProjects.find('ul.list').height($('div.wrap').height() - topHeight - bottomHeight - 30*headsProj - 40)
+        divIdPeople.find('ul.list').height($('div.wrap').height() - topHeight - bottomHeight - 30*headsPeop - 40)
 
-
-
-        $('div.btn-wrap').css("top", $('#projects').outerHeight()+topHeight)
-        $('div.list').height($('div.accordion').height() - $('div.line').outerHeight() - $('#buttonAddNewPeople').outerHeight())
-
-        /*set height of ul*/
-
-       var headsProj = $('#accordion-projects .accordion-heading');
-        var headsPeop = $('#accordion-people .accordion-heading');
-//        countHeight(headsProj);
-//        countHeight(headsPeop);
-
-$('#accordion-projects ul.list').height($('div.accordion').height()-$(headsProj[0]).outerHeight()*headsProj.length-28);
-        $('#accordion-people ul.list').height($('div.accordion').height()-$(headsPeop[0]).outerHeight()*headsPeop.length-28);
-//        function countHeight(obj){
-//            ($(obj[0]).outerHeight()*obj.length
-//
-//
-//        }
     }
 
     function setAccordItems(type, obj, item) {
 
         if (type == "projects") {
-//            console.log(accordProjects);
             accordProjects.addItem(obj, item);
         }
         if (type == "people") {
-//            console.log(accordPeople);
-            for (var stat in userStatuses) {
-                if (userStatuses[stat]._id == obj.status)
-                    var item = userStatuses[stat].name;
+            for (var stat in personStatuses) {
+                if (personStatuses[stat]._id == obj.status)
+                    var item = personStatuses[stat].name;
             }
             accordPeople.addItem(obj, item);
         }

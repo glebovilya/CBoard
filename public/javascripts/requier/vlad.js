@@ -1,14 +1,14 @@
 define(['../thirdParty/jquery.event.drag-2.2', '../thirdParty/jquery.event.drop-2.2'/*, 'jquery.event.drag.live-2.2'*/],
     function () {
         function initSearch () {
-            var search = $('#search input');
+            var searchField = $('#search input');
             var people = $('#accordion-people');
             var projects = $('#accordion-projects');
 
             var searchLogic = function(accordion) {
-                search.keyup(function(){
-                    var searchQuery = search.val();
-                    var reg = new RegExp(searchQuery);
+                searchField.keyup(function(){
+                    var searchQuery = searchField.val();
+                    var reg = new RegExp(searchQuery, 'i');
 
                     accordion.find('li').each(function(ell, node){
 
@@ -32,20 +32,20 @@ define(['../thirdParty/jquery.event.drag-2.2', '../thirdParty/jquery.event.drop-
             searchLogic(people);
             searchLogic(projects);
 
-            search.dblclick(function(){
-                search.val('');
+            searchField.dblclick(function(){
+                searchField.val('');
                 displayDefault(people);
                 displayDefault(projects);
             });
 
             $('#sideSwitcher').click(function(){
                 if($('#people').offset().left < 0){
-                    search.val('');
+                    searchField.val('');
                     displayDefault(people);
                     displayDefault(projects);
 
                 } else {
-                    search.val('');
+                    searchField.val('');
                     displayDefault(people);
                     displayDefault(projects);
                 }
@@ -54,5 +54,4 @@ define(['../thirdParty/jquery.event.drag-2.2', '../thirdParty/jquery.event.drop-
         }
         return initSearch
     }
-
 )

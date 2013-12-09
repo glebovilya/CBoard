@@ -117,12 +117,13 @@ exports.addHistory = function (req, res) {
                 /**
                  * if date was past as argument assume it, otherwise default date(current date)
                  */
-                if(date) {
+                if(req.body.date) {
                     history.date = req.body.date
                 }
-
-                if(!(project._id in person.projectList)){
-                    person.projectList.push(project._id);
+                console.log(person.projectList.indexOf(project._id));
+                if(person.projectList.indexOf(project._id) == -1){
+                    person.projectList.push(project);
+                    person.statusList.push(status);
                 }
 
                 /**
@@ -130,7 +131,7 @@ exports.addHistory = function (req, res) {
                  * to remove him from current project in DB.
                  */
 
-                if(leaving){
+                if(history.leaving){
                     var curEmp = project.currentEmployees;
                     for(var ell in curEmp) {
                         if(person._id === curEmp[ell]){
@@ -142,10 +143,11 @@ exports.addHistory = function (req, res) {
                  * Otherwise we had to add him
                  */
                 else {
-                    project.currentEmployees.push(person._id)
+                    if(project.currentEmployees.indexOf(person._id) == -1){
+                        project.currentEmployees.push(person)
+                    }
                 }
-                person.current = false;
-                project.current = false;
+
                 person.currentStatus = status._id;
                 person.history.push(history);
                 project.history.push(history);

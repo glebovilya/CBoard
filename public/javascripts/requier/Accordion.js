@@ -20,12 +20,25 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
 
     Accordion.prototype.addHead = function (/*string name of accordion heads*/elem, /*object with accordion data*/obj, /*DOMNode to insert accordion with #*/divIdSelector, /*integer counter to determine first elem to be opened*/i) {
 
+
         var newTemplateHead = this.templateHead.replace(/someHref/g, elem).replace(/headTitle/g, elem).
-            replace(/idAccordGroup/g, elem).replace(/dataParentId/g, divIdSelector);
+            replace(/idAccordGroup/g, elem).replace(/IdDataParent/g, divIdSelector);
 
         $(divIdSelector).append(newTemplateHead);
-        var newTemplWrapList = this.templWrapperItems.replace(/someID/g, elem);
-        $('#' + elem + '-group').after(newTemplWrapList);
+        var newTemplWrapList = this.templWrapperItems.replace(/someID|IdDataParent/g, elem);
+
+        /* collapse in the first element */
+        if (i == 0) {
+            newTemplWrapList = newTemplWrapList.replace(/collapse/g, 'collapse in')
+        }
+        var handlerClick = $('#' + elem + '-group div.accordion-heading').after(newTemplWrapList);
+
+        /* always open one accordion body (don't close current body) */
+        handlerClick.click(function () {
+            if (this.nextSibling.className == "accordion-body collapse in" || this.nextSibling.className == "accordion-body in collapse") {
+                return false;
+            }
+        })
 
         for (var elems in obj[elem]) {
             this.addItem(obj[elem][elems], elem);
@@ -38,12 +51,13 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
         this.item.prepend(newItemlList);
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
-        if(item =="Open" || item == "Closed" )
-        {
+        if (item == "Open" || item == "Closed") {
             /*$(itemString).bind("click", function(){ShowProject()})*/
         }
         else
-            $(itemString).bind("click", function(){Person.init({id:obj.id});})
+            $(itemString).bind("click", function () {
+                Person.init({id: obj.id});
+            })
     }
 
     return Accordion;

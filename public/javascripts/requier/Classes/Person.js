@@ -5,20 +5,21 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
         template: templ,
 
         init: function(idPerson){
-//            var employee;
+            var employee;
             function  onAjaxSuccess(data){
                          data.id = id;
                          if(parentProject) data.parentProject = parentProject;
                          if(forPhoto) data.forPhoto = forPhoto;
-                         var employee = new Person.Employee(data);
+                         employee = new Person.Employee(data);
+
                          Person.render(employee);
-                         return employee;
+
+                         
                      }
                      var id = idPerson['id'];
                      var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
                      var forPhoto =idPerson['forPhoto'];
 
-//                     $.get("/user",{ id: id}, onAjaxSuccess);
              $.ajax({
                data:{
                    id:id
@@ -27,7 +28,7 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                url:'/user',
                success: onAjaxSuccess
              });
-//            return employee;
+            return employee;
 
                },
 
@@ -42,6 +43,10 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                      this.position = data['position'];
                      this.parentProject = data['parentProject'];
                      this.forPhoto = data['forPhoto'];
+                     this.currentStatus = data['currentStatus'];
+                     this.projectList = data['projectList'];
+                     this.statusList = data['statusList'];
+                     this.history = data['history'];
                },
 
         render: function(employee){

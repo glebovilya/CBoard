@@ -107,11 +107,10 @@ exports.addHistory = function (req, res) {
                     history.date = req.body.date
                 }
 
+
                 var idx = person.projectList.indexOf(project._id);
                 var projList = person.projectList;
                 var statusList = person.statusList;
-
-
                 /*******************************************************************
                 * here we check if that project not in projectList of that person
                 ********************************************************************/
@@ -128,28 +127,24 @@ exports.addHistory = function (req, res) {
                     * if it changed during history creation we had to change it in DB
                     *****************************************************************/
                     if(statusList[idx] != status._id) {
-                        statusList[idx] = status._id
+                        statusList.set(idx, status._id)
                     }
                 }
-
+                var personList = project.currentEmployees;
+                var persIDX = personList.indexOf(person._id)
                 /*********************************************
                 * if the person is leaving that project we had
                 * to remove him from current project in DB.
                 **********************************************/
                 if(history.leaving){
-                    var curEmp = project.currentEmployees;
-                    for(var ell in curEmp) {
-                        if(person._id === curEmp[ell]){
-                            curEmp.splice(ell, 1)
-                        }
-                    }
+                    personList.splice(persIDX,1)
                 }
                 /****************************
                 * Otherwise we had to add him
                 *****************************/
                 else {
-                    if(project.currentEmployees.indexOf(person._id) == -1){
-                        project.currentEmployees.push(person)
+                    if(persIDX == -1){
+                        personList.push(person)
                     }
                 }
 
@@ -158,7 +153,7 @@ exports.addHistory = function (req, res) {
                 project.history.push(history);
 
                 history.save(respondJSON(res, history));
-                person.save();
+                person.save(function(err, doc){console.log(doc)});
                 project.save();
             });
         });

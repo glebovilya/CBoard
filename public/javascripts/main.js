@@ -13,14 +13,14 @@ requirejs([/*'./myEmployee/emp'*/ 'vlad', 'ShowHide', 'Bogush', 'ilya', 'stepa']
 
 
 
-//    $.ajax({
-//        url: '/history',
-//        type: 'POST',
-//        data: {personID: 1, projectID: 1, statusID: 3, leaving: true},
-//        success: function(res) {
-//            console.log(res)
-//        }
-//    })
+    $.ajax({
+        url: '/history',
+        type: 'POST',
+        data: {personID: 6, projectID: 83, statusID: 3, leaving: false},
+        success: function(res) {
+            console.log(res)
+        }
+    })
 });
 
 

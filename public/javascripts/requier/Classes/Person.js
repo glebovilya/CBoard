@@ -31,6 +31,10 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                      this.position = data['position'];
                      this.parentProject = data['parentProject'];
                      this.forPhoto = data['forPhoto'];
+                     this.currentStatus = data['currentStatus'];
+                     this.projectList = data['projectList'];
+                     this.statusList = data['statusList'];
+                     this.history = data['history'];
                },
 
         render: function(employee){

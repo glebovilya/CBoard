@@ -11,16 +11,14 @@ requirejs([/*'./myEmployee/emp'*/ 'vlad', 'ShowHide', 'Bogush', 'ilya', 'stepa']
     v();
     showHide.init();
 
-
-
-    $.ajax({
-        url: '/history',
-        type: 'POST',
-        data: {personID: 4442, projectID: 44442, statusID: 44443, leaving: false},
-        success: function(res) {
-            console.log(res)
-        }
-    })
+//    $.ajax({
+//        url: '/history',
+//        type: 'POST',
+//        data: {personID: 2, projectID: 2, statusID: 3, leaving: false},
+//        success: function(res) {
+//            console.log(res)
+//        }
+//    })
 });
 
 

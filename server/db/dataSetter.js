@@ -91,34 +91,51 @@ exports.addHistory = function (req, res) {
                     return
                 }
 
-
-
-                /**
-                 * creating new history
-                 */
+                /*********************
+                * creating new history
+                **********************/
                 var history = new dbModels.History({
                     person: person._id,
                     project: project._id,
                     status: status._id,
                     leaving: req.body.leaving
                 });
-                /**
-                 * if date was past as argument assume it, otherwise default date(current date)
-                 */
+                /****************************************************************************
+                * if date was past as argument assume it, otherwise default date(current date)
+                *****************************************************************************/
                 if(req.body.date) {
                     history.date = req.body.date
                 }
 
-                if(person.projectList.indexOf(project._id) == -1){
-                    person.projectList.push(project);
-                    person.statusList.push(status);
+                var idx = person.projectList.indexOf(project._id);
+                var projList = person.projectList;
+                var statusList = person.statusList;
+
+
+                /*******************************************************************
+                * here we check if that project not in projectList of that person
+                ********************************************************************/
+                if(idx == -1){
+                    /*************************************************************
+                    * if not - add this project and status
+                    * assigned to this person in that particular project to person
+                    **************************************************************/
+                    projList.push(project);
+                    statusList.push(status);
+                } else {
+                    /****************************************************************
+                    * and if that project in projectList we had to check his status
+                    * if it changed during history creation we had to change it in DB
+                    *****************************************************************/
+                    if(statusList[idx] != status._id) {
+                        statusList[idx] = status._id
+                    }
                 }
 
-                /**
-                 * if the person is leaving that project we had
-                 * to remove him from current project in DB.
-                 */
-
+                /*********************************************
+                * if the person is leaving that project we had
+                * to remove him from current project in DB.
+                **********************************************/
                 if(history.leaving){
                     var curEmp = project.currentEmployees;
                     for(var ell in curEmp) {
@@ -127,9 +144,9 @@ exports.addHistory = function (req, res) {
                         }
                     }
                 }
-                /**
-                 * Otherwise we had to add him
-                 */
+                /****************************
+                * Otherwise we had to add him
+                *****************************/
                 else {
                     if(project.currentEmployees.indexOf(person._id) == -1){
                         project.currentEmployees.push(person)

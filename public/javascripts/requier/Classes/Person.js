@@ -10,7 +10,10 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                          if(parentProject) data.parentProject = parentProject;
                          if(forPhoto) data.forPhoto = forPhoto;
                          var employee = new Person.Employee(data);
+
                          Person.render(employee);
+                         return employee;
+                         
                      }
 
                      var id = idPerson['id'];

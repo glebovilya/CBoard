@@ -76,14 +76,14 @@ define([/*'Classes/Person',*/'text!./templates/addRemoveDate.html'], function(/*
                 }
 
                 if(Confirm.lastProject !="freeShooter"){
-                    formData ={personID: Confirm.id, projectID:Confirm.lastProject, statusID:1, leaving: 'false'};
+                    formData ={personID: Confirm.id, projectID:Confirm.lastProject, statusID:1, leaving: 'true'};
                     $.ajax({
                         url: '/history',
                         type: 'POST',
                         data: formData,
                         success: function (returndata) {
                             if(Confirm.currentProject !="freeShooter"){
-                                formData ={personID: Confirm.id, projectID:Confirm.currentProject, statusID: $("#statusID").val(), leaving: 'true'};
+                                formData ={personID: Confirm.id, projectID:Confirm.currentProject, statusID: $("#statusID").val(), leaving: 'false'};
                                 $.ajax({
                                     url: '/history',
                                     type: 'POST',
@@ -98,7 +98,7 @@ define([/*'Classes/Person',*/'text!./templates/addRemoveDate.html'], function(/*
                         }
                     });
                 } else {
-                    formData ={personID: Confirm.id, projectID:Confirm.currentProject, statusID:$("#statusID").val(), leaving: 'true'};
+                    formData ={personID: Confirm.id, projectID:Confirm.currentProject, statusID:$("#statusID").val(), leaving: 'false'};
                     $.ajax({
                         url: '/history',
                         type: 'POST',

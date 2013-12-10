@@ -27,7 +27,6 @@ exports.getPersons = function(req, res){
 
 exports.getProject = function(req, res){
     dbModels.Project.findOne({_id: req.query.id}, function(err, proj) {
-        console.log(req.query);
         respondJSON(res, proj)
     })
 };

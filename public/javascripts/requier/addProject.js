@@ -13,7 +13,8 @@ define(['text!./templates/addProject.html', 'Accordion', 'Bogush'], function (te
 
             $(template).appendTo($("#inner-board"));
             $(".input-append input").datepicker();
-
+            var d = new Date();
+            $("div.input-append input")[0].value = (d.getMonth()+1) + "/"+d.getDate() + "/" + d.getFullYear();
 
 
 

@@ -8,6 +8,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
         init: function(data, Person){
 
             Confirm.id = data['id'];
+//            console.log(Confirm.id)
             if((data['lastProject']) && (data['lastProject'] != "inner-board") ){
                 Confirm.lastProject = data['lastProject'];
             }else{
@@ -58,7 +59,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                 $(".datepicker").datepicker();
 
 
-                Person.init({
+            var photo =new Person({
                     id: Confirm['id'],
                     forPhoto: 'true',
                     parentNode: "#windowForPhoto"

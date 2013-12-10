@@ -18,8 +18,6 @@ var Person = function(idPerson) {
         self.id =data['id'];
         self.photo = data['photo'];
         self.position = data['position'];
-        self.parentProject = data['parentProject'];
-        self.forPhoto = data['forPhoto'];
         self.currentStatus = data['currentStatus'];
         self.projectList = data['projectList'];
         self.statusList = data['statusList'];
@@ -50,7 +48,7 @@ var Person = function(idPerson) {
             $(divWindow).append(Person.template);
             var self = this;
             $(Person.template).ready(function(){
-                $(self.domNode).attr("data-id", this.id);
+                $(self.domNode).attr("data-id", self.id);
                 if(!self.forPhoto)$(self.domNode).find(".employee-header").append('<button type="button" class="close" data-toggle="tooltip" title="remove from project" aria-hidden="true" >&times;</button>');
                 $(self.domNode).find(".united .name").html(self.name+'<br/>'+this.surname);
                 $(self.domNode).find(".emplPosition").html(self.position);
@@ -68,7 +66,7 @@ var Person = function(idPerson) {
             });
 
             jQuery(function(S){
-                console.log(this);
+//                console.log(this);
                 $(self.domNode)
                     .drag("init", function(){
 //                                 console.log(parseInt($(this.parentNode).css("margin-left")));
@@ -91,13 +89,13 @@ var Person = function(idPerson) {
 
 
 
-                        transit({
-                            domNode:dd.drag,
-                            id: $(dd.drag).attr("data-id"),
-                            lastProject: dd.drag.parentNode.id,
-                            currentProject: dd.target.id,
-                            action: 'transfer'
-                        },Person);
+//                        transit({
+//                            domNode:dd.drag,
+//                            id: $(dd.drag).attr("data-id"),
+//                            lastProject: dd.drag.parentNode.id,
+//                            currentProject: dd.target.id,
+//                            action: 'transfer'
+//                        },Person);
                     })
 
             });

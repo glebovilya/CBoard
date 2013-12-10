@@ -3,7 +3,7 @@
  */
 define(['Classes/Person_new'],function (Person){
 
-    var test = new Person({id:'68'})
-    console.log(test)
+    var test = new Person({id:'8'})
+//    console.log(test)
 
 });

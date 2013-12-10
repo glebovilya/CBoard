@@ -5,19 +5,30 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
         template: templ,
 
         init: function(idPerson){
-                     function  onAjaxSuccess(data){
+//            var employee;
+            function  onAjaxSuccess(data){
                          data.id = id;
                          if(parentProject) data.parentProject = parentProject;
                          if(forPhoto) data.forPhoto = forPhoto;
                          var employee = new Person.Employee(data);
                          Person.render(employee);
+                         return employee;
                      }
-
                      var id = idPerson['id'];
                      var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
                      var forPhoto =idPerson['forPhoto'];
 
-                     $.get("/user",{ id: id}, onAjaxSuccess);
+//                     $.get("/user",{ id: id}, onAjaxSuccess);
+             $.ajax({
+               data:{
+                   id:id
+               },
+               async: false,
+               url:'/user',
+               success: onAjaxSuccess
+             });
+//            return employee;
+
                },
 
         Employee: function (data){ // избыточная сущность, пока оставлю, вообще создана для наследования методов, но еще не придумал каких

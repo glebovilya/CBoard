@@ -27,39 +27,6 @@ define(['text!../templates/project.html', 'Classes/Person'], function (template,
         this.buildLogic = function () {
             //return a project record from db or creates a new record
             !(typeof self == Object) ? this.getProject() : this.createProject();
-            $.ajax({
-                    url: '/project',
-                    async: false,
-                    method: 'GET',
-                    data: {id: id},
-                    success: function (res) {
-                        for (var i in res) {
-                            self[i] = res[i];
-                        }
-                        // временный костыль, при появлении функционала истории исчезнет сам по себе
-                        self.setDefaults();
-//
-//                            for (var i = 2; i < 5; i++) {
-//                                self.addEmployee(i);
-//                            }
-//
-//                            var empl = self.currentEmployees;
-//                            var devs = $('[data-role=devs]');
-//                            var leads = $('[data-role=leads]');
-//                            for (var i in empl) {
-//                                var idPerson, parentNode, id, name = empl[i].name;
-//                                if (empl[i].position != 'Developer') {
-//                                    idPerson = {id: empl[i]._id, parentNode: leads}
-//                                    name = Person.init(idPerson);
-//                                } else {
-//                                    idPerson = {id: empl[i]._id, parentNode: devs}
-//                                    name = Person.init(idPerson);
-//                                }
-//
-//                            };
-
-                    }}
-            )
         };
     this.createNewProject = function () {
 
@@ -69,9 +36,12 @@ define(['text!../templates/project.html', 'Classes/Person'], function (template,
             url: '/project',
             data: {id: id},
             async: false,
-            method: 'GET',
             success: function(res){
-                console.log(res);
+                for (var i in res.currentEmployees){
+                    var person = Person.init({id: res.currentEmployees[i]});
+                    console.log(person);
+//                    self.sortEmployee(person);
+                }
             }
         })
     };
@@ -88,6 +58,10 @@ define(['text!../templates/project.html', 'Classes/Person'], function (template,
         !self.name ? self.name = '' : true;
         !self.history ? self.history = [] : true;
 
+    };
+    this.sortEmployee = function(p){
+        var projl = p.projectList, statl = p.statusList;
+//        if (projl[0])
     };
     this.addEmployee = function (empId) {
         //this function adds employee, taken from db by his ID, to this project

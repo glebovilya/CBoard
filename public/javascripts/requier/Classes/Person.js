@@ -10,10 +10,13 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                          if(parentProject) data.parentProject = parentProject;
                          if(forPhoto) data.forPhoto = forPhoto;
                          var employee = new Person.Employee(data);
+                         function registr(employee){
+                             window.employee = employee;
+                             Person.init[id]=employee;
 
+                         }
+                         registr(employee);
                          Person.render(employee);
-                         return employee;
-                         
                      }
 
                      var id = idPerson['id'];
@@ -21,6 +24,7 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                      var forPhoto =idPerson['forPhoto'];
 
                      $.get("/user",{ id: id}, onAjaxSuccess);
+                     return Person.init[id];
                },
 
         Employee: function (data){ // избыточная сущность, пока оставлю, вообще создана для наследования методов, но еще не придумал каких
@@ -38,6 +42,7 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                      this.projectList = data['projectList'];
                      this.statusList = data['statusList'];
                      this.history = data['history'];
+
                },
 
         render: function(employee){

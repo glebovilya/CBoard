@@ -91,10 +91,13 @@ define([/*'Classes/Person',*/'text!./templates/addRemoveDate.html'], function(/*
                                     data: formData,
                                     success: function (returndata) {
                                         $("#myModal").remove();
+                                        $(".datepicker").remove()
+
                                     }
                                 });
                             }else{
                                 $("#myModal").remove();
+                                $(".datepicker").remove()
                             }
                         }
                     });
@@ -106,6 +109,7 @@ define([/*'Classes/Person',*/'text!./templates/addRemoveDate.html'], function(/*
                         data: formData,
                         success: function (returndata) {
                             $("#myModal").remove();
+                            $(".datepicker").remove()
                         }
                     })
                 }

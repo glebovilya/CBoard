@@ -39,6 +39,10 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
             close = $('#' + id).find('button.close')[0];
             toggleDevs_btn = $('#' + id).find('a[href="#show"]')[0];
 
+
+
+
+
             this.addTemplateHandlers(devs, close, toggleDevs_btn);
         };
 
@@ -63,11 +67,13 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
                 data: {id: id},
                 async: false,
                 success: function (res) {
+//                    console.log(id)
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {
-                        console.log(res.currentEmployees[i])
+//                        console.log(res.currentEmployees[i])
+
                         //creating new Person instance form each record in currentEmployees array
-                        var person = new Person({id: res.currentEmployees[i]});
+                        var person = new Person({id: res.currentEmployees[i],projectID:id}); // add projectID:id *stepa
                         self.sortEmployee(person);
                     }
                 }

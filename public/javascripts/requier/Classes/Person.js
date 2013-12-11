@@ -12,8 +12,8 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                          if(forPhoto) data.forPhoto = forPhoto;
 
 
-                         }
-                         
+
+                     }
                      var id = idPerson['id'];
                      var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
                      var forPhoto =idPerson['forPhoto'];

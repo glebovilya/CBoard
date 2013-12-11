@@ -109,6 +109,7 @@ ul.list {
     -webkit-box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.75);
     -moz-box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.75);
     box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.75);
+    overflow: scroll;
 }
 
 
@@ -161,8 +162,6 @@ a:hover, a:focus, a:link {
 .line {
     min-height: 30px;
 }
-
-
 
 .btn-wrap {
     position: absolute;

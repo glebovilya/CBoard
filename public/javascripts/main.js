@@ -11,8 +11,6 @@ requirejs([/*'./myEmployee/emp'*/ 'vlad', 'ShowHide', 'Bogush', 'ilya', 'stepa']
     v();
     showHide.init();
 
-
-
 //    $.ajax({
 //        url: '/history',
 //        type: 'POST',

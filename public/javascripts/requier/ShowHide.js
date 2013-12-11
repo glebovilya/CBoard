@@ -15,7 +15,7 @@ define(['./Classes/Project'], function(Project){
         },
         renderProjects: function(/*array of objs*/projects){
             for (var i in projects) {
-                var proj = new Project(projects[i])
+                var proj = new Project(projects[i]['_id'])
             }
         },
         init: function(){

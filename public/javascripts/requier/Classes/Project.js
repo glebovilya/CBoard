@@ -19,97 +19,97 @@ define(['text!../templates/project.html', 'Classes/Person'], function (template,
             this.renderView();
             this.buildLogic();
         };
+        this.__destruct = function () {
+            self.instance.remove();
+        };
 
         this.renderView = function () {
-            $(template).appendTo($("#inner-board"));
+            /*tid - alias for id property, helps to no overwrite it*/
+            var devs, leads, close, toggleDevs_btn;
+
+            self.instance = $(template).appendTo($("#inner-board")).css({
+                float: 'left'
+            }).addClass('drop').attr('id', id);
+
+            // Parsing template' nodes
+            // Sorry for my ugly syntax, maybe if we'd find solution
+            // in switching data-attributes and classes to id's
+            devs = $('#' + id).find('[data-role=devs]')[0];
+            leads = $('#' + id).find('[data-role=leads]')[0];
+            close = $('#' + id).find('button.close')[0];
+            toggleDevs_btn = $('#' + id).find('a[href="#show"]')[0];
+
+            this.addTemplateHandlers(devs, close, toggleDevs_btn);
+        };
+
+        this.addTemplateHandlers = function (devs, close, toggleDevs_btn) {
+            $(toggleDevs_btn).on('click', function toggleDevs() {
+                $(devs).toggleClass('open');
+            });
+            $(close).on('click', function () {
+                self.__destruct();
+            });
 
         };
+
         this.buildLogic = function () {
-            //return a project record from db
-//            console.log(typeof self);
-            if (!(typeof self == Object)) {
-                $.ajax({
-                        url: '/project',
-                        async: false,
-                        method: 'GET',
-                        data: {id: id},
-                        success: function (res) {
-                            for (var i in res) {
-                                self[i] = res[i];
-                            }
-                            // временный костыль, при появлении функционала истории исчезнет сам по себе
-                            self.setDefaults();
-
-                            for (var i = 70; i < 74; i++) {
-                                self.addEmployee(i);
-                            }
-
-                            var empl = self.currentEmployees;
-                            var devs = $('[data-role=devs]');
-                            var leads = $('[data-role=leads]');
-                            for (var i in empl) {
-                                var idPerson, parentNode, id, name = empl[i].name;
-                                if (empl[i].position != 'Developer') {
-                                    idPerson = {id: empl[i]._id, parentNode: leads}
-                                    name = Person.init(idPerson);
-                                } else {
-                                    idPerson = {id: empl[i]._id, parentNode: devs}
-                                    name = Person.init(idPerson);
-                                }
-
-                            }
-                            ;
-
-                        }}
-                )
-            }
-            ;
+            //return a project record from db or creates a new record
+            !(typeof self == Object) ? this.getProject() : this.createProject();
         };
-        this.setDefaults = function () {
-            //      class Project defaults:
-//            alert(self);
-//            console.log();
-            !self.container ? self.container = $("#inner-board") : true;
-            !self.start ? self.start = null : true;
-            !self.end ? self.end = null : true;
-            !self.currentEmployees ? self.currentEmployees = [] : true;
-            !self.current ? self.current = false : true;
-            !self.id ? self.id = null : true;
-            !self.name ? self.name = '' : true;
-            !self.history ? self.history = [] : true;
 
-        };
-        this.addEmployee = function (empId) {
-            //this function adds employee, taken from db by his ID, to this project
-//            self.currentEmployees ? console.log('I have some employees!') : self.currentEmployees = [];
+        this.getProject = function () {
             $.ajax({
-                url: '/user',
-                data: {id: empId},
+                url: '/project',
+                data: {id: id},
                 async: false,
-                method: 'GET',
-                success: function (data) {
-                    self.currentEmployees.push(data);
+                success: function (res) {
+                    // response has currentEmployees property, which is an array we have to analyze
+                    for (var i in res.currentEmployees) {
+                        //creating new Person instance form each record in currentEmployees array
+                        var person = Person.init({id: res.currentEmployees[i]});
+                        self.sortEmployee(person);
+                    }
                 }
             })
-        }
-
-
-        this.pushHistory = function () {
-            /*
-             * this method creates a new history records
-             * on drag person over the project
-             * in the project and person schemas
-             */
         };
-        this.getEmployees = function () {
-//Закоменчено пока не разобрались с историей
-//            $.get('/project',{id:id},function(data){
-//                console.log(data);
-//            })
-            console.log(self);
-            return self.currentEmployees;
 
+        this.sortEmployee = function (p) {/*we translate JSON(returned person) here*/
+
+            var
+                projl = p.projectList,
+                statl = p.statusList,
+                devs = $('#' + id).find('[data-role=devs]')[0],
+                leads = $('#' + id).find('[data-role=leads]')[0];
+
+            //searching in array of projects current project key
+            var idx = projl.indexOf(id);
+
+            //searching an employee's status in current project
+            status = statl[idx];
+
+            //sort employees corresponding to them project status
+
+            if (status == 2) {/*if employee's role is a manager*/
+                $(p.domNode).appendTo(leads).css({
+                    float: 'left',
+                    position: 'relative'
+                })
+            } else if (status == 3) {/*if employee's role is a group lead*/
+                $(p.domNode).appendTo(leads).css({
+                    float: 'right',
+                    position: 'relative'
+                })
+            } else {/*otherwise employee is a developer*/
+                $(p.domNode).appendTo(devs).css({
+                    float: 'left',
+                    position: 'relative'
+                })
+            }
         };
+
+
+        //instance is a link to the project window domNode on the blackboard
+        this.instance;
 
 //        at last, call of project constructor
 

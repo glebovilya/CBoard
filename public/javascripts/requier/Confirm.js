@@ -43,6 +43,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                 if(Confirm.currentProject !="freeShooter"){
                     $.ajax({url: '/project',
                         type: 'GET',
+                        async: false,
                         data: {id:Confirm.currentProject},
                         success: function (returndata){
                             $("#currentProject").html('assigned to the project:  '+returndata.name)

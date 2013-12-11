@@ -32,8 +32,8 @@ var Person = function(idPerson) {
     var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
     var forPhoto =idPerson['forPhoto'];
 
-    $.get("/user",{ id: id}, onAjaxSuccess);
-
+    $.ajax({url: "/user", data:{ id: id}, async: false, success: onAjaxSuccess});
+//    return self
     };
     Person.template = templ;
     Person.prototype  = {

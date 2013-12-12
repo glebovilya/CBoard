@@ -112,9 +112,11 @@ var Person = function(idPerson) {
                 $('.drop')
                     .drop(function (ev,dd){
 
+
 //                        console.log( dd.drag);
 //                        console.log($(dd.drag).attr("data-id"));
 //                        console.log(dd.drag.parentNode.id);
+
                         transit({
                             domNode:dd.drag,
                             id: $(dd.drag).attr("data-id"),

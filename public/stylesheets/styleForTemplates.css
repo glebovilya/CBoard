@@ -137,6 +137,7 @@
 .project-body .developers > a{
     display: inline-block;
     width: 99%;
+    bottom: 0;
 }
 
 .project-body .thumbnails li {

@@ -122,6 +122,8 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
         this.toggleDevs = function(){
             console.log('called');
             $(self.devs).toggleClass('open');
+            // label toggler
+            self.toggleDevs_btn.innerHTML == 'show developers' ? self.toggleDevs_btn.innerHTML = 'hide developers' : self.toggleDevs_btn.innerHTML = 'show developers';
         };
 
         this.addTemplateHandlers = function () {

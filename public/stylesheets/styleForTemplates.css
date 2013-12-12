@@ -133,9 +133,10 @@
 }
 
 .project-body .developers > a{
-    display: inline-block;
+    display: block;
     width: 99%;
     bottom: 0;
+    color: darkgray;
 }
 
 .project-body .thumbnails li {
@@ -164,3 +165,7 @@
     position: relative;
 }
 
+span[data-role="projectName"]{
+    font-family: Times, serif;
+    font-size: 150%;
+}

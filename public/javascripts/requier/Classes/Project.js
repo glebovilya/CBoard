@@ -46,6 +46,10 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
             // Sorry for my ugly syntax, maybe we'd find solution
             // in switching data-attributes and classes to id's
 
+
+
+
+
             self.devs = $('#' + id).find('[data-role=devs]')[0];
             self.leads = $('#' + id).find('[data-role=leads]')[0];
             self.close = $('#' + id).find('button.close')[0];
@@ -73,8 +77,10 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {
 //                        console.log(res.currentEmployees[i])
+
+//                        console.log(res.currentEmployees[i])
                         //creating new Person instance form each record in currentEmployees array
-                        var person = new Person({id: res.currentEmployees[i]});
+                        var person = new Person({id: res.currentEmployees[i],projectID:id}); // add projectID:id *stepa
                         self.sortEmployee(person);
                     }
                 }

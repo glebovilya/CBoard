@@ -1,9 +1,11 @@
 /**
  * Created by stepanjuk on 10.12.13.
  */
-define (['text!../templates/employe.html','../drag&drop', '../innerContainer'], function(templ,transit, storage){
+define (['text!../templates/employe.html','../Confirm','../innerContainer'], function(templ,Confirm, storage){
 
-
+    function transit(data,Person){
+        Confirm.init(data,Person);
+    }
 var Person = function(idPerson) {
     var self = this;
     function  onAjaxSuccess(data){
@@ -53,6 +55,7 @@ var Person = function(idPerson) {
             var self = this;
             $(Person.template).ready(function(){
                 $(self.domNode).attr("data-id", self.id);
+                $(self.domNode).attr("data-parentProject", self.parentProject);
                 if(!self.forPhoto)$(self.domNode).find(".employee-header").append('<button type="button" class="close" data-toggle="tooltip" title="remove from project" aria-hidden="true" >&times;</button>');
                 $(self.domNode).find(".united .name").html(self.name+'<br/>'+self.surname);
                 $(self.domNode).find(".emplPosition").html(self.position);
@@ -91,12 +94,11 @@ var Person = function(idPerson) {
                     })
 
                     .drag("init", function(ev, dd){
-                        dd.drop=$(".drop");
+//                        dd.drop=$(".drop");
                     })
                     .drag(function( ev, dd ){
                         $('.drop').css({
-                            border: "2px solid",
-                            borderColor: "yellow"
+                            boxShadow : "0 3px 7px rgba(0, 128, 0, 0.3)"
                         });
                         $(dd.proxy).css({
                             position: 'fixed',
@@ -111,22 +113,28 @@ var Person = function(idPerson) {
                             borderColor: "auto"
                         })
                     });
-
+                var count = 0;
                 $('.drop')
-                    .drop(function (ev,dd){
-                        $( dd.proxy ).remove();
-                        $('.drop').css({
-                            border: "1px solid",
-                            borderColor: "auto"
-                        })
 
-                        transit({
+                    .drop('end', function (ev,dd){
+                        var parentProject = $(dd.proxy).attr("data-parentProject")
+//                        console.log('proxy parentProject'+parentProject)
+                        $( dd.proxy ).remove();
+
+                        $('.drop').css({
+//                            border: "1px solid",
+//                            borderColor: "auto"
+                            boxShadow : "0 3px 7px rgba(0, 0, 0, 0.3)"
+                        })
+                       count++;
+                        console.log (count)
+                       transit({
                             domNode:dd.drag,
                             id: $(dd.drag).attr("data-id"),
-                            lastProject: dd.drag.parentNode.id,
-                            currentProject: dd.target.id,
-                            action: 'transfer'
+                            lastProject: parentProject,
+                            currentProject: dd.target.id
                         },Person);
+                        $(dd.drag).remove();
                     })
             });
         }

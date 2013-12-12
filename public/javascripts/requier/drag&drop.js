@@ -3,11 +3,11 @@
  */
 define(['Confirm'], function(Confirm){
 
-    function transit(data,Person){
+    function transitBBB(data,Person){
         $(data.domNode).remove();
         Confirm.init(data,Person);
     }
 
- return transit;
+ return transitAAAA;
 
 });

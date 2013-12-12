@@ -6,7 +6,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
     var Confirm  = {
         template: templ,
         init: function(data, Person){
-
+ console.log(data)
             Confirm.id = data['id'];
 //            console.log(Confirm.id)
             if((data['lastProject']) && (data['lastProject'] != "inner-board") ){

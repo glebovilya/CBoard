@@ -21,6 +21,12 @@ requirejs(['./myEmployee/emp', 'vlad', 'ShowHide', 'SearchInnerBoard', 'Bogush',
     searchIB();
     v();
     showHide.init();
+    $('button').bind('testevent',function(e){
+        console.log(e.target);
+    });
+    $('button').on('click',function(){
+        $('button').trigger('testevent');
+    })
 //new Emp('1', $('#inner-board'))
 //    var emp = new Emp('1', $('body'));
 

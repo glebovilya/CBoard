@@ -1,6 +1,7 @@
 /**
  * Created by stepanjuk on 10.12.13.
  */
+//ЭТО МОЙ КОММИТ --ИЛЬЯ
 define (['text!../templates/employe.html','../drag&drop', '../innerContainer'], function(templ,transit, storage){
 
 

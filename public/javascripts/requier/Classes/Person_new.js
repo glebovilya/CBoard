@@ -80,22 +80,45 @@ var Person = function(idPerson) {
 
                 var $div = $('#inner-board');
                 $(self.domNode)
+                    .drag("start",function( ev, dd ){
+                        dd.limit = $div.offset();
+                        dd.limit.bottom = dd.limit.top + $div.outerHeight() - $( this ).outerHeight();
+                        dd.limit.right = dd.limit.left + $div.outerWidth() - $( this ).outerWidth();
+
+                        return $( this ).clone()
+                            .css("opacity", .75 )
+                            .appendTo( this.parentNode );
+                    })
+
                     .drag("init", function(ev, dd){
-                        $(this).css({
-                            position: 'fixed',
-                            top: dd.offsetY,
-                            left: dd.offsetX
-                        })
+                        dd.drop=$(".drop");
                     })
                     .drag(function( ev, dd ){
-                        $( this ).css({
-                            top: dd.offsetY,
-                            left: dd.offsetX
+                        $('.drop').css({
+                            border: "2px solid",
+                            borderColor: "yellow"
                         });
-
+                        $(dd.proxy).css({
+                            position: 'fixed',
+                            top: Math.min( dd.limit.bottom, Math.max( dd.limit.top, dd.offsetY ) ),
+                            left: Math.min( dd.limit.right, Math.max( dd.limit.left, dd.offsetX ) )
+                        })
+                    })
+                    .drag("end",function( ev, dd ){
+                        $( dd.proxy ).remove();
+                        $('.drop').css({
+                            border: "1px solid",
+                            borderColor: "auto"
+                        })
                     });
+
                 $('.drop')
                     .drop(function (ev,dd){
+                        $( dd.proxy ).remove();
+                        $('.drop').css({
+                            border: "1px solid",
+                            borderColor: "auto"
+                        })
 
                         transit({
                             domNode:dd.drag,
@@ -107,7 +130,6 @@ var Person = function(idPerson) {
                     })
             });
         }
-
     };
 
    return Person;

@@ -21,15 +21,14 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
             }
 
             Confirm.render(Person);
-            Confirm.setHandler()
+            Confirm.setHandler();
+
         },
         render: function(Person){
             $(Confirm.template).appendTo($("#inner-board"));
-
-
+            $(".modal-footer button").trigger('addEmployee',this/*person constructor - we translates it into project window*/);
 
             $("#formConfirmDate").ready(function(){
-
 
                 if(Confirm.lastProject){
                     $.ajax({url: '/project',

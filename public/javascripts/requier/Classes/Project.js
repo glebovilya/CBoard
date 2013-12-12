@@ -1,4 +1,4 @@
-define(['text!../templates/project.html', 'Classes/Person_new', '../innerContainer'], function (template, Person, storage) {
+define(['text!../templates/project.html', 'Classes/Person_new', '../innerContainer','../drag&drop'], function (template, Person, storage, transit) {
 
     var Project = function (/*string*/id) {
 
@@ -27,6 +27,11 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.instance;
         //variable for project window title
         this.name;
+
+        /*binding a custom event for adding new user into a project*/
+        $(this).bind('addEmployee',function(e,pers,id){
+            self.addPerson(e,pers,id);
+        })
 
         this.__construct = function () {
             this.renderView();
@@ -73,6 +78,13 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         };
 
 
+        this.addPerson = function(e,pers,proj){
+            console.log(e);
+            console.log(pers);
+            console.log(proj);
+            console.log(self);
+        }
+
         this.getProject = function () {
             $.ajax({
                 url: '/project',
@@ -85,18 +97,37 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                     self.header.innerHTML = self.name;
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {
-//                        console.log(res.currentEmployees[i])
-
-//                        console.log(res.currentEmployees[i])
                         //creating new Person instance form each record in currentEmployees array
                         var person = new Person({id: res.currentEmployees[i],projectID:id}); // add projectID:id *stepa
                         self.searchName = self.searchName + ' ' + person.searchName
                         person.inProject = true;
                         self.sortEmployee(person);
+                        self.addDrop();
                     }
                 }
             })
         };
+
+        this.addDrop = function(){
+            jQuery(function(){
+
+                $('.drop')
+                    .drop(function (ev,dd){
+                        $( dd.proxy ).remove();
+                        $('.drop').css({
+                            boxShadow : "0 3px 7px rgba(0, 0, 0, 0.3)"
+                        })
+
+                        transit({
+                            domNode:dd.drag,
+                            id: $(dd.drag).attr("data-id"),
+                            lastProject: dd.drag.parentNode.id,
+                            currentProject: dd.target.id,
+                            action: 'transfer'
+                        },Person);
+                    })
+            });
+        }
 
         this.sortEmployee = function (p) {/*we translate JSON(returned person) here, in "p" param */
 
@@ -133,6 +164,8 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.toggleDevs = function(){
             console.log('called');
             $(self.devs).toggleClass('open');
+            // label toggler
+            self.toggleDevs_btn.innerHTML == 'show developers' ? self.toggleDevs_btn.innerHTML = 'hide developers' : self.toggleDevs_btn.innerHTML = 'show developers';
         };
 
         this.addTemplateHandlers = function () {

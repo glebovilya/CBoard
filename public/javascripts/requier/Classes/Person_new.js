@@ -1,7 +1,9 @@
 /**
  * Created by stepanjuk on 10.12.13.
  */
+
 define (['text!../templates/employe.html','../Confirm','../innerContainer'], function(templ,Confirm, storage){
+
 
     function transit(data,Person){
         Confirm.init(data,Person);
@@ -114,28 +116,7 @@ var Person = function(idPerson) {
                         })
                     });
                 var count = 0;
-                $('.drop')
 
-                    .drop('end', function (ev,dd){
-                        var parentProject = $(dd.proxy).attr("data-parentProject")
-//                        console.log('proxy parentProject'+parentProject)
-                        $( dd.proxy ).remove();
-
-                        $('.drop').css({
-//                            border: "1px solid",
-//                            borderColor: "auto"
-                            boxShadow : "0 3px 7px rgba(0, 0, 0, 0.3)"
-                        })
-                       count++;
-                        console.log (count)
-                       transit({
-                            domNode:dd.drag,
-                            id: $(dd.drag).attr("data-id"),
-                            lastProject: parentProject,
-                            currentProject: dd.target.id
-                        },Person);
-                        $(dd.drag).remove();
-                    })
             });
         }
     };

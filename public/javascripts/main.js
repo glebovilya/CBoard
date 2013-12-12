@@ -4,7 +4,7 @@ require.config({
 
 
 
-requirejs(['./myEmployee/emp', 'vlad', 'ShowHide', 'Bogush', 'ilya', 'stepa'], function(Emp, v, showHide){
+requirejs(['./myEmployee/emp', 'vlad', 'ShowHide', 'SearchInnerBoard', 'Bogush', 'ilya', 'stepa', ], function(Emp, v, showHide, searchIB){
 
 //    var inherited = function(parent, child) {
 //        var F = function(){};
@@ -18,9 +18,10 @@ requirejs(['./myEmployee/emp', 'vlad', 'ShowHide', 'Bogush', 'ilya', 'stepa'], f
 //
 //    $.inherited = inherited;
 
+    searchIB();
     v();
     showHide.init();
-new Emp('1', $('#inner-board'))
+//new Emp('1', $('#inner-board'))
 //    var emp = new Emp('1', $('body'));
 
 //    $.ajax({

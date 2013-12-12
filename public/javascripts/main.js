@@ -20,7 +20,7 @@ requirejs(['./myEmployee/emp', 'vlad', 'ShowHide', 'Bogush', 'ilya', 'stepa'], f
 
     v();
     showHide.init();
-new Emp('1', $('#inner-board'))
+//new Emp('1', $('#inner-board'))
 //    var emp = new Emp('1', $('body'));
 
 //    $.ajax({

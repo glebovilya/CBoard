@@ -1,8 +1,9 @@
 .employeeWindow {
-    position: absolute;
+    position: relative;
+    float: left;
     top:0;
     left:0;
-    z-index: 99999;
+    z-index: 100;
     width: 96px;
     height: 151px;
     background-color: #ffffff;
@@ -19,6 +20,7 @@
 }
 
 .employee-header{
+    cursor: pointer;
     height: 16px;
     padding: 1px 6px 6px;
     border-bottom: none;

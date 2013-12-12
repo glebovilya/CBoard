@@ -53,6 +53,12 @@ body, .container-fluid, .row-fluid {
     width: 70%;
 }
 
+#search-inner {
+    position: fixed;
+    top: 30px;
+    right: 70px;
+}
+
 .wrapAccord {
     position: relative;
 }

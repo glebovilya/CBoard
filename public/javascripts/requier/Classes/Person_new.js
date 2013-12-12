@@ -24,6 +24,7 @@ var Person = function(idPerson) {
         self.projectList = data['projectList'];
         self.statusList = data['statusList'];
         self.history = data['history'];
+        self.searchName = self.name + ' ' + self.surname;
 
 //        console.log(self)
         self.render();

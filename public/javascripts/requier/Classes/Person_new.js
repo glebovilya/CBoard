@@ -85,7 +85,7 @@ var Person = function(idPerson) {
                         dd.limit.bottom = dd.limit.top + $div.outerHeight() - $( this ).outerHeight();
                         dd.limit.right = dd.limit.left + $div.outerWidth() - $( this ).outerWidth();
 
-                        console.log('start')
+//                        console.log('start')
                         return $( this ).clone()
                             .css("opacity", .75 )
                             .appendTo( this.parentNode );
@@ -94,8 +94,9 @@ var Person = function(idPerson) {
                     })
 
                     .drag("init", function(ev, dd){
-console.log(dd)
-                        
+
+                        dd.drop=$(".drop");
+                        console.log(dd)
 
 //                         $(dd.proxy).css({
 //                            position: 'fixed',
@@ -125,6 +126,11 @@ console.log(dd)
 
                 $('.drop')
                     .drop(function (ev,dd){
+                        $( dd.proxy ).remove();
+                        $('.drop').css({
+                            border: "1px solid",
+                            borderColor: "auto"
+                        })
 
                         transit({
                             domNode:dd.drag,

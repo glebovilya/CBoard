@@ -44,7 +44,7 @@ define(['text!../templates/employe.html', '../../thirdParty/jquery.event.drag-2.
                         }
                     })
                     this.assignValues(param)
-                    console.log('this-->',this)
+//                    console.log('this-->',this)
                 }
                 this.parseTemplate();
                 this.render(node)

@@ -50,12 +50,12 @@ define(['text!./templates/addProject.html', 'Accordion', 'Bogush'], function (te
                         $("#modalAddProject input").val("");
                     }
                 });
-
                 return false;
 
             });
 
             $("#modalAddProject .close").on('click', function () {
+                $(".datepicker").remove();
                 $("#modalAddProject").remove();
             })
 

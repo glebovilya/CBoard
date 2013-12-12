@@ -4,12 +4,24 @@ require.config({
 
 
 
-requirejs([/*'./myEmployee/emp'*/ 'vlad', 'ShowHide', 'Bogush', 'ilya', 'stepa'], function(/*Emp*/ v, showHide){
+requirejs(['./myEmployee/emp', 'vlad', 'ShowHide', 'Bogush', 'ilya', 'stepa'], function(Emp, v, showHide){
 
-//    var emp = new Emp(1);
+//    var inherited = function(parent, child) {
+//        var F = function(){};
+//        F.prototype = parent.prototype;
+//        child.prototype = new F();
+//        child.prototype.constructor = child['__constructor'];
+//        child.superclass = parent.prototype;
+//
+//        return child
+//    }
+//
+//    $.inherited = inherited;
 
     v();
     showHide.init();
+new Emp('1', $('#inner-board'))
+//    var emp = new Emp('1', $('body'));
 
 //    $.ajax({
 //        url: '/history',

@@ -5,9 +5,10 @@ define(['Confirm','./Classes/Person_new'], function(Confirm,Person){
     $('#inner-board').ready(function(){
         jQuery(function(S){
             $('.drag')
-                .drag("init", function(){
+                .drag("init", function(ev, dd){
 //                                 console.log(parseInt($(this.parentNode).css("margin-left")));
 //                                 console.log($(this.parentNode).offset().left);
+                    dd.ids = '1'
 
                 })
                 .drag(function( ev, dd ){
@@ -24,7 +25,7 @@ define(['Confirm','./Classes/Person_new'], function(Confirm,Person){
 //                                  console.log($(dd.drag).attr("data-id"));//????????
 //                                  console.log(dd.drag.parentNode.id);//?????
 
-
+                    console.log('ids' +dd.ids);
                     console.log($(dd.drag).attr('id'));
 
                     transit({
@@ -41,8 +42,8 @@ define(['Confirm','./Classes/Person_new'], function(Confirm,Person){
 
 //    var item = Person.init({id:0,parentNode:"#firstDraft"});
     function transit(data,Person){
-        console.log($("#"+data.domNode.id))
-        $("#" + data.domNode).remove();
+//        console.log(data)
+        $(data.domNode).remove();
         Confirm.init(data,Person);
     }
     return transit;

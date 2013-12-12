@@ -73,6 +73,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
         },
         setHandler: function(){
             $("#modalClose").on('click', function(){
+                $(".datepicker").remove();
                 $("#myModal").remove();
             });
 

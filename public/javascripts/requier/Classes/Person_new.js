@@ -89,13 +89,13 @@ var Person = function(idPerson) {
 
 
 
-//                        transit({
-//                            domNode:dd.drag,
-//                            id: $(dd.drag).attr("data-id"),
-//                            lastProject: dd.drag.parentNode.id,
-//                            currentProject: dd.target.id,
-//                            action: 'transfer'
-//                        },Person);
+                        transit({
+                            domNode:dd.drag,
+                            id: $(dd.drag).attr("data-id"),
+                            lastProject: dd.drag.parentNode.id,
+                            currentProject: dd.target.id,
+                            action: 'transfer'
+                        },Person);
                     })
 
             });

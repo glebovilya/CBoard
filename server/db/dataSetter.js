@@ -119,8 +119,8 @@ exports.addHistory = function (req, res) {
                     * if not - add this project and status
                     * assigned to this person in that particular project to person
                     **************************************************************/
-                    projList.push(project);
-                    statusList.push(status);
+                    projList.push(project._id);
+                    statusList.push(status._id);
                 } else {
                     /****************************************************************
                     * and if that project in projectList we had to check his status
@@ -144,7 +144,7 @@ exports.addHistory = function (req, res) {
                 *****************************/
                 else {
                     if(persIDX == -1){
-                        personList.push(person)
+                        personList.push(person._id)
                     }
                 }
 

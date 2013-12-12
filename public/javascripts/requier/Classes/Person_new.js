@@ -1,7 +1,7 @@
 /**
  * Created by stepanjuk on 10.12.13.
  */
-define (['text!../templates/employe.html','../drag&drop'], function(templ,transit){
+define (['text!../templates/employe.html','../drag&drop'], function(templ,dragDrop){
 
 
 var Person = function(idPerson) {
@@ -43,7 +43,7 @@ var Person = function(idPerson) {
             var divWindow =document.createElement("div");
             $(this.parentProject).append(divWindow);
             $(this.parentProject).append(divWindow);
-            divWindow.className = "employeeWindow";
+            divWindow.className = "employeeWindow drag";
             divWindow.id = this.idFix;
             $(divWindow).append(Person.template);
             var self = this;
@@ -64,7 +64,8 @@ var Person = function(idPerson) {
 
                 $(self.domNode).remove();
             });
-
+//            dragDrop();
+//
             jQuery(function(S){
 //                console.log(this);
                 $(self.domNode)

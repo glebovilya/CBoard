@@ -2,6 +2,7 @@
  * Created by Jura on 08.12.13.
  */
 define(['Confirm','./Classes/Person_new'], function(Confirm,Person){
+    function  dragDrop(){
     $('#inner-board').ready(function(){
         jQuery(function(S){
             $('.drag')
@@ -12,6 +13,7 @@ define(['Confirm','./Classes/Person_new'], function(Confirm,Person){
 
                 })
                 .drag(function( ev, dd ){
+
                     $( this ).css({
                         top: dd.offsetY-$(this.parentNode).offset().top,
                         left: dd.offsetX-$(this.parentNode).offset().left
@@ -46,5 +48,7 @@ define(['Confirm','./Classes/Person_new'], function(Confirm,Person){
         $(data.domNode).remove();
         Confirm.init(data,Person);
     }
-    return transit;
+
+    }
+    return dragDrop;
 });

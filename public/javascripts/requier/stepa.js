@@ -2,7 +2,7 @@
  * Created by Jura on 01.12.13.
  */
 
-define(['addEmployee','addProject', '../thirdParty/bootstrap-datepicker'/*,'drag&drop'*/,'Classes/Person','confirm','see'],function () {
+define(['addEmployee','addProject', '../thirdParty/bootstrap-datepicker'/*,'drag&drop'*/,/*'Classes/Person',*/'confirm','see'],function () {
 
 
 

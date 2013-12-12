@@ -84,10 +84,15 @@ var Person = function(idPerson) {
                 var $div = $('#inner-board');
                 $(self.domNode)
                     .drag("start", function( ev, dd){
-                        dd.limit = $div.offset();
+                        var startNode = (this.parentNode);
+                        console.log(this.parentNode);
+                        $(this.domNode).appendTo("body")
+                        console.log(this.parentNode);
 
-                        dd.limit.bottom = dd.limit.top + $div.outerHeight() - $( this ).outerHeight();
-                        dd.limit.right = dd.limit.left + $div.outerWidth() - $( this ).outerWidth();
+//                        dd.limit = $div.offset();
+//
+//                        dd.limit.bottom = dd.limit.top + $div.outerHeight() - $( this ).outerHeight();
+//                        dd.limit.right = dd.limit.left + $div.outerWidth() - $( this ).outerWidth();
 //                        console.log(dd.limit.right)
 
                     })

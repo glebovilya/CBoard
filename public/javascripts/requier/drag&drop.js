@@ -10,10 +10,10 @@ define(['Confirm','./Classes/Person_new'], function(Confirm,Person){
 //                                 console.log(parseInt($(this.parentNode).css("margin-left")));
 //                                 console.log($(this.parentNode).offset().left);
                     dd.ids = '1'
-
+                    console.log('1')
                 })
                 .drag(function( ev, dd ){
-
+                    console.log(dd);
                     $( this ).css({
                         top: dd.offsetY-$(this.parentNode).offset().top,
                         left: dd.offsetX-$(this.parentNode).offset().left

@@ -69,16 +69,26 @@ var Person = function(idPerson) {
             jQuery(function(S){
 //                console.log(this);
                 $(self.domNode)
-                    .drag("init", function(){
+                    .drag("init", function(ev, dd){
 //                                 console.log(parseInt($(this.parentNode).css("margin-left")));
 //                                 console.log($(this.parentNode).offset().left);
+                        $(this).css({
+                            position: 'fixed',
+                            top: dd.offsetY,
+                            left: dd.offsetX
+                        })
 
+                        console.log(dd)
                     })
                     .drag(function( ev, dd ){
                         $( this ).css({
-                            top: dd.offsetY-$(this.parentNode).offset().top,
-                            left: dd.offsetX-$(this.parentNode).offset().left
+                            top: dd.offsetY,
+                            left: dd.offsetX
+//                            top: dd.originalY,
+//                            left: dd.originalX
                         });
+                        console.log(this)
+                        console.log(dd);
                     });
                 $('.drop')
                     .drop(function (ev,dd){

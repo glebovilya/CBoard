@@ -1,4 +1,4 @@
-define(['text!../templates/project.html', 'Classes/Person'], function (template, Person) {
+define(['text!../templates/project.html', 'Classes/Person_new'], function (template, Person) {
 
     var Project = function (/*string*/id) {
 
@@ -57,8 +57,9 @@ define(['text!../templates/project.html', 'Classes/Person'], function (template,
                 success: function (res) {
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {
+                        console.log(res.currentEmployees[i])
                         //creating new Person instance form each record in currentEmployees array
-                        var person = Person.init({id: res.currentEmployees[i]});
+                        var person = new Person({id: res.currentEmployees[i]});
                         self.sortEmployee(person);
                     }
                 }

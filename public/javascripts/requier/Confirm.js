@@ -2,12 +2,13 @@
  * Created by Jura on 08.12.13.
  */
 
-define([/*'Classes/Person',*/'text!./templates/addRemoveDate.html'], function(/*Person,*/templ){
+define(['text!./templates/addRemoveDate.html'], function(templ){
     var Confirm  = {
         template: templ,
         init: function(data, Person){
 
             Confirm.id = data['id'];
+//            console.log(Confirm.id)
             if((data['lastProject']) && (data['lastProject'] != "inner-board") ){
                 Confirm.lastProject = data['lastProject'];
             }else{
@@ -58,15 +59,21 @@ define([/*'Classes/Person',*/'text!./templates/addRemoveDate.html'], function(/*
 
                 $(".datepicker").datepicker();
 
-                Person.init({
+
+            var photo =new Person({
                     id: Confirm['id'],
                     forPhoto: 'true',
                     parentNode: "#windowForPhoto"
                 });
+
+
+//                console.log(Person.init[68]);
+
             });
         },
         setHandler: function(){
             $("#modalClose").on('click', function(){
+                $(".datepicker").remove();
                 $("#myModal").remove();
             });
 
@@ -91,10 +98,12 @@ define([/*'Classes/Person',*/'text!./templates/addRemoveDate.html'], function(/*
                                     data: formData,
                                     success: function (returndata) {
                                         $("#myModal").remove();
+                                        $(".datepicker").remove()
                                     }
                                 });
                             }else{
                                 $("#myModal").remove();
+                                $(".datepicker").remove()
                             }
                         }
                     });
@@ -106,6 +115,7 @@ define([/*'Classes/Person',*/'text!./templates/addRemoveDate.html'], function(/*
                         data: formData,
                         success: function (returndata) {
                             $("#myModal").remove();
+                            $(".datepicker").remove()
                         }
                     })
                 }

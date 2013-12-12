@@ -10,25 +10,17 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                          data.id = id;
                          if(parentProject) data.parentProject = parentProject;
                          if(forPhoto) data.forPhoto = forPhoto;
-                         employee = new Person.Employee(data);
 
-                         Person.render(employee);
 
-                         
+
                      }
                      var id = idPerson['id'];
                      var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
                      var forPhoto =idPerson['forPhoto'];
 
-             $.ajax({
-               data:{
-                   id:id
-               },
-               async: false,
-               url:'/user',
-               success: onAjaxSuccess
-             });
-            return employee;
+
+                     $.get("/user",{ id: id}, onAjaxSuccess);
+                     return Person.init[id];
 
                },
 
@@ -47,6 +39,7 @@ define (['text!../templates/employe.html','drag&drop'], function(templ,transit){
                      this.projectList = data['projectList'];
                      this.statusList = data['statusList'];
                      this.history = data['history'];
+
                },
 
         render: function(employee){

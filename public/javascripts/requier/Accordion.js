@@ -1,4 +1,4 @@
-define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'Classes/Person', 'Classes/Project'], function (accordHead, accordItem, accordWrapItem, setEffects, Person, Project) {
+define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'Classes/Person_new', 'Classes/Project'], function (accordHead, accordItem, accordWrapItem, setEffects, Person, Project) {
 
     function Accordion(/*object with data for accordion*/object, /*DOMNode to insert accordion with #*/divId) {
         this.templateHead = accordHead;
@@ -57,7 +57,7 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
         }
         else
             $(itemString).bind("click", function () {
-                Person.init({id: obj.id});
+                new Person({id: obj.id});
             })
     }
 

@@ -1,4 +1,4 @@
-define(['text!../templates/project.html', 'Classes/Person_new'], function (template, Person) {
+define(['text!../templates/project.html', 'Classes/Person_new', '../innerContainer'], function (template, Person, storage) {
 
     var Project = function (/*string*/id) {
 
@@ -21,6 +21,7 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
         this.close;
         this.toggleDevs_btn;
         this.header;
+        this.searchName;
 
         //instance is a link to the project window domNode on the blackboard
         this.instance;
@@ -30,9 +31,13 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
         this.__construct = function () {
             this.renderView();
             this.buildLogic();
+
+            storage.addObj(this)
+
         };
         this.__destruct = function () {
             self.instance.remove();
+            storage.dropObj(this)
         };
 
         this.renderView = function () {
@@ -41,6 +46,9 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
             self.instance = $(template).appendTo($("#inner-board")).css({
                 float: 'left'
             }).addClass('drop').attr('id', id);
+
+            /** мой костыль для поиска на доске**/
+            self.domNode = self.instance
 
             // Parsing template' nodes
             // Sorry for my ugly syntax, maybe we'd find solution
@@ -73,6 +81,7 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
                 success: function (res) {
                     //set a name for this project
                     self.name = res.name;
+                    self.searchName = self.name;
                     self.header.innerHTML = self.name;
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {
@@ -81,6 +90,8 @@ define(['text!../templates/project.html', 'Classes/Person_new'], function (templ
 //                        console.log(res.currentEmployees[i])
                         //creating new Person instance form each record in currentEmployees array
                         var person = new Person({id: res.currentEmployees[i],projectID:id}); // add projectID:id *stepa
+                        self.searchName = self.searchName + ' ' + person.searchName
+                        person.inProject = true;
                         self.sortEmployee(person);
                     }
                 }

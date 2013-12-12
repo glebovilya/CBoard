@@ -1,7 +1,7 @@
 /**
  * Created by stepanjuk on 10.12.13.
  */
-define (['text!../templates/employe.html','../drag&drop'], function(templ,transit){
+define (['text!../templates/employe.html','../drag&drop', '../innerContainer'], function(templ,transit, storage){
 
 
 var Person = function(idPerson) {
@@ -24,9 +24,11 @@ var Person = function(idPerson) {
         self.projectList = data['projectList'];
         self.statusList = data['statusList'];
         self.history = data['history'];
+        self.searchName = self.name + ' ' + self.surname;
 
 //        console.log(self)
         self.render();
+        storage.addObj(self)
     }
 
     var id = idPerson['id'];
@@ -71,6 +73,7 @@ var Person = function(idPerson) {
                     },Person);
                 }
                 $(self.domNode).remove();
+                storage.dropObj(self)
             });
 
             jQuery(function(S){

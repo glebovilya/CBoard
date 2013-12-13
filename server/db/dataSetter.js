@@ -38,11 +38,19 @@ exports.addPerson = function(req, res) {
 
 };
 exports.addProject = function(req, res) {
-    var project = new dbModels.Project ({
-        name: req.body.name,
-        start: req.body.startDate,
-        current: false
-    });
+    if(req.body.startDate) {
+        var project = new dbModels.Project ({
+            name: req.body.name,
+            start: req.body.startDate,
+            current: false
+            });
+    }
+    else {
+        var project = new dbModels.Project ({
+            name: req.body.name,
+            current: false
+        });
+    }
     project.save(function(){
         respondJSON(res, project)
     });

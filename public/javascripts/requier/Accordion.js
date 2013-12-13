@@ -57,13 +57,14 @@ define(['innerContainer','text!../requier/templates/accordionHead.html', 'text!.
             $(itemString).bind("click", function(){
                 onBoard = false
                 for (var i in strg){
-                    if (strg[i]['id'] == obj.id  && strg[i]['header'] ){
+                    if (strg[i]['id'] == obj.id  && strg[i].constructor == Project ){
                         onBoard = true
                     }
                 }
 
                 if(!onBoard){
                     new Project(obj.id);
+
                 }
             })
         }
@@ -72,7 +73,7 @@ define(['innerContainer','text!../requier/templates/accordionHead.html', 'text!.
                 onBoard = false
 
                 for (var i in strg){
-                    if (strg[i]['id'] == obj.id && !strg[i]['inProject'] && strg[i]['photo'] ){
+                    if (strg[i]['id'] == obj.id && !strg[i]['inProject'] && strg[i].constructor != Project){
                         onBoard = true
                     }
                 }

@@ -121,7 +121,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                         $(dd.proxy).remove();
                         $('.drop').css({
                             boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
-                        })
+                        });
 
                         transit({
                             domNode: dd.drag,
@@ -140,14 +140,14 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                 projl = p.projectList,
                 statl = p.statusList;
 
+
             //searching in array of projects current project key
             var idx = projl.indexOf(id),
 
             //searching an employee's status in current project
                 status = statl[idx];
-
             //sort employees corresponding to them project status
-            console.log(projl[projl.length], projl[projl.length-1]);
+
             if (status == 2) {/*if employee's role is a manager*/
                 $(p.domNode).appendTo(self.leads).css({
                     float: 'left',
@@ -164,6 +164,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                     position: 'relative'
                 })
             }
+
         };
 
         this.toggleDevs = function () {
@@ -179,7 +180,10 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
             /*adding custom event*/
 
             $('#inner-board').bind('addEmpl', function (e, pers, proj) {
-                if(proj == id){self.addPerson(pers)};
+                if (proj == id) {
+                    self.addPerson(pers)
+                }
+                ;
             });
 
             /*template events*/

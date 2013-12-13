@@ -84,7 +84,8 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
 
             });
 
-            $(".modal-footer button").on('click', function (e) {
+            $(".modal-footer button").on('click', function () {
+
                 if (($("#statusID").val()) == 0) {
                     alert("select status or close the window without saving");
                     return
@@ -100,6 +101,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                         success: function (returndata) {
 
                             if (Confirm.currentProject) {
+
                                 formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $("#statusID").val(), leaving: 'false'};
                                 $.ajax({
                                     url: '/history',

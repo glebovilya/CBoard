@@ -29,7 +29,7 @@ define(['./Classes/Project', 'innerContainer'], function(Project, storage){
                 }
             })
             $('#hideAll').click(function(){
-                storage.storage = [];
+                storage.storage.splice(0, storage.storage.length);
                 showHide.clearBoard();
                 cleared = true
             })

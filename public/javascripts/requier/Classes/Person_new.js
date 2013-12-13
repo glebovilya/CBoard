@@ -78,8 +78,10 @@ var Person = function(idPerson) {
                         id: self.id,
                         lastProject: self.projectID
                     },Person);
+                }else{
+                    $(self.domNode).remove();
                 }
-//                $(self.domNode).remove();
+
                 storage.dropObj(self)
             });
 
@@ -95,7 +97,7 @@ var Person = function(idPerson) {
 
                         return $( this ).clone()
                             .css("opacity", .75 )
-                            .css('zIndex', z++ )
+                            .css('zIndex', z+10 )
                             .appendTo( this.parentNode );
                     })
 
@@ -104,7 +106,7 @@ var Person = function(idPerson) {
                     })
                     .drag(function( ev, dd ){
                         $('.drop').css({
-                            boxShadow : "0 3px 7px rgba(0, 128, 0, 0.3)"
+                            boxShadow : "0 0px 20px rgba(0, 128, 0, 0.7)"
                         });
                         $(dd.proxy).css({
                             position: 'fixed',
@@ -115,11 +117,9 @@ var Person = function(idPerson) {
                     .drag("end",function( ev, dd ){
                         $( dd.proxy ).remove();
                         $('.drop').css({
-                            border: "1px solid",
-                            borderColor: "auto"
+                            boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
                         })
                     });
-
 
             });
         }

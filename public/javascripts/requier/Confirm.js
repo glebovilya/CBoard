@@ -6,11 +6,12 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
     var Confirm  = {
         template: templ,
         init: function(data, Person){
-//console.log(data)
+
             Confirm.id = data['id'];
             Confirm.domNode = data['domNode'];
-//            console.log(Confirm.id)
-            if((data['lastProject'] !== undefined) && (data['lastProject'] != "inner-board") ){
+
+            if((data['lastProject'] !== undefined ) && (data['lastProject'] != "inner-board") ){
+
                 Confirm.lastProject = data['lastProject'];
             }else{
                 Confirm.lastProject = false;
@@ -63,7 +64,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                 $(".datepicker").datepicker();
 
 
-            var photo =new Person({
+                var photo =new Person({
                     id: Confirm['id'],
                     forPhoto: 'true',
                     parentNode: "#windowForPhoto"
@@ -138,5 +139,5 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
 
         }
     };
-        return Confirm;
+    return Confirm;
 });

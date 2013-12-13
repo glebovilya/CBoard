@@ -1,4 +1,4 @@
-define(['./Classes/Project'], function(Project){
+define(['./Classes/Project', 'innerContainer'], function(Project, storage){
     var showHide = {
         clearBoard: function() {
             var innerNodes = $('#inner-board').find('*')
@@ -16,6 +16,7 @@ define(['./Classes/Project'], function(Project){
         renderProjects: function(/*array of objs*/projects){
             for (var i in projects) {
                 var proj = new Project(projects[i]['_id'])
+                proj.toggleDevs()
             }
         },
         init: function(){
@@ -28,6 +29,7 @@ define(['./Classes/Project'], function(Project){
                 }
             })
             $('#hideAll').click(function(){
+                storage.storage = [];
                 showHide.clearBoard();
                 cleared = true
             })

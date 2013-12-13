@@ -100,7 +100,7 @@ define(['text!./templates/addRemoveDate.html'], function (templ) {
                                     data: formData,
                                     async: false,
                                     success: function (returndata) {
-                                        $(".modal-footer button").trigger('addEmpl', [returndata.person]/*person id*/);
+                                        $(".modal-footer button").trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                         $(".datepicker").remove();
                                         $(Confirm.domNode).remove();
                                         $("#myModal").remove();
@@ -124,7 +124,7 @@ define(['text!./templates/addRemoveDate.html'], function (templ) {
                         data: formData,
                         async: false,
                         success: function (returndata) {
-                            $(".modal-footer button").trigger('addEmpl', [returndata.person]/*person id*/);
+                            $(".modal-footer button").trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                             $(".datepicker").remove();
                             $("#myModal").remove();
 

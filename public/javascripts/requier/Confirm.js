@@ -143,9 +143,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                         }
                     })
                 }
-
             });
-
         }
     };
     return Confirm;

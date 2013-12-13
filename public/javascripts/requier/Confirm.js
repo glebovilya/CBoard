@@ -9,7 +9,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
  console.log(data)
             Confirm.id = data['id'];
 //            console.log(Confirm.id)
-            if((data['lastProject']) && (data['lastProject'] != "inner-board") ){
+            if((data['lastProject'] !=idefined ) && (data['lastProject'] != "inner-board") ){
                 Confirm.lastProject = data['lastProject'];
             }else{
                 Confirm.lastProject = false;

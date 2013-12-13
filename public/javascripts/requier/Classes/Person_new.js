@@ -78,8 +78,10 @@ var Person = function(idPerson) {
                         id: self.id,
                         lastProject: self.projectID
                     },Person);
+                }else{
+                    $(self.domNode).remove();
                 }
-                $(self.domNode).remove();
+
                 storage.dropObj(self)
             });
 
@@ -118,7 +120,6 @@ var Person = function(idPerson) {
                             boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
                         })
                     });
-
 
             });
         }

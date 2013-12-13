@@ -4,7 +4,6 @@
 
 define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (templ, storage) {
     var Confirm = {
-
         template: templ,
         init: function (data, Person) {
             Confirm.id = data['id'];
@@ -27,6 +26,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
 
         },
         render: function (Person) {
+
             $(Confirm.template).appendTo($("#inner-board"));
 
 
@@ -55,7 +55,6 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                 } else {
                     $("#currentProject").html('joined not employed persons');
                     $("#statusID").remove();
-
                 }
 
 
@@ -76,15 +75,18 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
             });
         },
         setHandler: function () {
+            var modalWindow = $("#myModal");
+            var modalFooterButton = $(".modal-footer button");
+
             var strg = storage.storage;
             $("#modalClose").on('click', function () {
-                $(".datepicker").remove();
 //                $(Confirm.domNode).remove();
-                $("#myModal").remove();
+                modalWindow.remove();
+                $(".datepicker").remove();
 
             });
 
-            $(".modal-footer button").on('click', function (e) {
+            modalFooterButton.on('click', function (e) {
                 if (($("#statusID").val()) == 0) {
                     alert("select status or close the window without saving");
                     return
@@ -99,7 +101,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                         data: formData,
                         success: function (returndata) {
 
-                            if (Confirm.currentProject) {
+                            if (Confirm.currentProject ||Confirm.currentProject === 0) {
                                 formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $("#statusID").val(), leaving: 'false'};
                                 $.ajax({
                                     url: '/history',
@@ -107,16 +109,16 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                                     data: formData,
                                     async: false,
                                     success: function (returndata) {
-                                        $(".modal-footer button").trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
-                                        $(".datepicker").remove();
+                                        modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                         $(Confirm.domNode).remove();
-                                        $("#myModal").remove();
+                                        modalWindow.remove();
+                                        $(".datepicker").remove();
                                     }
                                 });
                             } else {
                                 $(Confirm.domNode).remove();
+                                modalWindow.remove();
                                 $(".datepicker").remove();
-                                $("#myModal").remove();
                             }
                         }
                     });
@@ -128,25 +130,20 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                         data: formData,
                         async: false,
                         success: function (returndata) {
-                            $(".modal-footer button").trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
+                            modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
+                            modalWindow.remove();
                             $(".datepicker").remove();
-                            $("#myModal").remove();
-
                             $(Confirm.domNode).remove();
 
                             for (var i in strg){
-
                                 if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
                                     strg.splice(i,1);
                                 }
                             }
-
                         }
                     })
                 }
-
             });
-
         }
     };
     return Confirm;

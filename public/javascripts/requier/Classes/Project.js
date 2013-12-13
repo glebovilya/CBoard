@@ -121,7 +121,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.addDrop = function(){
             jQuery(function(){
 
-                console.log(self.domNode);
+//                console.log(self.domNode);
                 $(self.domNode)
                     .drop(function (ev,dd){
                         $( dd.proxy ).remove();

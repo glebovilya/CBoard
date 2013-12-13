@@ -86,6 +86,7 @@ var Person = function(idPerson) {
             jQuery(function(S){
 
                 var $div = $('#inner-board');
+                var z = 100;
                 $(self.domNode)
                     .drag("start",function( ev, dd ){
                         dd.limit = $div.offset();
@@ -94,6 +95,7 @@ var Person = function(idPerson) {
 
                         return $( this ).clone()
                             .css("opacity", .75 )
+                            .css('zIndex', z++ )
                             .appendTo( this.parentNode );
                     })
 

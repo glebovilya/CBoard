@@ -1,4 +1,4 @@
-define(['text!../templates/project.html', 'Classes/Person_new', '../innerContainer','../drag&drop'], function (template, Person, storage, transit) {
+define(['text!../templates/project.html', 'Classes/Person_new', '../innerContainer', '../drag&drop', '../Confirm'], function (template, Person, storage, transit) {
 
     var Project = function (/*string*/id) {
 
@@ -23,16 +23,16 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.header;
         this.searchName;
 
+        this.id = id;
+
+
         //instance is a link to the project window domNode on the blackboard
         this.instance;
+
         //variable for project window title
         this.name;
 
         /*binding a custom event for adding new user into a project*/
-        $('#inner-board').bind('addEmployee',function(e,pers){
-            console.log(pers);
-            self.addPerson(e,pers);
-        })
 
         this.__construct = function () {
             this.renderView();
@@ -49,6 +49,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.renderView = function () {
             /*declaring html template parts*/
 
+
             self.instance = $(template).appendTo($("#inner-board")).css({
                 float: 'left'
             }).addClass('drop').attr('id', id);
@@ -60,15 +61,12 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
             // Sorry for my ugly syntax, maybe we'd find solution
             // in switching data-attributes and classes to id's
 
-
-
-
-
             self.devs = $('#' + id).find('[data-role=devs]')[0];
             self.leads = $('#' + id).find('[data-role=leads]')[0];
             self.close = $('#' + id).find('button.close')[0];
             self.toggleDevs_btn = $('#' + id).find('a[href="#show"]')[0];
             self.header = $('#' + id).find('.project-header span')[0];
+
 
             self.addTemplateHandlers();
         };
@@ -79,15 +77,14 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         };
 
 
-        this.addPerson = function(e,pers){
-            console.log(pers.id);
+        this.addPerson = function (pers) {
             $.ajax({
                 url: '/user',
-                data:{id:pers.id},
-                async:false,
-                success:function(res){
+                data: {id: pers},
+                async: false,
+                success: function (res) {
                     console.log(res);
-                    var person = new Person({id: res._id, projectID:id});
+                    var person = new Person({id: res._id, projectID: id});
                     person.inProject = true;
                     self.sortEmployee(person);
                 }
@@ -108,34 +105,31 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {
                         //creating new Person instance form each record in currentEmployees array
-                        var person = new Person({id: res.currentEmployees[i],projectID:id}); // add projectID:id *stepa
+                        var person = new Person({id: res.currentEmployees[i], projectID: id}); // add projectID:id *stepa
                         self.searchName = self.searchName + ' ' + person.searchName
                         person.inProject = true;
                         self.sortEmployee(person);
-
                     }
                 }
             })
         };
 
-        this.addDrop = function(){
-            jQuery(function(){
-
-//                console.log(self.domNode);
+        this.addDrop = function () {
+            jQuery(function () {
                 $(self.domNode)
-                    .drop(function (ev,dd){
-                        $( dd.proxy ).remove();
+                    .drop(function (ev, dd) {
+                        $(dd.proxy).remove();
                         $('.drop').css({
-                            boxShadow : "0 3px 7px rgba(0, 0, 0, 0.3)"
+                            boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
                         })
 
                         transit({
-                            domNode:dd.drag,
+                            domNode: dd.drag,
                             id: $(dd.drag).attr("data-id"),
                             lastProject: $(dd.drag).attr("data-parentproject"),
                             currentProject: dd.target.id,
                             action: 'transfer'
-                        },Person);
+                        }, Person);
                     })
             });
         }
@@ -150,7 +144,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
             var idx = projl.indexOf(id),
 
             //searching an employee's status in current project
-            status = statl[idx];
+                status = statl[idx];
 
             //sort employees corresponding to them project status
 
@@ -172,14 +166,22 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
             }
         };
 
-        this.toggleDevs = function(){
+        this.toggleDevs = function () {
             $(self.devs).toggleClass('open');
             // label toggler
             self.toggleDevs_btn.innerHTML == 'show developers' ? self.toggleDevs_btn.innerHTML = 'hide developers' : self.toggleDevs_btn.innerHTML = 'show developers';
         };
 
         this.addTemplateHandlers = function () {
-            $(self.toggleDevs_btn).on('click',self.toggleDevs);
+            /*adding custom event*/
+
+            $('#inner-board').bind('addEmpl', function (e, pers) {
+                self.addPerson(pers);
+            });
+
+            /*template events*/
+
+            $(self.toggleDevs_btn).on('click', self.toggleDevs);
             $(self.close).on('click', function () {
                 self.__destruct();
             });

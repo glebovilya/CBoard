@@ -78,6 +78,12 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
 
 
         this.addPerson = function (pers) {
+            var strg = storage.storage
+            for(var i in strg) {
+                if(strg[i].id === pers && strg[i].projectID === this.id){
+                    $(strg[i].domNode).remove();
+                }
+            }
             $.ajax({
                 url: '/user',
                 data: {id: pers},

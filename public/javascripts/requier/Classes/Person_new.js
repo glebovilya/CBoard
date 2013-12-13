@@ -78,8 +78,9 @@ var Person = function(idPerson) {
                         id: self.id,
                         lastProject: self.projectID
                     },Person);
+                } else {
+                    $(self.domNode).remove();
                 }
-//                $(self.domNode).remove();
                 storage.dropObj(self)
             });
 

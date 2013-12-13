@@ -8,7 +8,8 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
         init: function (data, Person) {
             Confirm.id = data['id'];
             Confirm.domNode = data['domNode'];
-            if((data['lastProject'] !== undefined ) && (data['lastProject'] != "inner-board") ){
+
+            if((data['lastProject'] || data['lastProject'] === 0) && (data['lastProject'] != "inner-board") ){
 
                 Confirm.lastProject = data['lastProject'];
             } else {
@@ -30,7 +31,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
 
             $("#formConfirmDate").ready(function () {
 
-                if (Confirm.lastProject) {
+                if (Confirm.lastProject || Confirm.lastProject === 0) {
                     $.ajax({url: '/project',
                         type: 'GET',
                         data: {id: Confirm.lastProject},
@@ -86,7 +87,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                     return
                 }
 
-                if (Confirm.lastProject) {
+                if (Confirm.lastProject || Confirm.lastProject === 0) {
 
                     formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                     $.ajax({

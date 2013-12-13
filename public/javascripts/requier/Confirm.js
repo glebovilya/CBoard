@@ -4,6 +4,7 @@
 
 define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (templ, storage) {
     var Confirm = {
+
         template: templ,
         init: function (data, Person) {
             Confirm.id = data['id'];

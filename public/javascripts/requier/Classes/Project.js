@@ -29,7 +29,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.name;
 
         /*binding a custom event for adding new user into a project*/
-        $('body').bind('addEmployee',function(e,pers){
+        $('#inner-board').bind('addEmployee',function(e,pers){
             console.log(pers);
             self.addPerson(e,pers);
         })
@@ -121,7 +121,8 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.addDrop = function(){
             jQuery(function(){
 
-                $('.drop')
+                console.log(self.domNode);
+                $(self.domNode)
                     .drop(function (ev,dd){
                         $( dd.proxy ).remove();
                         $('.drop').css({
@@ -172,7 +173,6 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         };
 
         this.toggleDevs = function(){
-            console.log('called');
             $(self.devs).toggleClass('open');
             // label toggler
             self.toggleDevs_btn.innerHTML == 'show developers' ? self.toggleDevs_btn.innerHTML = 'hide developers' : self.toggleDevs_btn.innerHTML = 'show developers';

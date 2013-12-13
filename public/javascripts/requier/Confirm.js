@@ -2,21 +2,20 @@
  * Created by Jura on 08.12.13.
  */
 
-define(['text!./templates/addRemoveDate.html'], function(templ){
-    var Confirm  = {
+define(['text!./templates/addRemoveDate.html'], function (templ) {
+    var Confirm = {
         template: templ,
-        init: function(data, Person){
- console.log(data)
+        init: function (data, Person) {
             Confirm.id = data['id'];
 //            console.log(Confirm.id)
-            if((data['lastProject'] !=undefined ) && (data['lastProject'] != "inner-board") ){
+            if ((data['lastProject'] != undefined ) && (data['lastProject'] != "inner-board")) {
                 Confirm.lastProject = data['lastProject'];
-            }else{
+            } else {
                 Confirm.lastProject = false;
             }
-            if(data['currentProject']){
+            if (data['currentProject']) {
                 Confirm.currentProject = data['currentProject'];
-            }else{
+            } else {
                 Confirm.currentProject = false;
             }
 
@@ -24,44 +23,42 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
             Confirm.setHandler();
 
         },
-        render: function(Person){
+        render: function (Person) {
             $(Confirm.template).appendTo($("#inner-board"));
 
 
-            $("#formConfirmDate").ready(function(){
+            $("#formConfirmDate").ready(function () {
 
-                if(Confirm.lastProject){
+                if (Confirm.lastProject) {
                     $.ajax({url: '/project',
                         type: 'GET',
-                        data: {id:Confirm.lastProject},
-                        success: function (returndata){
-                            $("#lastProject").html('leaves the project:  '+returndata.name)
+                        data: {id: Confirm.lastProject},
+                        success: function (returndata) {
+                            $("#lastProject").html('leaves the project:  ' + returndata.name)
                         }
                     });
-                }else{
+                } else {
                     $("#lastProject").html('leaves the category of employed workers');
                 }
-                if(Confirm.currentProject){
+                if (Confirm.currentProject) {
                     $.ajax({url: '/project',
                         type: 'GET',
                         async: false,
-                        data: {id:Confirm.currentProject},
-                        success: function (returndata){
-                            $("#currentProject").html('assigned to the project:  '+returndata.name)
+                        data: {id: Confirm.currentProject},
+                        success: function (returndata) {
+                            $("#currentProject").html('assigned to the project:  ' + returndata.name)
                         }
                     });
-                }else{
+                } else {
                     $("#currentProject").html('joined not employed persons');
                     $("#statusID").remove();
                 }
 
 
-
-
                 $(".datepicker").datepicker();
 
 
-            var photo =new Person({
+                var photo = new Person({
                     id: Confirm['id'],
                     forPhoto: 'true',
                     parentNode: "#windowForPhoto"
@@ -72,41 +69,42 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
 
             });
         },
-        setHandler: function(){
-            $("#modalClose").on('click', function(){
+        setHandler: function () {
+            $("#modalClose").on('click', function () {
                 $(".datepicker").remove();
                 $("#myModal").remove();
 
             });
 
-            $(".modal-footer button").on('click', function(){
-                if(($("#statusID").val())==0){
+            $(".modal-footer button").on('click', function (e) {
+                if (($("#statusID").val()) == 0) {
                     alert("select status or close the window without saving");
                     return
                 }
 
-                if(Confirm.lastProject){
-                    formData ={personID: Confirm.id, projectID:Confirm.lastProject, statusID:1, leaving: 'true'};
+                if (Confirm.lastProject) {
+                    formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                     $.ajax({
                         url: '/history',
                         type: 'POST',
                         data: formData,
                         success: function () {
-                            if(Confirm.currentProject){
-                                formData ={personID: Confirm.id, projectID:Confirm.currentProject, statusID: $("#statusID").val(), leaving: 'false'};
+                            if (Confirm.currentProject) {
+                                formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $("#statusID").val(), leaving: 'false'};
                                 $.ajax({
                                     url: '/history',
                                     type: 'POST',
                                     data: formData,
+                                    async: false,
                                     success: function (returndata) {
+                                        $(".modal-footer button").trigger('addEmpl', [returndata.person]/*person id*/);
                                         $(".datepicker").remove();
                                         $("#myModal").remove();
-                                        $(".modal-footer button").trigger('addEmployee',returndata/*person constructor - we translates it into project window*/);
-                                        console.log(returndata);
+
 
                                     }
                                 });
-                            }else{
+                            } else {
                                 $(".datepicker").remove();
                                 $("#myModal").remove();
 
@@ -114,16 +112,17 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                         }
                     });
                 } else {
-                    formData ={personID: Confirm.id, projectID:Confirm.currentProject, statusID:$("#statusID").val(), leaving: 'false'};
+                    formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $("#statusID").val(), leaving: 'false'};
                     $.ajax({
                         url: '/history',
                         type: 'POST',
                         data: formData,
+                        async: false,
                         success: function (returndata) {
+                            $(".modal-footer button").trigger('addEmpl', [returndata.person]/*person id*/);
                             $(".datepicker").remove();
                             $("#myModal").remove();
-                            $(".modal-footer button").trigger('addEmployee',returndata.person/*person constructor - we translates it into project window*/);
-                            console.log(returndata.person);
+
                         }
                     })
                 }
@@ -132,5 +131,5 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
 
         }
     };
-        return Confirm;
+    return Confirm;
 });

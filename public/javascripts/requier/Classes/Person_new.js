@@ -13,7 +13,7 @@ var Person = function(idPerson) {
     function  onAjaxSuccess(data){
 
         var idFix = Math.random().toString(36).slice(3,9);
-        console.log(data);
+//        console.log(data);
         data.id = id;
         if(parentProject) self.parentProject = parentProject;
         if(forPhoto) self.forPhoto = forPhoto;
@@ -78,7 +78,7 @@ var Person = function(idPerson) {
                         lastProject: self.projectID
                     },Person);
                 }
-                $(self.domNode).remove();
+//                $(self.domNode).remove();
                 storage.dropObj(self)
             });
 
@@ -116,7 +116,7 @@ var Person = function(idPerson) {
                             borderColor: "auto"
                         })
                     });
-                var count = 0;
+
 
             });
         }

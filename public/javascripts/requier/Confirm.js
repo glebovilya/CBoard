@@ -6,10 +6,11 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
     var Confirm  = {
         template: templ,
         init: function(data, Person){
- console.log(data)
+//console.log(data)
             Confirm.id = data['id'];
+            Confirm.domNode = data['domNode'];
 //            console.log(Confirm.id)
-            if((data['lastProject'] !=idefined ) && (data['lastProject'] != "inner-board") ){
+            if((data['lastProject'] !== undefined) && (data['lastProject'] != "inner-board") ){
                 Confirm.lastProject = data['lastProject'];
             }else{
                 Confirm.lastProject = false;
@@ -53,6 +54,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                 }else{
                     $("#currentProject").html('joined not employed persons');
                     $("#statusID").remove();
+
                 }
 
 
@@ -75,6 +77,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
         setHandler: function(){
             $("#modalClose").on('click', function(){
                 $(".datepicker").remove();
+//                $(Confirm.domNode).remove();
                 $("#myModal").remove();
 
             });
@@ -100,13 +103,15 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                                     data: formData,
                                     success: function (returndata) {
                                         $(".datepicker").remove();
+                                        $(Confirm.domNode).remove();
                                         $("#myModal").remove();
                                         $(".modal-footer button").trigger('addEmployee',returndata.person/*person constructor - we translates it into project window*/);
-                                        console.log(returndata);
+//                                        console.log(returndata);
 
                                     }
                                 });
                             }else{
+                                $(Confirm.domNode).remove();
                                 $(".datepicker").remove();
                                 $("#myModal").remove();
 
@@ -122,8 +127,9 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                         success: function (returndata) {
                             $(".datepicker").remove();
                             $("#myModal").remove();
+                            $(Confirm.domNode).remove();
                             $(".modal-footer button").trigger('addEmployee',returndata.person/*person constructor - we translates it into project window*/);
-                            console.log(returndata.person);
+//                            console.log(returndata.person);
                         }
                     })
                 }

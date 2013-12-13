@@ -4,7 +4,7 @@
 define(['Confirm'], function(Confirm){
 
     function transit(data,Person){
-        $(data.domNode).remove();
+//        $(data.domNode).remove();
         Confirm.init(data,Person);
     }
 

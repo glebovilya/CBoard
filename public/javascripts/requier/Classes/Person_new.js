@@ -2,12 +2,10 @@
  * Created by stepanjuk on 10.12.13.
  */
 
-define (['text!../templates/employe.html','../Confirm','../innerContainer'], function(templ,Confirm, storage){
+define (['text!../templates/employe.html','../drag&drop','../innerContainer'], function(templ,transit, storage){
 
 
-    function transit(data,Person){
-        Confirm.init(data,Person);
-    }
+
 var Person = function(idPerson) {
     var self = this;
     function  onAjaxSuccess(data){
@@ -57,7 +55,7 @@ var Person = function(idPerson) {
             var self = this;
             $(Person.template).ready(function(){
                 $(self.domNode).attr("data-id", self.id);
-                $(self.domNode).attr("data-parentProject", self.parentProject);
+                $(self.domNode).attr("data-parentProject", self.projectID);
                 if(!self.forPhoto)$(self.domNode).find(".employee-header").append('<button type="button" class="close" data-toggle="tooltip" title="remove from project" aria-hidden="true" >&times;</button>');
                 $(self.domNode).find(".united .name").html(self.name+'<br/>'+self.surname);
                 $(self.domNode).find(".emplPosition").html(self.position);

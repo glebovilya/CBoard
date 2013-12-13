@@ -72,6 +72,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
             });
         },
         setHandler: function () {
+            var strg = storage.storage;
             $("#modalClose").on('click', function () {
                 $(".datepicker").remove();
 //                $(Confirm.domNode).remove();
@@ -86,7 +87,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                 }
 
                 if (Confirm.lastProject) {
-                    var strg = storage.storage
+
                     formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                     $.ajax({
                         url: '/history',
@@ -106,27 +107,12 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                                         $(".datepicker").remove();
                                         $(Confirm.domNode).remove();
                                         $("#myModal").remove();
-
-
-
-                                        for (var i in strg){
-                                            if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
-                                                strg.splice(i,1);
-                                            }
-                                        }
                                     }
                                 });
                             } else {
                                 $(Confirm.domNode).remove();
                                 $(".datepicker").remove();
                                 $("#myModal").remove();
-
-                                for (var i in strg){
-                                    if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
-                                        strg.splice(i,1);
-                                    }
-                                }
-
                             }
                         }
                     });
@@ -143,10 +129,12 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                             $("#myModal").remove();
 
                             $(Confirm.domNode).remove();
-
+                            console.log(strg)
                             for (var i in strg){
+
                                 if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
                                     strg.splice(i,1);
+
                                 }
                             }
 

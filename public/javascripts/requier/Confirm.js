@@ -61,7 +61,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                 $(".datepicker").datepicker();
 
 
-            var photo =new Person({
+                var photo =new Person({
                     id: Confirm['id'],
                     forPhoto: 'true',
                     parentNode: "#windowForPhoto"
@@ -132,5 +132,5 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
 
         }
     };
-        return Confirm;
+    return Confirm;
 });

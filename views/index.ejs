@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="stylesheets/thirdParty/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="stylesheets/thirdParty/bootstrap-responsive.css" rel="stylesheet" media="screen">
+    <link href="stylesheets/thirdParty/datepicker.css" rel="stylesheet" media="screen">
+    <link href="stylesheets/styleForTemplates.css" rel="stylesheet" media="screen">
+    <link href="stylesheets/styleForIndex.css" rel="stylesheet" media="screen">
+    <link href="stylesheets/thirdParty/datepicker.css" rel="stylesheet" media="screen">
+
+    <title>CBoard</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row-fluid main-wrap">
+        <!-- Sidebar -->
+        <div class="span2 wrap">
+            <!-- Sidebar content -->
+            <div class="custom-view" data-toggle="buttons-radio">
+                <button type="button" class="btn btn-large btn-custom active"
+                        href="#" id="projects-tab">
+                    <i class="icon-white icon-folder-close"></i> Projects
+                </button>
+                <button type="button" class="btn btn-large btn-custom"
+                        href="#" id="people-tab">
+                    <i class="icon-white icon-user"></i> People
+                </button>
+            </div>
+
+            <div id="search" class="input-prepend search">
+                <button class="btn" type="button"><i class="icon-search"></i></button>
+                <input type="text" data-provide="typeahead" placeholder="Search">
+            </div>
+
+            <div class="wrapAccord">
+                <div class="accordion" id="accordion-projects">
+                    <!--automatically-generated content for list of projects here-->
+                </div>
+                <div class="accordion" id="accordion-people">
+                    <!--automatically-generated content for list of people here-->
+                </div>
+
+            </div>
+            <!-- Sidebar buttons -->
+            <div class="btn-wrap bottom">
+
+                <button type="button" class="btn accord btn-custom accordion-toggle"
+                        data-toggle="collapse"
+                        id="buttonAddNewProject"
+                        data-parent="#accordion-projects" href="#">
+                    <i class="icon-white icon-file"></i> Add New Project
+                </button>
+                <button type="button" class="btn accord btn-custom accordion-toggle"
+                        data-toggle="modal"
+                        id="buttonAddNewPeople"
+                        data-parent="#accordion-people" href="#modalAddPeople">
+                    <i class="icon-white icon-file"></i> Add New People
+                </button>
+                <div class="line">&nbsp;</div>
+                <hr/>
+                <div id="showAll" class="text-center">
+                    <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-open"></i> Show
+                        All Projects</a>
+                </div>
+                <div id="hideAll" class="text-center">
+                    <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-close"></i> Hide
+                        All Projects</a>
+                </div>
+            </div>
+            <!-- Sidebar buttons -->
+        </div>
+        <!-- Sidebar -->
+
+        <div class="span10 boxShadow" id="inner-board" >
+
+        </div>
+        <div id="search-inner" class="input search">
+            <input type="text" placeholder="Search">
+        </div>
+    </div>
+</div>
+
+<script data-main="javascripts/main.js" src="javascripts/require-jquery.js"></script>
+</body>
+</html>

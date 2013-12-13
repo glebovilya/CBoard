@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="stylesheets/thirdParty/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="stylesheets/thirdParty/bootstrap-responsive.css" rel="stylesheet" media="screen">
+    <link href="stylesheets/styleForTemplates.css" rel="stylesheet" media="screen">
+    <link href="stylesheets/styleForIndex.css" rel="stylesheet" media="screen">
+    <title>CBoard</title>
+</head>
+<body>
+<div  class = "employee" style="position: absolute;">
+    <div class="employeeWindow " id="imp" style="z-index: 9999">
+        <div class="employee-header" >
+            <div >position</div>
+            <button type="button" class="close" data-toggle="tooltip" title="remove from project" data-dismiss="modal" aria-hidden="true" >&times;</button>
+        </div>
+        <div class="employee-body">
+            <div class="united" >
+                <img src="http://placehold.it/90x120" alt="">
+                <div class= "name" >Name Surname</div>
+            </div>
+        </div>
+        <div class="employee-footer">
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid main-wrap">
+        <!-- Sidebar -->
+        <div class="span2 wrap">
+            <!-- Sidebar content -->
+            <div class="row-fluid newwrap">
+                <div class="tabbable">
+                    <div class="custom-view" data-toggle="buttons-radio">
+                        <button type="button" class="btn btn-large btn-custom active"
+                                href="#projects" data-toggle="tab">
+                            <i class="icon-white icon-folder-close"></i> Projects
+                        </button>
+                        <button type="button" class="btn btn-large btn-custom"
+                                href="#people" data-toggle="tab">
+                            <i class="icon-white icon-user"></i> People
+                        </button>
+                    </div>
+
+                    <div id="search" class="input-prepend search">
+                        <button class="btn" type="button"><i class="icon-search"></i></button>
+                        <input type="text" data-provide="typeahead" placeholder="Search">
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="projects">
+                            <div class="accordion" id="accordion-projects">
+                                <!--automatically-generated content for list of projects here-->
+                            </div>
+                            <div class="line">&nbsp;</div>
+                            <button type="button" class="btn accord btn-custom accordion-toggle"
+                                    data-toggle="collapse"
+                                    data-parent="#accordion-people" href="#">
+                                <i class="icon-white icon-file"></i> Add New Project
+                            </button>
+                        </div>
+                        <div class="tab-pane" id="people">
+                            <div class="accordion" id="accordion-people">
+                                <!--automatically-generated content for list of people here-->
+                            </div>
+                            <div class="line">&nbsp;</div>
+                            <button type="button" class="btn accord btn-custom accordion-toggle"
+                                    data-toggle="modal"
+                                    data-parent="#accordion-people" href="#modalAddPeople">
+                                <i class="icon-white icon-file"></i> Add New People
+                            </button>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+            </div>
+            <!-- Sidebar content -->
+
+            <!-- Sidebar buttons -->
+            <div class="row-fluid btn-wrap">
+                <div id="showAll" class="text-center">
+                    <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-open"></i> Show
+                        All Projects</a>
+                </div>
+                <div id="hideAll" class="text-center">
+                    <a href="#" class="btn btn-large btn-custom"><i class="icon-white icon-eye-close"></i> Hide
+                        All Projects</a>
+                </div>
+            </div>
+            <!-- Sidebar buttons -->
+        </div>
+        <!-- Sidebar -->
+
+
+        <div class="span10 boxShadow" id="board">
+            <div id="inner-board">
+                <!--START HERE-->
+                <div id="modalAddPeople" class="modal"
+                     role="dialog"
+                     aria-labelledby="myModalLabel"
+                     aria-hidden="true"
+                     data-backdrop = "false"
+                     style="display: block;">
+
+                    <form action="/upload_person" enctype="multipart/form-data" method="post" id="addperson">
+                        <div class="modal-header" style="height: 20px">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                        </div>
+                        <div class="modal-body pull-right" >
+                            <input class="input-medium" type="text" placeholder="name" name="name">
+                            <input class="input-medium" type="text" placeholder="surname" name="surname">
+                            <input class="input-medium" type="text" placeholder="position" name="position">
+                            <br/>
+                            <span> &nbsp;&nbsp;add a photo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                            <input type="file" class="btn " name="photo" multiple="multiple">
+                        </div>
+                        <div class="modal-footer">
+                            <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
+                            <button type= "submit" class="btn btn-custom"  aria-hidden="true">Add employee</button>
+                        </div>
+                    </form>
+                </div>
+                <!--ENDS HERE-->
+
+                <!--START HERE-->
+                <div id="modalAddProject" class="modal"
+                     role="dialog"
+                     aria-labelledby="myModalLabel"
+                     aria-hidden="true"
+                     data-backdrop = "false"
+                     style="display: block;">
+                    <div class="modal-header" style="height: 20px">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3></h3>
+                    </div>
+                    <form method="post" action="/projects" id="5">
+                        <div class="modal-body" >
+                            <input class="input-xlarge" type="text" placeholder="enter the name of the project" name="name">
+                        </div>
+                        <!--</div>-->
+                        <div class="modal-footer">
+                            <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
+                            <button  class="btn btn-custom" type="submit"  >Add project</button>
+                        </div>
+                    </form>
+                </div>
+                <!--ENDS HERE-->
+            </div>
+            <div class="bottom-line"></div>
+        </div>
+    </div>
+</div>
+
+<script data-main="javascripts/main.js" src="javascripts/require-jquery.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>
+

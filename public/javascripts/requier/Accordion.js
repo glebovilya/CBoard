@@ -52,10 +52,10 @@ define(['innerContainer','text!../requier/templates/accordionHead.html', 'text!.
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
         var strg = storage.storage
-        var onBoard = false
+        var onBoard
         if (item == "Open" || item == "Closed") {
             $(itemString).bind("click", function(){
-
+                onBoard = false
                 for (var i in strg){
                     if (strg[i]['id'] == obj.id  && strg[i]['header'] ){
                         onBoard = true
@@ -64,12 +64,12 @@ define(['innerContainer','text!../requier/templates/accordionHead.html', 'text!.
 
                 if(!onBoard){
                     new Project(obj.id);
-                    onBoard = false
                 }
             })
         }
         else
             $(itemString).bind("click", function () {
+                onBoard = false
 
                 for (var i in strg){
                     if (strg[i]['id'] == obj.id && !strg[i]['inProject'] && strg[i]['photo'] ){
@@ -79,7 +79,6 @@ define(['innerContainer','text!../requier/templates/accordionHead.html', 'text!.
 
                 if(!onBoard){
                     new Person({id: obj.id});
-                    onBoard = false
                 }
 
             })

@@ -22,7 +22,6 @@ requirejs(['./myEmployee/emp', 'vlad', 'ShowHide', 'SearchInnerBoard', 'Bogush',
     v();
     showHide.init();
     $('button').bind('testevent',function(e){
-        console.log(e.target);
     });
     $('button').on('click',function(){
         $('button').trigger('testevent');

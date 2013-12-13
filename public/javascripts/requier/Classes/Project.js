@@ -29,8 +29,9 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.name;
 
         /*binding a custom event for adding new user into a project*/
-        $(this).bind('addEmployee',function(e,pers,id){
-            self.addPerson(e,pers,id);
+        $('body').bind('addEmployee',function(e,pers){
+            console.log(pers);
+            self.addPerson(e,pers);
         })
 
         this.__construct = function () {
@@ -78,11 +79,19 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         };
 
 
-        this.addPerson = function(e,pers,proj){
-            console.log(e);
-            console.log(pers);
-            console.log(proj);
-            console.log(self);
+        this.addPerson = function(e,pers){
+            console.log(pers.id);
+            $.ajax({
+                url: '/user',
+                data:{id:pers.id},
+                async:false,
+                success:function(res){
+                    console.log(res);
+                    var person = new Person({id: res._id, projectID:id});
+                    person.inProject = true;
+                    self.sortEmployee(person);
+                }
+            })
         }
 
         this.getProject = function () {
@@ -95,6 +104,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                     self.name = res.name;
                     self.searchName = self.name;
                     self.header.innerHTML = self.name;
+                    self.addDrop();
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {
                         //creating new Person instance form each record in currentEmployees array
@@ -102,7 +112,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                         self.searchName = self.searchName + ' ' + person.searchName
                         person.inProject = true;
                         self.sortEmployee(person);
-                        self.addDrop();
+
                     }
                 }
             })
@@ -121,7 +131,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                         transit({
                             domNode:dd.drag,
                             id: $(dd.drag).attr("data-id"),
-                            lastProject: dd.drag.parentNode.id,
+                            lastProject: $(dd.drag).attr("data-parentproject"),
                             currentProject: dd.target.id,
                             action: 'transfer'
                         },Person);

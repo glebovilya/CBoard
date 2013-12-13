@@ -1,8 +1,11 @@
 /**
  * Created by stepanjuk on 10.12.13.
  */
-//ЭТО МОЙ КОММИТ --ИЛЬЯ
+
+
+
 define (['text!../templates/employe.html','../drag&drop', '../innerContainer'], function(templ,transit, storage){
+
 
 
 var Person = function(idPerson) {
@@ -10,6 +13,7 @@ var Person = function(idPerson) {
     function  onAjaxSuccess(data){
 
         var idFix = Math.random().toString(36).slice(3,9);
+        console.log(data);
         data.id = id;
         if(parentProject) self.parentProject = parentProject;
         if(forPhoto) self.forPhoto = forPhoto;
@@ -54,6 +58,7 @@ var Person = function(idPerson) {
             var self = this;
             $(Person.template).ready(function(){
                 $(self.domNode).attr("data-id", self.id);
+                $(self.domNode).attr("data-parentProject", self.projectID);
                 if(!self.forPhoto)$(self.domNode).find(".employee-header").append('<button type="button" class="close" data-toggle="tooltip" title="remove from project" aria-hidden="true" >&times;</button>');
                 $(self.domNode).find(".united .name").html(self.name+'<br/>'+self.surname);
                 $(self.domNode).find(".emplPosition").html(self.position);
@@ -92,12 +97,11 @@ var Person = function(idPerson) {
                     })
 
                     .drag("init", function(ev, dd){
-                        dd.drop=$(".drop");
+//                        dd.drop=$(".drop");
                     })
                     .drag(function( ev, dd ){
                         $('.drop').css({
-                            border: "2px solid",
-                            borderColor: "yellow"
+                            boxShadow : "0 3px 7px rgba(0, 128, 0, 0.3)"
                         });
                         $(dd.proxy).css({
                             position: 'fixed',
@@ -112,23 +116,8 @@ var Person = function(idPerson) {
                             borderColor: "auto"
                         })
                     });
+                var count = 0;
 
-                $('.drop')
-                    .drop(function (ev,dd){
-                        $( dd.proxy ).remove();
-                        $('.drop').css({
-                            border: "1px solid",
-                            borderColor: "auto"
-                        })
-
-                        transit({
-                            domNode:dd.drag,
-                            id: $(dd.drag).attr("data-id"),
-                            lastProject: dd.drag.parentNode.id,
-                            currentProject: dd.target.id,
-                            action: 'transfer'
-                        },Person);
-                    })
             });
         }
     };

@@ -6,7 +6,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
     var Confirm  = {
         template: templ,
         init: function(data, Person){
-
+ console.log(data)
             Confirm.id = data['id'];
 //            console.log(Confirm.id)
             if((data['lastProject']) && (data['lastProject'] != "inner-board") ){
@@ -26,7 +26,7 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
         },
         render: function(Person){
             $(Confirm.template).appendTo($("#inner-board"));
-            $(".modal-footer button").trigger('addEmployee',this/*person constructor - we translates it into project window*/);
+
 
             $("#formConfirmDate").ready(function(){
 
@@ -101,6 +101,8 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                                     success: function (returndata) {
                                         $(".datepicker").remove();
                                         $("#myModal").remove();
+                                        $(".modal-footer button").trigger('addEmployee',returndata.person/*person constructor - we translates it into project window*/);
+                                        console.log(returndata);
 
                                     }
                                 });
@@ -120,7 +122,8 @@ define(['text!./templates/addRemoveDate.html'], function(templ){
                         success: function (returndata) {
                             $(".datepicker").remove();
                             $("#myModal").remove();
-
+                            $(".modal-footer button").trigger('addEmployee',returndata.person/*person constructor - we translates it into project window*/);
+                            console.log(returndata.person);
                         }
                     })
                 }

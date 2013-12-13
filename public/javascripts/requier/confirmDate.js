@@ -7,30 +7,12 @@ console.log(Person);
 var template = templ;
 //
 
-//
-//    function initConfirm(data/*{id:1,action:(add,transfer,remove)}*/){
-//    var id = data['id'];
-//        if(data['action'] == 'transfer'){
-//            $(template).appendTo($("#inner-board"));
-//
-//            $("#formConfirmDate").ready(function(){
-//
-//                 $(".datepicker").datepicker();
-//                 Person.init({id:1,forPhoto:'true',parentNode:"#windowForPhoto"})
-////                $(templateEmployee).appendTo($(".windowForPhoto"));
-//
-//
-//            });
-//            $("#myModal").ready(function(){
-//                $(".modal-header>button").on('click', function(event){
-//                    $("#myModal").remove();
-//                });
-//            });
-//         }
-//    }
+
     var Confirm  = {
+
         template: templ,
         init: function(data){
+            $(".datepicker").remove();
             console.log(data)
             Confirm.id = data['id'];
             if(data['lastProject']){

@@ -1,4 +1,4 @@
-define(['text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'Classes/Person_new', 'Classes/Project'], function (accordHead, accordItem, accordWrapItem, setEffects, Person, Project) {
+define(['innerContainer','text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'Classes/Person_new', 'Classes/Project'], function (storage, accordHead, accordItem, accordWrapItem, setEffects, Person, Project) {
 
     function Accordion(/*object with data for accordion*/object, /*DOMNode to insert accordion with #*/divId) {
         this.templateHead = accordHead;
@@ -51,13 +51,37 @@ define(['text!../requier/templates/accordionHead.html', 'text!../requier/templat
         this.item.prepend(newItemlList);
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
+        var strg = storage.storage
+        var onBoard = false
         if (item == "Open" || item == "Closed") {
             $(itemString).bind("click", function(){
-                new Project(obj.id)})
+
+                for (var i in strg){
+                    if (strg[i]['id'] == obj.id  && strg[i]['header'] ){
+                        onBoard = true
+                    }
+                }
+
+                if(!onBoard){
+                    new Project(obj.id);
+                    onBoard = false
+                }
+            })
         }
         else
             $(itemString).bind("click", function () {
-                new Person({id: obj.id});
+
+                for (var i in strg){
+                    if (strg[i]['id'] == obj.id && !strg[i]['inProject'] && strg[i]['photo'] ){
+                        onBoard = true
+                    }
+                }
+
+                if(!onBoard){
+                    new Person({id: obj.id});
+                    onBoard = false
+                }
+
             })
     }
 

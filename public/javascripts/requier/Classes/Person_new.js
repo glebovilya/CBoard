@@ -106,7 +106,7 @@ var Person = function(idPerson) {
                     })
                     .drag(function( ev, dd ){
                         $('.drop').css({
-                            boxShadow : "0 3px 7px rgba(0, 128, 0, 0.3)"
+                            boxShadow : "0 0px 20px rgba(0, 128, 0, 0.7)"
                         });
                         $(dd.proxy).css({
                             position: 'fixed',

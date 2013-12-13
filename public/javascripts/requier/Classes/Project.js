@@ -175,8 +175,8 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.addTemplateHandlers = function () {
             /*adding custom event*/
 
-            $('#inner-board').bind('addEmpl', function (e, pers) {
-                self.addPerson(pers);
+            $('#inner-board').bind('addEmpl', function (e, pers, proj) {
+                (proj == id) ? self.addPerson(pers) : console.log('i am another project, my name is: ' + self.name);
             });
 
             /*template events*/

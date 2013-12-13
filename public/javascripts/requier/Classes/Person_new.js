@@ -95,7 +95,7 @@ var Person = function(idPerson) {
 
                         return $( this ).clone()
                             .css("opacity", .75 )
-                            .css('zIndex', z++ )
+                            .css('zIndex', z+10 )
                             .appendTo( this.parentNode );
                     })
 

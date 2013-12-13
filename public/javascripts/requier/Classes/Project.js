@@ -55,7 +55,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
             }).addClass('drop').attr('id', id);
 
             /** мой костыль для поиска на доске**/
-            self.domNode = self.instance
+            self.domNode = self.instance;
 
             // Parsing template' nodes
             // Sorry for my ugly syntax, maybe we'd find solution
@@ -83,13 +83,13 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                 data: {id: pers},
                 async: false,
                 success: function (res) {
-                    console.log(res);
                     var person = new Person({id: res._id, projectID: id});
                     person.inProject = true;
+                    self.searchName += person.searchName;
                     self.sortEmployee(person);
                 }
             })
-        }
+        };
 
         this.getProject = function () {
             $.ajax({
@@ -106,7 +106,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                     for (var i in res.currentEmployees) {
                         //creating new Person instance form each record in currentEmployees array
                         var person = new Person({id: res.currentEmployees[i], projectID: id}); // add projectID:id *stepa
-                        self.searchName = self.searchName + ' ' + person.searchName
+                        self.searchName = self.searchName + ' ' + person.searchName;
                         person.inProject = true;
                         self.sortEmployee(person);
                     }
@@ -147,7 +147,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                 status = statl[idx];
 
             //sort employees corresponding to them project status
-
+            console.log(projl[projl.length], projl[projl.length-1]);
             if (status == 2) {/*if employee's role is a manager*/
                 $(p.domNode).appendTo(self.leads).css({
                     float: 'left',
@@ -168,15 +168,18 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
 
         this.toggleDevs = function () {
             $(self.devs).toggleClass('open');
+
             // label toggler
+
             self.toggleDevs_btn.innerHTML == 'show developers' ? self.toggleDevs_btn.innerHTML = 'hide developers' : self.toggleDevs_btn.innerHTML = 'show developers';
         };
 
         this.addTemplateHandlers = function () {
+
             /*adding custom event*/
 
             $('#inner-board').bind('addEmpl', function (e, pers, proj) {
-                (proj == id) ? self.addPerson(pers) : console.log('i am another project, my name is: ' + self.name);
+                if(proj == id){self.addPerson(pers)};
             });
 
             /*template events*/

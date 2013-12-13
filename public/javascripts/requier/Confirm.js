@@ -2,7 +2,7 @@
  * Created by Jura on 08.12.13.
  */
 
-define(['text!./templates/addRemoveDate.html'], function (templ) {
+define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (templ, storage) {
     var Confirm = {
         template: templ,
         init: function (data, Person) {
@@ -86,12 +86,14 @@ define(['text!./templates/addRemoveDate.html'], function (templ) {
                 }
 
                 if (Confirm.lastProject) {
+                    var strg = storage.storage
                     formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                     $.ajax({
                         url: '/history',
                         type: 'POST',
                         data: formData,
                         success: function (returndata) {
+
                             if (Confirm.currentProject) {
                                 formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $("#statusID").val(), leaving: 'false'};
                                 $.ajax({
@@ -106,12 +108,24 @@ define(['text!./templates/addRemoveDate.html'], function (templ) {
                                         $("#myModal").remove();
 
 
+
+                                        for (var i in strg){
+                                            if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
+                                                strg.splice(i,1);
+                                            }
+                                        }
                                     }
                                 });
                             } else {
                                 $(Confirm.domNode).remove();
                                 $(".datepicker").remove();
                                 $("#myModal").remove();
+
+                                for (var i in strg){
+                                    if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
+                                        strg.splice(i,1);
+                                    }
+                                }
 
                             }
                         }
@@ -129,6 +143,13 @@ define(['text!./templates/addRemoveDate.html'], function (templ) {
                             $("#myModal").remove();
 
                             $(Confirm.domNode).remove();
+
+                            for (var i in strg){
+                                if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
+                                    strg.splice(i,1);
+                                }
+                            }
+
                         }
                     })
                 }

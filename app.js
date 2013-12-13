@@ -10,7 +10,7 @@ var http = require('http');
 var path = require('path');
 var dataSetter = require('./server/db/dataSetter');
 var dataGetter = require('./server/db/dataGetter');
-//var dbModels = require('./server/db/dbShemas'); /*uncomment this line to call collections methods*/
+var dbModels = require('./server/db/dbShemas'); /*uncomment this line to call collections methods*/
 
 var app = express();
 
@@ -49,6 +49,8 @@ app.get('/projects', dataGetter.getProjects); //just send req here
 app.post('/project', dataSetter.addProject); //{name: 'str'(optional -> startDate: 'date')}
 app.post('/history', dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
 app.get('/status', dataGetter.getStatus); //just send req here
+//dbModels.Project.find(function(er, doc){console.log(doc)});
+//dbModels.Person.find(function(err, doc){console.log(doc)})
 
 
 /****************************************************

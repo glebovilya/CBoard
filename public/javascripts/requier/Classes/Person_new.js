@@ -2,7 +2,9 @@
  * Created by stepanjuk on 10.12.13.
  */
 
-define (['text!../templates/employe.html','../drag&drop','../innerContainer'], function(templ,transit, storage){
+
+
+define (['text!../templates/employe.html','../drag&drop', '../innerContainer'], function(templ,transit, storage){
 
 
 
@@ -11,6 +13,7 @@ var Person = function(idPerson) {
     function  onAjaxSuccess(data){
 
         var idFix = Math.random().toString(36).slice(3,9);
+        console.log(data);
         data.id = id;
         if(parentProject) self.parentProject = parentProject;
         if(forPhoto) self.forPhoto = forPhoto;

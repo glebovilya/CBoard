@@ -29,8 +29,9 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         this.name;
 
         /*binding a custom event for adding new user into a project*/
-        $(this).bind('addEmployee',function(e,pers,id){
-            self.addPerson(e,pers,id);
+        $('body').bind('addEmployee',function(e,pers){
+            console.log(pers);
+            self.addPerson(e,pers);
         })
 
         this.__construct = function () {
@@ -78,11 +79,19 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
         };
 
 
-        this.addPerson = function(e,pers,proj){
-            console.log(e);
-            console.log(pers);
-            console.log(proj);
-            console.log(self);
+        this.addPerson = function(e,pers){
+            console.log(pers.id);
+            $.ajax({
+                url: '/user',
+                data:{id:pers.id},
+                async:false,
+                success:function(res){
+                    console.log(res);
+                    var person = new Person({id: res._id, projectID:id});
+                    person.inProject = true;
+                    self.sortEmployee(person);
+                }
+            })
         }
 
         this.getProject = function () {

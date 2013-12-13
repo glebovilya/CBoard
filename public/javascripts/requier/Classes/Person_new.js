@@ -13,7 +13,7 @@ var Person = function(idPerson) {
     function  onAjaxSuccess(data){
 
         var idFix = Math.random().toString(36).slice(3,9);
-        
+
         data.id = id;
         if(parentProject) self.parentProject = parentProject;
         if(forPhoto) self.forPhoto = forPhoto;
@@ -71,8 +71,8 @@ var Person = function(idPerson) {
         setHandler: function(){
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
-                console.log(self.projectID)
-                if(self.projectID){
+
+                if(self.projectID || self.projectID === 0){
                     transit({
                         domNode:self.domNode,
                         id: self.id,

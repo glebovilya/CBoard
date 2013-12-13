@@ -68,6 +68,8 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                     parentNode: "#windowForPhoto"
                 });
 
+                storage.dropObj(photo);
+
 
 //                console.log(Person.init[68]);
 
@@ -131,12 +133,11 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                             $("#myModal").remove();
 
                             $(Confirm.domNode).remove();
-                            console.log(strg)
+
                             for (var i in strg){
 
                                 if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
                                     strg.splice(i,1);
-
                                 }
                             }
 

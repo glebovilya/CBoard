@@ -104,6 +104,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                     self.name = res.name;
                     self.searchName = self.name;
                     self.header.innerHTML = self.name;
+                    self.addDrop();
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {
                         //creating new Person instance form each record in currentEmployees array
@@ -111,7 +112,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                         self.searchName = self.searchName + ' ' + person.searchName
                         person.inProject = true;
                         self.sortEmployee(person);
-                        self.addDrop();
+
                     }
                 }
             })
@@ -130,7 +131,7 @@ define(['text!../templates/project.html', 'Classes/Person_new', '../innerContain
                         transit({
                             domNode:dd.drag,
                             id: $(dd.drag).attr("data-id"),
-                            lastProject: dd.drag.parentNode.id,
+                            lastProject: $(dd.drag).attr("data-parentproject"),
                             currentProject: dd.target.id,
                             action: 'transfer'
                         },Person);

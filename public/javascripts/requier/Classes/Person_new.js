@@ -79,7 +79,7 @@ var Person = function(idPerson) {
                         lastProject: self.projectID
                     },Person);
                 }
-//                $(self.domNode).remove();
+                $(self.domNode).remove();
                 storage.dropObj(self)
             });
 
@@ -115,8 +115,7 @@ var Person = function(idPerson) {
                     .drag("end",function( ev, dd ){
                         $( dd.proxy ).remove();
                         $('.drop').css({
-                            border: "1px solid",
-                            borderColor: "auto"
+                            boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
                         })
                     });
 

@@ -1,7 +1,7 @@
 define(['./Classes/Project', 'StorageForObjectsOnBoard'], function(Project, storage){
     var showHide = {
         clearBoard: function() {
-            var innerNodes = $('#inner-board').find('*')
+            var innerNodes = $('#inner-board').find('*');
             $.each(innerNodes, function(idx, node) {
                 $(node).remove()
             })

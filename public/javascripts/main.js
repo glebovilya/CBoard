@@ -4,7 +4,7 @@ require.config({
 
 
 
-requirejs(['./myEmployee/emp', 'SearchForAccordion', 'ShowHideAllOnBoard', 'SearchForInnerBoard', 'Bogush', 'ilya', 'stepa', ], function(Emp, v, showHide, searchIB){
+requirejs(['SearchForAccordion', 'ShowHideAllOnBoard', 'SearchForInnerBoard', 'InitAccordionOnPage', 'ilya', 'stepa', ], function(v, showHide, searchIB){
 
 //    var inherited = function(parent, child) {
 //        var F = function(){};

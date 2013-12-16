@@ -11,7 +11,7 @@ requirejs(
     ['SearchForAccordion',
     'ShowHideAllOnBoard',
     'SearchForInnerBoard',
-    './initAccordionOnPage',
+    'initAccordionOnPage',
     'Classes/Person',
     'Classes/Project',
     '../thirdParty/bootstrap-datepicker',

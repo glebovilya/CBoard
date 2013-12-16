@@ -15,7 +15,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
         storage.addObj(this);
 
-    }
+    };
 
     Project.prototype.__destruct = function () {
         this.domNode.remove();
@@ -46,7 +46,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         //return a project record from db or creates a new record
         !(typeof this == Object) ? this.getProject() : this.createProject();
     };
-
 
     Project.prototype.addPerson = function (pers) {
         var self = this;
@@ -103,7 +102,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
                 $(dd.proxy).remove();
                 $('.drop').css({
                     boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
-                })
+                });
 
                 transit({
                     domNode: dd.drag,
@@ -114,7 +113,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
                 }, Person);
             })
 
-    }
+    };
 
     Project.prototype.sortEmployee = function (p) {/*we translate JSON(returned person) here, in "p" param */
 

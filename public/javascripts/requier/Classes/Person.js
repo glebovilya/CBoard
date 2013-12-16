@@ -4,7 +4,8 @@
 
 
 
-define (['text!../templates/employe.html','../drag&drop', '../StorageForObjectsOnBoard'], function(templ,transit, storage){
+define (['text!../templates/employe.html','../transit', '../StorageForObjectsOnBoard'], function(templ,transit, storage){
+
 
 
 

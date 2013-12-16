@@ -4,7 +4,12 @@ require.config({
 
 
 
+<<<<<<< HEAD
 requirejs(['SearchForAccordion','ShowHideAllOnBoard', 'SearchInnerBoard', 'SearchForInnerBoard', 'connectionAccordion', 'connectionProject', 'connectionPerson' ], function( v, showHide, searchIB){
+=======
+
+requirejs(['SearchForAccordion','ShowHideAllOnBoard', 'SearchForInnerBoard', 'initAccordionOnPage', 'Classes/Person','Classes/Project','../thirdParty/bootstrap-datepicker','modaladdEmployee','modaladdProject' ], function( v, showHide, searchIB){
+>>>>>>> c22c399ed8df63e1f8854878753ef7c53d90ba16
 
 
 //    var inherited = function(parent, child) {

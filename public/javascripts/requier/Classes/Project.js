@@ -1,7 +1,10 @@
 
-define(['text!../templates/project.html', 'Classes/Person', '../StorageForObjectsOnBoard', '../transit', '../Confirm'], function (template, Person, storage, transit) {
+define(['text!../templates/project.html', 'Classes/Person', '../StorageForObjectsOnBoard', '../modalConfirm', '../../thirdParty/jquery.event.drop-2.2'], function (template, Person, storage, Confirm) {
 
-
+    function transit(data,Person){
+//        $(data.domNode).remove();
+            Confirm.init(data,Person);
+    }
     var Project = function (/*string*/id) {
 
         //declaration of Project class

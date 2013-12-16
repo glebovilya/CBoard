@@ -2,7 +2,7 @@
  * Created by stepanjuk on 02.12.13.
  */
 
-define(['text!./templates/addProject.html', 'Accordion', 'connectionAccordion'], function (templ, Accordion, setAccordItem) {
+define(['text!./templates/addProject.html', 'Accordion', 'initAccordionOnPage'], function (templ, Accordion, setAccordItem) {
 
     $(document).ready(function () {
 

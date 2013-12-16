@@ -4,10 +4,13 @@
 
 
 
-define (['text!../templates/employe.html','../transit', '../StorageForObjectsOnBoard'], function(templ,transit, storage){
+define (['text!../templates/employe.html', '../StorageForObjectsOnBoard', 'modalConfirm','../../thirdParty/jquery.event.drag-2.2'], function(templ, storage,Confirm){
 
 
-
+    function transit(data,Person){
+//        $(data.domNode).remove();
+        Confirm.init(data,Person);
+    }
 
 var Person = function(idPerson) {
     var self = this;

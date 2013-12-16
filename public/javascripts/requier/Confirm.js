@@ -66,6 +66,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                     forPhoto: 'true',
                     parentNode: "#windowForPhoto"
                 });
+                document.getElementById('myModal').focus();
 
                 storage.dropObj(photo);
 
@@ -75,18 +76,7 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
             });
         },
         setHandler: function () {
-            var modalWindow = $("#myModal");
-            var modalFooterButton = $(".modal-footer button");
-
-            var strg = storage.storage;
-            $("#modalClose").on('click', function () {
-//                $(Confirm.domNode).remove();
-                modalWindow.remove();
-                $(".datepicker").remove();
-
-            });
-
-            modalFooterButton.on('click', function (e) {
+            function submitChanges(e) {
                 if (($("#statusID").val()) == 0) {
                     alert("select status or close the window without saving");
                     return
@@ -143,7 +133,28 @@ define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (temp
                         }
                     })
                 }
+            }
+            function closeModal (eventObject) {
+
+//                $(Confirm.domNode).remove();
+                modalWindow.remove();
+                $(".datepicker").remove();
+
+            }
+            var modalWindow = $("#myModal");
+            var modalFooterButton = $(".modal-footer button");
+            var strg = storage.storage;
+            $("#modalClose").on('click',closeModal);
+            modalWindow.keydown(function(event){
+                if(event.which ==13){
+                    submitChanges(event);
+                }
+                if(event.which ==27){
+                    closeModal(event);
+                }
+
             });
+            modalFooterButton.on('click', submitChanges);
         }
     };
     return Confirm;

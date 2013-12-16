@@ -1,4 +1,4 @@
-define(['text!../templates/project.html', 'Classes/Person_new', '../innerContainer', '../drag&drop', '../Confirm'], function (template, Person, storage, transit) {
+define(['text!../templates/project.html', 'Classes/Person', '../innerContainer', '../transit', '../Confirm'], function (template, Person, storage, transit) {
 
     var Project = function (/*string*/id) {
 

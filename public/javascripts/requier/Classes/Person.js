@@ -4,7 +4,7 @@
 
 
 
-define (['text!../templates/employe.html','../drag&drop', '../innerContainer'], function(templ,transit, storage){
+define (['text!../templates/employe.html','../transit', '../innerContainer'], function(templ,transit, storage){
 
 
 

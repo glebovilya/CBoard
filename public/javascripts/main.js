@@ -4,7 +4,7 @@ require.config({
 
 
 
-requirejs(['./myEmployee/emp', 'vlad', 'ShowHide', 'SearchInnerBoard', 'Bogush', 'ilya', 'stepa', ], function(Emp, v, showHide, searchIB){
+requirejs(['vlad', 'ShowHide', 'SearchInnerBoard', 'connectionAccordion', 'connectionProject', 'connectionPerson' ], function( v, showHide, searchIB){
 
 //    var inherited = function(parent, child) {
 //        var F = function(){};

@@ -4,6 +4,9 @@ require.config({
 
 
 
+
+
+
 requirejs(
     ['SearchForAccordion',
     'ShowHideAllOnBoard',
@@ -16,6 +19,8 @@ requirejs(
     'modaladdProject' ],
 
     function( searchAcc, showHide, searchIB){
+
+
 
     searchIB();
     searchAcc();

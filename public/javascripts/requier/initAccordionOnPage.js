@@ -16,13 +16,13 @@ define(['./Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) 
             btnInIdProjects.css("left", -1000);
             divIdPeople.css("left", 0);
             btnInIdPeople.css("left", 0);
-        })
+        });
         $('#projects-tab').bind("click", function () {
             divIdPeople.css("left", -1000);
             btnInIdPeople.css("left", -1000);
             divIdProjects.css("left", 0);
             btnInIdProjects.css("left", 0);
-        })
+        });
 
         /*get all person statuses from DB*/
         $.ajax({
@@ -33,7 +33,7 @@ define(['./Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) 
                 personStatuses = dataStatus;
 
             }
-        })
+        });
 
         /*generate accordion "projects"*/
         $.ajax({
@@ -86,13 +86,13 @@ define(['./Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) 
             accordPeople = new Accordion(person, "#accordion-people");
             setSizes();
 
-        }, 500)
+        }, 500);
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();
         });
 
-    })
+    });
 
     function setSizes() {
         var topHeight = $('div.custom-view').outerHeight() + $('#search').outerHeight();
@@ -101,7 +101,7 @@ define(['./Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) 
         var headsProj = divIdProjects.find('div.accordion-heading').length;
         var headsPeop = divIdPeople.find('div.accordion-heading').length;
 
-        divIdProjects.find('ul.list').height($('div.wrap').height() - topHeight - bottomHeight - 30*headsProj - 40)
+        divIdProjects.find('ul.list').height($('div.wrap').height() - topHeight - bottomHeight - 30*headsProj - 40);
         divIdPeople.find('ul.list').height($('div.wrap').height() - topHeight - bottomHeight - 30*headsPeop - 40)
 
     }
@@ -121,6 +121,6 @@ define(['./Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) 
     }
 
     return setAccordItems
-})
+});
 
 

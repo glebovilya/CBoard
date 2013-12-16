@@ -10,6 +10,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
         template: templ,
         init: function (data, Person) {
             $.extend(this,data);
+//            console.log(data)
 //            Confirm.id = data['id'];
 //            Confirm.domNode = data['domNode'];
 
@@ -28,7 +29,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
         },
         render: function (Person) {
             Confirm.bindDomNodes();
-            $(Confirm.template).appendTo($("#inner-board"));
+            $(Confirm.template).appendTo(innerBoard);
 
 
             formConfirmDate.ready(function () {
@@ -57,9 +58,9 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                     currentProject.html('joined not employed persons');
                     statusId.remove();
                 }
+    console.log(datePicker)
 
-
-                datePicker.datepicker();
+                $("#datepicker").datepicker();
 
 
                 var photo = new Person({
@@ -77,13 +78,13 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
             });
         },
         bindDomNodes: function() {
-
+                          innerBoard = $("#inner-board");
                           modalWindow = $("#myModal");
                           modalFooterButton = $(".modal-footer button");
                           formConfirmDate = $("#formConfirmDate");
                           modalClose = $("#modalClose");
                           statusId = $("#statusID");
-                          datePicker = $(".datepicker");
+                          datePicker = $("#datepicker");
                           currentProject = $("#currentProject");
                           lastProject = $("#lastProject");
 

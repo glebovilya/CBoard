@@ -17,29 +17,29 @@ var Person = function(idPerson) {
     function  onAjaxSuccess(data){
 
         var idFix = Math.random().toString(36).slice(3,9);
-
-        data.id = id;
+        $.extend(self,data);
+        self.id = id;
         if(parentProject) self.parentProject = parentProject;
         if(forPhoto) self.forPhoto = forPhoto;
         if(projectID || projectID === 0) self.projectID = projectID;
         self.idFix = idFix;
         self.domNode= "#"+idFix;
-        self.name = data['name'];
-        self.surname = data['surname'];
-        self.id =data['id'];
-        self.photo = data['photo'];
-        self.position = data['position'];
-        self.currentStatus = data['currentStatus'];
-        self.projectList = data['projectList'];
-        self.statusList = data['statusList'];
-        self.history = data['history'];
+//        self.name = data['name'];
+//        self.surname = data['surname'];
+//        self.id =data['id'];
+//        self.photo = data['photo'];
+//        self.position = data['position'];
+//        self.currentStatus = data['currentStatus'];
+//        self.projectList = data['projectList'];
+//        self.statusList = data['statusList'];
+//        self.history = data['history'];
         self.searchName = self.name + ' ' + self.surname;
 
 //        console.log(self)
         self.render();
         storage.addObj(self)
     }
-
+//console.log(idPerson)
     var id = idPerson['id'];
     var projectID = idPerson['projectID'];
     var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
@@ -47,6 +47,9 @@ var Person = function(idPerson) {
 
     $.ajax({url: "/user", data:{ id: id}, async: false, success: onAjaxSuccess});
 //    return self
+    };
+    Person.bindDomNodes = function(){
+        innerBoard = $('#inner-board');
     };
     Person.template = templ;
     Person.prototype  = {
@@ -73,6 +76,7 @@ var Person = function(idPerson) {
 
         },
         setHandler: function(){
+            Person.bindDomNodes();
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
 
@@ -84,6 +88,7 @@ var Person = function(idPerson) {
                             storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
                         }
                     }
+//                    console.log(self)
                     transit({
                         domNode:self.domNode,
                         id: self.id,
@@ -98,7 +103,7 @@ var Person = function(idPerson) {
 
             jQuery(function(S){
 
-                var $div = $('#inner-board');
+                var $div = innerBoard;
                 var z = 100;
                 $(self.domNode)
                     .drag("start",function( ev, dd ){

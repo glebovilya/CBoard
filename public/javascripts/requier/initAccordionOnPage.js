@@ -1,4 +1,4 @@
-define(['Accordion', '../thirdParty/bootstrap'], function (Accordion) {
+define(['./Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
     var accordProjects;
     var accordPeople;
     var personStatuses;

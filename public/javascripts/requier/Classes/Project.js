@@ -1,4 +1,6 @@
-define(['text!../templates/project.html', 'Classes/Person', '../innerContainer', '../transit', '../Confirm'], function (template, Person, storage, transit) {
+
+define(['text!../templates/project.html', 'Classes/Person', '../StorageForObjectsOnBoard', '../transit', '../Confirm'], function (template, Person, storage, transit) {
+
 
     var Project = function (/*string*/id) {
 
@@ -93,6 +95,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../innerContainer',
                     var person = new Person({id: res._id, projectID: id});
                     person.inProject = true;
                     self.sortEmployee(person);
+                    self.searchName += person.searchName
                 }
             })
         }

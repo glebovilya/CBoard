@@ -4,7 +4,8 @@
 
 
 
-define (['text!../templates/employe.html','../transit', '../innerContainer'], function(templ,transit, storage){
+define (['text!../templates/employe.html','../transit', '../StorageForObjectsOnBoard'], function(templ,transit, storage){
+
 
 
 
@@ -73,6 +74,13 @@ var Person = function(idPerson) {
             $(this.domNode).find("button").on('click', function(event){
 
                 if(self.projectID || self.projectID === 0){
+                    for(var i in storage.storage){
+                        if(storage.storage[i].id === self.id && storage.storage[i].start){
+                            var re = new RegExp(self.searchName);
+                            console.log(storage.storage[i])
+                            storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
+                        }
+                    }
                     transit({
                         domNode:self.domNode,
                         id: self.id,

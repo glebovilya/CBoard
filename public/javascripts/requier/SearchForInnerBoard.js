@@ -1,4 +1,4 @@
-define(['innerContainer'], function(storage){
+define(['StorageForObjectsOnBoard'], function(storage){
     function initSearch () {
         var searchField = $('#search-inner input');
 

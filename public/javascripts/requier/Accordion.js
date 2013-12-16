@@ -1,4 +1,6 @@
-define(['innerContainer','text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'Classes/Person', 'Classes/Project'], function (storage, accordHead, accordItem, accordWrapItem, setEffects, Person, Project) {
+
+define(['StorageForObjectsOnBoard','text!../requier/templates/accordionHead.html', 'text!../requier/templates/accordionItem.html', 'text!../requier/templates/wrapItems.html', 'effectsAccordion', 'Classes/Person', 'Classes/Project'], function (storage, accordHead, accordItem, accordWrapItem, setEffects, Person, Project) {
+
 
     function Accordion(/*object with data for accordion*/object, /*DOMNode to insert accordion with #*/divId) {
         this.templateHead = accordHead;

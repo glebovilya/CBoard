@@ -2,7 +2,7 @@
  * Created by Jura on 08.12.13.
  */
 
-define(['text!./templates/addRemoveDate.html', 'innerContainer'], function (templ, storage) {
+define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], function (templ, storage) {
     var Confirm = {
         template: templ,
         init: function (data, Person) {

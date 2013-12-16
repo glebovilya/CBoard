@@ -4,7 +4,9 @@ require.config({
 
 
 
-requirejs(['vlad', 'ShowHide', 'SearchInnerBoard', 'connectionAccordion', 'connectionProject', 'connectionPerson' ], function( v, showHide, searchIB){
+
+requirejs(['SearchForAccordion','ShowHideAllOnBoard', 'SearchInnerBoard', 'SearchForInnerBoard', 'connectionAccordion', 'connectionProject', 'connectionPerson' ], function( v, showHide, searchIB){
+
 
 //    var inherited = function(parent, child) {
 //        var F = function(){};

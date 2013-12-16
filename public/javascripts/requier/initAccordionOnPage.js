@@ -1,4 +1,4 @@
-define(['../../../../../Desktop/CBoard-express/public/javascripts/requier/Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
+define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
 
     var accordProjects;
     var accordPeople;

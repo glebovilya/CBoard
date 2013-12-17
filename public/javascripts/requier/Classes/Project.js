@@ -165,9 +165,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
         $('#inner-board').bind('addEmpl', function (e, pers, proj) {
             (proj == self.id) ? self.addPerson(pers) : console.log('i am another project, my name is: ' + self.name);
-                    self.addPerson(pers)
-                }
-                ;
+                    self.addPerson(pers);
         });
 
         /*template events*/

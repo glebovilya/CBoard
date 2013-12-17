@@ -27,19 +27,34 @@ var Person = function(idPerson) {
         if(projectID || projectID === 0) self.projectID = projectID;
         self.idFix = idFix;
         self.domNode= "#"+idFix;
+
         self.searchName = self.name + ' ' + self.surname;
         self.render();
         storage.addObj(self)
         return self;
+
+
+        self.searchName = self.name + ' ' + self.surname;
+
+        self.render();
+        storage.addObj(self);
+
+        if(callback){
+            callback(self)
+        }
+
     }
 
     var id = idPerson['id'];
     var projectID = idPerson['projectID'];
     var parentProject =idPerson['parentNode'];
     var forPhoto =idPerson['forPhoto'];
+    var callback = idPerson['callback'];
 
-    $.ajax({url: "/user", data:{ id: id}, async: false, success: onAjaxSuccess});
-};
+
+    $.ajax({url: "/user", data:{ id: id}, async: true, success: onAjaxSuccess});
+    };
+
     Person.bindDomNodes = function(){
         innerBoard = $('#inner-board');
 
@@ -49,7 +64,6 @@ var Person = function(idPerson) {
         render: function(){
             if(!this.parentProject){this.parentProject = "#inner-board";}
             var divWindow =document.createElement("div");
-            $(this.parentProject).append(divWindow);
             $(this.parentProject).append(divWindow);
             divWindow.className = "employeeWindow drag";
             divWindow.id = this.idFix;
@@ -73,10 +87,10 @@ var Person = function(idPerson) {
                     for(var i in storage.storage){
                         if(storage.storage[i].id === self.id && storage.storage[i].start){
                             var re = new RegExp(self.searchName);
-                            console.log(storage.storage[i])
                             storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
                         }
                     }
+
                     transit({
                         domNode:self.domNode,
                         id: self.id,

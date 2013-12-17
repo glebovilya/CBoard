@@ -26,69 +26,82 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             btnInIdProjects.css("left", 0);
         })
 
-        /*get all person statuses from DB*/
-        $.ajax({
+
+        /* *
+         * get all person statuses from DB
+         */
+        function getStatuses(){return $.ajax({
             type: "GET",
             url: "/status",
-            async: false,
-            success: function (dataStatus) {
-                personStatuses = dataStatus;
+            async: true
+        })}
 
-            }
-        })
+        function setStatuses (dataStatus) {
+            personStatuses = dataStatus;
+
+        }
 
         /*generate accordion "projects"*/
-        $.ajax({
+        function getProjects(){return $.ajax({
             type: "GET",
             url: "/projects",
-            async: false,
-            success: function (dataProject) {
-                var project = {};
-                var openProject = [];
-                var closedProject = [];
-                for (var elems in dataProject) {
-                    if (dataProject[elems].end)
-                        closedProject[closedProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
-                    else
-                        openProject[openProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
-                }
-                project.Open = openProject;
-                project.Closed = closedProject;
-                projects = project;
-            }
-        })
+            async: true
+        })}
 
-        accordProjects = new Accordion(projects, "#accordion-projects");
+        function setProjects (dataProject) {
+            var project = {};
+            var openProject = [];
+            var closedProject = [];
+            for (var elems in dataProject) {
+                if (dataProject[elems].end)
+                    closedProject[closedProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
+                else
+                    openProject[openProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
+            }
+            project.Open = openProject;
+            project.Closed = closedProject;
+            projects = project;
+            accordProjects = new Accordion(projects, "#accordion-projects");
+        }
+
+
 
         /*generate accordion "people"*/
-        setTimeout(function () {
-            $.ajax({
-                type: "GET",
-                url: "/users",
-                async: false,
-                success: function (dataPerson) {
-                    var people = {};
-                    for (var elems in dataPerson) {
-                        for (var stat in personStatuses) {
-                            if (personStatuses[stat]._id == dataPerson[elems].currentStatus)
-                                var itemk = personStatuses[stat].name;
-                        }
-                        if (itemk in people)
-                            people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
-                        else
-                            people[itemk] = [
-                                {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname}
-                            ];
-                    }
-                    person = people;
 
+        function getUsers() {return $.ajax({
+            type: "GET",
+            url: "/users",
+            async: true
+        })};
+
+        function setUsers (dataPerson) {
+            var people = {};
+            for (var elems in dataPerson) {
+                for (var stat in personStatuses) {
+                    if (personStatuses[stat]._id == dataPerson[elems].currentStatus)
+                        var itemk = personStatuses[stat].name;
                 }
-            });
-
+                if (itemk in people)
+                    people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
+                else
+                    people[itemk] = [
+                        {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname}
+                    ];
+            }
+            person = people;
             accordPeople = new Accordion(person, "#accordion-people");
-            setSizes();
+        };
 
-        }, 500)
+        $.when(getStatuses(), getProjects(), getUsers())
+            .then(function(dataStatus, dataProjects, dataPerson){
+                setStatuses (dataStatus[0]);
+                setProjects(dataProjects[0]);
+                setUsers(dataPerson[0]);
+                setSizes();
+            })
+            .fail(function(){
+                window.location.href = "http://127.0.0.1:3000/404"
+            });
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();

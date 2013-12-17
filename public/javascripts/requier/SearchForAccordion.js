@@ -1,8 +1,15 @@
 define(function () {
+
+        /**
+         * Function binds event listener(keyup) on search area
+         * and hides or shows elemnts of accordion
+         */
         function initSearch () {
             var searchField = $('#search input');
             var peopleAccNode = $('#accordion-people');
             var projectsAccNode = $('#accordion-projects');
+            var sideswitcher = $('#sideSwitcher');
+
 
             var searchLogic = function(accordion) {
                 searchField.keyup(function(){
@@ -22,7 +29,14 @@ define(function () {
                 })
             };
 
-            var displayDefault = function(accordion){
+
+            /**
+             * just return display css attr to block
+             * of items in specific accordion
+             *
+             * @param accordion
+             */
+            var displayDefault = function(/*nodeElem container for accordion*/accordion){
                 accordion.find('li').each(function(ell, node){
                     $(node).css('display', 'block')
                 })
@@ -37,8 +51,13 @@ define(function () {
                 displayDefault(projectsAccNode);
             });
 
-            $('#sideSwitcher').click(function(){
-                if($('#peopleAccNode').offset().left < 0){
+
+            /**
+             * this handler needs to reset view
+             * of accordions on switching between them
+             */
+            sideswitcher.click(function(){
+                if(peopleAccNode.offset().left < 0){
                     searchField.val('');
                     displayDefault(peopleAccNode);
                     displayDefault(projectsAccNode);

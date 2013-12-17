@@ -1,7 +1,12 @@
 
 define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 'text!../templates/accordionItem.html', 'text!../templates/wrapItems.html', '../effectsAccordion', 'Classes/Person', 'Classes/Project'], function (storage, accordHead, accordItem, accordWrapItem, setEffects, Person, Project) {
 
-
+    /**
+     * Accordion constructor
+     * @param object
+     * @param divId
+     * @constructor
+     */
     function Accordion(/*object with data for accordion*/object, /*DOMNode to insert accordion with #*/divId) {
         this.templateHead = accordHead;
         this.templWrapperItems = accordWrapItem;
@@ -18,10 +23,19 @@ define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 't
             this.addHead(elem, object, divId, i);
             i++
         }
-    }
+    };
 
+
+    /**
+     * Depending on for what group of person or projects this constructor was called
+     * the headers wil be different
+     *
+     * @param elem
+     * @param obj
+     * @param divIdSelector
+     * @param i
+     */
     Accordion.prototype.addHead = function (/*string name of accordion heads*/elem, /*object with accordion data*/obj, /*DOMNode to insert accordion with #*/divIdSelector, /*integer counter to determine first elem to be opened*/i) {
-
 
         var newTemplateHead = this.templateHead.replace(/someHref/g, elem).replace(/headTitle/g, elem).
             replace(/idAccordGroup/g, elem).replace(/IdDataParent/g, divIdSelector);
@@ -47,17 +61,27 @@ define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 't
         }
     }
 
-    Accordion.prototype.addItem = function (obj, item) {
+
+    /**
+     * adds item to accordion list
+     * @param obj
+     * @param item
+     */
+    Accordion.prototype.addItem = function (/*Person or Project object*/obj, /*Number*/item) {
         this.item = $('#' + item + '-body').find('ul.list');
         var newItemlList = this.templateList.replace(/ItemName/g, obj.name).replace(/itemID/g, obj.id);
         this.item.prepend(newItemlList);
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
-        var strg = storage.storage
-        var onBoard
+        var strg = storage.storage;
+        var onBoard;
         if (item == "Open" || item == "Closed") {
             $(itemString).bind("click", function(){
-                onBoard = false
+                onBoard = false;
+                /**
+                 * here goes logic for adding obj to the storage
+                 * to make possible calling its methods/search/remove
+                 */
                 for (var i in strg){
                     if (strg[i]['id'] == obj.id  && strg[i].constructor == Project ){
                         onBoard = true
@@ -73,7 +97,10 @@ define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 't
         else
             $(itemString).bind("click", function () {
                 onBoard = false
-
+                /**
+                 * here goes logic for adding obj to the storage
+                 * to make possible calling its methods/search/remove
+                 */
                 for (var i in strg){
                     if (strg[i]['id'] == obj.id && !strg[i]['inProject'] && strg[i].constructor != Project){
                         onBoard = true

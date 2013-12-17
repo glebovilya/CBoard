@@ -4,9 +4,21 @@ define([], function() {
         addObj: function(obj){
             this.storage.push(obj);
         },
-        dropObj: function(obj){ //todo make posible to drop item by !id!
-            var storage = this.storage;
-            var idx = storage.indexOf(obj);
+
+        /**
+         * Removes obj from storage
+         * @param obj
+         */
+        dropObj: function(/*Obj||number*/obj){
+            var storage = this.storage,
+                idx
+
+            if (typeof obj == "number"){
+                idx = obj
+            } else {
+                idx = storage.indexOf(obj);
+            }
+
             storage.splice(idx, 1);
         }
     };

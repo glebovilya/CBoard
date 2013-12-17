@@ -8,7 +8,6 @@ define (['text!../templates/employe.html', '../StorageForObjectsOnBoard', 'modal
 
 
     function transit(data,Person){
-//        $(data.domNode).remove();
         Confirm.init(data,Person);
     }
 
@@ -24,29 +23,24 @@ var Person = function(idPerson) {
         if(projectID || projectID === 0) self.projectID = projectID;
         self.idFix = idFix;
         self.domNode= "#"+idFix;
-//        self.name = data['name'];
-//        self.surname = data['surname'];
-//        self.id =data['id'];
-//        self.photo = data['photo'];
-//        self.position = data['position'];
-//        self.currentStatus = data['currentStatus'];
-//        self.projectList = data['projectList'];
-//        self.statusList = data['statusList'];
-//        self.history = data['history'];
+
         self.searchName = self.name + ' ' + self.surname;
 
-//        console.log(self)
         self.render();
-        storage.addObj(self)
+        storage.addObj(self);
+
+        if(callback){
+            callback(self)
+        }
     }
-//console.log(idPerson)
+
     var id = idPerson['id'];
     var projectID = idPerson['projectID'];
     var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
     var forPhoto =idPerson['forPhoto'];
+    var callback = idPerson['callback'];
 
-    $.ajax({url: "/user", data:{ id: id}, async: false, success: onAjaxSuccess});
-//    return self
+    $.ajax({url: "/user", data:{ id: id}, async: true, success: onAjaxSuccess});
     };
     Person.bindDomNodes = function(){
         innerBoard = $('#inner-board');
@@ -57,7 +51,6 @@ var Person = function(idPerson) {
             if(!this.parentProject){this.parentProject = "#inner-board";}
 
             var divWindow =document.createElement("div");
-            $(this.parentProject).append(divWindow);
             $(this.parentProject).append(divWindow);
             divWindow.className = "employeeWindow drag";
             divWindow.id = this.idFix;

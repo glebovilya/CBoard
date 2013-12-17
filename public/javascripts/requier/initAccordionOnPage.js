@@ -94,9 +94,6 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
 
         $.when(getStatuses(), getProjects(), getUsers())
             .then(function(dataStatus, dataProjects, dataPerson){
-                console.log(dataStatus[0])
-                console.log(dataProjects[0])
-                console.log(dataPerson[0])
                 setStatuses (dataStatus[0]);
                 setProjects(dataProjects[0]);
                 setUsers(dataPerson[0]);

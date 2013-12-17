@@ -6,9 +6,12 @@
 
 define (['text!../templates/employe.html', '../StorageForObjectsOnBoard', 'modalConfirm','../../thirdParty/jquery.event.drag-2.2'], function(templ, storage,Confirm){
 
-
+    /**
+     * function cause modal window for the selected person on board
+     * @param data /{id:PersonId, lastProject:attr(data-parentProject), domNode:idDomNode on which part of}/
+     * @param Person /object Person for call from window Confirm and call photo/
+     */
     function transit(data,Person){
-//        $(data.domNode).remove();
         Confirm.init(data,Person);
     }
 
@@ -24,38 +27,27 @@ var Person = function(idPerson) {
         if(projectID || projectID === 0) self.projectID = projectID;
         self.idFix = idFix;
         self.domNode= "#"+idFix;
-//        self.name = data['name'];
-//        self.surname = data['surname'];
-//        self.id =data['id'];
-//        self.photo = data['photo'];
-//        self.position = data['position'];
-//        self.currentStatus = data['currentStatus'];
-//        self.projectList = data['projectList'];
-//        self.statusList = data['statusList'];
-//        self.history = data['history'];
         self.searchName = self.name + ' ' + self.surname;
-
-//        console.log(self)
         self.render();
         storage.addObj(self)
+        return self;
     }
-//console.log(idPerson)
+
     var id = idPerson['id'];
     var projectID = idPerson['projectID'];
-    var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
+    var parentProject =idPerson['parentNode'];
     var forPhoto =idPerson['forPhoto'];
 
     $.ajax({url: "/user", data:{ id: id}, async: false, success: onAjaxSuccess});
-//    return self
-    };
+};
     Person.bindDomNodes = function(){
         innerBoard = $('#inner-board');
+
     };
     Person.template = templ;
     Person.prototype  = {
         render: function(){
             if(!this.parentProject){this.parentProject = "#inner-board";}
-
             var divWindow =document.createElement("div");
             $(this.parentProject).append(divWindow);
             $(this.parentProject).append(divWindow);
@@ -71,15 +63,12 @@ var Person = function(idPerson) {
                 $(self.domNode).find(".emplPosition").html(self.position);
                 $(self.domNode).find(".united img").attr("src", self.photo);
                 if(!self.forPhoto)  self.setHandler();
-
             });
-
         },
         setHandler: function(){
             Person.bindDomNodes();
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
-
                 if(self.projectID || self.projectID === 0){
                     for(var i in storage.storage){
                         if(storage.storage[i].id === self.id && storage.storage[i].start){
@@ -88,7 +77,6 @@ var Person = function(idPerson) {
                             storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
                         }
                     }
-//                    console.log(self)
                     transit({
                         domNode:self.domNode,
                         id: self.id,
@@ -102,7 +90,6 @@ var Person = function(idPerson) {
             });
 
             jQuery(function(S){
-
                 var $div = innerBoard;
                 var z = 100;
                 $(self.domNode)
@@ -110,15 +97,10 @@ var Person = function(idPerson) {
                         dd.limit = $div.offset();
                         dd.limit.bottom = dd.limit.top + $div.outerHeight() - $( this ).outerHeight();
                         dd.limit.right = dd.limit.left + $div.outerWidth() - $( this ).outerWidth();
-
                         return $( this ).clone()
                             .css("opacity", .75 )
                             .css('zIndex', z+10 )
                             .appendTo( this.parentNode );
-                    })
-
-                    .drag("init", function(ev, dd){
-//                        dd.drop=$(".drop");
                     })
                     .drag(function( ev, dd ){
                         $('.drop').css({
@@ -138,6 +120,7 @@ var Person = function(idPerson) {
                     });
 
             });
+
         }
     };
 

@@ -1,37 +1,22 @@
-/**
- * Created by Jura on 08.12.13.
- */
-
-
-
+// Created by Jura on 08.12.13.
 
 define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], function (templ, storage) {
     var Confirm = {
         template: templ,
         init: function (data, Person) {
             $.extend(this,data);
-//            console.log(data)
-//            Confirm.id = data['id'];
-//            Confirm.domNode = data['domNode'];
-
             if((Confirm['lastProject'] || Confirm['lastProject'] === 0) && (Confirm['lastProject'] != "inner-board") ){
-
                 Confirm.lastProject = Confirm['lastProject'];
             } else {
                 Confirm.lastProject = false;
             }
             if (!Confirm.currentProject){Confirm.currentProject = false;}
-
-
             Confirm.render(Person);
             Confirm.setHandler();
-
         },
         render: function (Person) {
             Confirm.bindDomNodes();
             $(Confirm.template).appendTo(innerBoard);
-
-
             formConfirmDate.ready(function () {
 
                 if (Confirm.lastProject || Confirm.lastProject === 0) {
@@ -48,7 +33,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 if (Confirm.currentProject) {
                     $.ajax({url: '/project',
                         type: 'GET',
-                        async: false,
                         data: {id: Confirm.currentProject},
                         success: function (returndata) {
                             currentProject.html('assigned to the project:  ' + returndata.name)
@@ -58,9 +42,9 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                     currentProject.html('joined not employed persons');
                     statusId.remove();
                 }
-    console.log(datePicker)
 
                 $("#datepicker").datepicker();
+
 
 
                 var photo = new Person({
@@ -68,13 +52,10 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                     forPhoto: 'true',
                     parentNode: "#windowForPhoto"
                 });
+
                 document.getElementById('myModal').focus();
 
                 storage.dropObj(photo);
-
-
-//                console.log(Person.init[68]);
-
             });
         },
         bindDomNodes: function() {
@@ -87,11 +68,9 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                           datePicker = $("#datepicker");
                           currentProject = $("#currentProject");
                           lastProject = $("#lastProject");
-
-
-
         },
         setHandler: function () {
+
                             Confirm.bindDomNodes();
                             function submitChanges(e) {
                                 if (statusId.val() == 0) {
@@ -135,7 +114,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                                         url: '/history',
                                         type: 'POST',
                                         data: formData,
-                                        async: false,
+//                                        async: false,
                                         success: function (returndata) {
                                             modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                             modalWindow.remove();
@@ -153,10 +132,8 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                             }
                             function closeModal (eventObject) {
 
-//                                $(Confirm.domNode).remove();
                                 modalWindow.remove();
                                 datePicker.remove();
-
                             }
 
             var strg = storage.storage;
@@ -168,7 +145,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 if(event.which ==27){
                     closeModal(event);
                 }
-
             });
             modalFooterButton.on('click', submitChanges);
         }

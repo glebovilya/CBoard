@@ -4,7 +4,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
     function transit(data,Person){
         Confirm.init(data,Person);
     }
-
     var Project = function (/*string*/id) {
 
         this.id = id;
@@ -28,7 +27,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
             float: 'left'
         }).addClass('drop').attr('id', this.id);
 
-
         // Parsing template' nodes
         // Sorry for my ugly syntax, maybe we'd find solution
         // in switching data-attributes and classes to id's
@@ -38,7 +36,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         this.close = this.domNode.find('button.close')[0];
         this.toggleDevs_btn = this.domNode.find('a[href="#show"]')[0];
         this.header = this.domNode.find('.project-header span')[0];
-
         this.addTemplateHandlers();
     };
 
@@ -47,7 +44,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         !(typeof this == Object) ? this.getProject() : this.createProject();
     };
 
-    Project.prototype.addPerson = function (pers) {
+    Project.prototype.addPerson = function (/*Person*/pers) {
         var self = this;
         var strg = storage.storage;
         for(var i in strg) {
@@ -60,7 +57,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
             data: {id: pers},
             async: false,
             success: function (res) {
-                console.log(res);
                 var person = new Person({id: res._id, projectID: self.id});
                 person.inProject = true;
                 self.sortEmployee(person);
@@ -70,9 +66,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
     };
 
     Project.prototype.getProject = function () {
-
         var self = this;
-
         $.ajax({
             url: '/project',
             data: {id: this.id},
@@ -115,7 +109,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
     };
 
-    Project.prototype.sortEmployee = function (p) {/*we translate JSON(returned person) here, in "p" param */
+    Project.prototype.sortEmployee = function (/*Person*/p) {/*we translate JSON(returned person) here, in "p" param */
 
         var
             projl = p.projectList,
@@ -164,7 +158,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         });
 
         /*template events*/
-
         $(this.toggleDevs_btn).on('click', $.proxy(this.toggleDevs,this));
         $(this.close).on('click', $.proxy(this.__destruct, this));
     };

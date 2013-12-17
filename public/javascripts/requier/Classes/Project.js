@@ -58,7 +58,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         $.ajax({
             url: '/user',
             data: {id: pers},
-            async: false,
+            async: true,
             success: function (res) {
                 console.log(res);
                 var person = new Person({id: res._id, projectID: self.id});
@@ -76,7 +76,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         $.ajax({
             url: '/project',
             data: {id: this.id},
-            async: false,
+            async: true,
             success: function (res) {
                 //set a name for self project
                 self.name = res.name;

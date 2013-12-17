@@ -30,6 +30,7 @@ var Person = function(idPerson) {
         storage.addObj(self);
 
         if(callback){
+            console.log(callback);
             callback(self)
         }
     }

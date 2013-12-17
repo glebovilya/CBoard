@@ -1,4 +1,3 @@
-
 define(['text!../templates/project.html', 'Classes/Person', '../StorageForObjectsOnBoard', '../modalConfirm', '../../thirdParty/jquery.event.drop-2.2'], function (template, Person, storage, Confirm) {
 
     /*
@@ -17,7 +16,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
     /*
     * this function helps to add drop event onto project window
     * */
-    var instance;
+    var instance = null;
 
     function transit(/*obj*/data,/*obj*/Person){
         Confirm.init(data,Person);
@@ -94,6 +93,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         person.inProject = true;
         console.log(this);
         instance.sortEmployee(person);
+        instance = null;
     };
 
     Project.prototype.addPerson = function (pers) {
@@ -139,7 +139,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
     Project.prototype.addDrop = function () {
 
-        console.log('!!!!!!!!!!!!!!!!!!!!!');
         $(this.domNode)
             .drop(function (ev, dd) {
                 $(dd.proxy).remove();

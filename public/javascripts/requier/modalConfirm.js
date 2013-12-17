@@ -1,11 +1,20 @@
 // Created by Jura on 08.12.13.
 
 define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], function (templ, storage) {
+    /**
+     * @type {{template: *, init: Function, render: Function, bindDomNodes: Function, setHandler: Function}}
+     */
     var Confirm = {
         template: templ,
+        /**
+         * domNode:self.domNode,
+         lastProject: self.projectID
+         * @param data {id: attr(data-id),lastProject: attr(data-parentproject),currentProject: setProject after drag,domNode:domNodeId}
+         * @param Person - object Person fully for insert photo in modal
+         */
         init: function (data, Person) {
             $.extend(this,data);
-            if((Confirm['lastProject'] || Confirm['lastProject'] === 0) && (Confirm['lastProject'] != "inner-board") ){
+            if((Confirm['lastProject'] !== undefined) && (Confirm['lastProject'] != "inner-board") ){
                 Confirm.lastProject = Confirm['lastProject'];
             } else {
                 Confirm.lastProject = false;
@@ -14,12 +23,13 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
             Confirm.render(Person);
             Confirm.setHandler();
         },
+        // insert last and current project and photo
         render: function (Person) {
             Confirm.bindDomNodes();
             $(Confirm.template).appendTo(innerBoard);
             formConfirmDate.ready(function () {
 
-                if (Confirm.lastProject || Confirm.lastProject === 0) {
+                if (Confirm.lastProject !== undefined) {
                     $.ajax({url: '/project',
                         type: 'GET',
                         data: {id: Confirm.lastProject},
@@ -45,8 +55,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
 
                 $("#datepicker").datepicker();
 
-
-
                 var photo = new Person({
                     id: Confirm['id'],
                     forPhoto: 'true',
@@ -69,8 +77,10 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                           currentProject = $("#currentProject");
                           lastProject = $("#lastProject");
         },
+        /**
+         * set remove modal and submit data in db "history"
+         */
         setHandler: function () {
-
                             Confirm.bindDomNodes();
                             function submitChanges(e) {
                                 if (statusId.val() == 0) {
@@ -78,7 +88,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                                     return
                                 }
 
-                                if (Confirm.lastProject || Confirm.lastProject === 0) {
+                                if (Confirm.lastProject !== undefined) {
 
                                     formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                                     $.ajax({
@@ -86,8 +96,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                                         type: 'POST',
                                         data: formData,
                                         success: function (returndata) {
-
-                                            if (Confirm.currentProject ||Confirm.currentProject === 0) {
+                                            if (Confirm.currentProject !== undefined) {
                                                 formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: statusId.val(), leaving: 'false'};
                                                 $.ajax({
                                                     url: '/history',

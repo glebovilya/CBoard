@@ -45,6 +45,14 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
     };
 
     Project.prototype.addPerson = function (/*Person*/pers) {
+
+        var processNewPerson = function(person) {
+            self.searchName = self.searchName + ' ' + person.searchName;
+            person.inProject = true;
+            self.sortEmployee(person);
+
+        }
+
         var self = this;
         var strg = storage.storage;
         for(var i in strg) {
@@ -57,10 +65,12 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
             data: {id: pers},
             async: true,
             success: function (res) {
-                var person = new Person({id: res._id, projectID: self.id});
-                person.inProject = true;
-                self.sortEmployee(person);
-                self.searchName += person.searchName
+                var person = new Person({id: res._id, projectID: self.id,callback: processNewPerson});
+//                person.inProject = true;
+//                console.log('after Ajax'+person)
+//                self.sortEmployee(person);
+//                self.searchName += person.searchName
+
             }
         })
     };
@@ -73,6 +83,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
             self.searchName = self.searchName + ' ' + person.searchName;
             person.inProject = true;
             self.sortEmployee(person);
+
         }
 
 
@@ -122,7 +133,8 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
             statl = p.statusList,
             self = this;
 
-
+//console.log(self.id)
+//        console.log(p)
         //searching in array of projects current project key
         var idx = projl.indexOf(this.id),
 

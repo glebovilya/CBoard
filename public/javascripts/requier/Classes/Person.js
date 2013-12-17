@@ -28,21 +28,15 @@ var Person = function(idPerson) {
         self.idFix = idFix;
         self.domNode= "#"+idFix;
 
-        self.searchName = self.name + ' ' + self.surname;
         self.render();
         storage.addObj(self)
-        return self;
-
 
         self.searchName = self.name + ' ' + self.surname;
-
-        self.render();
         storage.addObj(self);
 
         if(callback){
             callback(self)
         }
-
     }
 
     var id = idPerson['id'];
@@ -52,14 +46,19 @@ var Person = function(idPerson) {
     var callback = idPerson['callback'];
 
 
-    $.ajax({url: "/user", data:{ id: id}, async: true, success: onAjaxSuccess});
+    $.ajax({url: "/user", data:{ id: id}, success: onAjaxSuccess});
     };
 
     Person.bindDomNodes = function(){
         innerBoard = $('#inner-board');
 
+
     };
     Person.template = templ;
+    /**
+     * binding this attributes and this photo to template and binding template for page
+     * @type {render: Function}
+     */
     Person.prototype  = {
         render: function(){
             if(!this.parentProject){this.parentProject = "#inner-board";}
@@ -79,18 +78,20 @@ var Person = function(idPerson) {
                 if(!self.forPhoto)  self.setHandler();
             });
         },
+        /**
+         * set remove and drop for domNode
+         */
         setHandler: function(){
             Person.bindDomNodes();
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
-                if(self.projectID || self.projectID === 0){
+                if(self.projectID !== undefined){
                     for(var i in storage.storage){
                         if(storage.storage[i].id === self.id && storage.storage[i].start){
                             var re = new RegExp(self.searchName);
                             storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
                         }
                     }
-
                     transit({
                         domNode:self.domNode,
                         id: self.id,
@@ -102,18 +103,21 @@ var Person = function(idPerson) {
 
                 storage.dropObj(self)
             });
-
+            // set drop
             jQuery(function(S){
                 var $div = innerBoard;
                 var z = 100;
                 $(self.domNode)
                     .drag("start",function( ev, dd ){
-                        dd.limit = $div.offset();
+                        dd.limit = $div.offset(); // set border motion
                         dd.limit.bottom = dd.limit.top + $div.outerHeight() - $( this ).outerHeight();
                         dd.limit.right = dd.limit.left + $div.outerWidth() - $( this ).outerWidth();
-                        return $( this ).clone()
+                        return $( this ).clone() // creation clone for authorized movement
                             .css("opacity", .75 )
                             .css('zIndex', z+10 )
+                            .css('-webkit-transform', 'rotate(10deg)') /* Для Safari, Chrome, iOS */
+
+
                             .appendTo( this.parentNode );
                     })
                     .drag(function( ev, dd ){
@@ -121,7 +125,7 @@ var Person = function(idPerson) {
                             boxShadow : "0 0px 20px rgba(0, 128, 0, 0.7)"
                         });
                         $(dd.proxy).css({
-                            position: 'fixed',
+                            position: 'fixed', //  for the correct location
                             top: Math.min( dd.limit.bottom, Math.max( dd.limit.top, dd.offsetY ) ),
                             left: Math.min( dd.limit.right, Math.max( dd.limit.left, dd.offsetX ) )
                         })

@@ -11,7 +11,7 @@ define([], function() {
          */
         dropObj: function(/*Obj||number*/obj){
             var storage = this.storage,
-                idx
+                idx;
 
             if (typeof obj == "number"){
                 idx = obj

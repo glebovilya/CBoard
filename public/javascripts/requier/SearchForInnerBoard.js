@@ -2,6 +2,11 @@ define(['StorageForObjectsOnBoard'], function(storage){
     function initSearch () {
         var searchField = $('#search-inner input');
 
+
+        /**
+         * depending on what obj are in storage object
+         * and query were in search input shows or hides .domNode of objects
+         */
         var searchLogic = function() {
             searchField.keyup(function(){
                 var searchQuery = searchField.val();

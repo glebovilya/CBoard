@@ -27,8 +27,9 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
         })
 
 
-        /* *
-         * get all person statuses from DB
+        /**
+         * Sends req on server to get all statuses from DB
+         * @returns {*|jQuery.ajax}
          */
         function getStatuses(){return $.ajax({
             type: "GET",
@@ -41,14 +42,22 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
 
         }
 
-        /*generate accordion "projects"*/
+        /**
+         * Sends req on server to get all projects
+         * @returns {*|jQuery.ajax}
+         */
         function getProjects(){return $.ajax({
             type: "GET",
             url: "/projects",
             async: true
         })}
 
-        function setProjects (dataProject) {
+
+        /**
+         * generates accordion items and renders accordion in browser
+         * @param dataProject
+         */
+        function setProjects (/*responded project list from server*/dataProject) {
             var project = {};
             var openProject = [];
             var closedProject = [];
@@ -65,15 +74,20 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
         }
 
 
-
-        /*generate accordion "people"*/
-
+        /**
+         * gets all users from server`s DB
+         * @returns {*|jQuery.ajax}
+         */
         function getUsers() {return $.ajax({
             type: "GET",
             url: "/users",
             async: true
-        })};
+        })}
 
+        /**
+         * generates accordion items and renders accordion in browser
+         * @param dataPerson
+         */
         function setUsers (dataPerson) {
             var people = {};
             for (var elems in dataPerson) {
@@ -90,7 +104,7 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             }
             person = people;
             accordPeople = new Accordion(person, "#accordion-people");
-        };
+        }
 
         $.when(getStatuses(), getProjects(), getUsers())
             .then(function(dataStatus, dataProjects, dataPerson){
@@ -107,7 +121,7 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             setSizes();
         });
 
-    })
+    });
 
     function setSizes() {
         var topHeight = $('div.custom-view').outerHeight() + $('#search').outerHeight();

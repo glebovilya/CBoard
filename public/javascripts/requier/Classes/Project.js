@@ -60,7 +60,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
             data: {id: pers},
             async: true,
             success: function (res) {
-                console.log(res);
                 var person = new Person({id: res._id, projectID: self.id});
                 person.inProject = true;
                 self.sortEmployee(person);

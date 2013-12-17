@@ -98,11 +98,10 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
                 setProjects(dataProjects[0]);
                 setUsers(dataPerson[0]);
                 setSizes();
+            })
+            .fail(function(){
+                window.location.href = "http://127.0.0.1:3000/404"
             });
-
-
-
-
 
         $(window).bind("resize", function () { //при изменении размера окна вызываем функцию
             setSizes();

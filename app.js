@@ -5,7 +5,7 @@
 
 var express = require('express');
 var routes = require('./routes');
-//var user = require('./routes/user');
+var errorHandler = require('./routes/errorPage');
 var http = require('http');
 var path = require('path');
 var dataSetter = require('./server/db/dataSetter');
@@ -35,6 +35,7 @@ if ('development' == app.get('env')) {
 
 
 app.get('/', routes.index);
+app.get('/404', errorHandler.error);
 
 /*******************************************************************
  * every app.get||app.post below returns json with requested obj

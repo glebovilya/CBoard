@@ -29,7 +29,7 @@ var Person = function(idPerson) {
         self.domNode= "#"+idFix;
 
         self.render();
-        storage.addObj(self)
+        storage.addObj(self);
 
         self.searchName = self.name + ' ' + self.surname;
         storage.addObj(self);
@@ -85,7 +85,7 @@ var Person = function(idPerson) {
             Person.bindDomNodes();
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
-                if(self.projectID !== undefined){
+                if((self.projectID)  || self.projectID === 0){
                     for(var i in storage.storage){
                         if(storage.storage[i].id === self.id && storage.storage[i].start){
                             var re = new RegExp(self.searchName);

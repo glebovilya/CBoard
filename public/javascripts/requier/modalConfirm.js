@@ -2,6 +2,7 @@
 
 define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], function (templ, storage) {
     /**
+     *
      * @type {{template: *, init: Function, render: Function, bindDomNodes: Function, setHandler: Function}}
      */
     var Confirm = {
@@ -14,7 +15,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
          */
         init: function (data, Person) {
             $.extend(this,data);
-            if((Confirm['lastProject'] !== undefined) && (Confirm['lastProject'] != "inner-board") ){
+            if((Confirm['lastProject'] || Confirm['lastProject'] === 0) && (Confirm['lastProject'] != "inner-board") ){
                 Confirm.lastProject = Confirm['lastProject'];
             } else {
                 Confirm.lastProject = false;
@@ -29,31 +30,36 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
             $(Confirm.template).appendTo(innerBoard);
             formConfirmDate.ready(function () {
 
-                if (Confirm.lastProject !== undefined) {
+                if (Confirm.lastProject || Confirm.lastProject === 0) {
                     $.ajax({url: '/project',
                         type: 'GET',
                         data: {id: Confirm.lastProject},
                         success: function (returndata) {
-                            lastProject.html('leaves the project:  ' + returndata.name)
+                            $(lastProject).html('leaves the project:  ' + returndata.name)
                         }
                     });
                 } else {
-                    lastProject.html('leaves the category of employed workers');
+                    $(lastProject).html('leaves the category of employed workers');
                 }
+
                 if (Confirm.currentProject) {
+
                     $.ajax({url: '/project',
                         type: 'GET',
                         data: {id: Confirm.currentProject},
                         success: function (returndata) {
-                            currentProject.html('assigned to the project:  ' + returndata.name)
+                            $(currentProject).html('assigned to the project:  ' + returndata.name)
                         }
                     });
                 } else {
-                    currentProject.html('joined not employed persons');
-                    statusId.remove();
+
+                    $(currentProject).html('joined not employed persons');
+                   $(statusId).remove();
                 }
 
-                $("#datepicker").datepicker();
+                $(datePicker).datepicker();
+
+
 
                 var photo = new Person({
                     id: Confirm['id'],
@@ -72,10 +78,10 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                           modalFooterButton = $(".modal-footer button");
                           formConfirmDate = $("#formConfirmDate");
                           modalClose = $("#modalClose");
-                          statusId = $("#statusID");
-                          datePicker = $("#datepicker");
-                          currentProject = $("#currentProject");
-                          lastProject = $("#lastProject");
+                          statusId = "#statusID";
+                          datePicker = "#datepicker";
+                          currentProject = "#currentProject";
+                          lastProject = "#lastProject";
         },
         /**
          * set remove modal and submit data in db "history"
@@ -83,12 +89,12 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
         setHandler: function () {
                             Confirm.bindDomNodes();
                             function submitChanges(e) {
-                                if (statusId.val() == 0) {
+                                if ($(statusId).val() == 0) {
                                     alert("select status or close the window without saving");
                                     return
                                 }
 
-                                if (Confirm.lastProject !== undefined) {
+                                if (Confirm.lastProject || Confirm.lastProject === 0) {
 
                                     formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                                     $.ajax({
@@ -96,8 +102,9 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                                         type: 'POST',
                                         data: formData,
                                         success: function (returndata) {
-                                            if (Confirm.currentProject !== undefined) {
-                                                formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: statusId.val(), leaving: 'false'};
+
+                                            if (Confirm.currentProject ||Confirm.currentProject === 0) {
+                                                formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $(statusId).val(), leaving: 'false'};
                                                 $.ajax({
                                                     url: '/history',
                                                     type: 'POST',
@@ -107,18 +114,18 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                                                         modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                                         $(Confirm.domNode).remove();
                                                         modalWindow.remove();
-                                                        datePicker.remove();
+                                                        $(datePicker).remove();
                                                     }
                                                 });
                                             } else {
                                                 $(Confirm.domNode).remove();
                                                 modalWindow.remove();
-                                                datePicker.remove();
+                                                $(datePicker).remove();
                                             }
                                         }
                                     });
                                 } else {
-                                    formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: statusId.val(), leaving: 'false'};
+                                    formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $(statusId).val(), leaving: 'false'};
                                     $.ajax({
                                         url: '/history',
                                         type: 'POST',
@@ -127,7 +134,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                                         success: function (returndata) {
                                             modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                             modalWindow.remove();
-                                            datePicker.remove();
+                                            $(datePicker).remove();
                                             $(Confirm.domNode).remove();
 
                                             for (var i in strg){
@@ -142,7 +149,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                             function closeModal (eventObject) {
 
                                 modalWindow.remove();
-                                datePicker.remove();
+                                $(datePicker).remove();
                             }
 
             var strg = storage.storage;

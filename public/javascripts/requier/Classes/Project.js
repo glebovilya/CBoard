@@ -74,6 +74,12 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
         var self = this;
 
+        var processNewPerson = function(person) {
+            self.searchName = self.searchName + ' ' + person.searchName;
+            person.inProject = true;
+            self.sortEmployee(person);
+        }
+
         $.ajax({
             url: '/project',
             data: {id: this.id},
@@ -87,10 +93,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
                 // response has currentEmployees property, which is an array we have to analyze
                 for (var i in res.currentEmployees) {
                     //creating new Person instance form each record in currentEmployees array
-                    var person = new Person({id: res.currentEmployees[i], projectID: self.id}); // add projectID:id *stepa
-                    self.searchName = self.searchName + ' ' + person.searchName;
-                    person.inProject = true;
-                    self.sortEmployee(person);
+                    var person = new Person({id: res.currentEmployees[i], projectID: self.id, callback: processNewPerson});
                 }
             }
         })

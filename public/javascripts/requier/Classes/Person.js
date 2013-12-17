@@ -6,7 +6,11 @@
 
 define (['text!../templates/employe.html', '../StorageForObjectsOnBoard', 'modalConfirm','../../thirdParty/jquery.event.drag-2.2'], function(templ, storage,Confirm){
 
-
+    /**
+     * function cause modal window for the selected person on board
+     * @param data /{id:PersonId, lastProject:attr(data-parentProject), domNode:idDomNode on which part of}/
+     * @param Person /object Person for call from window Confirm and call photo/
+     */
     function transit(data,Person){
         Confirm.init(data,Person);
     }
@@ -24,9 +28,10 @@ var Person = function(idPerson) {
         self.idFix = idFix;
         self.domNode= "#"+idFix;
 
-        self.searchName = self.name + ' ' + self.surname;
-
         self.render();
+        storage.addObj(self);
+
+        self.searchName = self.name + ' ' + self.surname;
         storage.addObj(self);
 
         if(callback){
@@ -37,20 +42,27 @@ var Person = function(idPerson) {
 
     var id = idPerson['id'];
     var projectID = idPerson['projectID'];
-    var parentProject =idPerson['parentNode'];// конфликт имен с drag-&-drop
+    var parentProject =idPerson['parentNode'];
     var forPhoto =idPerson['forPhoto'];
     var callback = idPerson['callback'];
 
-    $.ajax({url: "/user", data:{ id: id}, async: true, success: onAjaxSuccess});
+
+    $.ajax({url: "/user", data:{ id: id}, success: onAjaxSuccess});
     };
+
     Person.bindDomNodes = function(){
         innerBoard = $('#inner-board');
+
+
     };
     Person.template = templ;
+    /**
+     * binding this attributes and this photo to template and binding template for page
+     * @type {render: Function}
+     */
     Person.prototype  = {
         render: function(){
             if(!this.parentProject){this.parentProject = "#inner-board";}
-
             var divWindow =document.createElement("div");
             $(this.parentProject).append(divWindow);
             divWindow.className = "employeeWindow drag";
@@ -65,24 +77,22 @@ var Person = function(idPerson) {
                 $(self.domNode).find(".emplPosition").html(self.position);
                 $(self.domNode).find(".united img").attr("src", self.photo);
                 if(!self.forPhoto)  self.setHandler();
-
             });
-
         },
+        /**
+         * set remove and drop for domNode
+         */
         setHandler: function(){
             Person.bindDomNodes();
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
-
-                if(self.projectID || self.projectID === 0){
+                if((self.projectID)  || self.projectID === 0){
                     for(var i in storage.storage){
                         if(storage.storage[i].id === self.id && storage.storage[i].start){
                             var re = new RegExp(self.searchName);
-                            console.log(storage.storage[i])
                             storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
                         }
                     }
-//                    console.log(self)
                     transit({
                         domNode:self.domNode,
                         id: self.id,
@@ -94,32 +104,29 @@ var Person = function(idPerson) {
 
                 storage.dropObj(self)
             });
-
+            // set drop
             jQuery(function(S){
-
                 var $div = innerBoard;
                 var z = 100;
                 $(self.domNode)
                     .drag("start",function( ev, dd ){
-                        dd.limit = $div.offset();
+                        dd.limit = $div.offset(); // set border motion
                         dd.limit.bottom = dd.limit.top + $div.outerHeight() - $( this ).outerHeight();
                         dd.limit.right = dd.limit.left + $div.outerWidth() - $( this ).outerWidth();
-
-                        return $( this ).clone()
+                        return $( this ).clone() // creation clone for authorized movement
                             .css("opacity", .75 )
                             .css('zIndex', z+10 )
-                            .appendTo( this.parentNode );
-                    })
+                            .css('-webkit-transform', 'rotate(10deg)') /* Для Safari, Chrome, iOS */
 
-                    .drag("init", function(ev, dd){
-//                        dd.drop=$(".drop");
+
+                            .appendTo( this.parentNode );
                     })
                     .drag(function( ev, dd ){
                         $('.drop').css({
                             boxShadow : "0 0px 20px rgba(0, 128, 0, 0.7)"
                         });
                         $(dd.proxy).css({
-                            position: 'fixed',
+                            position: 'fixed', //  for the correct location
                             top: Math.min( dd.limit.bottom, Math.max( dd.limit.top, dd.offsetY ) ),
                             left: Math.min( dd.limit.right, Math.max( dd.limit.left, dd.offsetX ) )
                         })
@@ -132,6 +139,7 @@ var Person = function(idPerson) {
                     });
 
             });
+
         }
     };
 

@@ -1,4 +1,7 @@
 define(['./Classes/Project', 'StorageForObjectsOnBoard'], function(Project, storage){
+
+    var strg = storage.storage;
+
     var showHide = {
         clearBoard: function() {
             var innerNodes = $('#inner-board').find('*');
@@ -6,6 +9,9 @@ define(['./Classes/Project', 'StorageForObjectsOnBoard'], function(Project, stor
                 $(node).remove()
             })
         },
+        /**
+         * sends req to server and calls func to render projects
+         */
         getProjects: function(){
             $.ajax({
                 url: '/projects',
@@ -13,12 +19,21 @@ define(['./Classes/Project', 'StorageForObjectsOnBoard'], function(Project, stor
                 success: function(projects){showHide.renderProjects(projects)}
             })
         },
+
+        /**
+         * calls Project constructor for every elem in array
+         * @param projects
+         */
         renderProjects: function(/*array of objs*/projects){
             for (var i in projects) {
                 var proj = new Project(projects[i]['_id'])
                 proj.toggleDevs()
             }
         },
+
+        /**
+         * adds handlers to buttons to display/hide projects
+         */
         init: function(){
             var cleared = true;
             $('#showAll').click(function(){
@@ -29,7 +44,7 @@ define(['./Classes/Project', 'StorageForObjectsOnBoard'], function(Project, stor
                 }
             })
             $('#hideAll').click(function(){
-                storage.storage.splice(0, storage.storage.length);
+                strg.splice(0, strg.length);
                 showHide.clearBoard();
                 cleared = true
             })

@@ -2,7 +2,8 @@
  * Created by stepanjuk on 29.11.13.
  */
 
-require([/*'stepa','Accordion',*/'text!./templates/addEmployee.html', 'initAccordionOnPage'], function(templatadd, setAccordItem){
+require(['text!./templates/addEmployee.html', 'initAccordionOnPage'], function(templatadd, setAccordItem){
+
 
 
 $(document).ready(function(){

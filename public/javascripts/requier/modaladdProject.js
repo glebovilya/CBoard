@@ -32,7 +32,6 @@ define(['text!./templates/addProject.html', 'Classes/Accordion', 'initAccordionO
                     contentType: false,
                     processData: false,
                     success: function (returndata) {
-
                         var obj = {id: returndata._id, name: returndata.name};
                         var item = "";
                         if (returndata.end) item = "Closed"

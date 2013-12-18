@@ -78,7 +78,8 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         // in switching data-attributes and classes to id's
 
         this.devs = this.domNode.find('[data-role=devs]')[0];
-        this.leads = this.domNode.find('[data-role=leads]')[0];
+        this.leads = this.domNode.find('.leads')[0];
+        this.mans = this.domNode.find('.mans')[0];
         this.close = this.domNode.find('button.close')[0];
         this.toggleDevs_btn = this.domNode.find('a[href="#show"]')[0];
         this.header = this.domNode.find('.project-header span')[0];
@@ -173,7 +174,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         //sort employees corresponding to them project status
 
         if (status == 2) {/*if employee's role is a manager*/
-            $(p.domNode).appendTo(self.leads).css({
+            $(p.domNode).appendTo(self.mans).css({
                 float: 'left',
                 position: 'relative'
             })

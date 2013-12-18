@@ -6,13 +6,47 @@ define(['text!./templates/addProject.html', 'Classes/Accordion', 'initAccordionO
 
     $(document).ready(function () {
 
+
+
         $("#buttonAddNewProject").click(function (event) {
 
+
+
             var template = templ;
+            var template = $(template);
+//            console.log(t.find('*'))
+            template.find('*').each(function(){
+                var element = $(this);
+                if(element[0].tagName == 'BUTTON'){
+                    if(element.attr('class')=='close'){
+                            element.on('click', function () {
+                                template.remove();
+                            })
+                    }
+                }
+                if(element.attr('name')=='startDate'){
+                    element.datepicker()
+                }
+                if(element.attr('type')=='submit'){
+                    console.log(element.attr('class'))
+                }
+
+            })
+
+
+//            console.log(element.attr('class'))
+
+
+
+
+
+
+
+
 
 
             $(template).appendTo($("#inner-board"));
-            $(".input-append input").datepicker();
+//            $(".input-append input").datepicker();
             var d = new Date();
             $("div.input-append input")[0].value = (d.getMonth()+1) + "/"+d.getDate() + "/" + d.getFullYear();
 
@@ -23,12 +57,9 @@ define(['text!./templates/addProject.html', 'Classes/Accordion', 'initAccordionO
 //            var date = new Date($(".datepicker").val());
 
                 var datePicker = $("input[name='startDate']")[0];
-
                 var date = new Date(datePicker.value);
                 date.setDate(date.getDate() + 1); //issue on server --> date -1 day
-
                 datePicker.value = date;
-
                 var formData = new FormData($(this)[0]);
 
                 $.ajax({
@@ -36,7 +67,6 @@ define(['text!./templates/addProject.html', 'Classes/Accordion', 'initAccordionO
                     type: 'POST',
 //                startDate:date,
                     data: formData,
-                    async: false,
                     cache: false,
                     contentType: false,
                     processData: false,
@@ -54,10 +84,9 @@ define(['text!./templates/addProject.html', 'Classes/Accordion', 'initAccordionO
 
             });
 
-            $("#modalAddProject .close").on('click', function () {
-                $(".datepicker").remove();
-                $("#modalAddProject").remove();
-            })
+//            $("#modalAddProject .close").on('click', function () {
+//                $("#modalAddProject").remove();
+//            })
 
         })
     })

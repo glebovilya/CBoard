@@ -81,7 +81,7 @@
     *  some padding will take it look a bit accurate
     */
     position: relative;
-    min-width: 450px;
+    min-width: 500px;
     background-color: #ffffff;
 }
 
@@ -117,7 +117,8 @@
 .project-body .leaders {
     position: relative;
     min-height: 165px;
-    min-width: 450px;
+    min-width: 500px;
+    padding-left: 20px;
 }
 
 .project-body .developers{
@@ -132,6 +133,7 @@
 }
 .open{
     min-height:190px;
+    border-top: 2px solid darkgrey;
 }
 
 .project-body .developers > a{
@@ -139,6 +141,7 @@
     width: 99%;
     bottom: 0;
     color: darkgray;
+
 }
 
 .project-body .thumbnails li {
@@ -156,15 +159,34 @@
 }
 
 .newEmployee {
-
-
-
-
     top: 100px;
     left: 100px;
 }
 #windowForPhoto {
     position: relative;
+}
+
+.mans, .leads {
+    position: relative;
+    width: 48%;
+    height: 100%;
+    float: left;
+    min-height: 165px;
+}
+
+.mans>span, .leads>span {
+    position: absolute;
+    bottom: 5.1em;
+    left: -6.7em;
+    -moz-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    width: 11.5em;
+    text-align: right;
+    z-index: 1000;
+    border-bottom: 2px solid darkgrey;
+    padding-right:5px;
 }
 
 span[data-role="projectName"]{

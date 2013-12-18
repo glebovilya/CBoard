@@ -73,10 +73,13 @@ var Person = function(idPerson) {
                 $(self.domNode).attr("data-id", self.id);
                 $(self.domNode).attr("data-parentProject", self.projectID);
                 if(!self.forPhoto)$(self.domNode).find(".employee-header").append('<button type="button" class="close" data-toggle="tooltip" title="remove from project" aria-hidden="true" >&times;</button>');
-                $(self.domNode).find(".united .name").html(self.name+'<br/>'+self.surname);
+                $(self.domNode).find(".united .name").html(self.name+' '+self.surname);
                 $(self.domNode).find(".emplPosition").html(self.position);
                 $(self.domNode).find(".united img").attr("src", self.photo);
                 if(!self.forPhoto)  self.setHandler();
+
+                self.domNode = $(divWindow)
+
             });
         },
         renderNew: function(){

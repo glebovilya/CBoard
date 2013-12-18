@@ -107,12 +107,13 @@ var Person = function(idPerson) {
 
         },
         /**
-         * set remove and drop for domNode
+         * set remove and drag for domNode
          */
         setHandler: function(){
             Person.bindDomNodes();
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
+
                 if(self.projectID !== undefined){
                     for(var i in storage.storage){
                         if(storage.storage[i].id === self.id && storage.storage[i].start){
@@ -120,6 +121,8 @@ var Person = function(idPerson) {
                             storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
                         }
                     }
+
+
                     transit({
                         domNode:self.domNode,
                         id: self.id,
@@ -131,7 +134,7 @@ var Person = function(idPerson) {
 
                 storage.dropObj(self)
             });
-            // set drop
+            // set drag - ability to drag person
             jQuery(function(S){
                 var $div = innerBoard;
                 var z = 100;
@@ -143,22 +146,22 @@ var Person = function(idPerson) {
                         return $( this ).clone() // creation clone for authorized movement
                             .css("opacity", .75 )
                             .css('zIndex', z+10 )
-                            .css('-webkit-transform', 'rotate(10deg)') /* Для Safari, Chrome, iOS */
+                            .css('-webkit-transform', 'rotate(10deg)') /* for Safari, Chrome, iOS */
 
 
                             .appendTo( this.parentNode );
                     })
-                    .drag(function( ev, dd ){
+                    .drag(function( ev, dd ){ //illuminant target drop
                         $('.drop').css({
                             boxShadow : "0 0px 20px rgba(0, 128, 0, 0.7)"
                         });
                         $(dd.proxy).css({
-                            position: 'fixed', //  for the correct location
+                            position: 'fixed', //  for the correct location under the cursor
                             top: Math.min( dd.limit.bottom, Math.max( dd.limit.top, dd.offsetY ) ),
                             left: Math.min( dd.limit.right, Math.max( dd.limit.left, dd.offsetX ) )
                         })
                     })
-                    .drag("end",function( ev, dd ){
+                    .drag("end",function( ev, dd ){// turn off illuminant
                         $( dd.proxy ).remove();
                         $('.drop').css({
                             boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"

@@ -6,61 +6,22 @@ define(['text!./templates/addProject.html', 'Classes/Accordion', 'initAccordionO
 
     $(document).ready(function () {
 
+        function handler(event) {
+            $("#buttonAddNewProject").unbind();
 
-
-        $("#buttonAddNewProject").click(function (event) {
-
-
-
-            var template = templ;
-            var template = $(template);
-//            console.log(t.find('*'))
-            template.find('*').each(function(){
-                var element = $(this);
-                if(element[0].tagName == 'BUTTON'){
-                    if(element.attr('class')=='close'){
-                            element.on('click', function () {
-                                template.remove();
-                            })
-                    }
-                }
-                if(element.attr('name')=='startDate'){
-                    element.datepicker()
-                }
-                if(element.attr('type')=='submit'){
-                    console.log(element.attr('class'))
-                }
-
-            })
-
-
-//            console.log(element.attr('class'))
-
-
-
-
-
-
-
-
-
-
-            $(template).appendTo($("#inner-board"));
-//            $(".input-append input").datepicker();
-            var d = new Date();
-            $("div.input-append input")[0].value = (d.getMonth()+1) + "/"+d.getDate() + "/" + d.getFullYear();
-
-
-
-
-            $('#modalAddProject form').submit(function () { //listen for submit event
-//            var date = new Date($(".datepicker").val());
-
+            function submitProject(){
                 var datePicker = $("input[name='startDate']")[0];
                 var date = new Date(datePicker.value);
                 date.setDate(date.getDate() + 1); //issue on server --> date -1 day
                 datePicker.value = date;
-                var formData = new FormData($(this)[0]);
+                var formData = {name:$("input[name='name']").val(),startDate:datePicker.value}
+//                console.log(formData)
+//                console.log(datePicker.value)
+
+                if(!$("input[name='name']").val()){
+                    alert('must fill in "name project"')
+                    return;
+                }
 
                 $.ajax({
                     url: '/project',
@@ -72,7 +33,7 @@ define(['text!./templates/addProject.html', 'Classes/Accordion', 'initAccordionO
                     processData: false,
                     success: function (returndata) {
 
-                        var obj = {id: returndata._id, name: returndata.name}
+                        var obj = {id: returndata._id, name: returndata.name};
                         var item = "";
                         if (returndata.end) item = "Closed"
                         else item = "Open"
@@ -81,14 +42,40 @@ define(['text!./templates/addProject.html', 'Classes/Accordion', 'initAccordionO
                     }
                 });
                 return false;
+            }
 
+            //render modal window
+            var template = templ;
+            var template = $(template);
+//            console.log(t.find('*'))
+            template.find('*').each(function(){
+                var element = $(this);
+                if(element[0].tagName == 'BUTTON'){
+                    if(element.attr('class')=='close'){
+                        element.on('click', function () {
+                            $("#buttonAddNewProject").click(handler);
+                            template.remove();
+                        })
+                    }
+                }
+                if(element.attr('name')=='startDate'){
+                    element.datepicker()
+                }
+                if(element.attr('data-point')=='submit'){
+//                    console.log(element.attr('class'));
+                      element.click(submitProject)
+                }
             });
+            $(template).appendTo($("#inner-board"));
+//            var d = new Date();
+//            $("div.input-append input")[0].value = (d.getMonth()+1) + "/"+d.getDate() + "/" + d.getFullYear();
 
 //            $("#modalAddProject .close").on('click', function () {
 //                $("#modalAddProject").remove();
 //            })
+        }
 
-        })
+        $("#buttonAddNewProject").click(handler)
     })
 
 });

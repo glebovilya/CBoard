@@ -105,13 +105,12 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
                 $(strg[i].domNode).remove();
             }
         }
-        console.log(pers);
+
         $.ajax({
             url: '/user',
             data: {id: pers},
             async: true,
             success: function (res) {
-                console.log(res);
                 var person = new Person({id: res._id, projectID: self.id, callback: self.processNewPerson});
             }
         });

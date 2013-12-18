@@ -78,6 +78,18 @@ var Person = function(idPerson) {
                 if(!self.forPhoto)  self.setHandler();
             });
         },
+        renderNew: function(){
+            if(!this.parentProject){this.parentProject = "#inner-board";}
+            var divWindow =document.createElement("div");
+            divWindow.className = "employeeWindow drag";
+            divWindow.id = this.idFix;
+            divWindow.attr("data-id", self.id);
+            divWindow.attr("data-parentProject", self.projectID);
+            $(divWindow).append(Person.template);
+            
+
+
+        },
         /**
          * set remove and drop for domNode
          */

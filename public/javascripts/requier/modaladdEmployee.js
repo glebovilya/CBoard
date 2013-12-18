@@ -13,13 +13,12 @@ $(document).ready(function(){
         $(template).appendTo($("#inner-board"));
 //        console.log(template);
     $('#modalAddPeople form').submit(function(){ //listen for submit event
-
                 var formData = new FormData($(this)[0]);
 
-        if(!$("input[name='name']").val()){
-            alert('must fill in name')
-            return;
-        }
+//        if(!$("input[name='name']").val()){
+//            alert('must fill in name')
+//            return;
+//        }
 
                 $.ajax({
                     url: '/user',

@@ -35,7 +35,7 @@ var Person = function(idPerson) {
         storage.addObj(self);
 
         if(callback){
-            console.log(callback);
+//            console.log(callback);
             callback(self)
         }
     }
@@ -81,14 +81,28 @@ var Person = function(idPerson) {
         },
         renderNew: function(){
             if(!this.parentProject){this.parentProject = "#inner-board";}
+            var self = this;
             var divWindow =document.createElement("div");
             divWindow.className = "employeeWindow drag";
             divWindow.id = this.idFix;
-            divWindow.attr("data-id", self.id);
-            divWindow.attr("data-parentProject", self.projectID);
+            $(divWindow).attr("data-id", self.id);
+            $(divWindow).attr("data-parentProject", self.projectID);
             $(divWindow).append(Person.template);
-            
-
+            if(!this.forPhoto){var noJustPhoto = true}
+            $(Person.template).find('*').each(function(){
+                var element = $(this);
+                console.log(element)
+                if(element.attr('data-point')=='photo'){element.attr("src", self.photo)}
+                if(element.attr('data-point')=='position'){element.html(self.position)}
+                if(element.attr('data-point')=='name'){element.html(self.name+'<br/>'+self.surname);}
+                if(noJustPhoto){
+                     if(element.attr('data-point')=='header'){
+                        element.append('<button type="button" class="close" data-toggle="tooltip" title="remove from project" aria-hidden="true" >&times;</button>');
+                     }
+                }
+            });
+            $(this.parentProject).append(divWindow);
+            if(noJustPhoto) this.setHandler()
 
         },
         /**

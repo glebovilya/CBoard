@@ -113,6 +113,7 @@ var Person = function(idPerson) {
             Person.bindDomNodes();
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
+
                 if(self.projectID !== undefined){
                     for(var i in storage.storage){
                         if(storage.storage[i].id === self.id && storage.storage[i].start){
@@ -120,6 +121,8 @@ var Person = function(idPerson) {
                             storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
                         }
                     }
+
+
                     transit({
                         domNode:self.domNode,
                         id: self.id,

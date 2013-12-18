@@ -37,7 +37,11 @@ define(['StorageForObjectsOnBoard'], function(storage){
         var index = toLCinnerHTML.indexOf(toLCtext);
         if ( index >= 0)
         {
-            innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+            innerHTML = innerHTML.substring(0,index) +
+                        "<span class='highlight'>" +
+                        innerHTML.substring(index,index+text.length) +
+                        "</span>" +
+                        innerHTML.substring(index + text.length);
             replaceNode.innerHTML = innerHTML
 
         }
@@ -60,18 +64,12 @@ define(['StorageForObjectsOnBoard'], function(storage){
                     var node = $(obj.domNode);
                     var searchName = obj.searchName;
 
-                    highlightText(searchQuery, obj);
-//                    if(reg.test(searchName) && searchQuery){
-//                        node.addClass('shadow')
-//                    }
-//                    else {
-//                        node.removeClass('shadow')
-//                    }
+
                     if(!reg.test(searchName) && !obj.inProject) {
                         node.fadeOut(500);
                     } else {
-                        /*node.css({display: 'block'})*/
                         node.fadeIn(500);
+                        highlightText(searchQuery, obj);
 
                     }
                 }

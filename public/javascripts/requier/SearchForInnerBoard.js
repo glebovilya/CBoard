@@ -13,7 +13,6 @@ define(['StorageForObjectsOnBoard'], function(storage){
 
         var replaceNode = $(node).find('[data-point="name"]')[0];
 
-        console.log('start'+innerHTML)
     /**
      * here we checks if changes to the node with name were made
      * and if they were - simply rewind them
@@ -27,7 +26,7 @@ define(['StorageForObjectsOnBoard'], function(storage){
             innerHTML = replaceNode.innerHTML;
             obj['baseNode'] = innerHTML
         }
-        console.log('finish' +innerHTML)
+
         var toLCinnerHTML = innerHTML.toLowerCase();
         var toLCtext = text.toLowerCase();
 

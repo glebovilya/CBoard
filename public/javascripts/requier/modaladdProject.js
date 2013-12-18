@@ -9,7 +9,7 @@ define(['text!./templates/addProject.html', 'Classes/Accordion', 'initAccordionO
         function handler(event) {
             $("#buttonAddNewProject").unbind();
 
-            function submitProject(){
+            function submitProject(){ //forming Ajax quire
                 var datePicker = $("input[name='startDate']")[0];
                 var date = new Date(datePicker.value);
                 date.setDate(date.getDate() + 1); //issue on server --> date -1 day

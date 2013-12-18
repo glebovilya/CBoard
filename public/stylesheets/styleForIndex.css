@@ -221,6 +221,7 @@ a:hover, a:focus, a:link {
 
 .highlight
 {
+    border-radius: 4px;
     background-color: #ff0000;
     color: #ffffff;
 }

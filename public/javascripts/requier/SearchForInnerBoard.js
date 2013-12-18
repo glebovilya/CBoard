@@ -9,28 +9,25 @@ define(['StorageForObjectsOnBoard'], function(storage){
         var innerHTML;
         var node;
 
-        if(obj.domNode['2']) {
-            node = obj.domNode[2]
-        } else {
-            node = obj.domNode[0]
-        }
+        node = $(obj.domNode);
 
         var replaceNode = $(node).find('[data-point="name"]')[0];
-        innerHTML = replaceNode.innerHTML;
 
-
-        /**
-         * here we checks if changes to the node with name was made
-         * and if they were - simply rewind them
-         * to make innerHTML default
-         */
+        console.log('start'+innerHTML)
+    /**
+     * here we checks if changes to the node with name were made
+     * and if they were - simply rewind them
+     * to make innerHTML default
+     */
         if(obj['baseNode']) {
-            innerHTML = obj['baseNode']
+            replaceNode.innerHTML = obj['baseNode']
+            innerHTML = replaceNode.innerHTML;
         }
         else {
+            innerHTML = replaceNode.innerHTML;
             obj['baseNode'] = innerHTML
         }
-
+        console.log('finish' +innerHTML)
         var toLCinnerHTML = innerHTML.toLowerCase();
         var toLCtext = text.toLowerCase();
 
@@ -38,7 +35,6 @@ define(['StorageForObjectsOnBoard'], function(storage){
          * just checking if search query is in our node
          * if it does, simply wrap our peace of text with span
          */
-
         var index = toLCinnerHTML.indexOf(toLCtext);
         if ( index >= 0)
         {

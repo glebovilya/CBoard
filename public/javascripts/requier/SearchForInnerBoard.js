@@ -42,6 +42,7 @@ define(['StorageForObjectsOnBoard'], function(storage){
                         innerHTML.substring(index,index+text.length) +
                         "</span>" +
                         innerHTML.substring(index + text.length);
+
             replaceNode.innerHTML = innerHTML
 
         }

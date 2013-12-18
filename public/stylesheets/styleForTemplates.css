@@ -178,7 +178,10 @@
     position: absolute;
     bottom: 5.1em;
     left: -6.7em;
-    transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
     width: 11.5em;
     text-align: right;
     z-index: 1000;

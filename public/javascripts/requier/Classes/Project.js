@@ -93,7 +93,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         person.inProject = true;
         console.log(this);
         instance.sortEmployee(person);
-        instance = null;
     };
 
     Project.prototype.addPerson = function (pers) {
@@ -111,7 +110,8 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
             success: function (res) {
                 var person = new Person({id: res.currentEmployees[i], projectID: self.id, callback: self.processNewPerson});
             }
-        })
+        });
+        instance = null;
     };
 
     Project.prototype.getProject = function () {
@@ -134,7 +134,8 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
                     var person = new Person({id: res.currentEmployees[i], projectID: self.id, callback: self.processNewPerson});
                 }
             }
-        })
+        });
+        instance = null;
     };
 
     Project.prototype.addDrop = function () {

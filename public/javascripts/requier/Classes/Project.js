@@ -1,31 +1,72 @@
-
 define(['text!../templates/project.html', 'Classes/Person', '../StorageForObjectsOnBoard', '../modalConfirm', '../../thirdParty/jquery.event.drop-2.2'], function (template, Person, storage, Confirm) {
 
-    function transit(data,Person){
+    /*
+    * next files are required for following needs:
+    * ********************************************
+    * template - provides the html markup for project rendering
+    * Person - allows to call person init and rendering from project method
+    * storage - this file provides access to storage object - container for all objects on board
+    * Confirm - this is a modal window, which appears in case of project changes,
+    * *like an addition/deletion a person onto/from project
+    * *********************************************
+    * also a drag&drop plugin file is required. It allows a project to accept dropped people cards
+    * */
+
+
+    /*
+    * this function helps to add drop event onto project window
+    * */
+    var instance = null;
+
+    function transit(/*obj*/data,/*obj*/Person){
         Confirm.init(data,Person);
     }
+
+
+    /*
+    * in project initialization we rendering view by adding template on board and
+    * adding current employees into project window
+    * then, storage updates with project instance
+    */
     var Project = function (/*string*/id) {
+
 
         this.id = id;
         this.template = template;
 
-        this.renderView();
+        this.renderView(this);
         this.buildLogic();
 
         storage.addObj(this);
 
     };
 
+    Project.prototype.getMe = function(){
+        return this;
+    }
+
+    /*
+    * remove project instance from board and form storage
+    */
     Project.prototype.__destruct = function () {
         this.domNode.remove();
         storage.dropObj(this)
     };
 
-    Project.prototype.renderView = function () {
+    /* this function appends template onto board,
+     * parsing template's key nodes and
+     * adding event handlers to this nodes
+     * */
 
-        this.domNode = $(this.template).appendTo($("#inner-board")).css({
+
+    Project.prototype.renderView = function () {
+        /*
+        * adding template onto board, setting id and class for it
+        * */
+         this.domNode = $(this.template).appendTo($("#inner-board")).css({
             float: 'left'
         }).addClass('drop').attr('id', this.id);
+
 
         // Parsing template' nodes
         // Sorry for my ugly syntax, maybe we'd find solution
@@ -36,23 +77,26 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         this.close = this.domNode.find('button.close')[0];
         this.toggleDevs_btn = this.domNode.find('a[href="#show"]')[0];
         this.header = this.domNode.find('.project-header span')[0];
+
         this.addTemplateHandlers();
     };
+
 
     Project.prototype.buildLogic = function () {
         //return a project record from db or creates a new record
         !(typeof this == Object) ? this.getProject() : this.createProject();
     };
 
-    Project.prototype.addPerson = function (/*Person*/pers) {
+    Project.prototype.processNewPerson = function(person) {
+        console.log(instance);
+        instance.searchName = instance.searchName + ' ' + person.searchName;
+        person.inProject = true;
+        console.log(this);
+        instance.sortEmployee(person);
+        instance = null;
+    };
 
-        var processNewPerson = function(person) {
-            self.searchName = self.searchName + ' ' + person.searchName;
-            person.inProject = true;
-            self.sortEmployee(person);
-
-        }
-
+    Project.prototype.addPerson = function (pers) {
         var self = this;
         var strg = storage.storage;
         for(var i in strg) {
@@ -65,28 +109,14 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
             data: {id: pers},
             async: true,
             success: function (res) {
-                var person = new Person({id: res._id, projectID: self.id,callback: processNewPerson});
-//                person.inProject = true;
-//                console.log('after Ajax'+person)
-//                self.sortEmployee(person);
-//                self.searchName += person.searchName
-
+                var person = new Person({id: res.currentEmployees[i], projectID: self.id, callback: self.processNewPerson});
             }
         })
     };
 
     Project.prototype.getProject = function () {
+
         var self = this;
-
-
-        var processNewPerson = function(person) {
-            self.searchName = self.searchName + ' ' + person.searchName;
-            person.inProject = true;
-            self.sortEmployee(person);
-
-        }
-
-
         $.ajax({
             url: '/project',
             data: {id: this.id},
@@ -97,10 +127,11 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
                 self.searchName = self.name;
                 self.header.innerHTML = self.name;
                 self.addDrop();
+                instance = self;
                 // response has currentEmployees property, which is an array we have to analyze
                 for (var i in res.currentEmployees) {
                     //creating new Person instance form each record in currentEmployees array
-                    var person = new Person({id: res.currentEmployees[i], projectID: self.id, callback: processNewPerson});
+                    var person = new Person({id: res.currentEmployees[i], projectID: self.id, callback: self.processNewPerson});
                 }
             }
         })
@@ -126,21 +157,18 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
     };
 
-    Project.prototype.sortEmployee = function (/*Person*/p) {/*we translate JSON(returned person) here, in "p" param */
+    Project.prototype.sortEmployee = function (p) {/*we translate JSON(returned person) here, in "p" param */
 
         var
             projl = p.projectList,
             statl = p.statusList,
             self = this;
 
-//console.log(self.id)
-//        console.log(p)
         //searching in array of projects current project key
         var idx = projl.indexOf(this.id),
 
         //searching an employee's status in current project
             status = statl[idx];
-
         //sort employees corresponding to them project status
 
         if (status == 2) {/*if employee's role is a manager*/
@@ -159,26 +187,32 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
                 position: 'relative'
             })
         }
+
     };
 
     Project.prototype.toggleDevs = function () {
         $(this.devs).toggleClass('open');
+
         // label toggler
         this.toggleDevs_btn.innerHTML == 'show developers' ? this.toggleDevs_btn.innerHTML = 'hide developers' : this.toggleDevs_btn.innerHTML = 'show developers';
     };
 
     Project.prototype.addTemplateHandlers = function () {
+
         /*adding custom event*/
         var self = this;
 
         $('#inner-board').bind('addEmpl', function (e, pers, proj) {
             (proj == self.id) ? self.addPerson(pers) : console.log('i am another project, my name is: ' + self.name);
+                    self.addPerson(pers);
         });
 
         /*template events*/
+
         $(this.toggleDevs_btn).on('click', $.proxy(this.toggleDevs,this));
         $(this.close).on('click', $.proxy(this.__destruct, this));
     };
+
 
     return Project;
 });

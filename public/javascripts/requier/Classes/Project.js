@@ -1,53 +1,58 @@
 define(['text!../templates/project.html', 'Classes/Person', '../StorageForObjectsOnBoard', '../modalConfirm', '../../thirdParty/jquery.event.drop-2.2'], function (template, Person, storage, Confirm) {
 
     /*
-    * next files are required for following needs:
-    * ********************************************
-    * template - provides the html markup for project rendering
-    * Person - allows to call person init and rendering from project method
-    * storage - this file provides access to storage object - container for all objects on board
-    * Confirm - this is a modal window, which appears in case of project changes,
-    * *like an addition/deletion a person onto/from project
-    * *********************************************
-    * also a drag&drop plugin file is required. It allows a project to accept dropped people cards
-    * */
+     * next files are required for following needs:
+     * ********************************************
+     * template - provides the html markup for project rendering
+     * Person - allows to call person init and rendering from project method
+     * storage - this file provides access to storage object - container for all objects on board
+     * Confirm - this is a modal window, which appears in case of project changes,
+     * *like an addition/deletion a person onto/from project
+     * *********************************************
+     * also a drag&drop plugin file is required. It allows a project to accept dropped people cards
+     * */
 
 
     /*
-    * this function helps to add drop event onto project window
-    * */
-    var instance = null;
-
-    function transit(/*obj*/data,/*obj*/Person){
-        Confirm.init(data,Person);
+     * this function helps to add drop event onto project window
+     * */
+    function transit(/*obj*/data, /*obj*/Person) {
+        Confirm.init(data, Person);
     }
 
 
     /*
-    * in project initialization we rendering view by adding template on board and
-    * adding current employees into project window
-    * then, storage updates with project instance
-    */
+     * in project initialization we rendering view by adding template on board and
+     * adding current employees into project window
+     * then, storage updates with project instance
+     */
     var Project = function (/*string*/id) {
 
-
+        var self = this;
         this.id = id;
         this.template = template;
 
+
         this.renderView(this);
         this.buildLogic();
+
+        this.processNewPerson = function (person) {
+            self.searchName = self.searchName + ' ' + person.searchName;
+            person.inProject = true;
+            self.sortEmployee(person);
+        };
 
         storage.addObj(this);
 
     };
 
-    Project.prototype.getMe = function(){
+    Project.prototype.getMe = function () {
         return this;
     }
 
     /*
-    * remove project instance from board and form storage
-    */
+     * remove project instance from board and form storage
+     */
     Project.prototype.__destruct = function () {
         this.domNode.remove();
         storage.dropObj(this)
@@ -61,9 +66,9 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
     Project.prototype.renderView = function () {
         /*
-        * adding template onto board, setting id and class for it
-        * */
-         this.domNode = $(this.template).appendTo($("#inner-board")).css({
+         * adding template onto board, setting id and class for it
+         * */
+        this.domNode = $(this.template).appendTo($("#inner-board")).css({
             float: 'left'
         }).addClass('drop').attr('id', this.id);
 
@@ -87,31 +92,28 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         !(typeof this == Object) ? this.getProject() : this.createProject();
     };
 
-    Project.prototype.processNewPerson = function(person) {
-        console.log(instance);
-        instance.searchName = instance.searchName + ' ' + person.searchName;
-        person.inProject = true;
-        console.log(this);
-        instance.sortEmployee(person);
-    };
 
     Project.prototype.addPerson = function (pers) {
+
         var self = this;
+
         var strg = storage.storage;
-        for(var i in strg) {
-            if(strg[i].id === pers && strg[i].projectID === this.id){
+
+        for (var i in strg) {
+            if (strg[i].id === pers && strg[i].projectID === this.id) {
                 $(strg[i].domNode).remove();
             }
         }
+        console.log(pers);
         $.ajax({
             url: '/user',
             data: {id: pers},
             async: true,
             success: function (res) {
-                var person = new Person({id: res.currentEmployees[i], projectID: self.id, callback: self.processNewPerson});
+                console.log(res);
+                var person = new Person({id: res._id, projectID: self.id, callback: self.processNewPerson});
             }
         });
-        instance = null;
     };
 
     Project.prototype.getProject = function () {
@@ -127,7 +129,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
                 self.searchName = self.name;
                 self.header.innerHTML = self.name;
                 self.addDrop();
-                instance = self;
                 // response has currentEmployees property, which is an array we have to analyze
                 for (var i in res.currentEmployees) {
                     //creating new Person instance form each record in currentEmployees array
@@ -135,7 +136,6 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
                 }
             }
         });
-        instance = null;
     };
 
     Project.prototype.addDrop = function () {
@@ -205,12 +205,11 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
         $('#inner-board').bind('addEmpl', function (e, pers, proj) {
             (proj == self.id) ? self.addPerson(pers) : console.log('i am another project, my name is: ' + self.name);
-                    self.addPerson(pers);
         });
 
         /*template events*/
 
-        $(this.toggleDevs_btn).on('click', $.proxy(this.toggleDevs,this));
+        $(this.toggleDevs_btn).on('click', $.proxy(this.toggleDevs, this));
         $(this.close).on('click', $.proxy(this.__destruct, this));
     };
 

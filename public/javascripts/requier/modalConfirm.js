@@ -15,7 +15,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
          */
         init: function (data, Person) {
             $.extend(this,data);
-            if((Confirm['lastProject'] || Confirm['lastProject'] === 0) && (Confirm['lastProject'] != "inner-board") ){
+            if((Confirm['lastProject'] !== undefined) && (Confirm['lastProject'] != "inner-board") ){
                 Confirm.lastProject = Confirm['lastProject'];
             } else {
                 Confirm.lastProject = false;
@@ -30,7 +30,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
             $(Confirm.template).appendTo(innerBoard);
             formConfirmDate.ready(function () {
 
-                if (Confirm.lastProject || Confirm.lastProject === 0) {
+                if (Confirm.lastProject !== undefined) {
                     $.ajax({url: '/project',
                         type: 'GET',
                         data: {id: Confirm.lastProject},
@@ -52,15 +52,11 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                         }
                     });
                 } else {
-
                     $(currentProject).html('joined not employed persons');
                    $(statusId).remove();
                 }
 
                 $(datePicker).datepicker();
-
-
-
                 var photo = new Person({
                     id: Confirm['id'],
                     forPhoto: 'true',
@@ -94,7 +90,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                                     return
                                 }
 
-                                if (Confirm.lastProject || Confirm.lastProject === 0) {
+                                if (Confirm.lastProject !== undefined) {
 
                                     formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                                     $.ajax({
@@ -103,7 +99,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                                         data: formData,
                                         success: function (returndata) {
 
-                                            if (Confirm.currentProject ||Confirm.currentProject === 0) {
+                                            if (Confirm.currentProject !== undefined) {
                                                 formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $(statusId).val(), leaving: 'false'};
                                                 $.ajax({
                                                     url: '/history',

@@ -131,12 +131,16 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                                             modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                             modalWindow.remove();
                                             $(datePicker).remove();
-                                            $(Confirm.domNode).remove();
+//                                            $(Confirm.domNode).remove();
 
                                             for (var i in strg){
+                                                console.log('this' + $(Confirm.domNode).attr('id'));
                                                 if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
                                                     strg.splice(i,1);
                                                 }
+//                                                if(strg[i]['idFix'] == $(Confirm.domNode).attr('id')){
+//                                                    strg.splice(i,1);
+//                                                }
                                             }
                                         }
                                     })

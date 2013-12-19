@@ -22,40 +22,37 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
 
     /*
-     * in project initialization we rendering view by adding template on board and
+     * in project initialization we rendering view by adding template on board, parse it and
      * adding current employees into project window
      * then, storage updates with project instance
      */
     var Project = function (/*string*/id) {
 
+        /*link for inner use of project class instance*/
         var self = this;
+
         this.id = id;
         this.template = template;
 
-
-        this.renderView(this);
+        this.renderView();
         this.buildLogic();
 
-        this.processNewPerson = function (person) {
+        this.processNewPerson = function (/*obj*/person) {
             self.searchName = self.searchName + ' ' + person.searchName;
             person.inProject = true;
             self.sortEmployee(person);
         };
 
-        storage.addObj(this);
+        storage.addObj(/*obj*/this);
 
     };
-
-    Project.prototype.getMe = function () {
-        return this;
-    }
 
     /*
      * remove project instance from board and form storage
      */
     Project.prototype.__destruct = function () {
         this.domNode.remove();
-        storage.dropObj(this)
+        storage.dropObj(/*obj*/this)
     };
 
     /* this function appends template onto board,
@@ -63,10 +60,9 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
      * adding event handlers to this nodes
      * */
 
-
     Project.prototype.renderView = function () {
         /*
-         * adding template onto board, setting id and class for it
+         * adding template onto board, setting id and dropability class for it
          * */
         this.domNode = $(this.template).appendTo($("#inner-board")).css({
             float: 'left'
@@ -84,27 +80,53 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         this.toggleDevs_btn = this.domNode.find('a[href="#show"]')[0];
         this.header = this.domNode.find('.project-header span')[0];
 
+        /*adding event handlers to template's nodes after we parse it*/
         this.addTemplateHandlers();
     };
 
 
+    /*
+    *  now this function contains just an another function call, but it can be extend in future
+    * */
     Project.prototype.buildLogic = function () {
-        //return a project record from db or creates a new record
-        !(typeof this == Object) ? this.getProject() : this.createProject();
+        //return a project record from db
+        this.getProject();
     };
 
 
-    Project.prototype.addPerson = function (pers) {
+    /*
+    * Adding person record to the storage,
+    * then render this person card in project window
+    * */
+    Project.prototype.addPerson = function (/*int*/pers) {
 
         var self = this;
 
         var strg = storage.storage;
 
-        for (var i in strg) {
+        /*
+        * Finding this person in storage, then looking for his/her last project,
+        * if this value equals to current project, removing old person card from project window,
+        * then appending new
+        * *******************************************
+        * this functionality was predicated by case of change inner project role of current person,
+        * for example, when developer becomes lead
+        * */
+
+         for (var i in strg) {
             if (strg[i].id === pers && strg[i].projectID === this.id) {
                 $(strg[i].domNode).remove();
             }
         }
+
+        /*
+        * in this request' callback we construct a new person card,
+        * returned from Classes/Person.js
+        * -----------------------------------
+        * Because of outer function call, context point out to document.window, so we need to declare
+        * project instance context and callback function as a current project instance method directly in
+        * project constructor //todo: find solution to avoid in-constructor way of declaration
+        */
 
         $.ajax({
             url: '/user',
@@ -115,6 +137,12 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
             }
         });
     };
+
+    /*
+    * This method requesting a project record from db,
+    * respond comes in JSON format, so we takes a project name from it to render corresponding node in project template,
+    * then we fetching currentEmployees array to render every employee in project
+    * */
 
     Project.prototype.getProject = function () {
 
@@ -138,6 +166,12 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         });
     };
 
+    /*
+    * This method contains function, which was taken from outer plugin.
+    * Allow dropability to current project template on board and some styles for containers.
+    * You can find full reference of this work logic in public/javascripts/thirdParty/jquery.event.drop-2.2.js
+    * */
+
     Project.prototype.addDrop = function () {
 
         $(this.domNode)
@@ -158,7 +192,13 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
     };
 
-    Project.prototype.sortEmployee = function (p) {/*we translate JSON(returned person) here, in "p" param */
+    /*
+    * Method recieves a JSON - person instance,
+    * parse it's project list and status list to find person status in current project.
+    * Basing on status, person card render in different areas of project template
+    * */
+
+    Project.prototype.sortEmployee = function (/*object*/p) {
 
         var
             projl = p.projectList,
@@ -191,6 +231,10 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
     };
 
+    /*
+    * Toggling class for show/hide developers block in project and switch toggle button label
+    * */
+
     Project.prototype.toggleDevs = function () {
         $(this.devs).toggleClass('open');
 
@@ -198,13 +242,17 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         this.toggleDevs_btn.innerHTML == 'show developers' ? this.toggleDevs_btn.innerHTML = 'hide developers' : this.toggleDevs_btn.innerHTML = 'show developers';
     };
 
+    /*
+    * Adding event handlers to the parsed project template
+    * */
+
     Project.prototype.addTemplateHandlers = function () {
 
         /*adding custom event*/
         var self = this;
 
-        $('#inner-board').bind('addEmpl', function (e, pers, proj) {
-            (proj == self.id) ? self.addPerson(pers) : console.log('i am another project, my name is: ' + self.name);
+        $('#inner-board').bind('addEmpl', function (/*event object - not used*/e, /*int:person ID*/pers, /*this project ID*/proj) {
+            (proj == self.id) ? self.addPerson(pers) : /*nothing*/true;
         });
 
         /*template events*/

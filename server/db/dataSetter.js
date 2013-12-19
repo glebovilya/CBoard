@@ -168,9 +168,24 @@ exports.addHistory = function (req, res) {
                 person.history.push(history);
                 project.history.push(history);
 
-                history.save(respondJSON(res, history));
-                person.save(function(err, doc){console.log(doc)});
-                project.save();
+                history.save(function(err, hist){
+                    if(err){
+                        console.log(err)
+                    }
+                    else {
+                        respondJSON(res, hist)
+                    }
+                });
+                project.save(function(err, proj){
+                    if(err) {
+                        console.log(err)
+                    }
+                });
+                person.save(function(err, pers){
+                    if(err) {
+                        console.log(err)
+                    }
+                });
             });
         });
     });

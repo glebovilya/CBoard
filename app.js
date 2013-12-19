@@ -48,6 +48,7 @@ app.post('/user', dataSetter.addPerson); //{name:'str', surname: 'str', position
 app.get('/project', dataGetter.getProject); //{id: 'num'}
 app.get('/projects', dataGetter.getProjects); //just send req here
 app.post('/project', dataSetter.addProject); //{name: 'str'(optional -> startDate: 'date')}
+app.post('/project/:id', dataSetter.modifyProject); //{date: 'date')}
 app.post('/history', dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
 app.get('/position', dataGetter.getPositions); //just send req here
 

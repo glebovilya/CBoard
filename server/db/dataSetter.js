@@ -175,6 +175,12 @@ exports.addHistory = function (req, res) {
         });
     });
 };
+exports.modifyProject = function(req, res) {
+    dbModels.Project.findOne({_id: req.params.id}, function(err, proj) {
+        proj.end = req.body.date;
+        proj.save(respondJSON(res, proj))
+    })
+};
 
 
 

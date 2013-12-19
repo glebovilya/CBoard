@@ -77,6 +77,13 @@ exports.addStatus = function( id, name/*req, res*/) {
 //    });
 
 };
+exports.addPosition = function(id, name) {
+    var position = new dbModels.Position({
+        _id: id,
+        name: name
+    });
+    position.save();
+}
 exports.addHistory = function (req, res) {
 
     /**
@@ -167,6 +174,12 @@ exports.addHistory = function (req, res) {
             });
         });
     });
+};
+exports.modifyProject = function(req, res) {
+    dbModels.Project.findOne({_id: req.params.id}, function(err, proj) {
+        proj.end = req.body.date;
+        proj.save(respondJSON(res, proj))
+    })
 };
 
 

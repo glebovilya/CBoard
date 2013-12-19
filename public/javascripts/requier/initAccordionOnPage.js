@@ -3,7 +3,7 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
 
     var accordProjects;
     var accordPeople;
-    var personStatuses;
+    var personPosition;
     var divIdPeople = $("#accordion-people");
     var btnInIdPeople = $('#buttonAddNewPeople');
     var divIdProjects = $("#accordion-projects");
@@ -31,14 +31,14 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
          * Sends req on server to get all statuses from DB
          * @returns {*|jQuery.ajax}
          */
-        function getStatuses(){return $.ajax({
+        function getPositions(){return $.ajax({
             type: "GET",
-            url: "/status",
+            url: "/position",
             async: true
         })}
 
         function setStatuses (dataStatus) {
-            personStatuses = dataStatus;
+            personPosition = dataStatus;
 
         }
 
@@ -70,6 +70,7 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             project.Open = openProject;
             project.Closed = closedProject;
             projects = project;
+//            debugger
             accordProjects = new Accordion(projects, "#accordion-projects");
         }
 
@@ -91,9 +92,9 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
         function setUsers (dataPerson) {
             var people = {};
             for (var elems in dataPerson) {
-                for (var stat in personStatuses) {
-                    if (personStatuses[stat]._id == dataPerson[elems].currentStatus)
-                        var itemk = personStatuses[stat].name;
+                for (var stat in personPosition) {
+                    if (personPosition[stat]._id == dataPerson[elems].position)
+                        var itemk = personPosition[stat].name;
                 }
                 if (itemk in people)
                     people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
@@ -106,9 +107,9 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             accordPeople = new Accordion(person, "#accordion-people");
         }
 
-        $.when(getStatuses(), getProjects(), getUsers())
-            .then(function(dataStatus, dataProjects, dataPerson){
-                setStatuses (dataStatus[0]);
+        $.when(getPositions(), getProjects(), getUsers())
+            .then(function(dataPositions, dataProjects, dataPerson){
+                setStatuses (dataPositions[0]);
                 setProjects(dataProjects[0]);
                 setUsers(dataPerson[0]);
                 setSizes();
@@ -141,9 +142,9 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             accordProjects.addItem(obj, item);
         }
         if (type == "people") {
-            for (var stat in personStatuses) {
-                if (personStatuses[stat]._id == obj.status)
-                    var item = personStatuses[stat].name;
+            for (var stat in personPosition) {
+                if (personPosition[stat]._id == obj.position)
+                    var item = personPosition[stat].name;
             }
             accordPeople.addItem(obj, item);
         }

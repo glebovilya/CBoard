@@ -111,10 +111,9 @@ var Person = function(idPerson) {
             Person.bindDomNodes();
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
-
                 if(self.projectID !== undefined){
                     for(var i in storage.storage){
-                        if(storage.storage[i].id === self.projectID && storage.storage[i].start){
+                        if(storage.storage[i].id === self.projectID && storage.storage[i].devs /*this needs to check if obj is a Project*/){
                             var re = new RegExp(self.searchName);
                             storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
                         }

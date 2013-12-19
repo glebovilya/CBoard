@@ -44,4 +44,10 @@ exports.getStatus = function(req, res){
     })
 }
 
+exports.getPositions = function(req, res){
+    dbModels.Position.find(function(err, statuses){
+        respondJSON(res, statuses)
+    })
+}
+
 

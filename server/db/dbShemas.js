@@ -9,7 +9,7 @@ pureautoinc.init(db);
 var personSchema = new Schema({
     name: String,
     surname: String,
-    position: String,
+    position: { type: Number, ref: 'Position'},
     photo: String,
     currentStatus: { type: Number, ref: 'Status', default: 1 },
     projectList: [{ type: Number, ref: 'Project' }],
@@ -51,13 +51,20 @@ var historySchema = new Schema({
     leaving: Boolean
 });
 
+var personPositions = new Schema({
+    _id: Number,
+    name: String
+})
+
 
 var Person = mongoose.model('Person', personSchema);
 var Project = mongoose.model('Project', projectSchema);
 var Status = mongoose.model('Status', statusSchema);
 var History = mongoose.model('History', historySchema);
+var Position = mongoose.model('Position', personPositions);
 
 exports.Person = Person;
 exports.Project = Project;
 exports.Status = Status;
 exports.History = History;
+exports.Position = Position;

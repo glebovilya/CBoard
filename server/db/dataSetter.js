@@ -77,6 +77,13 @@ exports.addStatus = function( id, name/*req, res*/) {
 //    });
 
 };
+exports.addPosition = function(id, name) {
+    var position = new dbModels.Position({
+        _id: id,
+        name: name
+    });
+    position.save();
+}
 exports.addHistory = function (req, res) {
 
     /**

@@ -49,10 +49,7 @@ app.get('/project', dataGetter.getProject); //{id: 'num'}
 app.get('/projects', dataGetter.getProjects); //just send req here
 app.post('/project', dataSetter.addProject); //{name: 'str'(optional -> startDate: 'date')}
 app.post('/history', dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
-app.get('/status', dataGetter.getStatus); //just send req here
-//dbModels.Project.find(function(er, doc){console.log(doc)});
-//dbModels.Person.find(function(err, doc){console.log(doc)})
-
+app.get('/position', dataGetter.getPositions); //just send req here
 
 /****************************************************
 * uncomment lines below to add new statuses to the DB
@@ -61,7 +58,16 @@ app.get('/status', dataGetter.getStatus); //just send req here
 //dataSetter.addStatus(2, 'Manager');
 //dataSetter.addStatus(3, 'Lead');
 //dataSetter.addStatus(4, 'Assigned');
-//dbModels.Status.find({}, function(err, doc) {console.log(doc)})
+
+/****************************************************
+ * uncomment lines below to add new positions to the DB
+ *****************************************************/
+//dataSetter.addPosition(1, 'JS');
+//dataSetter.addPosition(2, 'Manager');
+//dataSetter.addPosition(3, 'QA');
+//dataSetter.addPosition(4, 'pHp');
+//dataSetter.addPosition(5, 'TeamLeads');
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -15,6 +15,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
          */
         init: function (data, Person) {
             Confirm.currentProject = false;
+            Confirm.lastProject = false;
             $.extend(this,data);
             if((Confirm['lastProject'] || Confirm['lastProject'] === 0) && (Confirm['lastProject'] != "inner-board") ){
                 Confirm.lastProject = Confirm['lastProject'];
@@ -93,8 +94,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                     return
                                 }
 
-                                if (Confirm.lastProject || Confirm.lastProject === 0) {
-
+                                if (Confirm.lastProject !== undefined) {
                                     formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                                     $.ajax({
                                         url: '/history',

@@ -6,52 +6,50 @@ require(['text!./templates/addEmployee.html', 'initAccordionOnPage'], function(t
 
 
 
+$(document).ready(function(){
+    $("#buttonAddNewPeople").click(function(event){
 
-        $(document).ready(function(){
-            $("#buttonAddNewPeople").click(function(event){
-
-                var template = templatadd;
-                $(template).appendTo($("#inner-board"));
+        var template = templatadd;
+        $(template).appendTo($("#inner-board"));
 //        console.log(template);
+    $('#modalAddPeople form').submit(function(){ //listen for submit event
+                var formData = new FormData($(this)[0]);
 
+//        if(!$("input[name='name']").val()){
+//            alert('must fill in name')
+//            return;
+//        }
 
-                console.log($("input[name='name']").val())
+                $.ajax({
+                    url: '/user',
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (returndata) {
 
-                $('#modalAddPeople form').submit(function(){ //listen for submit event
-
-                    var formData = new FormData($(this)[0]);
-
-
-                    $.ajax({
-                        url: '/user',
-                        type: 'POST',
-                        data: formData,
-                        async: false,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (returndata) {
-
-                            var obj = {id: returndata._id, name: returndata.name + " " + returndata.surname, status:returndata.currentStatus}
+                        var obj = {id: returndata._id, name: returndata.name + " " + returndata.surname, status:returndata.currentStatus}
 //                        console.log(returndata)
-                            var item = "";
-                            setAccordItem("people", obj, item);
+                        var item = "";
+                        setAccordItem("people", obj, item);
 
-                            $("#modalAddPeople input").val("");
-                        }
-                    });
-
-                    return false;
-
+                       $("#modalAddPeople input").val("");
+                    }
                 });
 
-                $("#modalAddPeople .close").on('click', function(){
-//                    $("#modalAddPeople").remove();
-                });
-
-
-            });
-
-        });
+                return false;
 
     });
+
+    $("#modalAddPeople .close").on('click', function(){
+                $("#modalAddPeople").remove();
+    });
+
+
+    });
+
+});
+
+});

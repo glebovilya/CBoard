@@ -1,6 +1,6 @@
 // Created by Jura on 08.12.13.
 
-define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], function (templ, storage) {
+define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Classes/Person'], function (templ, storage, Person) {
     /**
      *
      * @type {{template: *, init: Function, render: Function, bindDomNodes: Function, setHandler: Function}}
@@ -61,16 +61,14 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
 
                 $(datePicker).datepicker();
 
-
-
                 var photo = new Person({
                     id: Confirm['id'],
                     forPhoto: 'true',
-                    parentNode: "#windowForPhoto"
+                    parentNode: "#windowForPhoto",
+                    callback: storage.dropObj
                 });
 
                 document.getElementById('myModal').focus();
-                storage.dropObj(photo);
             });
         },
         bindDomNodes: function() {

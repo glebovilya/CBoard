@@ -26,7 +26,7 @@ define(['./Classes/Project', 'StorageForObjectsOnBoard'], function(Project, stor
          */
         renderProjects: function(/*array of objs*/projects){
             for (var i in projects) {
-                var proj = new Project(projects[i]['_id'])
+                var proj = new Project(projects[i]['_id']);
                 proj.toggleDevs()
             }
         },
@@ -42,7 +42,7 @@ define(['./Classes/Project', 'StorageForObjectsOnBoard'], function(Project, stor
                     showHide.getProjects();
                     cleared = false
                 }
-            })
+            });
             $('#hideAll').click(function(){
                 strg.splice(0, strg.length);
                 showHide.clearBoard();

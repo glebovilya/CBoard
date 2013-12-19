@@ -1,4 +1,4 @@
-// Created by Jura on 08.12.13.
+    // Created by Jura on 08.12.13.
 
 define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], function (templ, storage) {
     /**

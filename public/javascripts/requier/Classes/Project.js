@@ -33,6 +33,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
         this.id = id;
         this.template = template;
+        this.finish = new Date();
 
         this.renderView();
         this.buildLogic();
@@ -79,6 +80,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         this.close = this.domNode.find('button.close')[0];
         this.toggleDevs_btn = this.domNode.find('a[href="#show"]')[0];
         this.header = this.domNode.find('.project-header span')[0];
+        this.finish = this.domNode.find('a[href="#finish"]')[0];
 
         /*adding event handlers to template's nodes after we parse it*/
         this.addTemplateHandlers();
@@ -107,7 +109,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
         /*
         * Finding this person in storage, then looking for his/her last project,
         * if this value equals to current project, removing old person card from project window,
-        * then appending new
+        * then appending new one
         * *******************************************
         * this functionality was predicated by case of change inner project role of current person,
         * for example, when developer becomes lead
@@ -143,6 +145,7 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
     * respond comes in JSON format, so we takes a project name from it to render corresponding node in project template,
     * then we fetching currentEmployees array to render every employee in project
     * */
+
 
     Project.prototype.getProject = function () {
 
@@ -259,8 +262,23 @@ define(['text!../templates/project.html', 'Classes/Person', '../StorageForObject
 
         $(this.toggleDevs_btn).on('click', $.proxy(this.toggleDevs, this));
         $(this.close).on('click', $.proxy(this.__destruct, this));
+        $(this.finish).on('click', $.proxy(this.finishProject, this));
     };
 
+    /*
+    * Finishing project developing, adding project record and last employees list to history/finishedProjects and
+    * to accordion category closed
+    * */
+    Project.prototype.finishProject = function(){
+        $.ajax({
+            url: '/project/'+this.id,
+            type: "POST",
+            data:{finish:this.finish},
+            success : function(res){
+                console.log(res);
+            }
+        })
+    }
 
     return Project;
 });

@@ -45,7 +45,7 @@ define(['StorageForObjectsOnBoard'], function(storage){
 
             replaceNode.innerHTML = innerHTML
             if(text) {
-                rotate(node,2,rotate)
+                rotate(node,1,rotate)
             }
         }
     }
@@ -64,7 +64,7 @@ define(['StorageForObjectsOnBoard'], function(storage){
                 rotation: deg
             },
             {
-                duration: 40,
+                duration: 100,
                 step: function(now, animFunc) {
                     if (animFunc.prop === "rotation") {
                         $(this).css('-webkit-transform','rotate('+now+'deg)');

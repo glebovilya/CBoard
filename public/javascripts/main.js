@@ -15,8 +15,7 @@ requirejs(
     'Classes/Person',
     'Classes/Project',
     '../thirdParty/bootstrap-datepicker',
-    'modaladdEmployee',
-    'modaladdProject' ],
+    'Modal' ],
 
     function( searchAcc, showHide, searchIB){
 

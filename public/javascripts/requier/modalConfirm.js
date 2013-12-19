@@ -14,6 +14,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
          * @param Person - object Person fully for insert photo in modal
          */
         init: function (data, Person) {
+            Confirm.currentProject = false;
             $.extend(this,data);
             if((Confirm['lastProject'] || Confirm['lastProject'] === 0) && (Confirm['lastProject'] != "inner-board") ){
                 Confirm.lastProject = Confirm['lastProject'];
@@ -44,6 +45,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
 
                 if (Confirm.currentProject) {
 
+
                     $.ajax({url: '/project',
                         type: 'GET',
                         data: {id: Confirm.currentProject},
@@ -68,7 +70,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 });
 
                 document.getElementById('myModal').focus();
-
                 storage.dropObj(photo);
             });
         },

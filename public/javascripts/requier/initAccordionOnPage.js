@@ -70,6 +70,7 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             project.Open = openProject;
             project.Closed = closedProject;
             projects = project;
+//            debugger
             accordProjects = new Accordion(projects, "#accordion-projects");
         }
 

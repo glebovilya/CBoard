@@ -110,6 +110,12 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                                     data: formData,
                                                     async: false,
                                                     success: function (returndata) {
+                                                        for (var i in strg){
+                                                            if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
+                                                                console.log(strg[i])
+                                                                strg.splice(i,1);
+                                                            }
+                                                        }
                                                         modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                                         $(Confirm.domNode).remove();
                                                         modalWindow.remove();
@@ -135,11 +141,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                             modalWindow.remove();
                                             $(datePicker).remove();
                                             $(Confirm.domNode).remove();
-                                            for (var i in strg){
-                                                if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
-                                                    strg.splice(i,1);
-                                                }
-                                            }
                                         }
                                     })
                                 }

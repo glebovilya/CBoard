@@ -33,6 +33,7 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                 var self = this;
                 this.close.on('click', function () {
                    self.template.remove();
+
                 });
 
                  if(this.datePicker)this.datePicker.datepicker();
@@ -41,16 +42,21 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                 });
         },
         submitData: function(){
-           var data = {nkl: 8};
+           var data = {};
+            console.log(this.formD[0]);
            $(this.form).each(function(index,element){
                var name = $(element)[0]['name'];
                var value = $(element)[0]['value'];
                data[name] = value;
-               $(element).val('');
+//               $(element).val('');
            });
 
+
            if(!data['name']){
-               alert ('you must fill in the name');
+//               alert ('you must fill in the name');
+               this.ahtung
+                   .html('you must fill in the name')
+                   .css('color','red');
                return
            }
            if(this.datePicker){
@@ -60,11 +66,13 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
            }
            var url  = this.url;
 
-//            console.log(data);
-//           this.submit.submit(function(){ //listen for submit event
-                var formData = new FormData($(this)[0]);
-               $.extend(formData,data);
-console.log(formData)
+
+            var x = this.formD[0];
+            console.log(x);
+           var formData = new FormData(x);
+//            formData.append('vass',12)
+//               $.extend(formData,data);
+
                 $.ajax({
                     url: url,
                     type: 'POST',
@@ -87,15 +95,13 @@ console.log(formData)
                         }
 
                     }
-
             });
-            })
-
         }
-    };
+    }
 //        function create(){
 //            var modal = new Modal({template:templ,url:'/project'})
 //        }
+
         $("#buttonAddNewProject").on('click', function(){return new Modal({template:templateProject,url:'/project'})});
         $("#buttonAddNewPeople").on('click', function(){return new Modal({template:templatePersone,url:'/user'})});
 

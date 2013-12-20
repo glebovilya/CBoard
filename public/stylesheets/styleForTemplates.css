@@ -193,3 +193,6 @@ span[data-role="projectName"]{
     font-family: Times, serif;
     font-size: 150%;
 }
+.modal-backdrop.in {
+    opacity: 0.2;
+}

@@ -1,14 +1,11 @@
-<div id="modalAddPeople" class="modal"
-role="dialog"
-aria-labelledby="myModalLabel"
-data-backdrop = "false"
->
-    <form enctype="multipart/form-data" id="addperson">
-    <div class="modal-header" style="height: 20px">
-        <button type="button" class="close" data-dismiss="modal" data-point="close" aria-hidden="true">&times;</button>
-    </div>
-    <div class="modal-body form-inline" >
-
+<div id="modalAddPeople" class="modal"    role="dialog" aria-labelledby="myModalLabel" data-backdrop = "true" >
+    <!--<div id=modalAddProject" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<div class="modal-header"  : style="height: 20px">
+     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-point="close">&times;</button>
+     <h3  data-point="ahtung"></h3>
+</div>
+    <form  class="form-inline" data-point="formD" action="/user" method="post" enctype="multipart/form-data">
+        <div class="modal-body" >
         <input id="nameAddPeople" class="input-medium" type="text" name="name" placeholder="name">
         <input id="surnameAddPeople" class="input-medium" type="text" name="surname" placeholder="surname">
         <!--<select required class="input-medium" name="position">-->
@@ -25,14 +22,14 @@ data-backdrop = "false"
                 <option selected value="4">pHp</option>
                 <option value="5">TeamLeads</option>
             </select>
-    </div>
-        <br/>
+
+       <div> <br/></div>
         <span> &nbsp;&nbsp;add a photo &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
         <input id="photoAddPeople" type="file" name="photo" class="btn " multiple="multiple">
-
+    </div>
     <div class="modal-footer">
         <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
-        <button  class="btn btn-custom" data-point="submit" id="ajaxAddNewPeople">Add employee</button>
+        <button  type="button" class="btn btn-custom" data-point="submit"  >Add employee</button>
     </div>
 </form>
 </div>

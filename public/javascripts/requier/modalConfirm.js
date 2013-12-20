@@ -32,7 +32,9 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
             $(Confirm.template).appendTo(innerBoard);
             formConfirmDate.ready(function () {
 
-                if (Confirm.lastProject || Confirm.lastProject === 0) {
+
+                if (Confirm.lastProject !== undefined && Confirm.lastProject !== false) {
+
                     $.ajax({url: '/project',
                         type: 'GET',
                         data: {id: Confirm.lastProject},
@@ -71,6 +73,11 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
 
                 document.getElementById('myModal').focus();
             });
+            var cover =document.createElement('div');
+            document.body.appendChild(cover);
+            $(cover).addClass('cover');
+            this.cover = cover;
+
         },
         bindDomNodes: function() {
                           innerBoard = $("#inner-board");
@@ -110,14 +117,22 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                                     data: formData,
                                                     async: false,
                                                     success: function (returndata) {
+                                                        for (var i in strg){
+                                                            if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
+                                                                console.log(strg[i])
+                                                                strg.splice(i,1);
+                                                            }
+                                                        }
                                                         modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                                         $(Confirm.domNode).remove();
+                                                        Confirm.cover.remove();
                                                         modalWindow.remove();
                                                         $(datePicker).remove();
                                                     }
                                                 });
                                             } else {
                                                 $(Confirm.domNode).remove();
+                                                Confirm.cover.remove();
                                                 modalWindow.remove();
                                                 $(datePicker).remove();
                                             }
@@ -135,11 +150,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                             modalWindow.remove();
                                             $(datePicker).remove();
                                             $(Confirm.domNode).remove();
-                                            for (var i in strg){
-                                                if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
-                                                    strg.splice(i,1);
-                                                }
-                                            }
+                                            Confirm.cover.remove();
                                         }
                                     })
                                 }
@@ -148,6 +159,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
 
                                 modalWindow.remove();
                                 $(datePicker).remove();
+                                Confirm.cover.remove();
                             }
 
             var strg = storage.storage;

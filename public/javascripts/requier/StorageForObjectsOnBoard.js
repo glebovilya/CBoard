@@ -20,6 +20,10 @@ define([], function() {
             }
 
             storage.splice(idx, 1);
+        },
+        clearStorage: function(){
+            var storage = objStorage.storage;
+            storage.splice(0, storage.length);
         }
         /**
          *

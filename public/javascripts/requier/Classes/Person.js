@@ -14,13 +14,31 @@ define (['text!../templates/employe.html', '../StorageForObjectsOnBoard', 'modal
     function transit(data,Person){
         Confirm.init(data,Person);
     }
+    var positions;
+
+    $.ajax({
+        url: '/position',
+        success: function(data){
+            positions = data
+        }
+    });
+
+
 
 var Person = function(idPerson) {
     var self = this;
+
     function  onAjaxSuccess(data){
 
         var idFix = Math.random().toString(36).slice(3,9);
         $.extend(self,data);
+
+        for(var i in positions) {
+            if(self.position == positions[i]._id){
+                self.position = positions[i].name
+            }
+        }
+
         self.id = id;
         if(parentProject) self.parentProject = parentProject;
         if(forPhoto) self.forPhoto = forPhoto;

@@ -8,6 +8,7 @@ define(['./Classes/Project', 'StorageForObjectsOnBoard'], function(Project, stor
             $.each(innerNodes, function(idx, node) {
                 $(node).remove()
             })
+            storage.clearStorage()
         },
         /**
          * sends req to server and calls func to render projects

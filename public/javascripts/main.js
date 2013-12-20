@@ -8,8 +8,7 @@ requirejs(
     'SearchForInnerBoard',
     'initAccordionOnPage',
     '../thirdParty/bootstrap-datepicker',
-    'modaladdEmployee',
-    'modaladdProject' ],
+    'Modal' ],
 
     function( searchAcc, showHide, searchIB){
         searchIB();

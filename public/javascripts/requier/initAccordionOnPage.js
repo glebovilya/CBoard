@@ -149,6 +149,7 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             accordPeople.addItem(obj, item);
         }
     }
+    $.setAccordionItem = setAccordItems;
 
     return setAccordItems
 })

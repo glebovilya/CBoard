@@ -42,6 +42,7 @@ define([
 
             this.id = id;
             this.template = template;
+            this.end = null;
 
             this.renderView();
             this.buildLogic();
@@ -167,6 +168,7 @@ define([
                     self.name = res.name;
                     self.searchName = self.name;
                     self.header.innerHTML = self.name;
+                    self.end = res.end;
                     self.addDrop();
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {

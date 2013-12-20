@@ -55,7 +55,7 @@ app.get('/statuses', dataGetter.getStatus); //just send req here
 
 /****************************************************
 * uncomment lines below to add new statuses to the DB
-//*****************************************************/
+/*****************************************************/
 //dataSetter.addStatus(1, 'Free');
 //dataSetter.addStatus(2, 'Manager');
 //dataSetter.addStatus(3, 'Lead');

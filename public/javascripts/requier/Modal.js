@@ -83,7 +83,7 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
            });
 
 
-           if(!data['name']){
+           if((!data['name']) || (!/\S/.test(data['name']))){
 //               alert ('you must fill in the name');
                this.ahtung
                    .html('you must fill in the name');
@@ -132,7 +132,7 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
             });
         },
         remove: function(){
-            
+
         }
     };
 

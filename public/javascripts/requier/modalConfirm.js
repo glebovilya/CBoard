@@ -1,6 +1,6 @@
     // Created by Jura on 08.12.13.
 
-define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Classes/Person'], function (templ, storage, Person) {
+define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Classes/Person', ], function (templ, storage, Person) {
     /**
      *
      * @type {{template: *, init: Function, render: Function, bindDomNodes: Function, setHandler: Function}}

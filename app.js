@@ -51,7 +51,6 @@ app.post('/project', dataSetter.addProject); //{name: 'str'(optional -> startDat
 app.post('/project/:id', dataSetter.modifyProject); //{date: 'date')}
 app.post('/history', dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
 app.get('/position', dataGetter.getPositions); //just send req here
-
 /****************************************************
 * uncomment lines below to add new statuses to the DB
 *****************************************************/

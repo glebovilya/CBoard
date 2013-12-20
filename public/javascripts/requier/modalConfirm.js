@@ -32,7 +32,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
             $(Confirm.template).appendTo(innerBoard);
             formConfirmDate.ready(function () {
 
-                if (Confirm.lastProject !== undefined) {
+                if (Confirm.lastProject !== undefined && Confirm.lastProject !== false) {
                     $.ajax({url: '/project',
                         type: 'GET',
                         data: {id: Confirm.lastProject},

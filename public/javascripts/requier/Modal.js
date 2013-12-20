@@ -4,13 +4,21 @@
 
 define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 'Classes/Accordion', 'initAccordionOnPage'], function (templateProject,templatePersone, Accordion, setAccordItem) {
 
+
+    /**
+     * crete modal window depending on received arguments
+     * @param object {template:template...,url:'/...'}
+     * @constructor
+     */
     var Modal = function(object){
         this.template = object['template'];
         this.url = object['url'];
         this.render();
 
     };
+
     Modal.prototype = {
+        // after rendering you can call domNode element by name. Call function setHandler()
         render: function(){
             var self = this;
             var template = this.template;
@@ -24,15 +32,44 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                 }
             });
 
+
             $(template).appendTo($("#inner-board"));
             this.template = template;
             this.form =  $(template).find('input');
             this.setHandler();
+
+            var cover =document.createElement('div');
+            document.body.appendChild(cover);
+
+
+            $(cover)
+                .css('position','absolute')
+                .css('height','100%')
+                .css('width','100%')
+                .css('background','black')
+                .css('opacity','0.2')
+                .css('z-index','100')
+                .css('top',0);
+
+            this.cover = cover;
         },
+        // set handlers close and datePicker and sendForm for element
         setHandler: function(){
+
+
+                $('body').keydown(function(event){
+                    if(event.which ==13){
+                        self.submitData();
+                    }
+                    if(event.which ==27){
+                        self.template.remove();
+                        self.cover.remove();
+                    }
+                })
                 var self = this;
                 this.close.on('click', function () {
                    self.template.remove();
+                    self.cover.remove();
 
                 });
 
@@ -40,15 +77,18 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                  this.submit.on('click', function () {
                         self.submitData();
                 });
+
         },
+        // function validation and creating AJAX and init new li by accordion
         submitData: function(){
+            var self = this;
            var data = {};
-            console.log(this.formD[0]);
+//            console.log(this.formD[0]);
            $(this.form).each(function(index,element){
                var name = $(element)[0]['name'];
                var value = $(element)[0]['value'];
                data[name] = value;
-//               $(element).val('');
+
            });
 
 
@@ -68,7 +108,7 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
 
 
             var x = this.formD[0];
-            console.log(x);
+//            console.log(x);
            var formData = new FormData(x);
 //            formData.append('vass',12)
 //               $.extend(formData,data);
@@ -93,14 +133,14 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                             var item = "";
                             setAccordItem("people", obj, item);
                         }
+                        self.template.remove();
+                        self.cover.remove();
+
 
                     }
             });
         }
-    }
-//        function create(){
-//            var modal = new Modal({template:templ,url:'/project'})
-//        }
+    };
 
         $("#buttonAddNewProject").on('click', function(){return new Modal({template:templateProject,url:'/project'})});
         $("#buttonAddNewPeople").on('click', function(){return new Modal({template:templatePersone,url:'/user'})});

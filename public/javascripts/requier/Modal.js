@@ -130,8 +130,15 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
 
                     }
             });
+        },
+        remove: function(){
+            
         }
     };
+
+
+
+
 
         $("#buttonAddNewProject").on('click', function(){return new Modal({template:templateProject,url:'/project'})});
         $("#buttonAddNewPeople").on('click', function(){return new Modal({template:templatePersone,url:'/user'})});

@@ -36,22 +36,13 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
             $(template).appendTo($("#inner-board"));
             this.template = template;
             this.form =  $(template).find('input');
-            this.setHandler();
 
             var cover =document.createElement('div');
             document.body.appendChild(cover);
-
-
-            $(cover)
-                .css('position','absolute')
-                .css('height','100%')
-                .css('width','100%')
-                .css('background','black')
-                .css('opacity','0.2')
-                .css('z-index','100')
-                .css('top',0);
-
+            $(cover).addClass('cover');
             this.cover = cover;
+
+            this.setHandler();
         },
         // set handlers close and datePicker and sendForm for element
         setHandler: function(){
@@ -95,8 +86,8 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
            if(!data['name']){
 //               alert ('you must fill in the name');
                this.ahtung
-                   .html('you must fill in the name')
-                   .css('color','red');
+                   .html('you must fill in the name');
+
                return
            }
            if(this.datePicker){

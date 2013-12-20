@@ -219,3 +219,15 @@ span[data-role="projectName"]{
     -moz-background-clip: padding-box;
     background-clip: padding-box;
 }
+.cover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.2;
+    z-index: 100;
+    top: 0px;
+}
+h3 {
+    color: red;
+}

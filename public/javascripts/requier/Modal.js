@@ -129,7 +129,7 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                             setAccordItem("projects", obj, item);
                         }
                         if(url == '/user') {
-                            var obj = {id: returndata._id, name: returndata.name + " " + returndata.surname, status:returndata.currentStatus};
+                            var obj = {id: returndata._id, name: returndata.name + " " + returndata.surname, position:returndata.position};
                             var item = "";
                             setAccordItem("people", obj, item);
                         }

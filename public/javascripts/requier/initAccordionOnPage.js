@@ -94,12 +94,12 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             for (var elems in dataPerson) {
                 for (var stat in personPosition) {
                     if (personPosition[stat]._id == dataPerson[elems].position)
-                        var itemk = personPosition[stat].name;
+                        var item = personPosition[stat].name;
                 }
-                if (itemk in people)
-                    people[itemk][people[itemk].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
+                if (item in people)
+                    people[item][people[item].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
                 else
-                    people[itemk] = [
+                    people[item] = [
                         {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname}
                     ];
             }

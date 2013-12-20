@@ -12,6 +12,7 @@ define([
             var self = this;
             this.render(project);
 
+
         };
 
         FinishWindow.prototype.processFinish = function (project) {
@@ -30,6 +31,7 @@ define([
                 }
             });
 
+            this.accMove(project);
             this.__destruct();
         };
 
@@ -80,12 +82,20 @@ define([
 
         };
 
+        FinishWindow.prototype.accMove = function(project){
+
+            if(!project['end']){
+                $.setAccordionItem('projects',project,'Closed');
+                $("#Open-group").find('li[data-point-id="'+project.id+'"]')[0].remove();
+            };
+        };
+
         FinishWindow.prototype.dateFix = function(){
 
             var d = new Date();
             $(this.dateInp).val((d.getMonth()+1) + "/"+d.getDate() + "/" + d.getFullYear());
 
-        }
+        };
 
         FinishWindow.prototype.__destruct = function(){
 

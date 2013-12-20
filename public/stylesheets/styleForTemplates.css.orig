@@ -1,9 +1,8 @@
 .employeeWindow {
-    position: relative;
-    float: left;
+    position: absolute;
     top:0;
     left:0;
-    z-index: 100;
+    z-index: 99999;
     width: 96px;
     height: 151px;
     background-color: #ffffff;
@@ -16,27 +15,39 @@
     /*-webkit-background-clip: padding-box;*/
     background-clip: padding-box;
     overflow: hidden;
-    margin: 5px;
 }
 
+<<<<<<< HEAD
+.employee .employee-header {
+=======
+
 .employee-header{
-    cursor: pointer;
+>>>>>>> 3caab473492d58cf4fa3f493d76b815aacea5008
     height: 16px;
     padding: 1px 6px 6px;
     border-bottom: none;
 }
+<<<<<<< HEAD
+
+.employee .employee-header > div {
+=======
 .employee-header>div{
+>>>>>>> 3caab473492d58cf4fa3f493d76b815aacea5008
     position: absolute;
     text-align: left;
     top: 6px;
     right: 30px;
-    font-size: 12px;
 }
 
 .employee-header button {
     color: red;
 }
+<<<<<<< HEAD
+
+.employee .employee-body {
+=======
 .employee-body {
+>>>>>>> 3caab473492d58cf4fa3f493d76b815aacea5008
     padding: 0;
 }
 .united {
@@ -49,16 +60,34 @@
     background-color: #ffffff;
     opacity: 0.7;
 }
+<<<<<<< HEAD
+
+.employee .united .name {
+=======
 .united .name {
+>>>>>>> 3caab473492d58cf4fa3f493d76b815aacea5008
     position: absolute;
     text-align: center;
     bottom: 3px;
 }
 
+<<<<<<< HEAD
+.employee .employee-footer {
+    border-top: none;
+    padding: 0;
+}
 
 #inner-board .projectWindow {
+    /* absolutely positioned element because of drag need*/
+    position: absolute;
+=======
+.projectWindow {
+    top:50px;
+    left: 50px;
     position: relative;
-    float: left;
+    width: 550px; /*изменяется js в зависиьости от кол-ва лидеров.*/
+    background-color: #ffffff;
+>>>>>>> 3caab473492d58cf4fa3f493d76b815aacea5008
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 6px;
     /*-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);*/
@@ -68,26 +97,22 @@
     /*reset of bootstrap's styles*/
     height: auto;
     padding: 0;
-    margin: 10px 5px;
+    overflow: hidden;
 }
-.developers>.employeeWindow{
-    opacity: 0;
-}
-.open>.employeeWindow{
-    opacity: 1;
-}
+
 .projectContent {
     /*
     *  it's minimal width have to increase if content would require it
     *  some padding will take it look a bit accurate
     */
     position: relative;
-    min-width: 500px;
+    min-width: 450px; /*увеличивается самостоятельно*/
     background-color: #ffffff;
 }
 
 #inner-board .container-fluid {
     padding-top: 0;
+
 }
 
 .project-header {
@@ -108,6 +133,7 @@
     top:0;
     right:0;
     margin: 5px;
+
 }
 
 .projectWindow > .project-body {
@@ -116,33 +142,22 @@
 }
 
 .project-body .leaders {
-    position: relative;
-    min-height: 165px;
-    min-width: 500px;
-    padding-left: 20px;
+    width: 100%;
 }
 
-.project-body .developers{
+.project-body .developers[data-view = "collapsed"]{
     display: inline-block;
-    margin: 0 auto;
+    width: 99%;
     line-height: 1.5em;
     text-align: right;
     border-bottom: 2px solid darkgrey;
     padding-right: 5px;
-    width: 99%;
-    height: 0;
 }
-.open{
-    min-height:190px;
-    border-top: 2px solid darkgrey;
-}
-
-.project-body .developers > a{
-    display: block;
-    width: 99%;
-    bottom: 0;
-    color: darkgray;
-
+.project-body .developers{
+    /*padding-bottom: 20px;*/
+    padding-right: 20px;
+    width: 100%;
+    height:0px;
 }
 
 .project-body .thumbnails li {
@@ -160,62 +175,33 @@
 }
 
 .newEmployee {
+<<<<<<< HEAD
+    z-index: 9999;
+    position: absolute;
+=======
+
+
+>>>>>>> 3caab473492d58cf4fa3f493d76b815aacea5008
     top: 100px;
     left: 100px;
 }
+<<<<<<< HEAD
+
+.windowForPhoto {
+
+}
+
+.forPhoto {
+
+}
+
+.dropped {
+    background-color: #EBC;
+    border-color: #B89;
+}
+=======
 #windowForPhoto {
     position: relative;
 }
 
-.mans, .leads {
-    position: relative;
-    width: 48%;
-    height: 100%;
-    float: left;
-    min-height: 165px;
-}
-
-.mans>span, .leads>span {
-    position: absolute;
-    bottom: 5.1em;
-    left: -6.7em;
-    -moz-transform:rotate(270deg);
-    -webkit-transform:rotate(270deg);
-    -o-transform:rotate(270deg);
-    -ms-transform:rotate(270deg);
-    transform: rotate(270deg);
-    width: 11.5em;
-    text-align: right;
-    z-index: 1000;
-    border-bottom: 2px solid darkgrey;
-    padding-right:5px;
-}
-
-span[data-role="projectName"]{
-    font-family: Times, serif;
-    font-size: 150%;
-}
-.modal-backdrop.in {
-    opacity: 0.2;
-}
-.modalAA {
-    position: fixed;
-    top: 10%;
-    left: 50%;
-    z-index: 1050;
-    width: 560px;
-    margin-left: -280px;
-    background-color: #ffffff;
-    border: 1px solid #999;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
-    outline: none;
-    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding-box;
-    background-clip: padding-box;
-}
+>>>>>>> 3caab473492d58cf4fa3f493d76b815aacea5008

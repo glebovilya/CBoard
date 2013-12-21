@@ -27,7 +27,6 @@ exports.getPersons = function(req, res){
 
 exports.getProject = function(req, res){
     dbModels.Project.findOne({_id: req.query.id}, function(err, proj) {
-        console.log(req.query);
         respondJSON(res, proj)
     })
 };
@@ -40,6 +39,12 @@ exports.getProjects = function(req, res){
 
 exports.getStatus = function(req, res){
     dbModels.Status.find(function(err, statuses){
+        respondJSON(res, statuses)
+    })
+}
+
+exports.getPositions = function(req, res){
+    dbModels.Position.find(function(err, statuses){
         respondJSON(res, statuses)
     })
 }

@@ -30,6 +30,7 @@
     text-align: left;
     top: 6px;
     right: 30px;
+    font-size: 12px;
 }
 
 .employee-header button {
@@ -121,6 +122,26 @@
     padding-left: 20px;
 }
 
+.blocker{
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: block;
+    background: #212121;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 5555;
+}
+
+#modalFinishProject {
+    position: absolute;
+    top: 20%;
+    /*opacity: 1;*/
+    z-index: 5556;
+}
+
 .project-body .developers{
     display: inline-block;
     margin: 0 auto;
@@ -136,12 +157,19 @@
     border-top: 2px solid darkgrey;
 }
 
-.project-body .developers > a{
+.project-body .developers > a[href="#show"]{
     display: block;
     width: 99%;
     bottom: 0;
     color: darkgray;
-
+}
+.project-body > a[href="#finish"]{
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    left: 0;
+    float: left;
+    color: darkgray;
 }
 
 .project-body .thumbnails li {
@@ -178,10 +206,11 @@
     position: absolute;
     bottom: 5.1em;
     left: -6.7em;
-    -moz-transform: rotate(270deg);
-    -webkit-transform: rotate(270deg);
-    -o-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
+    -moz-transform:rotate(270deg);
+    -webkit-transform:rotate(270deg);
+    -o-transform:rotate(270deg);
+    -ms-transform:rotate(270deg);
+    transform: rotate(270deg);
     width: 11.5em;
     text-align: right;
     z-index: 1000;
@@ -192,4 +221,40 @@
 span[data-role="projectName"]{
     font-family: Times, serif;
     font-size: 150%;
+}
+.modal-backdrop.in {
+    opacity: 0.2;
+}
+.modalAA {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    z-index: 1050;
+    width: 560px;
+    margin-left: -280px;
+    background-color: #ffffff;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    outline: none;
+    -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-clip: padding-box;
+}
+.cover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.2;
+    z-index: 100;
+    top: 0px;
+}
+h3 {
+    color: red;
 }

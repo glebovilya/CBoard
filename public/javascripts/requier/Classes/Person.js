@@ -14,13 +14,31 @@ define (['text!../templates/employe.html', '../StorageForObjectsOnBoard', 'modal
     function transit(data,Person){
         Confirm.init(data,Person);
     }
+    var positions;
+
+    $.ajax({
+        url: '/position',
+        success: function(data){
+            positions = data
+        }
+    });
+
+
 
 var Person = function(idPerson) {
     var self = this;
+
     function  onAjaxSuccess(data){
 
         var idFix = Math.random().toString(36).slice(3,9);
         $.extend(self,data);
+
+        for(var i in positions) {
+            if(self.position == positions[i]._id){
+                self.position = positions[i].name
+            }
+        }
+
         self.id = id;
         if(parentProject) self.parentProject = parentProject;
         if(forPhoto) self.forPhoto = forPhoto;
@@ -29,8 +47,6 @@ var Person = function(idPerson) {
         self.domNode= "#"+idFix;
 
         self.render();
-        storage.addObj(self);
-
         self.searchName = self.name + ' ' + self.surname;
         storage.addObj(self);
 
@@ -113,10 +129,9 @@ var Person = function(idPerson) {
             Person.bindDomNodes();
             var self =this;
             $(this.domNode).find("button").on('click', function(event){
-
                 if(self.projectID !== undefined){
                     for(var i in storage.storage){
-                        if(storage.storage[i].id === self.id && storage.storage[i].start){
+                        if(storage.storage[i].id === self.projectID && storage.storage[i].devs /*this needs to check if obj is a Project*/){
                             var re = new RegExp(self.searchName);
                             storage.storage[i].searchName = storage.storage[i].searchName.replace(re, '');
                         }

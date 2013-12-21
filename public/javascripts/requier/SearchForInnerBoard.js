@@ -42,11 +42,49 @@ define(['StorageForObjectsOnBoard'], function(storage){
                         innerHTML.substring(index,index+text.length) +
                         "</span>" +
                         innerHTML.substring(index + text.length);
-            replaceNode.innerHTML = innerHTML
 
+            replaceNode.innerHTML = innerHTML
+            if(text) {
+                rotate(node,1,rotate)
+            }
         }
     }
 
+    /**
+     * Rotate function
+     * if callback was provided works as a shake function
+     *
+     * @param ell - node to shake
+     * @param deg - degree to rotate node
+     * @param cb - callback, to provide shake effect, pass rotate function here
+     */
+    function rotate(/*node*/ell,/*number*/deg,/*callback*/cb){
+        $(ell).animate(
+            {
+                rotation: deg
+            },
+            {
+                duration: 100,
+                step: function(now, animFunc) {
+                    if (animFunc.prop === "rotation") {
+                        $(this).css('-webkit-transform','rotate('+now+'deg)');
+                        $(this).css('-moz-transform','rotate('+now+'deg)');
+                        $(this).css('transform','rotate('+now+'deg)');
+                    }
+                },
+                complete: function(){
+                    if(cb) {
+                        var newDeg = -deg;
+                        cb(ell,newDeg)
+                    } else {
+                        $(this).css('-webkit-transform','rotate(0deg)');
+                        $(this).css('-moz-transform','rotate(0deg)');
+                        $(this).css('transform','rotate(0deg)');
+                    }
+                }
+            }
+        )
+    }
 
     function initSearch () {
         var searchField = $('#search-inner input');

@@ -1,25 +1,23 @@
-<div id="modalAddProject" class="modal"
-role="dialog"
-aria-labelledby="myModalLabel"
-data-backdrop = "false">
-<div class="modal-header" style="height: 20px">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3></h3>
+<div class="modalAA"    role="dialog" aria-labelledby="myModalLabel" data-backdrop = "true" >
+    <!--<div id=modalAddProject" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+<div class="modal-header"  : style="height: 20px">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-point="close">&times;</button>
+    <h3  data-point="ahtung"></h3>
 </div>
-<form method="post" action="/project" class="form-inline">
+<form  class="form-inline" data-point="formD" action="/project" method="post" enctype="multipart/form-data">
     <div class="modal-body" >
 
         <input class="input-xlarge" type="text"  name = "name" placeholder="enter the name of the project">
 
-    <div class="input-append date" data-date="12-02-2012" data-date-format="dd-mm-yyyy" >
-        <input  size="16"  class = "span12" name="startDate" type="text"  placeholder="start of the project">
+    <div class="input-append date" data-date="" data-date-format="dd-mm-yyyy" >
+        <input  size="16"  class = "span12" name="startDate" data-point="datePicker" type="text"  placeholder="start of the project">
         <span class="add-on "><i class="icon-th"></i></span>
     </div>
 
      </div>
     <div class="modal-footer">
         <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
-        <button  class="btn btn-custom" type="submit"  >Add project</button>
+        <button  type="button" class="btn btn-custom" data-point="submit"  >Add project</button>
     </div>
 </form>
 </div>

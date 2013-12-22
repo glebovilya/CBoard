@@ -85,8 +85,29 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
 
                 if(this.datePicker)this.datePicker.datepicker();
         },
+        validationForSubmit:function(){
+            var nameValue = $(this.nameInForm).val();
+           console.log(nameValue)
+              if(nameValue && !/\S/.test(nameValue)){
+                  this.ahtung
+                      .html('name can not consist only of whitespace');
+                  return true;
+              }
+              if(!nameValue){
+                  this.ahtung
+                      .html('you must fill in the name');
+                  return true;
+              }
+
+
+
+
+
+        },
         // function validation and creating AJAX and init new li by accordion
         submitData: function(){
+            var validator = this.validationForSubmit();
+            if(validator) return false;
             var self = this;
             var data = {};
             $(this.form).each(function(index,element){
@@ -95,12 +116,12 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                data[name] = value;
 
             });
-            if(!data['name']){
-                this.ahtung
-                    .html('you must fill in the name');
-
-                return
-            }
+//            if(!data['name']){
+//                this.ahtung
+//                    .html('you must fill in the name');
+//
+//                return
+//            }
             if(this.datePicker){
                  var date = new Date(data.startDate);
                  date.setDate(date.getDate() + 1); //issue on server --> date -1 day
@@ -135,8 +156,7 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                 });
         }
     };
-
-        $("#buttonAddNewProject").on('click', function(){return new Modal({template:templateProject,url:'/project'})});
+      $("#buttonAddNewProject").on('click', function(){return new Modal({template:templateProject,url:'/project'})});
         $("#buttonAddNewPeople").on('click', function(){return new Modal({template:templatePersone,url:'/user'})});
 
 });

@@ -23,12 +23,15 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
             var self = this;
             var template = this.template;
             template = $(template);
-//                console.log(t.find('*'))
             template.find('*').each(function(){
                 var element = $(this);
                 var point = element.attr('data-point');
+                var renderEvent = element.attr('data-event');
                 if(point) {
                     self[point] = element;
+                }
+                if(renderEvent){
+                    self.attachEvent(element,renderEvent);
                 }
             });
 
@@ -44,65 +47,68 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
 
             this.setHandler();
         },
-        // set handlers close and datePicker and sendForm for element
+        attachEvent: function( element, renderEvent){
+            var self = this;
+//            console.log(element)
+
+            var arrRenderEvent = renderEvent.split(','),
+                parts = [],
+                evtName = "",
+                methodName = "";
+            $.each(arrRenderEvent, function(idx, definition) {
+                // split definition to [DOMEventName,DOMEventHandler] pair
+                parts = definition.split(':');
+                    evtName = parts[0];
+                methodName = parts[1];
+
+                // bind Widget method to DOMElement event
+                element.on(evtName, $.proxy(self[methodName], self))
+            })
+
+        },
+        removeDomNode: function(){
+            this.template.remove();
+            this.cover.remove();
+
+        },
+        // set independent element handlers to document.body and metod jQuery - datePicker
         setHandler: function(){
-
-
-                $('body').keydown(function(event){
+            var self = this;
+                $('body').one('keydown',function(event){
                     if(event.which ==13){
                         self.submitData();
                     }
                     if(event.which ==27){
-                        self.template.remove();
-                        self.cover.remove();
+                        self.removeDomNode();
                     }
-                })
-                var self = this;
-                this.close.on('click', function () {
-                   self.template.remove();
-                    self.cover.remove();
-
                 });
 
-                 if(this.datePicker)this.datePicker.datepicker();
-                 this.submit.on('click', function () {
-                        self.submitData();
-                });
-
+                if(this.datePicker)this.datePicker.datepicker();
         },
         // function validation and creating AJAX and init new li by accordion
         submitData: function(){
             var self = this;
-           var data = {};
-//            console.log(this.formD[0]);
-           $(this.form).each(function(index,element){
+            var data = {};
+            $(this.form).each(function(index,element){
                var name = $(element)[0]['name'];
                var value = $(element)[0]['value'];
                data[name] = value;
 
-           });
+            });
+            if(!data['name']){
+                this.ahtung
+                    .html('you must fill in the name');
 
-
-           if(!data['name']){
-//               alert ('you must fill in the name');
-               this.ahtung
-                   .html('you must fill in the name');
-
-               return
-           }
-           if(this.datePicker){
-                var date = new Date(data.startDate);
-                date.setDate(date.getDate() + 1); //issue on server --> date -1 day
-                data.startDate = date;
-           }
-           var url  = this.url;
-
-
-            var x = this.formD[0];
-//            console.log(x);
-           var formData = new FormData(x);
-//            formData.append('vass',12)
-//               $.extend(formData,data);
+                return
+            }
+            if(this.datePicker){
+                 var date = new Date(data.startDate);
+                 date.setDate(date.getDate() + 1); //issue on server --> date -1 day
+                 data.startDate = date;
+            }
+            var url  = this.url;
+            var form = this.formD[0];
+            var formData = new FormData(form);
 
                 $.ajax({
                     url: url,
@@ -124,12 +130,9 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                             var item = "";
                             setAccordItem("people", obj, item);
                         }
-                        self.template.remove();
-                        self.cover.remove();
-
-
+                        self.removeDomNode();
                     }
-            });
+                });
         }
     };
 

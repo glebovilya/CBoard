@@ -1,7 +1,7 @@
 <div class="modalAA"    role="dialog" aria-labelledby="myModalLabel" data-backdrop = "true" >
     <!--<div id=modalAddProject" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
 <div class="modal-header"  : style="height: 20px">
-     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-point="close">&times;</button>
+     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-event="click:removeDomNode">&times;</button>
      <h3  data-point="ahtung"></h3>
 </div>
     <form  class="form-inline" data-point="formD" action="/user" method="post" enctype="multipart/form-data">
@@ -29,7 +29,7 @@
     </div>
     <div class="modal-footer">
         <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
-        <button  type="button" class="btn btn-custom" data-point="submit"  >Add employee</button>
+        <button  type="button" class="btn btn-custom" data-event="click:submitData"  >Add employee</button>
     </div>
 </form>
 </div>

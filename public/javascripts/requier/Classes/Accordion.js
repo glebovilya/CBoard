@@ -67,7 +67,7 @@ define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 't
      * @param obj
      * @param item
      */
-    Accordion.prototype.addItem = function (/*Person or Project object*/obj, /*Number*/item) {
+    Accordion.prototype.addItem = function (/*Person or Project object*/obj, /*String*/item) {
         this.item = $('#' + item + '-body').find('ul.list');
         var newItemlList = this.templateList.replace(/ItemName/g, obj.name).replace(/itemID/g, obj.id);
         this.item.prepend(newItemlList);

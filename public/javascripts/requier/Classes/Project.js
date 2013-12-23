@@ -43,7 +43,7 @@ define([
             this.id = id;
             this.template = template;
             this.end = null;
-            this.droppable = true;
+            this.dropTo = null;
 
             this.renderView();
             this.buildLogic();
@@ -77,7 +77,8 @@ define([
              * */
             this.domNode = $(this.template).appendTo($("#inner-board")).css({
                 float: 'left'
-            }).addClass('drop').attr('id', this.id);
+            }).attr('id', this.id);
+            $((this.domNode).find('.project-body')[0]).addClass('drop');
 
 
             // Parsing template' nodes
@@ -113,7 +114,6 @@ define([
         Project.prototype.addPerson = function (/*int*/pers) {
 
             var self = this;
-
             var strg = storage.storage;
 
             /*
@@ -170,7 +170,7 @@ define([
                     self.searchName = self.name;
                     self.header.innerHTML = self.name;
                     self.end = res.end;
-                    self.addDrop();
+                    self.addDropToEmployeeAreas();
                     // response has currentEmployees property, which is an array we have to analyze
                     for (var i in res.currentEmployees) {
                         //creating new Person instance form each record in currentEmployees array
@@ -181,23 +181,43 @@ define([
         };
 
         /*
+        *
+        * Logic of drop addition was changed because of need to select drop area.
+        * Now drop event adding to managers, team leads and developers areas separately
+        * This allows us to pick up different drop event target - mans, devs or leads div
+        *
+        * */
+
+        Project.prototype.addDropToEmployeeAreas = function(){
+            this.addDropEvent(this.mans);
+            this.addDropEvent(this.leads);
+            this.addDropEvent(this.devs);
+        };
+
+        /*
          * This method contains function, which was taken from outer plugin.
          * Allow dropability to current project template on board and some styles for containers.
          * You can find full reference of this work logic in public/javascripts/thirdParty/jquery.event.drop-2.2.js
          * To disallow ability to recieve person cards, end date property check was added.
          * */
 
-        Project.prototype.addDrop = function () {
+
+        Project.prototype.addDropEvent = function (div) {
 
             var self = this;
-            console.log(self);
-            $(this.domNode)
+
+            $(div)
                 .drop(function (ev, dd) {
-                    if(!self.end){
+                    if(!this.end){
                         $(dd.proxy).remove();
                         $('.drop').css({
                             boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
                         });
+                        self.dropTo = dd.drop[0];
+
+                        //picking up a dropped person ID
+                        var pID = dd.drag.attributes['data-id'].value;
+                        self.addPerson(pID);
 
                         transit({
                             domNode: dd.drag,
@@ -208,7 +228,6 @@ define([
                         }, Person);
                     }
                 });
-
         };
 
         /*
@@ -219,6 +238,7 @@ define([
 
         Project.prototype.sortEmployee = function (/*object*/p) {
 
+            console.log(p);
             var
                 projl = p.projectList,
                 statl = p.statusList,
@@ -231,12 +251,12 @@ define([
                 status = statl[idx];
             //sort employees corresponding to them project status
 
-            if (status == 2) {/*if employee's role is a manager*/
+            if (status == 2 || self.dropTo == self.mans) {/*if employee's role is a manager*/
                 $(p.domNode).appendTo(self.mans).css({
                     float: 'left',
                     position: 'relative'
                 })
-            } else if (status == 3) {/*if employee's role is a group lead*/
+            } else if (status == 3 || self.dropTo == self.leads) {/*if employee's role is a group lead*/
                 $(p.domNode).appendTo(self.leads).css({
                     float: 'right',
                     position: 'relative'
@@ -247,7 +267,6 @@ define([
                     position: 'relative'
                 })
             }
-
         };
 
         /*
@@ -288,7 +307,6 @@ define([
          * */
         Project.prototype.finishProject = function () {
             var finish = new FinishWindow(this);
-            this.droppable = false;
         };
 
         return Project;

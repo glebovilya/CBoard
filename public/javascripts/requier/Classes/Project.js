@@ -5,7 +5,7 @@ define([
     '../modalConfirm',
     'Classes/finishProject',
     '../../thirdParty/jquery.event.drop-2.2'
-    ],
+],
 
     function (template, Person, storage, Confirm, FinishWindow) {
 
@@ -43,6 +43,7 @@ define([
             this.id = id;
             this.template = template;
             this.end = null;
+            this.droppable = true;
 
             this.renderView();
             this.buildLogic();
@@ -183,30 +184,35 @@ define([
          * This method contains function, which was taken from outer plugin.
          * Allow dropability to current project template on board and some styles for containers.
          * You can find full reference of this work logic in public/javascripts/thirdParty/jquery.event.drop-2.2.js
+         * To disallow ability to recieve person cards, end date property check was added.
          * */
 
         Project.prototype.addDrop = function () {
 
+            var self = this;
+            console.log(self);
             $(this.domNode)
                 .drop(function (ev, dd) {
-                    $(dd.proxy).remove();
-                    $('.drop').css({
-                        boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
-                    });
+                    if(!self.end){
+                        $(dd.proxy).remove();
+                        $('.drop').css({
+                            boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
+                        });
 
-                    transit({
-                        domNode: dd.drag,
-                        id: $(dd.drag).attr("data-id"),
-                        lastProject: $(dd.drag).attr("data-parentproject"),
-                        currentProject: dd.target.id,
-                        action: 'transfer'
-                    }, Person);
-                })
+                        transit({
+                            domNode: dd.drag,
+                            id: $(dd.drag).attr("data-id"),
+                            lastProject: $(dd.drag).attr("data-parentproject"),
+                            currentProject: dd.target.id,
+                            action: 'transfer'
+                        }, Person);
+                    }
+                });
 
         };
 
         /*
-         * Method recieves a JSON - person instance,
+         * Method recieving a JSON - person instance,
          * parse it's project list and status list to find person status in current project.
          * Basing on status, person card render in different areas of project template
          * */
@@ -235,7 +241,7 @@ define([
                     float: 'right',
                     position: 'relative'
                 })
-            } else {/*otherwise employee is a developer*/
+            } else {/*otherwise employee is assigned*/
                 $(p.domNode).appendTo(self.devs).css({
                     float: 'left',
                     position: 'relative'
@@ -273,6 +279,7 @@ define([
             $(this.toggleDevs_btn).on('click', $.proxy(this.toggleDevs, this));
             $(this.close).on('click', $.proxy(this.__destruct, this));
             $(this.finish).on('click', $.proxy(this.finishProject, this));
+            $(this.finish).on('click', $.proxy(this.removeDrop, this));
         };
 
         /*
@@ -281,8 +288,8 @@ define([
          * */
         Project.prototype.finishProject = function () {
             var finish = new FinishWindow(this);
-
-        }
+            this.droppable = false;
+        };
 
         return Project;
     });

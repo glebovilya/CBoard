@@ -10,7 +10,6 @@ var http = require('http');
 var path = require('path');
 var dataSetter = require('./server/db/dataSetter');
 var dataGetter = require('./server/db/dataGetter');
-var dbModels = require('./server/db/dbShemas'); /*uncomment this line to call collections methods*/
 
 var app = express();
 
@@ -20,9 +19,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-//app.use(express.json());
-//app.use(express.urlencoded());
-//app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.bodyParser());
 app.use(app.router);
@@ -52,23 +48,11 @@ app.post('/project/:id', dataSetter.modifyProject); //{date: 'date')}
 app.post('/history', dataSetter.addHistory); //{personID: 'num', projectID: 'num', statusID: 'num', leaving: 'Boolean'(optional date: 'date')}
 app.get('/position', dataGetter.getPositions); //just send req here
 app.get('/statuses', dataGetter.getStatus); //just send req here
-/****************************************************
-* uncomment lines below to add new statuses to the DB
-/*****************************************************/
-//dataSetter.addStatus(1, 'Free');
-//dataSetter.addStatus(2, 'Manager');
-//dataSetter.addStatus(3, 'Lead');
-//dataSetter.addStatus(4, 'Assigned');
 
-/****************************************************
- * uncomment lines below to add new positions to the DB
- *****************************************************/
-//dataSetter.addPosition(1, 'JS');
-//dataSetter.addPosition(2, 'Manager');
-//dataSetter.addPosition(3, 'QA');
-//dataSetter.addPosition(4, 'pHp');
-//dataSetter.addPosition(5, 'TeamLeads');
-
+/**
+ * adds default docs to DB (Statuses, Positions and Default project "SkillUp")
+ */
+dataSetter.dbFeeler();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

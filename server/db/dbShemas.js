@@ -14,8 +14,10 @@ var personSchema = new Schema({
     currentStatus: { type: Number, ref: 'Status', default: 1 },
     projectList: [{ type: Number, ref: 'Project' }],
     statusList: [{ type: Number, ref: 'Status'}],
-    history: [{ type: Schema.Types.ObjectId, ref: 'History' }]
+    history: [{ type: Schema.Types.ObjectId, ref: 'History' }],
+    inSkillUpFrom: { type: Date, default: Date.now }
 });
+
 personSchema.plugin(pureautoinc.plugin, {
     model: 'Person',
     field: '_id',

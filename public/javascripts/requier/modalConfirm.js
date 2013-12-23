@@ -107,7 +107,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                           lastProject = "#lastProject";
                           ahtung ="#ahtung"
         },
-        /**
+        /**`
          * set remove modal and submit data in db "history"
          */
         setHandler: function () {
@@ -121,11 +121,13 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                 }
 
                                 if ((Confirm.lastProject) && Confirm.lastProject !== undefined ) {
+
                                     if($(datePicker).val()){
                                         var date = new Date($(datePicker).val());
                                         date.setDate(date.getDate() + 1); //issue on server --> date -1 day
                                     }
                                     var formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true', date:date};
+
 
                                     $.ajax({
                                         url: '/history',
@@ -147,7 +149,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                                     success: function (returndata) {
                                                         for (var i in strg){
                                                             if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
-                                                                console.log(strg[i])
                                                                 strg.splice(i,1);
                                                             }
                                                         }

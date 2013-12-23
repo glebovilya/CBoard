@@ -80,7 +80,7 @@ define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 't
 
             var deferenceInDays = (dateNow - inSkillUpFrom)/msToDays
 
-            if(deferenceInDays >= 0) {
+            if(deferenceInDays >= 14) {
                 ItemAsJqueryObj.find('a').prepend('<i class=" icon-fire" style="float: right"></i>')
             }
         }

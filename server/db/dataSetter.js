@@ -25,7 +25,8 @@ exports.addPerson = function(req, res) {
 
         fs.move(photo.path, photoPath, function(err) {
             if (err) {
-                console.log(err)
+                console.log(err);
+                dbModels.Person.findByIdAndRemove(person._id)
             }
             else {
                 dbModels.Person.findOneAndUpdate({_id: person._id}, {photo: dbPhotoPath}, function(err, pers) {

@@ -15,21 +15,24 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
         var inSkillUp = divIdPeople.find('i.icon-fire');
 
         inSkillUp.each(function(){
-                $(this).animate({
-                    marginTop: '-10px'
-                },{
-                    duration:100,
-                    complete: function(){
-                        $(this).animate({
-                            marginTop: '4px'
-                        },{
-                            duration:200,
-                            complete: function(){
-                                $(this).css('margin-top', 0)
-                            }
-                        })
-                    }
-                })
+                var self = this;
+                setInterval(function(){
+                    $(self).animate({
+                        marginTop: '-10px'
+                    },{
+                        duration:100,
+                        complete: function(){
+                            $(self).animate({
+                                marginTop: '4px'
+                            },{
+                                duration:200,
+                                complete: function(){
+                                    $(self).css('margin-top', 0)
+                                }
+                            })
+                        }
+                    })
+                }, 2000)
             }
         )
     }
@@ -42,15 +45,15 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             btnInIdProjects.css("left", -1000);
             divIdPeople.css("left", 0);
             btnInIdPeople.css("left", 0);
-            animateFreePersons()
-        })
+            animateFreePersons();
+        });
+
         $('#projects-tab').bind("click", function () {
             divIdPeople.css("left", -1000);
             btnInIdPeople.css("left", -1000);
             divIdProjects.css("left", 0);
             btnInIdProjects.css("left", 0);
-        })
-
+        });
 
         /**
          * Sends req on server to get all statuses from DB
@@ -125,6 +128,11 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
          */
         function setUsers (dataPerson) {
             var people = {};
+            var statuses = {};
+            for(var i in personPosition) {
+                statuses[personPosition[i].name] = []
+            }
+            $.extend(people,statuses);
             for (var elems in dataPerson) {
                 for (var stat in personPosition) {
                     if (personPosition[stat]._id == dataPerson[elems].position)
@@ -138,6 +146,7 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
                     ];
             }
             person = people;
+
             accordPeople = new Accordion(person, "#accordion-people");
         }
 

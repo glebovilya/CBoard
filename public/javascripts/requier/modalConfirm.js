@@ -101,7 +101,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                     return
                                 }
 
-                                if (Confirm.lastProject !== undefined) {
+                                if ((Confirm.lastProject) && Confirm.lastProject !== undefined ) {
                                     formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                                     $.ajax({
                                         url: '/history',

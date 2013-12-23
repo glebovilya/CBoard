@@ -64,12 +64,10 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                 // bind Widget method to DOMElement event
                 element.on(evtName, $.proxy(self[methodName], self))
             })
-
         },
         removeDomNode: function(){
             this.template.remove();
             this.cover.remove();
-
         },
         // set independent element handlers to document.body and metod jQuery - datePicker
         setHandler: function(){
@@ -85,9 +83,34 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
 
                 if(this.datePicker)this.datePicker.datepicker();
         },
+        validatorPress: function(){
+            var self = this;
+            var char =$(event.target).val();
+
+            if(event.which ==13) {
+                this. submitData();
+            }
+
+            if(((event.which >=60) && (event.which <=62)) || ((event.which >=91) && (event.which <=94)) || ((event.which >=123) && (event.which <=125))){
+                $(event.target).one('keyup', function(){
+                    $(event.target).val(char)
+                    self.ahtung.html('name can not contain special characters');
+                    setTimeout(function(){self.ahtung.html('')}, 1000);
+                    return
+                })
+            }
+
+        },
         validationForSubmit:function(){
             var nameValue = $(this.nameInForm).val();
-           console.log(nameValue)
+            if(this.surnameInForm) var surnameValue = $(this.surnameInForm).val();
+            if((nameValue) && /\W/.test(nameValue) || ((surnameValue) && /\W/.test(surnameValue))){
+                this.ahtung.html('you have been warned...');
+                this.nameInForm.val('');
+
+                return true;
+            }
+
               if(nameValue && !/\S/.test(nameValue)){
                   this.ahtung
                       .html('name can not consist only of whitespace');
@@ -98,10 +121,11 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                       .html('you must fill in the name');
                   return true;
               }
-
-
-
-
+        },
+        validatorForProcess:function(event){
+            if(((event.which >=60) && (event.which <=64)) || ((event.which >=91) && (event.which <=94)) || ((event.which >=123) && (event.which <=125))){
+                this.ahtung.html('name can not contain special characters');
+            }
 
         },
         // function validation and creating AJAX and init new li by accordion
@@ -116,12 +140,7 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                data[name] = value;
 
             });
-//            if(!data['name']){
-//                this.ahtung
-//                    .html('you must fill in the name');
-//
-//                return
-//            }
+
             if(this.datePicker){
                  var date = new Date(data.startDate);
                  date.setDate(date.getDate() + 1); //issue on server --> date -1 day

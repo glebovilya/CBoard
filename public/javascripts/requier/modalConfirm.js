@@ -101,7 +101,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                     return
                                 }
 
-                                if (Confirm.lastProject !== undefined) {
+                                if (Confirm.lastProject !== undefined && Confirm.lastProject !== false) {
                                     formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
                                     $.ajax({
                                         url: '/history',
@@ -119,7 +119,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                                     success: function (returndata) {
                                                         for (var i in strg){
                                                             if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
-                                                                console.log(strg[i])
                                                                 strg.splice(i,1);
                                                             }
                                                         }

@@ -1,6 +1,6 @@
     // Created by Jura on 08.12.13.
 
-define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Classes/Person', ], function (templ, storage, Person) {
+define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Classes/Person' ], function (templ, storage, Person) {
     /**
      *
      * @type {{template: *, init: Function, render: Function, bindDomNodes: Function, setHandler: Function}}
@@ -28,6 +28,22 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
         },
         // insert last and current project and photo
         render: function (Person) {
+
+            var self = this;
+            var template = this.template;
+            template = $(template);
+            template.find('*').each(function(){
+                    var element = $(this);
+                    var point = element.attr('data-point');
+                    var renderEvent = element.attr('data-event');
+                    if(point) {
+                        self[point] = element;
+                    }
+                    if(renderEvent){
+                        self.attachEvent(element,renderEvent);
+                    }
+            })
+
             Confirm.bindDomNodes();
             $(Confirm.template).appendTo(innerBoard);
             formConfirmDate.ready(function () {
@@ -89,20 +105,28 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                           datePicker = "#datepicker";
                           currentProject = "#currentProject";
                           lastProject = "#lastProject";
+                          ahtung ="#ahtung"
         },
         /**
          * set remove modal and submit data in db "history"
          */
         setHandler: function () {
+                            var self = this;
                             Confirm.bindDomNodes();
                             function submitChanges(e) {
                                 if ($(statusId).val() == 0) {
-                                    alert("select status or close the window without saving");
+                                    $(ahtung).html('select status');
+
                                     return
                                 }
 
                                 if ((Confirm.lastProject) && Confirm.lastProject !== undefined ) {
-                                    formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true'};
+                                    if($(datePicker).val()){
+                                        var date = new Date($(datePicker).val());
+                                        date.setDate(date.getDate() + 1); //issue on server --> date -1 day
+                                    }
+                                    var formData = {personID: Confirm.id, projectID: Confirm.lastProject, statusID: 1, leaving: 'true', date:date};
+
                                     $.ajax({
                                         url: '/history',
                                         type: 'POST',
@@ -110,7 +134,11 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                         success: function (returndata) {
 
                                             if (Confirm.currentProject ||Confirm.currentProject === 0) {
-                                                formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $(statusId).val(), leaving: 'false'};
+                                                if($(datePicker).val()){
+                                                    var date = new Date($(datePicker).val());
+                                                    date.setDate(date.getDate() + 1); //issue on server --> date -1 day
+                                                }
+                                               var  formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $(statusId).val(), leaving: 'false', date:date};
                                                 $.ajax({
                                                     url: '/history',
                                                     type: 'POST',
@@ -139,7 +167,11 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                         }
                                     });
                                 } else {
-                                    formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $(statusId).val(), leaving: 'false'};
+                                    if($(datePicker).val()){
+                                        var date = new Date($(datePicker).val());
+                                        date.setDate(date.getDate() + 1); //issue on server --> date -1 day
+                                    }
+                                    formData = {personID: Confirm.id, projectID: Confirm.currentProject, statusID: $(statusId).val(), leaving: 'false',date:date};
                                     $.ajax({
                                         url: '/history',
                                         type: 'POST',

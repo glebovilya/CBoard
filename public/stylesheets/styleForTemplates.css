@@ -255,6 +255,13 @@ span[data-role="projectName"]{
     z-index: 100;
     top: 0px;
 }
-h3 {
+.modal-footer h4 {
+    float: left;
     color: red;
+}
+.modal-footer div{
+    height: 10px;
+}
+.modal-header h4{
+    text-align: center;
 }

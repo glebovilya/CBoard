@@ -52,7 +52,7 @@ define(['./Classes/Project', 'StorageForObjectsOnBoard'], function(Project, stor
                 cleared = true
             })
         }
-    }
+    };
 
     return showHide
-})
+});

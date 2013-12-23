@@ -33,9 +33,9 @@ exports.addPerson = function(req, res) {
                 })
             }
         });
-
+        var date = new Date();
+        exports.togglePeronInSkillUp(person._id, true, date)
     })
-
 };
 exports.addProject = function(req, res) {
     console.log(req.body)
@@ -101,7 +101,7 @@ exports.addHistory = function (req, res) {
             if(err){console.log(err)}
             dbModels.Status.findOne({_id: req.body.statusID}, function(err, status) {
                 if(err){console.log(err)}
-
+                console.log('leaving'+req.body.leaving)
                 if(!person || !project || !status) {
                     respondJSON(res, {err: 'wrong IDs'});
                     return
@@ -119,10 +119,16 @@ exports.addHistory = function (req, res) {
                 /****************************************************************************
                 * if date was past as argument assume it, otherwise default date(current date)
                 *****************************************************************************/
+                var date
+
                 if(req.body.date) {
-                    history.date = req.body.date
+                   date = req.body.date
+                }
+                else {
+                    date = new Date();
                 }
 
+                history.date = date;
 
                 var idx = person.projectList.indexOf(project._id);
                 var projList = person.projectList;
@@ -145,9 +151,14 @@ exports.addHistory = function (req, res) {
                     if(statusList[idx] != status._id) {
                         statusList.set(idx, status._id)
                     }
+
+                    if(req.body.leaving) {
+                        projList.splice(idx, 1);
+                        statusList.splice(idx, 1);
+                    }
                 }
                 var personList = project.currentEmployees;
-                var persIDX = personList.indexOf(person._id)
+                var persIDX = personList.indexOf(person._id);
                 /*********************************************
                 * if the person is leaving that project we had
                 * to remove him from current project in DB.
@@ -182,8 +193,19 @@ exports.addHistory = function (req, res) {
                     }
                 });
                 person.save(function(err, pers){
+
                     if(err) {
                         console.log(err)
+                    }
+
+                    /*here goes logic on adding person to skillUp project*/
+                    if(pers.projectList.length == 0){
+                        console.log('added to SkillUp');
+                        exports.togglePeronInSkillUp(pers._id, true, date)
+                    }
+                    else {
+                        console.log('removed from SkillUp');
+                        exports.togglePeronInSkillUp(pers._id, false, date)
                     }
                 });
             });
@@ -196,6 +218,81 @@ exports.modifyProject = function(req, res) {
         proj.save(respondJSON(res, proj))
     })
 };
+
+/**
+ * this function adds or removes person from SkillUp project
+ * @param personID - persons id to toggle in SkillUp
+ * @param free - boolean, pass here true if u want to add person to skillUp
+ * @param date - date to set as start in skillUp for this person
+ */
+exports.togglePeronInSkillUp = function(personID, /*boolean*/free, /*Date*/date) {
+    dbModels.Project.findOne({name: 'SkillUp'}, function (err, skillUpProj){
+        if(err) {
+            console.log(err)
+        }
+        dbModels.Person.findOne({_id: personID}, function (err,person){
+            if(err) {
+                console.log(err)
+            }
+
+            if(free){
+                skillUpProj.currentEmployees.push(person._id);
+                person.projectList.push(skillUpProj._id)
+                person.statusList.push(1);
+                person.inSkillUpFrom = date;
+            }
+            else {
+                skillUpProj.currentEmployees.pull(person._id);
+                person.inSkillUpFrom = null;
+                var idx = person.projectList.indexOf(skillUpProj._id);
+                if(idx != -1){
+                    person.projectList.splice(idx,1);
+                    person.statusList.splice(idx,1)
+                }
+            }
+
+            skillUpProj.save(function(err){
+                if(err){console.log(err)}
+            });
+            person.save(function(err){
+                if(err){console.log(err)}
+            });
+        })
+    })
+}
+exports.dbFeeler = function () {
+    dbModels.Project.findOne({name: 'SkillUp'}, function(err, proj){
+        if(err) {console.log(err)}
+
+        if(!proj) {
+            var skillUp = new dbModels.Project({
+                name: "SkillUp"
+            })
+            skillUp.save()
+        }
+    })
+    
+    dbModels.Status.find(function(err, statuses){
+        if(err) {console.log(err)}
+        if(statuses.length == 0) {
+            exports.addStatus(1, 'Free');
+            exports.addStatus(2, 'Manager');
+            exports.addStatus(3, 'Lead');
+            exports.addStatus(4, 'Assigned');
+        }
+    })
+
+    dbModels.Position.find(function(err, positions){
+        if(err) {console.log(err)}
+        if(positions.length == 0) {
+            exports.addPosition(1, 'JS');
+            exports.addPosition(2, 'Manager');
+            exports.addPosition(3, 'QA');
+            exports.addPosition(4, 'pHp');
+            exports.addPosition(5, 'TeamLeads');
+        }
+    })
+}
 
 
 

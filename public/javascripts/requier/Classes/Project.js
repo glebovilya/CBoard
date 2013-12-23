@@ -190,7 +190,6 @@ define([
         Project.prototype.addDrop = function () {
 
             var self = this;
-            console.log(self);
             $(this.domNode)
                 .drop(function (ev, dd) {
                     if(!self.end){

@@ -1,6 +1,35 @@
     // Created by Jura on 08.12.13.
 
 define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Classes/Person' ], function (templ, storage, Person) {
+    var toggleIcon = function (personID, add) {
+        var item = $('li[data-point-id='+personID+']');
+        if(!add){
+            console.log('1')
+            item.find('i.icon-fire').remove()
+        }
+        else {
+            $.ajax({
+                url: "/user",
+                data:{ id: personID},
+                success: function(person){
+                    console.log('2')
+                    if(person['inSkillUpFrom']) {
+                        var dateNow = new Date();
+                        var inSkillUpFrom = new Date(obj['inSkillUpFrom']);
+                        var msToDays = 1000*60*60*24;
+
+                        var deferenceInDays = (dateNow - inSkillUpFrom)/msToDays
+                        console.log('3')
+                        if(deferenceInDays >= 14) {
+                            console.log('4')
+                            item.find('a').prepend('<i class=" icon-fire" style="float: right"></i>')
+                        }
+                    }
+                }
+            })
+        }
+    };
+
     /**
      *
      * @type {{template: *, init: Function, render: Function, bindDomNodes: Function, setHandler: Function}}
@@ -157,6 +186,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                                         Confirm.cover.remove();
                                                         modalWindow.remove();
                                                         $(datePicker).remove();
+                                                        toggleIcon(Confirm.id, true)
                                                     }
                                                 });
                                             } else {
@@ -184,6 +214,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                             $(datePicker).remove();
                                             $(Confirm.domNode).remove();
                                             Confirm.cover.remove();
+                                            toggleIcon(Confirm.id, false);
                                         }
                                     })
                                 }

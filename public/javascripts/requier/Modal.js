@@ -2,7 +2,7 @@
  * Created by stepanjuk on 02.12.13.
  */
 
-define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 'Classes/Accordion', 'initAccordionOnPage'], function (templateProject,templatePersone, Accordion, setAccordItem) {
+define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html','text!./templates/addEmployee.html', 'Classes/Accordion', 'initAccordionOnPage'], function (templateConfirm, templateProject,templatePersone, Accordion, setAccordItem) {
 
 
     /**
@@ -104,7 +104,7 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
         validationForSubmit:function(){
             var nameValue = $(this.nameInForm).val();
             if(this.surnameInForm) var surnameValue = $(this.surnameInForm).val();
-            if((nameValue) && /\W/.test(nameValue) || ((surnameValue) && /\W/.test(surnameValue))){
+            if((nameValue) && /\W\s/.test(nameValue) || ((surnameValue) && /\W/.test(surnameValue))){
                 this.ahtung.html('you have been warned...');
                 this.nameInForm.val('');
 
@@ -128,9 +128,22 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
             }
 
         },
+        confirmYesNo: function(){
+           new Modal({template:templateConfirm, url:'/'})
+
+        },
+        returnFalse: function(){
+            this.removeDomNode();
+            return false
+        },
+        returnTrue: function(){
+            this.removeDomNode();
+            return true
+        },
         // function validation and creating AJAX and init new li by accordion
         submitData: function(){
             var validator = this.validationForSubmit();
+            console.log(this.confirmYesNo())
             if(validator) return false;
             var self = this;
             var data = {};
@@ -146,6 +159,8 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                  date.setDate(date.getDate() + 1); //issue on server --> date -1 day
                  data.startDate = date;
             }
+
+
             var url  = this.url;
             var form = this.formD[0];
             var formData = new FormData(form);
@@ -173,7 +188,8 @@ define(['text!./templates/addProject.html','text!./templates/addEmployee.html', 
                         self.removeDomNode();
                     }
                 });
-        }
+            }
+
     };
       $("#buttonAddNewProject").on('click', function(){return new Modal({template:templateProject,url:'/project'})});
         $("#buttonAddNewPeople").on('click', function(){return new Modal({template:templatePersone,url:'/user'})});

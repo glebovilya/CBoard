@@ -1,6 +1,7 @@
     // Created by Jura on 08.12.13.
 
 define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Classes/Person' ], function (templ, storage, Person) {
+
     var toggleIcon = function (personID, add) {
         var item = $('li[data-point-id='+personID+']');
         if(!add){
@@ -172,6 +173,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                                     data: formData,
                                                     async: false,
                                                     success: function (returndata) {
+                                                        toggleIcon(Confirm.id, false);
                                                         for (var i in strg){
                                                             if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
                                                                 strg.splice(i,1);
@@ -204,18 +206,17 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                         data: formData,
 //                                        async: false,
                                         success: function (returndata) {
+                                            toggleIcon(Confirm.id, false);
                                             modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                             modalWindow.remove();
                                             $(datePicker).remove();
                                             $(Confirm.domNode).remove();
                                             Confirm.cover.remove();
-                                            toggleIcon(Confirm.id, false);
                                         }
                                     })
                                 }
                             }
                             function closeModal (eventObject) {
-
                                 modalWindow.remove();
                                 $(datePicker).remove();
                                 Confirm.cover.remove();

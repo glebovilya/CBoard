@@ -209,23 +209,23 @@ define([
             $(div)
                 .drop(function (ev, dd) {
                     if(!this.end){
+                        console.log(self.name);
                         $(dd.proxy).remove();
                         $('.drop').css({
                             boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
                         });
-                        self.dropTo = dd.drop[0];
 
-                        //picking up a dropped person ID
-                        var pID = dd.drag.attributes['data-id'].value;
-                        self.addPerson(pID);
-
-                        transit({
-                            domNode: dd.drag,
-                            id: $(dd.drag).attr("data-id"),
-                            lastProject: $(dd.drag).attr("data-parentproject"),
-                            currentProject: dd.target.id,
-                            action: 'transfer'
-                        }, Person);
+                        if(self.name != 'SkillUp'){
+                            self.dropTo = dd.drop[0];
+                            transit({
+                                domNode: dd.drag,
+                                id: $(dd.drag).attr("data-id"),
+                                lastProject: $(dd.drag).attr("data-parentproject"),
+                                currentProject: self.id,
+                                action: 'transfer',
+                                status: dd.drag.status
+                            }, Person);
+                        }
                     }
                 });
         };
@@ -238,7 +238,6 @@ define([
 
         Project.prototype.sortEmployee = function (/*object*/p) {
 
-            console.log(p);
             var
                 projl = p.projectList,
                 statl = p.statusList,
@@ -250,6 +249,10 @@ define([
             //searching an employee's status in current project
                 status = statl[idx];
             //sort employees corresponding to them project status
+
+            if (p.inSkillUpFrom) {
+                $(p.domNode).find('.close').remove();
+            };
 
             if (status == 2 || self.dropTo == self.mans) {/*if employee's role is a manager*/
                 $(p.domNode).appendTo(self.mans).css({
@@ -267,6 +270,7 @@ define([
                     position: 'relative'
                 })
             }
+
         };
 
         /*
@@ -276,7 +280,7 @@ define([
         Project.prototype.toggleDevs = function () {
             $(this.devs).toggleClass('open');
 
-            // label toggler
+        // label toggler
             this.toggleDevs_btn.innerHTML == 'show developers' ? this.toggleDevs_btn.innerHTML = 'hide developers' : this.toggleDevs_btn.innerHTML = 'show developers';
         };
 

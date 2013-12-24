@@ -8,12 +8,14 @@ requirejs(
     'SearchForInnerBoard',
     'initAccordionOnPage',
     '../thirdParty/bootstrap-datepicker',
-    'Modal' ],
+    'Modal',
+    'Confirm'],
 
     function( searchAcc, showHide, searchIB){
         searchIB();
         searchAcc();
         showHide.init();
+
     }
 );
 

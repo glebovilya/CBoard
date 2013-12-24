@@ -1,6 +1,7 @@
     // Created by Jura on 08.12.13.
 
 define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Classes/Person' ], function (templ, storage, Person) {
+
     var toggleIcon = function (personID, add) {
         var item = $('li[data-point-id='+personID+']');
         if(!add){
@@ -182,6 +183,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                                         Confirm.cover.remove();
                                                         modalWindow.remove();
                                                         $(datePicker).remove();
+                                                        toggleIcon(Confirm.id, false);
                                                     }
                                                 });
                                             } else {

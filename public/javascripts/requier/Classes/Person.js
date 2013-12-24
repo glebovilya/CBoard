@@ -4,7 +4,7 @@
 
 
 
-define (['text!../templates/employe.html', '../StorageForObjectsOnBoard', 'modalConfirm','../../thirdParty/jquery.event.drag-2.2'], function(templ, storage,Confirm){
+define (['text!../templates/employe.html', '../StorageForObjectsOnBoard',/* '../modalConfirm',*/'../Confirm','../../thirdParty/jquery.event.drag-2.2'], function(templ, storage,Confirm){
 
     /**
      * function cause modal window for the selected person on board
@@ -12,7 +12,7 @@ define (['text!../templates/employe.html', '../StorageForObjectsOnBoard', 'modal
      * @param Person /object Person for call from window Confirm and call photo/
      */
     function transit(data,Person){
-        Confirm.init(data,Person);
+      new Confirm(data,Person);
     }
     var positions;
 

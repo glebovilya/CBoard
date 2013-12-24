@@ -2,7 +2,7 @@ define([
     'text!../templates/project.html',
     'Classes/Person',
     '../StorageForObjectsOnBoard',
-    '../modalConfirm',
+    '../Confirm',
     'Classes/finishProject',
     '../../thirdParty/jquery.event.drop-2.2'
 ],
@@ -26,7 +26,7 @@ define([
          * this function helps to add drop event onto project window
          * */
         function transit(/*obj*/data, /*obj*/Person) {
-            Confirm.init(data, Person);
+            new Confirm(data, Person);
         }
 
 

@@ -2,7 +2,7 @@
  * Created by stepanjuk on 02.12.13.
  */
 
-define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html','text!./templates/addEmployee.html', 'Classes/Accordion', 'initAccordionOnPage'], function (templateConfirm, templateProject,templatePersone, Accordion, setAccordItem) {
+define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html','text!./templates/addEmployee.html'/*, 'Classes/Accordion', 'initAccordionOnPage'*/], function (templateConfirm, templateProject,templatePersone/*, Accordion, setAccordItem*/) {
 
 
     /**
@@ -71,6 +71,7 @@ define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html',
         },
         // set independent element handlers to document.body and metod jQuery - datePicker
         setHandler: function(){
+//            console.log(this)
             var self = this;
                 $('body').one('keydown',function(event){
                     if(event.which ==13){
@@ -102,25 +103,27 @@ define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html',
 
         },
         validationForSubmit:function(){
-            var nameValue = $(this.nameInForm).val();
-            if(this.surnameInForm) var surnameValue = $(this.surnameInForm).val();
-            if((nameValue) && /\W\s/.test(nameValue) || ((surnameValue) && /\W/.test(surnameValue))){
-                this.ahtung.html('you have been warned...');
-                this.nameInForm.val('');
+            if(this.nameInForm){
+                var nameValue = $(this.nameInForm).val();
+                if(this.surnameInForm) var surnameValue = $(this.surnameInForm).val();
+                if((nameValue) && /\W\s/.test(nameValue) || ((surnameValue) && /\W/.test(surnameValue))){
+                    this.ahtung.html('you have been warned...');
+                    this.nameInForm.val('');
 
-                return true;
+                    return true;
+                }
+
+                  if(nameValue && !/\S/.test(nameValue)){
+                      this.ahtung
+                          .html('name can not consist only of whitespace');
+                      return true;
+                  }
+                  if(!nameValue){
+                      this.ahtung
+                          .html('you must fill in the name');
+                      return true;
+                  }
             }
-
-              if(nameValue && !/\S/.test(nameValue)){
-                  this.ahtung
-                      .html('name can not consist only of whitespace');
-                  return true;
-              }
-              if(!nameValue){
-                  this.ahtung
-                      .html('you must fill in the name');
-                  return true;
-              }
         },
         validatorForProcess:function(event){
             if(((event.which >=60) && (event.which <=64)) || ((event.which >=91) && (event.which <=94)) || ((event.which >=123) && (event.which <=125))){
@@ -128,22 +131,9 @@ define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html',
             }
 
         },
-        confirmYesNo: function(){
-           new Modal({template:templateConfirm, url:'/'})
-
-        },
-        returnFalse: function(){
-            this.removeDomNode();
-            return false
-        },
-        returnTrue: function(){
-            this.removeDomNode();
-            return true
-        },
         // function validation and creating AJAX and init new li by accordion
         submitData: function(){
             var validator = this.validationForSubmit();
-            console.log(this.confirmYesNo())
             if(validator) return false;
             var self = this;
             var data = {};
@@ -178,12 +168,12 @@ define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html',
                             var item = "";
                             if (returndata.end) item = "Closed"
                             else item = "Open"
-                            setAccordItem("projects", obj, item);
+//                            setAccordItem("projects", obj, item);
                         }
                         if(url == '/user') {
                             var obj = {id: returndata._id, name: returndata.name + " " + returndata.surname, position:returndata.position};
                             var item = "";
-                            setAccordItem("people", obj, item);
+//                            setAccordItem("people", obj, item);
                         }
                         self.removeDomNode();
                     }
@@ -191,8 +181,10 @@ define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html',
             }
 
     };
+
+
       $("#buttonAddNewProject").on('click', function(){return new Modal({template:templateProject,url:'/project'})});
         $("#buttonAddNewPeople").on('click', function(){return new Modal({template:templatePersone,url:'/user'})});
-
+    return Modal;
 });
 

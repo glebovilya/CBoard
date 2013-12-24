@@ -173,6 +173,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                                     data: formData,
                                                     async: false,
                                                     success: function (returndata) {
+                                                        toggleIcon(Confirm.id, false);
                                                         for (var i in strg){
                                                             if (strg[i]['id'] == Confirm.id && !strg[i]['inProject'] && strg[i]['photo'] ){
                                                                 strg.splice(i,1);
@@ -183,7 +184,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                                         Confirm.cover.remove();
                                                         modalWindow.remove();
                                                         $(datePicker).remove();
-                                                        toggleIcon(Confirm.id, false);
                                                     }
                                                 });
                                             } else {
@@ -206,18 +206,17 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                         data: formData,
 //                                        async: false,
                                         success: function (returndata) {
+                                            toggleIcon(Confirm.id, false);
                                             modalFooterButton.trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                             modalWindow.remove();
                                             $(datePicker).remove();
                                             $(Confirm.domNode).remove();
                                             Confirm.cover.remove();
-                                            toggleIcon(Confirm.id, false);
                                         }
                                     })
                                 }
                             }
                             function closeModal (eventObject) {
-
                                 modalWindow.remove();
                                 $(datePicker).remove();
                                 Confirm.cover.remove();

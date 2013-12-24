@@ -10,6 +10,33 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
     var btnInIdProjects = $('#buttonAddNewProject');
     var projects;
     var person;
+
+    var animateFreePersons = function(){
+        var inSkillUp = divIdPeople.find('i.icon-fire');
+
+        inSkillUp.each(function(){
+                var self = this;
+                setInterval(function(){
+                    $(self).animate({
+                        marginTop: '-10px'
+                    },{
+                        duration:100,
+                        complete: function(){
+                            $(self).animate({
+                                marginTop: '4px'
+                            },{
+                                duration:200,
+                                complete: function(){
+                                    $(self).css('margin-top', 0)
+                                }
+                            })
+                        }
+                    })
+                }, 2000)
+            }
+        )
+    }
+
     $(document).ready(function () {
 
         /* set the initial position of tabs elements and their changing */
@@ -18,14 +45,15 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             btnInIdProjects.css("left", -1000);
             divIdPeople.css("left", 0);
             btnInIdPeople.css("left", 0);
-        })
+            animateFreePersons();
+        });
+
         $('#projects-tab').bind("click", function () {
             divIdPeople.css("left", -1000);
             btnInIdPeople.css("left", -1000);
             divIdProjects.css("left", 0);
             btnInIdProjects.css("left", 0);
-        })
-
+        });
 
         /**
          * Sends req on server to get all statuses from DB
@@ -61,14 +89,23 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             var project = {};
             var openProject = [];
             var closedProject = [];
+            var skillUp = [];
             for (var elems in dataProject) {
-                if (dataProject[elems].end)
+                if (dataProject[elems].end) {
                     closedProject[closedProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
-                else
-                    openProject[openProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
+                }
+                else {
+                    if(dataProject[elems].name === 'SkillUp'){
+                        skillUp.push({id: dataProject[elems]._id, name: dataProject[elems].name})
+                    }
+                    else {
+                        openProject[openProject.length] = {id: dataProject[elems]._id, name: dataProject[elems].name};
+                    }
+                }
             }
             project.Open = openProject;
             project.Closed = closedProject;
+            project.SkillUp = skillUp;
             projects = project;
 //            debugger
             accordProjects = new Accordion(projects, "#accordion-projects");
@@ -91,19 +128,25 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
          */
         function setUsers (dataPerson) {
             var people = {};
+            var statuses = {};
+            for(var i in personPosition) {
+                statuses[personPosition[i].name] = []
+            }
+            $.extend(people,statuses);
             for (var elems in dataPerson) {
                 for (var stat in personPosition) {
                     if (personPosition[stat]._id == dataPerson[elems].position)
                         var item = personPosition[stat].name;
                 }
                 if (item in people)
-                    people[item][people[item].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname};
+                    people[item][people[item].length] = {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname, inSkillUpFrom: dataPerson[elems].inSkillUpFrom};
                 else
                     people[item] = [
-                        {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname}
+                        {id: dataPerson[elems]._id + "", name: dataPerson[elems].name + " " + dataPerson[elems].surname, inSkillUpFrom: dataPerson[elems].inSkillUpFrom}
                     ];
             }
             person = people;
+
             accordPeople = new Accordion(person, "#accordion-people");
         }
 

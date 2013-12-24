@@ -67,15 +67,32 @@ define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 't
      * @param obj
      * @param item
      */
-    Accordion.prototype.addItem = function (/*Person or Project object*/obj, /*Number*/item) {
+    Accordion.prototype.addItem = function (/*Person or Project object*/obj, /*String*/item) {
         this.item = $('#' + item + '-body').find('ul.list');
         var newItemlList = this.templateList.replace(/ItemName/g, obj.name).replace(/itemID/g, obj.id);
-        this.item.prepend(newItemlList);
+        var ItemAsJqueryObj = $(newItemlList);
+
+        //creates icon if person is in SkillUp roject more then 2 weeks
+        if(obj['inSkillUpFrom']) {
+            var dateNow = new Date();
+            var inSkillUpFrom = new Date(obj['inSkillUpFrom']);
+            var msToDays = 1000*60*60*24;
+
+            var deferenceInDays = (dateNow - inSkillUpFrom)/msToDays
+
+            if(deferenceInDays >= 14) {
+                ItemAsJqueryObj.find('a').prepend('<i class=" icon-fire" style="float: right"></i>')
+            }
+        }
+
+
+
+        this.item.prepend(ItemAsJqueryObj);
         var itemString = this.item.selector + ' li.list-item[data-point-id=' + obj.id + ']';
         setEffects(itemString);
         var strg = storage.storage;
         var onBoard;
-        if (item == "Open" || item == "Closed") {
+        if (item == "Open" || item == "Closed" || item == "SkillUp") {
             $(itemString).bind("click", function(){
                 onBoard = false;
                 /**

@@ -1,6 +1,31 @@
     // Created by Jura on 08.12.13.
 
 define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Classes/Person' ], function (templ, storage, Person) {
+    var toggleIcon = function (personID, add) {
+        var item = $('li[data-point-id='+personID+']');
+        if(!add){
+            item.find('i.icon-fire').remove()
+        }
+        else {
+            $.ajax({
+                url: "/user",
+                data:{ id: personID},
+                success: function(person){
+                    if(person['inSkillUpFrom']) {
+                        var dateNow = new Date();
+                        var inSkillUpFrom = new Date(person['inSkillUpFrom']);
+                        var msToDays = 1000*60*60*24;
+
+                        var deferenceInDays = (dateNow - inSkillUpFrom)/msToDays
+                        if(deferenceInDays >= 14) {
+                            item.find('a').prepend('<i class=" icon-fire" style="float: right"></i>')
+                        }
+                    }
+                }
+            })
+        }
+    };
+
     /**
      *
      * @type {{template: *, init: Function, render: Function, bindDomNodes: Function, setHandler: Function}}
@@ -134,7 +159,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                         type: 'POST',
                                         data: formData,
                                         success: function (returndata) {
-
+                                            toggleIcon(Confirm.id, true);
                                             if (Confirm.currentProject ||Confirm.currentProject === 0) {
                                                 if($(datePicker).val()){
                                                     var date = new Date($(datePicker).val());
@@ -184,6 +209,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
                                             $(datePicker).remove();
                                             $(Confirm.domNode).remove();
                                             Confirm.cover.remove();
+                                            toggleIcon(Confirm.id, false);
                                         }
                                     })
                                 }

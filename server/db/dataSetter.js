@@ -25,7 +25,8 @@ exports.addPerson = function(req, res) {
 
         fs.move(photo.path, photoPath, function(err) {
             if (err) {
-                console.log(err)
+                console.log(err);
+                dbModels.Person.findByIdAndRemove(person._id)
             }
             else {
                 dbModels.Person.findOneAndUpdate({_id: person._id}, {photo: dbPhotoPath}, function(err, pers) {
@@ -101,7 +102,7 @@ exports.addHistory = function (req, res) {
             if(err){console.log(err)}
             dbModels.Status.findOne({_id: req.body.statusID}, function(err, status) {
                 if(err){console.log(err)}
-                console.log('leaving'+req.body.leaving)
+
                 if(!person || !project || !status) {
                     respondJSON(res, {err: 'wrong IDs'});
                     return

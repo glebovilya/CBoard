@@ -2,7 +2,7 @@
  * Created by stepanjuk on 02.12.13.
  */
 
-define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html','text!./templates/addEmployee.html', 'Classes/Accordion', 'initAccordionOnPage'], function (templateConfirm, templateProject,templatePersone, Accordion, setAccordItem) {
+define(['templates', 'Classes/Accordion', 'initAccordionOnPage'], function (templates, Accordion, setAccordItem) {
 
 
     /**
@@ -187,8 +187,8 @@ define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html',
 
 
 
-      $("#buttonAddNewProject").on('click', function(){return new Modal({template:templateProject,url:'/project'})});
-        $("#buttonAddNewPeople").on('click', function(){return new Modal({template:templatePersone,url:'/user'})});
+      $("#buttonAddNewProject").on('click', function(){return new Modal({template:templates.templateAddProject,url:'/project'})});
+        $("#buttonAddNewPeople").on('click', function(){return new Modal({template:templates.templateAddPersone,url:'/user'})});
     return Modal;
 });
 

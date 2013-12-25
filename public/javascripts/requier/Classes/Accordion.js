@@ -1,5 +1,6 @@
 
-define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 'text!../templates/accordionItem.html', 'text!../templates/wrapItems.html', '../effectsAccordion', 'Classes/Person', 'Classes/Project'], function (storage, accordHead, accordItem, accordWrapItem, setEffects, Person, Project) {
+//define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 'text!../templates/accordionItem.html', 'text!../templates/wrapItems.html', '../effectsAccordion', 'Classes/Person', 'Classes/Project'], function (storage, accordHead, accordItem, accordWrapItem, setEffects, Person, Project) {
+define(['../StorageForObjectsOnBoard','templates', '../effectsAccordion', 'Classes/Person', 'Classes/Project'], function (storage, templates, /*accordHead, accordItem, accordWrapItem,*/ setEffects, Person, Project) {
 
     /**
      * Accordion constructor
@@ -8,9 +9,9 @@ define(['../StorageForObjectsOnBoard','text!../templates/accordionHead.html', 't
      * @constructor
      */
     function Accordion(/*object with data for accordion*/object, /*DOMNode to insert accordion with #*/divId) {
-        this.templateHead = accordHead;
-        this.templWrapperItems = accordWrapItem;
-        this.templateList = accordItem;
+        this.templateHead = templates.accordHead;
+        this.templWrapperItems = templates.accordWrapItem;
+        this.templateList = templates.accordItem;
         this.item;
         this.__construct(object, divId);
     }

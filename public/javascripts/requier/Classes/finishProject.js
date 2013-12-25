@@ -2,10 +2,11 @@
  * Created by glebov on 12/19/13.
  */
 define([
-    'text!../templates/finishProject.html',
+//    'text!../templates/finishProject.html',
+    'templates',
     '../../thirdParty/bootstrap-datepicker'],
 
-    function (template, datepicker) {
+    function (templates, datepicker) {
 
         var FinishWindow = function (/*object*/project) {
 
@@ -39,7 +40,7 @@ define([
 
             this.finishDate = null;
 
-            $(template).appendTo('body');
+            $(templates.templateFinishProject).appendTo('body');
 
             this.parseTemplate();
 

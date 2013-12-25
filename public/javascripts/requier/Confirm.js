@@ -88,7 +88,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
         this.lastProject = null;
         // get property person and project
         $.extend(this,data);
-        console.log(data)
         if((this['lastProject'] || this['lastProject'] === 0) && (this['lastProject'] != "inner-board") ){
             this.lastProject = this['lastProject'];
         }
@@ -171,13 +170,13 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                             date.setDate(date.getDate() + 1); //issue on server --> date -1 day
                         }
                         var  formData = {personID: self.id, projectID: self.currentProject, statusID: self.statusID, leaving: 'false', date:date};
-                        console.log(formData)
                         $.ajax({
                             url: '/history',
                             type: 'POST',
                             data: formData,
                             async: false,
                             success: function (returndata) {
+                                toggleIcon(self.id, false);
                                 storage.dropPerson(self.id, false);
                                 $(self.modalFooterButton).trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                 $(self.domNode).remove();
@@ -210,7 +209,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 }
             })
         }
-    }
+    };
 
 //    var confirm = new Confirm({id: 1, lastProject: 1});
 

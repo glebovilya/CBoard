@@ -30,9 +30,10 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
 
     var Confirm = function(data, Person){
         this.template = templateaddRemoveDate;
+        this.render();
         this.init(data, Person);
 
-        this.render();
+
 
 
     };
@@ -81,20 +82,16 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
         })
     };
 
-
-
     Confirm.prototype.init = function(data,Person){
         var self = this;
         this.currentProject = null;
         this.lastProject = null;
         // get property person and project
-        console.log(data)
         $.extend(this,data);
-//        console.log(data)
+        console.log(data)
         if((this['lastProject'] || this['lastProject'] === 0) && (this['lastProject'] != "inner-board") ){
             this.lastProject = this['lastProject'];
         }
-
         //identify name  last and current project
         if ((this.lastProject) || this.lastProject === 0) {
             $.ajax({url: '/project',
@@ -106,9 +103,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
             });
         } else {
             $(self.forLastProject).html('leaves the category of employed workers');
-
         }
-
         if (this.currentProject) {
             $.ajax({url: '/project',
                 type: 'GET',
@@ -118,11 +113,11 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 }
             });
         } else {
-
             $(self.forCurrentProject).html('joined not employed persons');
-
         }
-
+        if(data['statusID'] == 2)  $(self.forStatusID).html('for the position:   manager');
+        if(data['statusID'] == 3)  $(self.forStatusID).html('for the position:   lead');
+        if(data['statusID']== 4)  $(self.forStatusID).html('for the position:   developer');
         // get photo person
         var photo = new Person({
             id: this.id,
@@ -130,16 +125,15 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
             parentNode: "#windowForPhoto",
             callback: storage.dropObj
         });
-
-
     };
+
     Confirm.prototype.removeDomNode = function(){
         $(this.template).remove();
         this.cover.remove();
     };
+
     Confirm.prototype.setHandler = function(){
         var self = this;
-        console.log(this)
         $('body').one('keydown',function(event){
             if(event.which ==13){
                 self.submitData();
@@ -148,7 +142,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 self.removeDomNode();
             }
         });
-
         if(this.datePicker)this.datePicker.datepicker();
     };
 
@@ -177,7 +170,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                             var date = new Date($(self.datePicker).val());
                             date.setDate(date.getDate() + 1); //issue on server --> date -1 day
                         }
-                        var  formData = {personID: self.id, projectID: self.currentProject, statusID: 1, leaving: 'false', date:date};
+                        var  formData = {personID: self.id, projectID: self.currentProject, statusID: self.statusID, leaving: 'false', date:date};
                         console.log(formData)
                         $.ajax({
                             url: '/history',
@@ -206,8 +199,8 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 var date = new Date($(self.datePicker).val());
                 date.setDate(date.getDate() + 1); //issue on server --> date -1 day
             }
-            formData = {personID: self.id, projectID: 4, statusID: 3, leaving: 'false',date:date};
-//            console.log(formData)
+            formData = {personID: self.id, projectID: self.currentProject, statusID: self.statusID, leaving: 'false',date:date};
+            console.log(formData)
             $.ajax({
                 url: '/history',
                 type: 'POST',

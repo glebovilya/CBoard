@@ -219,12 +219,11 @@ define([
                         if(self.name != 'SkillUp'){
                             self.dropTo = dd.drop[0];
                             transit({
-                                domNode: dd.drag,
+                                domNode: '#'+dd.drag.id,
                                 id: $(dd.drag).attr("data-id"),
                                 lastProject: $(dd.drag).attr("data-parentproject"),
                                 currentProject: self.id,
-                                action: 'transfer',
-                                status: status
+                                statusID: +status
                             }, Person);
                         }
                     }

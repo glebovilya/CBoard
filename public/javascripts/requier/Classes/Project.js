@@ -214,6 +214,7 @@ define([
                         $('.drop').css({
                             boxShadow: "0 3px 7px rgba(0, 0, 0, 0.3)"
                         });
+                        var status = $(dd.drop[0]).attr('data-status');
 
                         if(self.name != 'SkillUp'){
                             self.dropTo = dd.drop[0];
@@ -223,7 +224,7 @@ define([
                                 lastProject: $(dd.drag).attr("data-parentproject"),
                                 currentProject: self.id,
                                 action: 'transfer',
-                                status: dd.drag.status
+                                status: status
                             }, Person);
                         }
                     }

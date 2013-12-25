@@ -39,7 +39,8 @@ exports.addPerson = function(req, res) {
     })
 };
 exports.addProject = function(req, res) {
-    if(req.body.startDate != 'Invalid Date') {
+    console.log(req.body)
+    if(req.body.startDate != '') {
         var project = new dbModels.Project ({
             name: req.body.name,
             start: req.body.startDate,
@@ -192,8 +193,9 @@ exports.addHistory = function (req, res) {
                         console.log(err)
                     }
                 });
+                console.log(person)
                 person.save(function(err, pers){
-
+                    console.log(pers)
                     if(err) {
                         console.log(err)
                     }

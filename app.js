@@ -54,6 +54,9 @@ app.get('/statuses', dataGetter.getStatus); //just send req here
  */
 dataSetter.dbFeeler();
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+http.createServer(app).listen(
+    3000, '0.0.0.0'
+//    app.get('port'), function(){
+//  console.log('Express server listening on port ' + app.get('port'));
+//}
+);

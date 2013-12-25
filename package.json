@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "CBoard",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,5 +8,20 @@
   "dependencies": {
     "express": "3.4.6",
     "ejs": "*"
+  },
+  "description": "CBoard\r ======",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/glebovilya/CBoard.git"
+  },
+  "keywords": [
+    "CBoard"
+  ],
+  "author": "dream Team",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/glebovilya/CBoard/issues"
   }
 }

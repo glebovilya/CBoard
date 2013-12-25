@@ -11,31 +11,6 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
     var projects;
     var person;
 
-    var animateFreePersons = function(){
-        var inSkillUp = divIdPeople.find('i.icon-fire');
-
-        inSkillUp.each(function(){
-                var self = this;
-                setInterval(function(){
-                    $(self).animate({
-                        marginTop: '-10px'
-                    },{
-                        duration:100,
-                        complete: function(){
-                            $(self).animate({
-                                marginTop: '4px'
-                            },{
-                                duration:200,
-                                complete: function(){
-                                    $(self).css('margin-top', 0)
-                                }
-                            })
-                        }
-                    })
-                }, 2000)
-            }
-        )
-    }
 
     $(document).ready(function () {
 
@@ -45,7 +20,6 @@ define(['Classes/Accordion', '../thirdParty/bootstrap'], function (Accordion) {
             btnInIdProjects.css("left", -1000);
             divIdPeople.css("left", 0);
             btnInIdPeople.css("left", 0);
-            animateFreePersons();
         });
 
         $('#projects-tab').bind("click", function () {

@@ -1,5 +1,5 @@
 var dbModels = require('./dbShemas');
-var fs  = require('fs.extra');
+var fs = require('fs.extra');
 
 var respondJSON = function(res, data) {
     res.writeHeader(200,{

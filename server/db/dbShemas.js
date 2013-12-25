@@ -4,9 +4,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 mongoose.connect('mongodb://'+config.ip+'/'+config.dbName);
 var db = mongoose.createConnection(config.ip, config.dbName);
-var pureautoinc  = require('mongoose-pureautoinc');
+var pureautoinc  = require('mongoose-auto-increment');
 
-pureautoinc.init(db);
+pureautoinc.initialize(db);
 
 var personSchema = new Schema({
     name: String,
@@ -24,7 +24,7 @@ personSchema.plugin(pureautoinc.plugin, {
     model: 'Person',
     field: '_id',
     update: false,
-    start: 1
+    startAt: 1
 });
 
 var projectSchema = new Schema({
@@ -38,7 +38,7 @@ projectSchema.plugin(pureautoinc.plugin, {
     model: 'Project',
     field: '_id',
     update: false,
-    start: 1
+    startAt: 1
 });
 
 var statusSchema = new Schema({

@@ -178,11 +178,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                             data: formData,
                             async: false,
                             success: function (returndata) {
-                                for (var i in strg){
-                                    if (strg[i]['id'] == self.id && !strg[i]['inProject'] && strg[i]['photo'] ){
-                                        strg.splice(i,1);
-                                    }
-                                }
+                                storage.dropPerson(self.id, false);
                                 $(self.modalFooterButton).trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                 $(self.domNode).remove();
                                 self.removeDomNode();
@@ -206,6 +202,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 type: 'POST',
                 data: formData,
                 success: function (returndata) {
+                    storage.dropPerson(self.id, false);
                     $(self.modalFooterButton).trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                     $(self.domNode).remove();
                     self.removeDomNode();

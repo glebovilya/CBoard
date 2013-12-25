@@ -1,45 +1,29 @@
 <div id="myModal" class="modalAA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
     <div class="modal-header" style="height: 20px">
-        <button type="button" id = "modalClose" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4>confirm the movement of workers</h4>
-        <h3 id="myModalLabel"></h3>
+        <button type="button" id = "modalClose" class="close" data-dismiss="modal" aria-hidden="true" data-event="click:removeDomNode">&times;</button>
+        <h4 data-point="namemodal">confirm the movement of workers</h4>
+
     </div>
     <div class="modal-body" >
         <div class = "row-fluid" style="height: 150px">
             <div class="span9">
-                <form id="formConfirmDate" class="form-inline" data-point="formD" action="/project" method="post" enctype="multipart/form-data">
+                <form id="formConfirmDate" class="form-inline" action="/project" method="post" enctype="multipart/form-data">
 
-                    <div  id = "lastProject"></div>
+                    <div  id = "lastProject" data-point="forLastProject" ></div>
                     <div></br></div>
-                    <div  id = "currentProject"></div>
+                    <div  id = "currentProject" data-point="forCurrentProject" ></div>
                     <div></br></div>
+                    <div data-point="forStatusID" ></div>
                     <div></br></div>
-                    <div></br></div>
-                    <div class="form-inline span8">
-                        <div class="span6"  >
-                             <select class="span" id="statusID">
-                                <option value="0">select status</option>
-                                <option value="2">manager</option>
-                                <option value="3">lead</option>
-                                <option value="4">assigned</option>
-                              </select>
-                        </div>
-
-
-
                     <div class="input-append date span6" id="add"  data-date-format="dd-mm-yyyy">
-
-                        <input   name="date" class = " span12"  type="text" id="datepicker"  placeholder="Date">
-
+                        <input   name="date" class = " span12"  data-point="datePicker" type="text" id="datepicker"  placeholder="Date">
                         <span class="add-on "><i class="icon-th"></i></span>
-
                     </div>
 
-                </div>
-                    </form>
+                </form>
             </div>
             <div class="span3">
-                <div id="windowForPhoto">
+                <div id="windowForPhoto" data-point="windowForPhoto">
                 </div>
              </div>
         </div>
@@ -47,7 +31,8 @@
         <div class="modal-footer">
             <div><h4  id="ahtung" data-point="ahtung"></h4></div>
             <!--<button class="btn btn-primary">Save changes</button> если не хотим чтоб кнопка закрывала окно -->
-            <button type="button" class="btn btn-custom"  aria-hidden="true">confirm the transfer</button>
+            <button  type="button" class="btn btn modalFooterButton" data-event="click:removeDomNode"  >cancel</button>
+            <button type="button" class="btn btn-custom"  aria-hidden="true" data-event="click:submitData">confirm the transfer</button>
         </div>
     </div>
 </div>

@@ -265,3 +265,16 @@ span[data-role="projectName"]{
 .modal-header h4{
     text-align: center;
 }
+/*.modalFooterButton{*/
+    /*margin-top: 15px;*/
+    /*margin-bottom: 15px;*/
+/*}*/
+/*.modal-footer {*/
+    /*padding: 0px 15px 0px;*/
+/*}*/
+/*.modal-footer .btn + .modalFooterButton {*/
+    /*margin-bottom: 15px;*/
+/*}*/
+.modalAA form {
+    margin-bottom: 0px;
+}

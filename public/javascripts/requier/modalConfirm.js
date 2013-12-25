@@ -40,6 +40,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
          * @param Person - object Person fully for insert photo in modal
          */
         init: function (data, Person) {
+            console.log(data)
             Confirm.currentProject = false;
             Confirm.lastProject = false;
             $.extend(this,data);
@@ -57,18 +58,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard', 'Clas
 
             var self = this;
             var template = this.template;
-            template = $(template);
-            template.find('*').each(function(){
-                    var element = $(this);
-                    var point = element.attr('data-point');
-                    var renderEvent = element.attr('data-event');
-                    if(point) {
-                        self[point] = element;
-                    }
-                    if(renderEvent){
-                        self.attachEvent(element,renderEvent);
-                    }
-            })
+
 
             Confirm.bindDomNodes();
             $(Confirm.template).appendTo(innerBoard);

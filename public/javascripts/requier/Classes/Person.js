@@ -4,7 +4,8 @@
 
 
 
-define (['text!../templates/employe.html', '../StorageForObjectsOnBoard',/* '../modalConfirm',*/'../Confirm','../../thirdParty/jquery.event.drag-2.2'], function(templ, storage,Confirm){
+define (['templates', '../StorageForObjectsOnBoard',/* '../modalConfirm',*/'../Confirm','../../thirdParty/jquery.event.drag-2.2'], function(templates, storage,Confirm){
+//define (['text!../templates/employe.html', '../StorageForObjectsOnBoard',/* '../modalConfirm',*/'../Confirm','../../thirdParty/jquery.event.drag-2.2'], function(templateemployee, storage,Confirm){
 
     /**
      * function cause modal window for the selected person on board
@@ -71,33 +72,13 @@ var Person = function(idPerson) {
 
 
     };
-    Person.template = templ;
+    Person.template = templates.templateEmployee;
     /**
      * binding this attributes and this photo to template and binding template for page
      * @type {render: Function}
      */
     Person.prototype  = {
-//        renderOld: function(){
-//            if(!this.parentProject){this.parentProject = "#inner-board";}
-//            var divWindow =document.createElement("div");
-//            $(this.parentProject).append(divWindow);
-//            divWindow.className = "employeeWindow drag";
-//            divWindow.id = this.idFix;
-//            $(divWindow).append(Person.template);
-//            var self = this;
-//            $(Person.template).ready(function(){
-//                $(self.domNode).attr("data-id", self.id);
-//                $(self.domNode).attr("data-parentProject", self.projectID);
-//                if(!self.forPhoto)$(self.domNode).find(".employee-header").append('<button type="button" class="close" data-toggle="tooltip" title="remove from project" aria-hidden="true" >&times;</button>');
-//                $(self.domNode).find(".united .name").html(self.name+' '+self.surname);
-//                $(self.domNode).find(".emplPosition").html(self.position);
-//                $(self.domNode).find(".united img").attr("src", self.photo);
-//                if(!self.forPhoto)  self.setHandler();
-//
-//                self.domNode = $(divWindow)
-//
-//            });
-//        },
+
         render: function(){
             if(!this.parentProject){this.parentProject = "#inner-board";}
             var self = this;

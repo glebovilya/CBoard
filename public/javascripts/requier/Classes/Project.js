@@ -1,5 +1,6 @@
 define([
-    'text!../templates/project.html',
+    'templates',
+//    'text!../templates/project.html',
     'Classes/Person',
     '../StorageForObjectsOnBoard',
     '../Confirm',
@@ -41,7 +42,7 @@ define([
             var self = this;
 
             this.id = id;
-            this.template = template;
+            this.template = template.templateProject;
             this.end = null;
             this.dropTo = null;
 

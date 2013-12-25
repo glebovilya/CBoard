@@ -1,7 +1,8 @@
 /**
  * Created by stepanjuk on 24.12.13.
  */
-define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], function (templateaddRemoveDate, storage) {
+//define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], function (templateaddRemoveDate, storage) {
+define(['templates', 'StorageForObjectsOnBoard'], function (templates, storage) {
 
     var toggleIcon = function (personID, add) {
         var item = $('li[data-point-id='+personID+']');
@@ -29,13 +30,9 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
     };
 
     var Confirm = function(data, Person){
-        this.template = templateaddRemoveDate;
+        this.template = templates['templateAddRemoveDate'];
         this.render();
         this.init(data, Person);
-
-
-
-
     };
     Confirm.prototype.render =  function(){
         var self = this;
@@ -156,8 +153,6 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 date.setDate(date.getDate() + 1); //issue on server --> date -1 day
             }
             var formData = {personID: this.id, projectID: this.lastProject, statusID: 1, leaving: 'true', date:date};
-
-
             $.ajax({
                 url: '/history',
                 type: 'POST',
@@ -199,7 +194,7 @@ define(['text!./templates/addRemoveDate.html', 'StorageForObjectsOnBoard'], func
                 var date = new Date($(self.datePicker).val());
                 date.setDate(date.getDate() + 1); //issue on server --> date -1 day
             }
-            formData = {personID: self.id, projectID: self.currentProject, statusID: self.statusID, leaving: 'false',date:date};
+            var formData = {personID: self.id, projectID: self.currentProject, statusID: self.statusID, leaving: 'false',date:date};
             console.log(formData)
             $.ajax({
                 url: '/history',

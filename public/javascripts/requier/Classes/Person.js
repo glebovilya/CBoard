@@ -27,6 +27,7 @@ define (['text!../templates/employe.html', '../StorageForObjectsOnBoard', 'modal
 
 var Person = function(idPerson) {
     var self = this;
+    this.inProject = false;
 
     function  onAjaxSuccess(data){
 

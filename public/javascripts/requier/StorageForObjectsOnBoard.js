@@ -24,20 +24,15 @@ define([], function() {
         clearStorage: function(){
             var storage = objStorage.storage;
             storage.splice(0, storage.length);
-        }
-        /**
-         *
-         * just leave it here
-         */
-        /*,
-        dropPerson: function(*//*number*//*id,*//*true/false*//* inProject, *//*Class*//*Person){
+        },
+        dropPerson: function(/*number*/id,/*boolean*/ inProject){
             var storage = this.storage;
             for (var j = storage.length-1; j >= 0; j--){
-                if(storage[j].id == id && storage[j].inProject == inProject && storage[j] instanceof Person) {
+                if(storage[j].id == id && storage[j]['photo'] && storage[j].inProject == inProject) {
                     storage.splice(j, 1);
                 }
             }
-        },
+        }/*,
         dropProject: function(*//*number*//*id, *//*Class*//*Project){
             var storage = this.storage;
             for (var j = storage.length-1; j >= 0; j--){

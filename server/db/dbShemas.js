@@ -1,7 +1,9 @@
+var config = require('../../config/dbShemasConfig').config;
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost/test');
-var db = mongoose.createConnection('127.0.0.1', 'test');
+mongoose.connect('mongodb://'+config.ip+'/'+config.dbName);
+var db = mongoose.createConnection(config.ip, config.dbName);
 var pureautoinc  = require('mongoose-pureautoinc');
 
 pureautoinc.init(db);

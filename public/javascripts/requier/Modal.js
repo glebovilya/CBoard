@@ -2,7 +2,7 @@
  * Created by stepanjuk on 02.12.13.
  */
 
-define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html','text!./templates/addEmployee.html'/*, 'Classes/Accordion', 'initAccordionOnPage'*/], function (templateConfirm, templateProject,templatePersone/*, Accordion, setAccordItem*/) {
+define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html','text!./templates/addEmployee.html', 'Classes/Accordion', 'initAccordionOnPage'], function (templateConfirm, templateProject,templatePersone, Accordion, setAccordItem) {
 
 
     /**
@@ -175,7 +175,7 @@ define(['text!./templates/confirmYesNo.html','text!./templates/addProject.html',
                         if(url == '/user') {
                             var obj = {id: returndata._id, name: returndata.name + " " + returndata.surname, position:returndata.position};
                             var item = "";
-//                            setAccordItem("people", obj, item);
+                            setAccordItem("people", obj, item);
                         }
                         self.removeDomNode();
                     }

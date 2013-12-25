@@ -173,11 +173,6 @@ define(['templates', 'StorageForObjectsOnBoard'], function (templates, storage) 
                             success: function (returndata) {
                                 toggleIcon(self.id, false);
                                 storage.dropPerson(self.id, false);
-                                for (var i in strg){
-                                    if (strg[i]['id'] == self.id && !strg[i]['inProject'] && strg[i]['photo'] ){
-                                        strg.splice(i,1);
-                                    }
-                                }
                                 $(self.modalFooterButton).trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                                 $(self.domNode).remove();
                                 self.removeDomNode();
@@ -201,7 +196,6 @@ define(['templates', 'StorageForObjectsOnBoard'], function (templates, storage) 
                 type: 'POST',
                 data: formData,
                 success: function (returndata) {
-                    toggleIcon(self.id, false);
                     storage.dropPerson(self.id, false);
                     $(self.modalFooterButton).trigger('addEmpl', [returndata.person, returndata.project]/*person id*/);
                     $(self.domNode).remove();
@@ -210,7 +204,7 @@ define(['templates', 'StorageForObjectsOnBoard'], function (templates, storage) 
                 }
             })
         }
-    }
+    };
 
 //    var confirm = new Confirm({id: 1, lastProject: 1});
 

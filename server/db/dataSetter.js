@@ -39,7 +39,6 @@ exports.addPerson = function(req, res) {
     })
 };
 exports.addProject = function(req, res) {
-    console.log(req.body)
     if(req.body.startDate != 'Invalid Date') {
         var project = new dbModels.Project ({
             name: req.body.name,

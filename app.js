@@ -10,16 +10,16 @@ var http = require('http');
 var path = require('path');
 var dataSetter = require('./server/db/dataSetter');
 var dataGetter = require('./server/db/dataGetter');
-
+var config = require('./config/appConfig').config;
 var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, config.viewsDirName));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.logger(config.logger));
+app.use(express.static(path.join(__dirname, config.staticFilesDirName)));
 app.use(express.bodyParser());
 app.use(app.router);
 
@@ -54,9 +54,4 @@ app.get('/statuses', dataGetter.getStatus); //just send req here
  */
 dataSetter.dbFeeler();
 
-http.createServer(app).listen(
-    3000, '0.0.0.0'
-//    app.get('port'), function(){
-//  console.log('Express server listening on port ' + app.get('port'));
-//}
-);
+http.createServer(app).listen(config.port, config.ipToRunServerOn);
